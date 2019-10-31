@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default class LogInPage extends React.Component {
   static navigationOptions = {
@@ -8,7 +8,15 @@ export default class LogInPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-          <Text>Log In Here</Text>
+        <Text>Log In Here</Text>
+        <View style={styles.buttonLogIn}>
+          <Button
+            title="Go To Home"
+            onPress={() =>
+              this.props.navigation.navigate('HomePage')
+            }
+          />
+        </View>
       </View>
     );
   }
