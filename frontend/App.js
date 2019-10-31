@@ -1,19 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AppNavigator from './AppNavigator';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome to Mender!</Text>
-    </View>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <AppNavigator/>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
