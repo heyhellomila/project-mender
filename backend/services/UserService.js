@@ -5,7 +5,8 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const ResourceExistsError = require('../errors/ResourceExistsError');
 const BadRequestError = require('../errors/BadRequestError');
 const generateAuthToken = require('../utils/AuthUtils');
-const passwordValidator = require('../utils/PasswordUtils')
+const passwordValidator = require('../utils/PasswordUtils');
+const DatabaseUtils = require('../utils/DatabaseUtils');
 
 class UserService {
 
@@ -15,30 +16,23 @@ class UserService {
                 ' and must include at least one digit.')
         }
         const hashedPassword = await generateHash(password);
-        var user = await User.findOne({email: email});
+        const user = await DatabaseUtils.getUserByEmail(email);
         if (user) {
-            throw new ResourceExistsError("Email already in use.");
+            throw new ResourceExistsError("Email " + email + " already in use.");
         }
-        user = new User({
-            email: email,
-            passwordHash: hashedPassword,
-            firstName: firstName,
-            lastName: lastName,
-            type: type
-        });
         try {
-            return await user.save();
+            return await DatabaseUtils.saveUser(email, hashedPassword, firstName, lastName, type);
         } catch (err) {
-            throw new BadRequestError(err);
+            throw new BadRequestError(err.message);
         }
     }
 
     async login(email, password) {
-        const user = await User.findOne({email: email});
+        const user = await DatabaseUtils.getUserByEmail(email);
         if (!user) {
             throw new ResourceNotFoundError("No user was found with this email.");
         }
-        const match = await compare(password, user.get("passwordHash"));
+        const match = await compare(password, user.passwordHash);
         if (!match) {
             throw new UnauthorizedError("Password entered is incorrect.");
         }
@@ -46,12 +40,10 @@ class UserService {
     }
 
     async getUser(id) {
-        const user = await User.findById(id);
-        if (!user) {
-            throw new ResourceNotFoundError("User with id " + id + " does not exist");
-        }
-        else {
-            return user;
+        try {
+            return await DatabaseUtils.getUserById(id);
+        } catch (err) {
+            throw err;
         }
     }
 }
