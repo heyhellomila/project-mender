@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { LoginForm } from '../components/LoginForm'
 
 export default class SignUpPage extends React.Component {
   static navigationOptions = {

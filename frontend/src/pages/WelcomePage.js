@@ -10,7 +10,7 @@ export default class WelcomePage extends React.Component {
             <View style={styles.container}>
                 <View style={styles.menderLogo}>
                     <Image
-                        source={require('../frontend/assets/menderlogo.png')} />
+                        source={require('../../assets/menderlogo.png')} />
                 </View>
                 <View style={styles.buttonGroup}>
                     <View style={styles.buttonSignUp}>
