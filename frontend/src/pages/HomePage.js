@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, AsyncStorage, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, AsyncStorage, Button, Platform, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions'
 
@@ -68,6 +68,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        paddingTop: (Platform.OS === "android" || Platform.OS==="ios") ? StatusBar.currentHeight : 0
     },
 });

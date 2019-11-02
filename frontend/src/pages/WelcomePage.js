@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Button, Image } from 'react-native';
+import { StyleSheet, View, Button, Image } from 'react-native'; 
 import { connect } from 'react-redux';
+import { ButtonComponent } from '../components/ButtonComponent';
 
 class WelcomePage extends React.Component {
     static navigationOptions = {
@@ -13,24 +14,18 @@ class WelcomePage extends React.Component {
                     <Image
                         source={require('../../assets/menderlogo.png')} />
                 </View>
+
                 <View style={styles.buttonGroup}>
                     <View style={styles.buttonSignUp}>
-                        <Button
-                            color='#d3d3d3'
-                            title="Sign Up"
-                            onPress={() =>
-                                this.props.navigation.navigate('SignUpPage')
-                            }
-                        />
+                    <ButtonComponent
+                            buttonColor='#d3d3d3'
+                            buttonName='Sign Up'
+                            buttonFunction={() => this.props.navigation.navigate('SignUpPage')} />
                     </View>
-
                     <View style={styles.buttonLogIn}>
-                        <Button
-                            title="Log In"
-                            onPress={() =>
-                                this.props.navigation.navigate('LogInPage')
-                            }
-                        />
+                        <ButtonComponent
+                            buttonName='Log In'
+                            buttonFunction={() => this.props.navigation.navigate('LogInPage')} />
                     </View>
                 </View>
             </View>
@@ -49,17 +44,20 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white'
     }, menderLogo: {
-        marginTop: '15%',
-        alignSelf: 'center',
-    },buttonGroup:{
-        marginTop: '30%'
-    }, 
+        marginTop: '30%',
+        alignSelf: 'center'
+    }, buttonGroup: {
+        marginTop: '30%',
+        flex: 1,
+        justifyContent: 'center'
+    },
     buttonSignUp: {
         width: '50%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderRadius: 25
     }, buttonLogIn: {
         marginTop: '5%',
         width: '50%',
-        alignSelf: 'center'
+        alignSelf: 'center',
     }
 });

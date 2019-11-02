@@ -11,11 +11,15 @@ import LogInPage from './LogInPage';
 
 const RootStack = createStackNavigator({
     WelcomePage: {
-        screen: WelcomePage
+        screen: WelcomePage,
+        navigationOptions: ({ navigation }) => ({header: null})
     },
-    SignUpPage: { screen: SignUpPage },
-    HomePage: { screen: HomePage },
-    LogInPage: {screen: LogInPage},
+    SignUpPage: { screen: SignUpPage,
+        navigationOptions: ({ navigation }) => ({header: null}) },
+    HomePage: { screen: HomePage,
+        navigationOptions: ({ navigation }) => ({header: null}) },
+    LogInPage: {screen: LogInPage,
+        navigationOptions: ({ navigation }) => ({header: null})},
 });
 
 const AppNavigator = createAppContainer(RootStack);
