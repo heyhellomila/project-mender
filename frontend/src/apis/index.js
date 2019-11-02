@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { LOCAL_API_KEY } from 'react-native-dotenv'
 
 const api = axios.create({
-    baseURL: `http://192.168.2.86:3000/api`
+    baseURL: `http://${LOCAL_API_KEY}/api`
 });
 
 api.interceptors.response.use(async (response) => {
