@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Button, Image } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class WelcomePage extends React.Component {
+class WelcomePage extends React.Component {
     static navigationOptions = {
         title: 'Welcome Page',
     };
@@ -10,7 +11,7 @@ export default class WelcomePage extends React.Component {
             <View style={styles.container}>
                 <View style={styles.menderLogo}>
                     <Image
-                        source={require('../frontend/assets/menderlogo.png')} />
+                        source={require('../../assets/menderlogo.png')} />
                 </View>
                 <View style={styles.buttonGroup}>
                     <View style={styles.buttonSignUp}>
@@ -36,6 +37,12 @@ export default class WelcomePage extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps, null)(WelcomePage);
 
 const styles = StyleSheet.create({
     container: {
