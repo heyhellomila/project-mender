@@ -21,3 +21,12 @@ export const isAuthenticated = () => {
         return false;
     }
 };
+
+export const getUserId = async() => {
+    try {
+        decodedToken = await getDecodedToken();
+        return decodedToken._id;
+    } catch(err) {
+        return null;
+    }
+}

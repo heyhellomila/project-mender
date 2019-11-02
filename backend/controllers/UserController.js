@@ -27,10 +27,6 @@ userController.post('/login', async (req, res) => {
     }
 })
 
-userController.post('/logout', auth, async (req, res) => {
-    return res.status(200).json({});
-})
-
 userController.get('/:id', auth, async(req, res) => {
     try {
         const user = await userService.getUser(req.params.id);

@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Button, Image } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class WelcomePage extends React.Component {
+class WelcomePage extends React.Component {
     static navigationOptions = {
         title: 'Welcome Page',
     };
@@ -36,6 +37,12 @@ export default class WelcomePage extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps, null)(WelcomePage);
 
 const styles = StyleSheet.create({
     container: {

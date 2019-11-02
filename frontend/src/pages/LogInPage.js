@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage} from 'react-native';
 import LoginForm  from '../components/LoginForm';
-import { login, getUser } from '../utils/ApiUtils'
-import { getDecodedToken } from '../utils/AuthUtil'
+import { login } from '../apis/UserApis'
+import { authenticate } from '../redux/actions'
+import { connect } from 'react-redux';
 
-export default class LogInPage extends React.Component {
+class LogInPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +13,10 @@ export default class LogInPage extends React.Component {
       password: '',
       submitting: false,
       error: false};
+
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
   static navigationOptions = {
     title: 'Log In',
@@ -29,30 +34,40 @@ export default class LogInPage extends React.Component {
     this.setState({ submitting: true })
     try {
       const {data: {token}} = await login(this.state.email, this.state.password);
-      AsyncStorage.setItem('Authorization', JSON.stringify(token));
-      this.props.navigation.navigate('HomePage')
+      await this.props.authenticate(token).then((_) => {
+        if (!this.props.user.loading && this.props.user.user) {
+          this.props.navigation.navigate('HomePage')
+        }
+      })
     } catch (err) {
       this.setState({error: true, submitting: false})
     }
   }
 
   render() {
+    var {submitting} = this.state;
+
     return (
       <View style={styles.container}>
-        <LoginForm {...this.state} handleEmailChange={this.handleEmailChange.bind(this)} 
-          handlePasswordChange={this.handlePasswordChange.bind(this)} handleLogin={this.handleLogin.bind(this)}/>
-        <View style={styles.buttonLogIn}>
-          <Button
-            title="Go To Home"
-            onPress={() =>
-              this.props.navigation.navigate('HomePage')
-            }
-          />
-        </View>
+        {submitting 
+          ? <Text>Loading...</Text>
+          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange} 
+            handlePasswordChange={this.handlePasswordChange} handleLogin={this.handleLogin}/>
+        }
       </View>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  authenticate: (token) => dispatch(authenticate(token))
+});
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
 
 const styles = StyleSheet.create({
   container: {

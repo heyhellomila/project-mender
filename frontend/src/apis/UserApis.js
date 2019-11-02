@@ -1,15 +1,5 @@
-import axios from 'axios';
+import api from './index';
 import { AsyncStorage } from 'react-native';
-
-const api = axios.create({
-    baseURL: `http://192.168.2.86:3000/api`
-});
-
-api.interceptors.response.use(async (response) => {
-    return await response;
-}, async (error) => {
-    throw error;
-});
 
 export const login = async (email, password) => {
     return await api.post('/users/login', {
@@ -33,7 +23,7 @@ export const getUser = async (id) => {
         method: 'get',
         url: `/users/${id}`,
         headers: {
-            'Authorization': `Bearer ${await AsyncStorage.getItem('Authorization')}`
+            'Authorization': await AsyncStorage.getItem('Authorization')
         }
     })
 }

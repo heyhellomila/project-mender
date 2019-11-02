@@ -1,17 +1,15 @@
 import { combineReducers } from 'redux';
 
 const rootReducer = (state = {
-    token: {},
-    loading: true,
+    user: null,
+    loading: false,
     error: null,
 }, action) => {
     switch (action.type) {
-        case 'GET_TOKEN':
-            return { ...state, token: action.token };
-        case 'SAVE_TOKEN':
-            return { ...state, token: action.token };
-        case 'REMOVE_TOKEN':
-            return { ...state, token: action.token };
+        case 'LOGIN':
+            return { ...state, user: action.user };
+        case 'LOGOUT':
+            return { ...state, user: null };
         case 'LOADING':
             return { ...state, loading: action.isLoading };
         case 'ERROR':
@@ -22,5 +20,5 @@ const rootReducer = (state = {
 };
 
 export default combineReducers({
-    token: rootReducer
+    user: rootReducer
 });
