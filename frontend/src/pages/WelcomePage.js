@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Button, Image } from 'react-native'; 
+import { View, Image } from 'react-native'; 
 import { connect } from 'react-redux';
 import { ButtonComponent } from '../components/ButtonComponent';
-import { styles, buttons } from '../stylesheets/Stylesheet';
+import { styles, buttons } from '../Stylesheets/stylesheet';
 
 class WelcomePage extends React.Component {
     static navigationOptions = {

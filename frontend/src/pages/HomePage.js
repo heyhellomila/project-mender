@@ -2,14 +2,15 @@ import React from 'react';
 import { Text, View, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
-import { styles } from '../stylesheets/Stylesheet';
-import { CommonHeader } from '../components/CommonHeader';
+import { styles } from '../Stylesheets/stylesheet';
+import CommonHeader from '../components/CommonHeader';
 
 class HomePage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            loggingOut: false
+            loggingOut: false,
+            user: props.user.user
         }
     }
 
@@ -27,24 +28,22 @@ class HomePage extends React.Component {
         var {loggingOut} = this.state;
         return (
             <View style={styles.container}>
-                <CommonHeader/>
+                <CommonHeader user={this.state.user}/>
                 <View style={{
-                            flex: 4.5,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                            {loggingOut 
-                    ? <Text>Logging out...</Text>
-                    : <View style={styles.container}>
-                        {/* <View style={{ flex: 0.1, alignItems: 'center'}}><Text style={{ fontSize: 30 }}>Hi {this.props.user.user.firstName}!</Text></View> */}
-                        
-                        <Button
-                            title="Logout"
-                            onPress={() => this.handleLogout()}
-                        />
-                    </View>}
+                    flex: 4.5,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    {loggingOut 
+                        ? <Text>Logging out...</Text>
+                        : <View style={styles.container}>
+                            <Button
+                                title="Logout"
+                                onPress={() => this.handleLogout()}
+                            />
                         </View>
-                
+                    }
+                </View>
             </View>
         );
     }
