@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Button, Image } from 'react-native'; 
 import { connect } from 'react-redux';
 import { ButtonComponent } from '../components/ButtonComponent';
+import { styles, buttons } from '../stylesheets/Stylesheet';
 
 class WelcomePage extends React.Component {
     static navigationOptions = {
@@ -10,19 +11,19 @@ class WelcomePage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.menderLogo}>
+                <View style={styles.menderWelcomeLogo}>
                     <Image
                         source={require('../../assets/menderlogo.png')} />
                 </View>
 
                 <View style={styles.buttonGroup}>
-                    <View style={styles.buttonSignUp}>
+                    <View style={buttons.buttonSignUp}>
                     <ButtonComponent
                             buttonColor='#d3d3d3'
                             buttonName='Sign Up'
                             buttonFunction={() => this.props.navigation.navigate('SignUpPage')} />
                     </View>
-                    <View style={styles.buttonLogIn}>
+                    <View style={buttons.buttonLogIn}>
                         <ButtonComponent
                             buttonName='Log In'
                             buttonFunction={() => this.props.navigation.navigate('LogInPage')} />
@@ -38,26 +39,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, null)(WelcomePage);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white'
-    }, menderLogo: {
-        marginTop: '30%',
-        alignSelf: 'center'
-    }, buttonGroup: {
-        marginTop: '30%',
-        flex: 1,
-        justifyContent: 'center'
-    },
-    buttonSignUp: {
-        width: '50%',
-        alignSelf: 'center',
-        borderRadius: 25
-    }, buttonLogIn: {
-        marginTop: '5%',
-        width: '50%',
-        alignSelf: 'center',
-    }
-});

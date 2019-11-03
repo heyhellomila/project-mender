@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, AsyncStorage, Button, Platform, StatusBar } from 'react-native';
+import { Text, View, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { userLogout } from '../redux/actions'
+import { userLogout } from '../redux/actions';
+import { styles } from '../stylesheets/Stylesheet';
+import { CommonHeader } from '../components/CommonHeader';
 
 class HomePage extends React.Component {
     constructor() {
@@ -25,31 +27,24 @@ class HomePage extends React.Component {
         var {loggingOut} = this.state;
         return (
             <View style={styles.container}>
-                {loggingOut 
-                    ? <Text>Logging out...</Text>
-                    : <View style={styles.container}>
-                        <View style={{ flex: 0.1, flexDirection: 'row', marginTop: '2%', alignItems: 'center' }}>
-                        <View style={{ marginLeft: '1%', width: '20%', justifyContent: 'flex-start' }}>
-                            <Image style={{ width: 50, height: 50 }} source={require('../../assets/menderlogo.png')} />
-                        </View>
-                        <View style={{ justifyContent: 'center', width: '60%' }}><Text style={{ textAlign: 'center' }}>4035 Saint-Ambroise</Text></View>
-                        <View style={{ justifyContent: 'flex-end', marginRight: '1%' }}></View>
-                        </View>
-                        <View style={{ flex: 0.1, alignItems: 'center'}}><Text style={{ fontSize: 30 }}>Hi {this.props.user.user.firstName}!</Text></View>
-                        <View style={{ flex: 0.05, alignItems: 'center', borderBottomWidth: 2, borderBottomColor: 'black' }}>
-                            <Text>SEARCH HERE</Text>
-                        </View>
-                        <View style={{
-                            flex: 1,
-                            backgroundColor: '#87cefa',
+                <CommonHeader/>
+                <View style={{
+                            flex: 4.5,
                             alignItems: 'center',
                             justifyContent: 'center',
-                        }}></View>
+                        }}>
+                            {loggingOut 
+                    ? <Text>Logging out...</Text>
+                    : <View style={styles.container}>
+                        {/* <View style={{ flex: 0.1, alignItems: 'center'}}><Text style={{ fontSize: 30 }}>Hi {this.props.user.user.firstName}!</Text></View> */}
+                        
                         <Button
                             title="Logout"
                             onPress={() => this.handleLogout()}
                         />
                     </View>}
+                        </View>
+                
             </View>
         );
     }
@@ -64,11 +59,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: (Platform.OS === "android" || Platform.OS==="ios") ? StatusBar.currentHeight : 0
-    },
-});
