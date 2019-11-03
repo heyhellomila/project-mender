@@ -13,8 +13,9 @@ class HomePage extends React.Component {
         this.state = {
             loggingOut: false,
             user: props.user.user,
-            displayModal: false
-        }
+            displayModal: false,
+        },
+        this.closeModal = this.closeModal.bind(this);
     }
     
       openModal() {
@@ -23,6 +24,14 @@ class HomePage extends React.Component {
             displayModal: true
           }
         });
+      }
+
+      closeModal= ()=>{
+          this.setState(prevState => {
+              return{
+                  displayModal: false
+              }
+          })
       }
 
     navigateJobListPage = () => {
@@ -79,7 +88,7 @@ class HomePage extends React.Component {
           <WorkOrderComponent 
             data = "Seb"
             display = { this.state.displayModal }
-            closeDisplay={() => this.setState({displayModal: false})} 
+            closeModal={() => this.setState({displayModal: false})} 
           />
                 </View>
                 <CommonFooter
