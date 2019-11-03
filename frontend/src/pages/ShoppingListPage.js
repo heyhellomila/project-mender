@@ -1,29 +1,22 @@
 import React from 'react';
-import { Text, View, Image, Button } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import CommonFooter from '../components/CommonFooter';
-import WorkOrderComponent from '../components/WorkOrderModal';
 
-class HomePage extends React.Component {
+class JobListPage extends React.Component {
+    static navigationOptions = {
+        title: 'Shopping List Page',
+    };
     constructor(props) {
         super(props);
         this.state = {
             loggingOut: false,
-            user: props.user.user,
-            displayModal: false
+            user: props.user.user
         }
     }
-    
-      openModal() {
-        this.setState(prevState => {
-          return {
-            displayModal: true
-          }
-        });
-      }
 
     navigateJobListPage = () => {
         this.props.navigation.navigate('JobListPage');
@@ -41,18 +34,7 @@ class HomePage extends React.Component {
         this.props.navigation.navigate('EmailPage');
     }
 
-    static navigationOptions = {
-        title: 'Home Page',
-    };
-
-    handleLogout = async () => {
-        this.setState({ loggingOut: true })
-        await this.props.userLogout();
-        this.props.navigation.navigate('WelcomePage')
-    }
-
     render() {
-        var { loggingOut } = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader user={this.state.user} />
@@ -61,26 +43,7 @@ class HomePage extends React.Component {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    {loggingOut
-                        ? <Text>Logging out...</Text>
-                        : <View style={styles.container}>
-                            <Button
-                                title="Logout"
-                                onPress={() => this.handleLogout()}
-                            />
-                        </View>
-
-                    }
-                    <Button 
-            onPress = { () => this.openModal() }
-            title = "Open Modal"
-            color = "orange">
-          </Button>
-          <WorkOrderComponent 
-            data = "Seb"
-            display = { this.state.displayModal }
-            closeDisplay={() => this.setState({displayModal: false})} 
-          />
+                    <Text>Shopping LIST</Text>
                 </View>
                 <CommonFooter
                     navigateHomePage={this.navigateHomePage}
@@ -100,4 +63,4 @@ const mapStateToProps = state => ({
     user: state.user,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(JobListPage);
