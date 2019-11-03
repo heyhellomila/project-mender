@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
-import { styles } from '../Stylesheets/stylesheet';
+import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 
 class HomePage extends React.Component {

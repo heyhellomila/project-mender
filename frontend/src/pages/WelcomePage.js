@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native'; 
 import { connect } from 'react-redux';
 import { ButtonComponent } from '../components/ButtonComponent';
-import { styles, buttons } from '../Stylesheets/stylesheet';
+import { styles, buttons } from '../stylesheets/Stylesheet';
 
 class WelcomePage extends React.Component {
     static navigationOptions = {
