@@ -1,19 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AppNavigator from './src/pages/AppNavigator';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { Provider } from 'react-redux'
+import rootReducer from './src/redux/reducers'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome to Mender!</Text>
-    </View>
-  );
+const store = createStore(rootReducer, applyMiddleware( thunkMiddleware ));
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+         <AppNavigator/>
+      </Provider>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
