@@ -31,7 +31,7 @@ const UserSchema = mongoose.Schema({
         required : true,
         validate: value => {
             if (!UserType.getValue(value)) {
-                throw new Error('Invalid User type. Allowed types: [' + UserType.enums +']');
+                throw new Error('Invalid User Type. Allowed Types: [' + UserType.enums +']');
             }
         }
     }
