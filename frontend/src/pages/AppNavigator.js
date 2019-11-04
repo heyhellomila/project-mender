@@ -4,6 +4,7 @@ import {
 import {
     createAppContainer
 } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import WelcomePage from './WelcomePage';
 import SignUpPage from './SignUpPage';
 import HomePage from './HomePage';
@@ -14,34 +15,28 @@ import EmailPage from './EmailPage';
 
 const RootStack = createStackNavigator({
     WelcomePage: {
-        screen: WelcomePage,
-        navigationOptions: ({ navigation }) => ({ header: null })
+        screen: WelcomePage
     },
     SignUpPage: {
-        screen: SignUpPage,
-        navigationOptions: ({ navigation }) => ({ header: null })
+        screen: SignUpPage
     },
     HomePage: {
-        screen: HomePage,
-        navigationOptions: ({ navigation }) => ({ header: null })
+        screen: HomePage
     },
     JobListPage:{
-        screen: JobListPage,
-        navigationOptions: ({ navigation }) => ({ header: null })
+        screen: JobListPage
     },
     ShoppingListPage:{
-        screen: ShoppingListPage,
-        navigationOptions: ({ navigation }) => ({ header: null })
+        screen: ShoppingListPage
     },
     EmailPage:{
-        screen: EmailPage,
-        navigationOptions: ({ navigation }) => ({ header: null })
+        screen: EmailPage
     },
     LogInPage: {
         screen: LogInPage,
-        navigationOptions: ({ navigation }) => ({ header: null })
     }
-
+},{
+    headerMode: 'none'
 });
 
 const AppNavigator = createAppContainer(RootStack);

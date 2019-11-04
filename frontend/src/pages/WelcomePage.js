@@ -15,7 +15,6 @@ class WelcomePage extends React.Component {
                     <Image
                         source={require('../../assets/menderlogo.png')} />
                 </View>
-
                 <View style={styles.buttonGroup}>
                     <View style={buttons.buttonSignUp}>
                     <ButtonComponent

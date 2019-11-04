@@ -8,6 +8,9 @@ import CommonFooter from '../components/CommonFooter';
 import WorkOrderComponent from '../components/WorkOrderModal';
 
 class HomePage extends React.Component {
+    static navigationOptions = {
+        drawerLabel: 'Home'
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -15,24 +18,28 @@ class HomePage extends React.Component {
             user: props.user.user,
             displayModal: false,
         },
-        this.closeModal = this.closeModal.bind(this);
+            this.closeModal = this.closeModal.bind(this);
     }
-    
-      openModal() {
-        this.setState(prevState => {
-          return {
-            displayModal: true
-          }
-        });
-      }
 
-      closeModal= ()=>{
-          this.setState(prevState => {
-              return{
-                  displayModal: false
-              }
-          })
-      }
+    openModal() {
+        this.setState(prevState => {
+            return {
+                displayModal: true
+            }
+        });
+    }
+
+    closeModal = () => {
+        this.setState(prevState => {
+            return {
+                displayModal: false
+            }
+        })
+    }
+
+    openWorkModal = () => {
+        this.openModal();
+    }
 
     navigateJobListPage = () => {
         this.props.navigation.navigate('JobListPage');
@@ -80,18 +87,14 @@ class HomePage extends React.Component {
                         </View>
 
                     }
-                    <Button 
-            onPress = { () => this.openModal() }
-            title = "Open Modal"
-            color = "orange">
-          </Button>
-          <WorkOrderComponent 
-            data = "Seb"
-            display = { this.state.displayModal }
-            closeModal={() => this.setState({displayModal: false})} 
-          />
+                    <WorkOrderComponent
+                        data="Seb"
+                        display={this.state.displayModal}
+                        closeModal={() => this.setState({ displayModal: false })}
+                    />
                 </View>
                 <CommonFooter
+                    openWorkModal={this.openWorkModal}
                     navigateHomePage={this.navigateHomePage}
                     navigateJobListPage={this.navigateJobListPage}
                     navigateShoppingListPage={this.navigateShoppingListPage}
