@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import CommonFooter from '../components/CommonFooter';
 import WorkOrderComponent from '../components/WorkOrderModal';
 
 class JobListPage extends React.Component {
@@ -40,22 +39,6 @@ class JobListPage extends React.Component {
         this.openModal();
     }
 
-    navigateJobListPage = () => {
-        this.props.navigation.navigate('JobListPage');
-    }
-
-    navigateHomePage = () => {
-        this.props.navigation.navigate('HomePage');
-    }
-
-    navigateShoppingListPage = () => {
-        this.props.navigation.navigate('ShoppingListPage');
-    }
-
-    navigateEmailPage = () => {
-        this.props.navigation.navigate('EmailPage');
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -68,12 +51,6 @@ class JobListPage extends React.Component {
                         closeModal={() => this.setState({ displayModal: false })}
                     />
                 </View>
-                <CommonFooter
-                    openWorkModal={this.openWorkModal}
-                    navigateHomePage={this.navigateHomePage}
-                    navigateJobListPage={this.navigateJobListPage}
-                    navigateShoppingListPage={this.navigateShoppingListPage}
-                    navigateEmailPage={this.navigateEmailPage} />
             </View>
         );
     }

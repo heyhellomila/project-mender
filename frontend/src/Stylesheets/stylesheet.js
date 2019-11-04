@@ -30,24 +30,6 @@ const loginComponent = StyleSheet.create({
     }
 })
 
-const commonFooter = StyleSheet.create({
-    footerContainer: {
-        flex: .5,
-        borderColor: 'black',
-        borderWidth: 2,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    footerIcons: {
-        width: '20%',
-        justifyContent: 'space-between'
-    },
-    footerImage: {
-        width: 50,
-        height: 50
-    }
-})
-
 const buttons = StyleSheet.create({
     buttonSignUp: {
         width: '50%',
@@ -62,4 +44,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, commonFooter, loginComponent } 
+export { styles, buttons, loginComponent } 

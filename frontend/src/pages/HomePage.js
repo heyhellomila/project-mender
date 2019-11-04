@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import CommonFooter from '../components/CommonFooter';
 import WorkOrderComponent from '../components/WorkOrderModal';
 
 class HomePage extends React.Component {
@@ -21,7 +20,7 @@ class HomePage extends React.Component {
             this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal=()=> {
+    openModal() {
         this.setState(prevState => {
             return {
                 displayModal: true
@@ -39,22 +38,6 @@ class HomePage extends React.Component {
 
     openWorkModal = () => {
         this.openModal
-    }
-
-    navigateJobListPage = () => {
-        this.props.navigation.navigate('JobListPage');
-    }
-
-    navigateHomePage = () => {
-        this.props.navigation.navigate('HomePage');
-    }
-
-    navigateShoppingListPage = () => {
-        this.props.navigation.navigate('ShoppingListPage');
-    }
-
-    navigateEmailPage = () => {
-        this.props.navigation.navigate('EmailPage');
     }
 
     static navigationOptions = {
@@ -89,12 +72,6 @@ class HomePage extends React.Component {
                         closeModal={() => this.setState({ displayModal: false })}
                     />
                 </View>
-                <CommonFooter
-                    openWorkModal={this.openWorkModal}
-                    navigateHomePage={this.navigateHomePage}
-                    navigateJobListPage={this.navigateJobListPage}
-                    navigateShoppingListPage={this.navigateShoppingListPage}
-                    navigateEmailPage={this.navigateEmailPage} />
             </View>
         );
     }
