@@ -7,7 +7,7 @@ const PropertySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    
+
     _user_id: {
         type: String,
         required : true
