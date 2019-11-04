@@ -8,6 +8,9 @@ import CommonFooter from '../components/CommonFooter';
 import WorkOrderComponent from '../components/WorkOrderModal';
 
 class HomePage extends React.Component {
+    static navigationOptions = {
+        drawerLabel: 'Home'
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +21,7 @@ class HomePage extends React.Component {
             this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal() {
+    openModal=()=> {
         this.setState(prevState => {
             return {
                 displayModal: true
@@ -35,7 +38,7 @@ class HomePage extends React.Component {
     }
 
     openWorkModal = () => {
-        this.openModal();
+        this.openModal
     }
 
     navigateJobListPage = () => {
@@ -53,6 +56,10 @@ class HomePage extends React.Component {
     navigateEmailPage = () => {
         this.props.navigation.navigate('EmailPage');
     }
+
+    static navigationOptions = {
+        title: 'Home Page',
+    };
 
     handleLogout = async () => {
         this.setState({ loggingOut: true })
