@@ -60,11 +60,7 @@ class JobListPage extends React.Component {
         return (
             <View style={styles.container}>
                 <CommonHeader user={this.state.user} />
-                <View style={{
-                    flex: 4,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+                <View style={styles.bodyContainer}>
                     <Text>JOB LIST</Text>
                     <WorkOrderComponent
                         data="Seb"

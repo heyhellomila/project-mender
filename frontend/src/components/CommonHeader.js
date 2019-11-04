@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text, Button, Image, Platform, StatusBar } from 'react-native';
 import Search from 'react-native-search-box';
 
 export default class CommonHeader extends Component {
     render() {
         return (
-            <View style={{ flex: 1.5 }}>
+            <View style={{ flex: 0.2, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
                 <View style={{ flex: 3, flexDirection: 'row', marginTop: '2%', alignItems: 'center' }}>
                     <View style={{ marginLeft: '2%', width: '20%', justifyContent: 'flex-start' }}>
                         <Image style={{ width: 50, height: 50 }} source={require('../../assets/menderlogo.png')} />

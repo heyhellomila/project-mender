@@ -1,10 +1,16 @@
-import { StyleSheet,Platform, StatusBar } from 'react-native'
+import { StyleSheet, Platform, StatusBar } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
         paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0
+    },
+    bodyContainer: {
+        flex: 4,
+        alignItems: 'center',
+        justifyContent: 'center'
+
     }, menderWelcomeLogo: {
         marginTop: '30%',
         alignSelf: 'center'
@@ -13,6 +19,33 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
+})
+
+const loginComponent = StyleSheet.create({
+    logInContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+})
+
+const commonFooter = StyleSheet.create({
+    footerContainer: {
+        flex: .5,
+        borderColor: 'black',
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    footerIcons: {
+        width: '20%',
+        justifyContent: 'space-between'
+    },
+    footerImage: {
+        width: 50,
+        height: 50
+    }
 })
 
 const buttons = StyleSheet.create({
@@ -29,4 +62,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons } 
+export { styles, buttons, commonFooter, loginComponent } 

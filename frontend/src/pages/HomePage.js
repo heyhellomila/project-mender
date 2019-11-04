@@ -8,9 +8,6 @@ import CommonFooter from '../components/CommonFooter';
 import WorkOrderComponent from '../components/WorkOrderModal';
 
 class HomePage extends React.Component {
-    static navigationOptions = {
-        drawerLabel: 'Home'
-    }
     constructor(props) {
         super(props);
         this.state = {
@@ -57,10 +54,6 @@ class HomePage extends React.Component {
         this.props.navigation.navigate('EmailPage');
     }
 
-    static navigationOptions = {
-        title: 'Home Page',
-    };
-
     handleLogout = async () => {
         this.setState({ loggingOut: true })
         await this.props.userLogout();
@@ -72,11 +65,7 @@ class HomePage extends React.Component {
         return (
             <View style={styles.container}>
                 <CommonHeader user={this.state.user} />
-                <View style={{
-                    flex: 4,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+                <View style={styles.bodyContainer}>
                     {loggingOut
                         ? <Text>Logging out...</Text>
                         : <View style={styles.container}>
