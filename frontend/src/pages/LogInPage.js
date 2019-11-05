@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import LoginForm  from '../components/LoginForm';
-import { login } from '../apis/UserApis'
+import { login } from '../apis/index'
 import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
 import { loginComponent } from '../stylesheets/Stylesheet';
