@@ -166,7 +166,10 @@ const RootStack = createStackNavigator({
         screen: DrawerNavigator
     }
 }, {
-    headerMode: 'none'
+    headerMode: 'none',
+    defaultNavigationOptions: {	
+        gesturesEnabled: false,	
+    },
 });
 
 const AppNavigator = createAppContainer(RootStack);
