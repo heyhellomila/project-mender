@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import Search from 'react-native-search-box';
 import { headerStyles} from '../stylesheets/Stylesheet';
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, View, Image, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { Modal, View, Button } from 'react-native';
 import { styles, buttons } from '../stylesheets/Stylesheet';
 
 const WorkOrderModal = (props) => (
