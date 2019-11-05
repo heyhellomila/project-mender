@@ -13,76 +13,25 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggingOut: false,
             user: props.user.user,
             displayModal: false,
-        },
-            this.closeModal = this.closeModal.bind(this);
-    }
-
-    openModal() {
-        this.setState(prevState => {
-            return {
-                displayModal: true
-            }
-        });
-    }
-
-    closeModal = () => {
-        this.setState(prevState => {
-            return {
-                displayModal: false
-            }
-        })
-    }
-
-    openWorkModal = () => {
-        this.openModal
-    }
-
-    static navigationOptions = {
-        title: 'Home Page',
-    };
-
-    handleLogout = async () => {
-        this.setState({ loggingOut: true })
-        await this.props.userLogout();
-        this.props.navigation.navigate('WelcomePage')
+        }
     }
 
     render() {
-        var { loggingOut } = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader user={this.state.user} />
                 <View style={styles.bodyContainer}>
-                    {loggingOut
-                        ? <Text>Logging out...</Text>
-                        : <View style={styles.container}>
-                            <Button
-                                title="Logout"
-                                onPress={() => this.handleLogout()}
-                            />
-                        </View>
-
-                    }
-                    <WorkOrderComponent
-                        data="Seb"
-                        display={this.state.displayModal}
-                        closeModal={() => this.setState({ displayModal: false })}
-                    />
+                    <Text>Home page</Text>
                 </View>
             </View>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    userLogout: () => dispatch(userLogout())
-});
-
 const mapStateToProps = state => ({
     user: state.user,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, null)(HomePage);

@@ -20,6 +20,7 @@ class ShoppingListPage extends React.Component {
     }
 
     openModal() {
+        alert('ok');
         this.setState(prevState => {
             return {
                 displayModal: true
