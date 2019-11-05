@@ -12,6 +12,7 @@ class DrawerComponent extends Component {
         super(props);
         this.state = {
             loggingOut: false,
+            user: props.user.user,
         }
     }
 
@@ -25,6 +26,7 @@ class DrawerComponent extends Component {
             <SafeAreaView style={{ flex: 1, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
                 <View style={{ flex: 2, height: 150, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
                     <Image source={menderLogo} style={{ height: 120, width: 120 }} />
+                    <Text>{this.state.user.firstName} {this.state.user.lastName}</Text>
                 </View>
                 <View style={{ flex: 3 }}>
                     <Text>PROPERTIES</Text>
@@ -48,5 +50,8 @@ class DrawerComponent extends Component {
 const mapDispatchToProps = dispatch => ({
     userLogout: () => dispatch(userLogout())
 });
+const mapStateToProps = state => ({
+    user: state.user,
+});
 
-export default connect(null, mapDispatchToProps)(DrawerComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent);
