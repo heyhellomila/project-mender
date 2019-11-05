@@ -15,20 +15,24 @@ const UserSchema = mongoose.Schema({
         }
     },
     passwordHash: {
-        type: String,
-        required : true
+        type : String,
+        required : true,
+        trim : true
     },
     firstName: {
-        type: String,
-        required : true
+        type : String,
+        required : true,
+        trim : true
     },
     lastName: {
         type: String,
-        required : true
+        required : true,
+        trim : true
     },
     type: {
         type: String,
         required : true,
+        trim : true,
         validate: value => {
             if (!UserType.getValue(value)) {
                 throw new Error('Invalid User Type. Allowed Types: [' + UserType.enums +']');

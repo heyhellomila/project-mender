@@ -83,8 +83,6 @@ const WorkOrderSchema = mongoose.Schema({
     actual_cost: {
         type: Number // Double data type doesn't exist
     }
-
-
 });
 
 module.exports = mongoose.model('WorkOrder', WorkOrderSchema);
