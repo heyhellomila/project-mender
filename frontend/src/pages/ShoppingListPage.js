@@ -6,7 +6,7 @@ import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import WorkOrderComponent from '../components/WorkOrderModal';
 
-class JobListPage extends React.Component {
+class ShoppingListPage extends React.Component {
     static navigationOptions = {
         title: 'Shopping List Page',
     };
@@ -64,4 +64,4 @@ const mapStateToProps = state => ({
     user: state.user,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingListPage);
