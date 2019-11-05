@@ -134,8 +134,7 @@ const DrawerNavigator = createDrawerNavigator({
 
 const RootStack = createStackNavigator({
     WelcomePage: {
-        screen: WelcomePage,
-        gesturesEnabled: false
+        screen: WelcomePage
     },
     SignUpPage: {
         screen: SignUpPage
@@ -144,8 +143,7 @@ const RootStack = createStackNavigator({
         screen: LogInPage,
     },
     DrawerNavigator: {
-        screen: DrawerNavigator,
-        gesturesEnabled: false
+        screen: DrawerNavigator
     }
 }, {
     defaultNavigationOptions: {
