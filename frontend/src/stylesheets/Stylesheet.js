@@ -29,6 +29,12 @@ const loginComponent = StyleSheet.create({
     }
 })
 
+const jobListTable = StyleSheet.create({
+    jobListTableContainer: {flex: 5, padding: 16, paddingTop: 30, backgroundColor: '#fff'},
+    jobListTablehead: { height: 40, backgroundColor: '#f1f8ff' },
+    jobListTabletext: { margin: 6 },
+})
+
 const buttons = StyleSheet.create({
     buttonSignUp: {
         width: '50%',
@@ -43,4 +49,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, loginComponent } 
+export { styles, buttons, loginComponent, jobListTable } 
