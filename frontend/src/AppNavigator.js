@@ -42,10 +42,11 @@ const BottomNavigator = createBottomTabNavigator({
     OpenWorkModal: {
         screen: () => null,
         navigationOptions: () => ({
+            title:'',
             tabBarOnPress: () => alert('WORK MODAL'),
             tabBarIcon: ({ tintColor }) => (<Image
                 source={require('../assets/addWorkIcon.png')}
-                style={{ width: 40, height: 40, tintColor: 'black' }}
+                style={{ width: 60, height: 60, tintColor: 'black' }}
             />),
         })
     },
