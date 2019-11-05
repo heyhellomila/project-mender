@@ -3,13 +3,13 @@ const validator = require('validator');
 const PropertyType = require('../enums/PropertyType');
 
 const PropertySchema = mongoose.Schema({
-    _id: {
+    id: {
         type : String,
         required : true,
         trim : true
     },
 
-    _user_id: {
+    user_id: {
         type: String,
         required : true,
         trim : true
