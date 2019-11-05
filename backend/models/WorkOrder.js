@@ -6,13 +6,13 @@ const WorkOrderSchema = mongoose.Schema({
     _id: {
         type : String,
         required : true,
-        trim : true,
+        trim : true
     },
 
     sector: {
         type : String,
         required : true,
-        trim : true,
+        trim : true
     },
 
     type: {
