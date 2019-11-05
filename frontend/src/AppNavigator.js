@@ -106,26 +106,46 @@ const BottomStackNavigator = createStackNavigator({
 
 const CustomDrawerComponent = (props) => (
     <SafeAreaView style={{ flex: 1, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
-        <View style={{height: 150, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
-            <Image source={require('../assets/menderlogo.png')} style={{height: 120, width: 120}}/>
+        <View style={{ flex: 2, height: 150, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+            <Image source={require('../assets/menderlogo.png')} style={{ height: 120, width: 120 }} />
+        </View>
+        <View style={{ flex: 3 }}>
+            <Text>PROPERTIES</Text>
         </View>
         <ScrollView>
             <DrawerItems {...props} />
         </ScrollView>
+        <View style={{ flex: 1 }}>
+            <View style={{alignSelf:'flex-end', width:'50%'}}>
+                <Button title='LOG OUT'></Button>
+            </View>
+        </View>
     </SafeAreaView>
 )
 const DrawerNavigator = createDrawerNavigator({
     BottomStackNavigator: {
-        screen: BottomStackNavigator
+        screen: BottomStackNavigator,
+        navigationOptions: {
+            title: 'Home'
+        }
     },
     SettingsPage: {
-        screen: SettingsPage
+        screen: SettingsPage,
+        navigationOptions: {
+            title: 'Settings'
+        }
     },
     HelpPage: {
-        screen: HelpPage
+        screen: HelpPage,
+        navigationOptions: {
+            title: 'Help'
+        }
     },
     AboutUsPage: {
-        screen: AboutUsPage
+        screen: AboutUsPage,
+        navigationOptions: {
+            title: 'About Us'
+        }
     }
 }, {
     drawerPosition: "right",
@@ -146,9 +166,6 @@ const RootStack = createStackNavigator({
         screen: DrawerNavigator
     }
 }, {
-    defaultNavigationOptions: {
-        gesturesEnabled: false,
-    },
     headerMode: 'none'
 });
 
