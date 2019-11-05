@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage} from 'react-native';
+import { Text, View} from 'react-native';
 import LoginForm  from '../components/LoginForm';
 import { login } from '../apis/index'
 import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
+import { loginComponent } from '../stylesheets/Stylesheet';
 
 class LogInPage extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class LogInPage extends React.Component {
     var {submitting} = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={loginComponent.logInContainer}>
         {submitting 
           ? <Text>Loading...</Text>
           : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange} 
@@ -69,11 +70,3 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
