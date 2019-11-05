@@ -42,7 +42,7 @@ const BottomNavigator = createBottomTabNavigator({
     OpenWorkModal: {
         screen: () => null,
         navigationOptions: () => ({
-            title:'',
+            title: '',
             tabBarOnPress: () => alert('WORK MODAL'),
             tabBarIcon: ({ tintColor }) => (<Image
                 source={require('../assets/addWorkIcon.png')}
@@ -117,7 +117,7 @@ const CustomDrawerComponent = (props) => (
             <DrawerItems {...props} />
         </ScrollView>
         <View style={{ flex: 1 }}>
-            <View style={{alignSelf:'flex-end', width:'50%'}}>
+            <View style={{ alignSelf: 'flex-end', width: '50%' }}>
                 <Button title='LOG OUT'></Button>
             </View>
         </View>
@@ -127,25 +127,49 @@ const DrawerNavigator = createDrawerNavigator({
     BottomStackNavigator: {
         screen: BottomStackNavigator,
         navigationOptions: {
-            title: 'Home'
+            title: 'Home',
+            drawerIcon: ({ tintColor }) => (
+                <Image
+                    source={require("../assets/homeIcon.png")}
+                    resizeMode="contain"
+                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+            )
         }
     },
     SettingsPage: {
         screen: SettingsPage,
         navigationOptions: {
-            title: 'Settings'
+            title: 'Settings',
+            drawerIcon: ({ tintColor }) => (
+                <Image
+                    source={require("../assets/settingsIcon.png")}
+                    resizeMode="contain"
+                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+            )
         }
     },
     HelpPage: {
         screen: HelpPage,
         navigationOptions: {
-            title: 'Help'
+            title: 'Help',
+            drawerIcon: ({ tintColor }) => (
+                <Image
+                    source={require("../assets/helpIcon.png")}
+                    resizeMode="contain"
+                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+            )
         }
     },
     AboutUsPage: {
         screen: AboutUsPage,
         navigationOptions: {
-            title: 'About Us'
+            title: 'About Us',
+            drawerIcon: ({ tintColor }) => (
+                <Image
+                    source={require("../assets/aboutUsIcon.png")}
+                    resizeMode="contain"
+                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+            )
         }
     }
 }, {
@@ -168,8 +192,8 @@ const RootStack = createStackNavigator({
     }
 }, {
     headerMode: 'none',
-    defaultNavigationOptions: {	
-        gesturesEnabled: false,	
+    defaultNavigationOptions: {
+        gesturesEnabled: false,
     },
 });
 
