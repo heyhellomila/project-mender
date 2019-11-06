@@ -9,6 +9,12 @@ const WorkOrderSchema = mongoose.Schema({
         trim : true
     },
 
+    user_id: {
+        type : String,
+        required : true,
+        trim : true
+    },
+
     sector: {
         type : String,
         required : true,
