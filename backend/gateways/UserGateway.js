@@ -47,15 +47,8 @@ const UserGateway = {
         } catch (err) {
             throw new Error(err);
         } 
-    },
-
-    async deleteUser(id) {
-        try {
-            return await User.deleteOne({id: id});
-        } catch (err) {
-            throw new Error(err);
-        }
     }
+    
 }
 
 module.exports = UserGateway

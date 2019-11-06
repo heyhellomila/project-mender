@@ -43,43 +43,8 @@ const WorkOrderGateway = {
         } catch (err) {
             throw new Error(err);
         }
-    },
-
-    //images are not currently being saved to the DB
-    async updateWork(id, sector, type, title, cause, 
-        service_needed, priority, description, due_date, 
-        date_completed, price_estimate, actual_cost) {
-        workorder = this.getWorkOrderById(id);
-        try {
-            return await WorkOrder.updateOne({id: id},
-                {
-                    $set: {
-                        sector: sector,
-                        type: type,
-                        title: title,
-                        cause: cause, 
-                        service_needed: service_needed,
-                        priority: priority,
-                        description: description,
-                        due_date: due_date, 
-                        date_completed: date_completed,
-                        price_estimate: price_estimate, 
-                        actual_cost: actual_cost
-                    }
-                }
-                );
-        } catch (err) {
-            throw new Error(err);
-        } 
-    },
-
-    async deleteWorkOrder(id) {
-        try {
-            return await WorkOrder.deleteOne({id: id});
-        } catch (err) {
-            throw new Error(err);
-        }
     }
+    
 }
 
 module.exports = WorkOrderGateway

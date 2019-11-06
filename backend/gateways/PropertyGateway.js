@@ -30,30 +30,6 @@ const PropertyGateway = {
         } catch (err) {
             throw new Error(err);
         }
-    },
-
-    async updateProperty(id, name, address) {
-        property = this.getPropertyById(id);
-        try {
-            return await Property.updateOne({id: id},
-                {
-                    $set: {
-                        name: name,
-                        address: address
-                    }
-                }
-                );
-        } catch (err) {
-            throw new Error(err);
-        } 
-    },
-
-    async deleteProperty(id) {
-        try {
-            return await Property.deleteOne({id: id});
-        } catch (err) {
-            throw new Error(err);
-        }
     }
 
 }
