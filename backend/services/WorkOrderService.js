@@ -22,11 +22,11 @@ class WorkOrderService {
             "does not exist. Cannot create work order for nonexistent property.");
         }
 
-        if (!this.isPriorityType(priority)) {
+        if (!(priority in PriorityType)) {
             throw new TypeError(priority + "is not a valid priority type.");
         }
 
-        if (!this.isSectorType(sector)) {
+        if (!(sector in SectorType)) {
             throw new TypeError(sector + "is not a valid sector type.");
         }
 
@@ -53,18 +53,6 @@ class WorkOrderService {
         } catch (err) {
             throw err;
         }
-    }
-
-    async isPriorityType(priority) {
-        if (priority in PriorityType)
-            return true;
-        return false;
-    }
-
-    async isSectorType(sector) {
-        if (sector in SectorType)
-            return true;
-        return false;
     }
 }
 

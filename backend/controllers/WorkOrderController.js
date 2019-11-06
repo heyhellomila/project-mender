@@ -24,9 +24,9 @@ workOrderController.post('/', auth, validateBody(creationFields), async (req, re
     }
 })
 
-workOrderController.get('/:propertyId/workorders', auth, async(req, res) => {
+workOrderController.get('/', auth, async(req, res) => {
     try {
-        const user = await workOrderService.getPropertyWorkOrders(req.params.propertyId);
+        const workOrders = await workOrderService.getPropertyWorkOrders(req.params.propertyId);
         return res.status(200).json(user);
     } catch (err) {
         return handleError(err, res);
@@ -35,7 +35,7 @@ workOrderController.get('/:propertyId/workorders', auth, async(req, res) => {
 
 workOrderController.get('/:id', auth, async(req, res) => {
     try {
-        const user = await workOrderService.getWorkOrder(req.params.id);
+        const workOrder = await workOrderService.getWorkOrder(req.params.id);
         return res.status(200).json(user);
     } catch (err) {
         return handleError(err, res);
