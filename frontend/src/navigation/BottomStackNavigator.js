@@ -4,19 +4,11 @@ import { Image, View, Text } from 'react-native';
 import React from 'react';
 import { Button } from 'react-native-elements';
 import BottomNavigator from './BottomNavigator';
-import SafeAreaView from 'react-native-safe-area-view';
+import WorkOrderModal from '../pages/WorkOrderModal';
 
 const menderLogo = require('../../assets/menderlogo.png')
 
-const WorkOrderModal = ({navigation}) => (
-    <View>
-        <Button
-            title="Close modal"
-            onPress={() => navigation.goBack(null)}
-        />
-    </View>
-);
-
+//Navigator for top header
 const BottomStackNavigatorRoot = createStackNavigator({
     BottomNavigator: BottomNavigator
 }, {
@@ -39,6 +31,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
     }
 })
 
+//navigator at root level for Work Order Modal
 const RootNavigator = createStackNavigator({
     MainApp: {
         screen: BottomStackNavigatorRoot,
@@ -51,4 +44,5 @@ const RootNavigator = createStackNavigator({
     mode: 'modal',
 })
 const BottomStackNavigator = createAppContainer(RootNavigator);
-export default RootNavigator;
+
+export default BottomStackNavigator;
