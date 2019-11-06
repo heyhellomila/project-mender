@@ -3,6 +3,16 @@ const ResourceNotFoundError = require('../errors/ResourceNotFoundError')
 
 const WorkOrderGateway = {
 
+    //getbyid
+
+    //getall
+
+    //post/create/insert
+
+    //put/patch/update
+
+    //delete
+
     async getWorkOrdersByUser(user_id) {
         const workorders = await WorkOrder.find({user_id: user_id});
         if (!workorders) {
@@ -19,7 +29,6 @@ const WorkOrderGateway = {
         return workorder;
     },
     
-    //images are not currently being saved to the DB
     async createWorkOrder(user_id, sector, type, title, cause, 
         service_needed, priority, description, property_id, 
         due_date, date_completed, price_estimate, actual_cost) {
@@ -45,7 +54,6 @@ const WorkOrderGateway = {
         }
     },
 
-    //images are not currently being saved to the DB
     async updateWork(id, sector, type, title, cause, 
         service_needed, priority, description, due_date, 
         date_completed, price_estimate, actual_cost) {
