@@ -10,6 +10,15 @@ const UserGateway = require('../gateways/UserGateway');
 
 class UserService {
 
+    async userExists(id) {
+        try {
+            UserGateway.getUserById(id);
+        } catch (err) {
+            return false;
+        }
+        return true;
+    }
+
     async register(email, password, firstName, lastName, type) {
         if (!passwordValidator.validate(password)) {
             throw new BadRequestError('Password must be at least 8 characters' +  
