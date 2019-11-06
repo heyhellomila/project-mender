@@ -3,12 +3,6 @@ const validator = require('validator');
 const WorkOrderType = require('../enums/WorkOrderType')
 
 const WorkOrderSchema = mongoose.Schema({
-    id: {
-        type : String,
-        required : true,
-        trim : true
-    },
-
     user_id: {
         type : String,
         required : true,
