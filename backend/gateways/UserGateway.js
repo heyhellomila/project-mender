@@ -56,7 +56,6 @@ const UserGateway = {
             throw new Error(err);
         }
     }
-    
 }
 
 module.exports = UserGateway
