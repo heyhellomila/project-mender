@@ -21,7 +21,7 @@ class UserService {
             throw new ResourceExistsError("Email " + email + " already in use.");
         }
         try {
-            return await UserGateway.saveUser(email, hashedPassword, firstName, lastName, type);
+            return await UserGateway.createUser(email, hashedPassword, firstName, lastName, type);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
