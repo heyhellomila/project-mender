@@ -6,7 +6,7 @@ const ResourceExistsError = require('../errors/ResourceExistsError');
 const BadRequestError = require('../errors/BadRequestError');
 const generateAuthToken = require('../utils/AuthUtils');
 const passwordValidator = require('../utils/PasswordUtils');
-const DatabaseUtils = require('../utils/DatabaseUtils');
+const DatabaseUtils = require('../gateways/UserGateway');
 
 class UserService {
 
@@ -16,19 +16,19 @@ class UserService {
                 ' and must include at least one digit.')
         }
         const hashedPassword = await generateHash(password);
-        const user = await DatabaseUtils.getUserByEmail(email);
+        const user = await UserGateway.getUserByEmail(email);
         if (user) {
             throw new ResourceExistsError("Email " + email + " already in use.");
         }
         try {
-            return await DatabaseUtils.saveUser(email, hashedPassword, firstName, lastName, type);
+            return await UserGateway.saveUser(email, hashedPassword, firstName, lastName, type);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
     }
 
     async login(email, password) {
-        const user = await DatabaseUtils.getUserByEmail(email);
+        const user = await UserGateway.getUserByEmail(email);
         if (!user) {
             throw new ResourceNotFoundError("No user was found with this email.");
         }
@@ -41,7 +41,7 @@ class UserService {
 
     async getUser(id) {
         try {
-            return await DatabaseUtils.getUserById(id);
+            return await UserGateway.getUserById(id);
         } catch (err) {
             throw err;
         }
