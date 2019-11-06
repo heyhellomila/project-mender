@@ -3,8 +3,8 @@ const ResourceNotFoundError = require('../errors/ResourceNotFoundError')
 
 const WorkOrderGateway = {
 
-    async getWorkOrdersByUser(user_id) {
-        const workorders = await WorkOrder.find({user_id: user_id});
+    async getWorkOrdersByProperty(property_id) {
+        const workorders = await WorkOrder.find({property_id: property_id});
         if (!workorders) {
             throw new ResourceNotFoundError("Work Orders belonging to user_id " + user_id + " do not exist");
         }
