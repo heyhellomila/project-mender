@@ -6,7 +6,7 @@ const ResourceExistsError = require('../errors/ResourceExistsError');
 const BadRequestError = require('../errors/BadRequestError');
 const generateAuthToken = require('../utils/AuthUtils');
 const passwordValidator = require('../utils/PasswordUtils');
-const DatabaseUtils = require('../gateways/UserGateway');
+const UserGateway = require('../gateways/UserGateway');
 
 class UserService {
 
