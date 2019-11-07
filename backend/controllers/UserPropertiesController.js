@@ -11,8 +11,9 @@ const creationFields = ['name', 'type', 'address']
 
 userPropertiesController.post('/', auth, validateBody(creationFields), async (req, res) => {
     try {
+        const { name, type, address } = req.body
         const property = await propertyService.createProperty(
-            req.params.userId, req.body.name, req.body.type, req.body.address);
+            req.params.userId, name, type, address);
         return res.status(200).json({ property });
     } catch (err) {
         return handleError(err, res);

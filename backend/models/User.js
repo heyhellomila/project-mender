@@ -14,17 +14,17 @@ const UserSchema = mongoose.Schema({
             }
         }
     },
-    passwordHash: {
+    password_hash: {
         type : String,
         required : true,
         trim : true
     },
-    firstName: {
+    first_name: {
         type : String,
         required : true,
         trim : true
     },
-    lastName: {
+    last_name: {
         type: String,
         required : true,
         trim : true

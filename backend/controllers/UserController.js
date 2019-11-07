@@ -8,13 +8,14 @@ const userController = express.Router();
 const userService = new UserService();
 
 const loginFields = ['email', 'password']
-const registerFields = ['email', 'password', 'firstName', 'lastName', 'type']
+const registerFields = ['email', 'password', 'first_name', 'last_name', 'type']
 
 // register API
 userController.put('/', validateBody(registerFields), async (req, res) => {
     try {
-        const user = await userService.register(req.body.email, req.body.password, 
-            req.body.firstName, req.body.lastName, req.body.type);
+        const { email, password, first_name, last_name, type } = req.body;
+        const user = await userService.register(email, password, first_name, last_name,
+            type);
         return res.status(200).json(user);
     } catch (err) {
         return handleError(err, res);
@@ -23,7 +24,8 @@ userController.put('/', validateBody(registerFields), async (req, res) => {
 
 userController.post('/login', validateBody(loginFields), async (req, res) => {
     try {
-        const token = await userService.login(req.body.email, req.body.password);
+        const { email, password } = req.body;
+        const token = await userService.login(email, password);
         return res.status(200).json({ token });
     } catch (err) {
         return handleError(err, res);

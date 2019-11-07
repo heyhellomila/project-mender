@@ -12,10 +12,10 @@ const creationFields = ['sector', 'type', 'title', 'cause', 'service_needed',
 
 propertyWorkOrdersController.post('/', auth, validateBody(creationFields), async (req, res) => {
     try {
+        const {sector, type, title, cause, service_needed, priority, 
+            description, due_date, price_estimate } = req.body
         const workOrder = await workOrderService.createWorkOrder(req.params.propertyId, 
-            req.body.sector, req.body.type, req.body.title, req.body.cause, 
-            req.body.service_needed, req.body.priority, req.body.description, 
-            req.body.due_date, req.body.price_estimate);
+            sector, type, title, cause, service_needed, priority, description, due_date, price_estimate);
         return res.status(200).json({ workOrder });
     } catch (err) {
         return handleError(err, res);

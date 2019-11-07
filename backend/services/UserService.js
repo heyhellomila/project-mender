@@ -19,7 +19,7 @@ class UserService {
         return true
     }
 
-    async register(email, password, firstName, lastName, type) {
+    async register(email, password, first_name, last_name, type) {
         if (!passwordValidator.validate(password)) {
             throw new BadRequestError('Password must be at least 8 characters' +  
                 ' and must include at least one digit.')
@@ -30,7 +30,7 @@ class UserService {
             throw new ResourceExistsError("Email " + email + " already in use.");
         }
         try {
-            return await UserGateway.createUser(email, hashedPassword, firstName, lastName, type);
+            return await UserGateway.createUser(email, hashedPassword, first_name, last_name, type);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
@@ -41,7 +41,7 @@ class UserService {
         if (!user) {
             throw new ResourceNotFoundError("No user was found with this email.");
         }
-        const match = await compare(password, user.passwordHash);
+        const match = await compare(password, user.password_hash);
         if (!match) {
             throw new UnauthorizedError("Password entered is incorrect.");
         }
