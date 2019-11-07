@@ -32,7 +32,7 @@ class UserService {
         if (!user) {
             throw new ResourceNotFoundError("No user was found with this email.");
         }
-        const match = await compare(password, user.passwordHash);
+        const match = await compare(password, user.password_hash);
         if (!match) {
             throw new UnauthorizedError("Password entered is incorrect.");
         }
