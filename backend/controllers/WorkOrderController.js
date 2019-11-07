@@ -14,11 +14,11 @@ const creationFields = ['user_id', 'sector', 'type', 'title', 'cause',
 
 workOrderController.post('/', auth, validateBody(creationFields), async (req, res) => {
     try {
-        const token = await workOrderService.createWorkOrder(req.body.user_id, req.body.sector, 
+        const workOrder = await workOrderService.createWorkOrder(req.body.user_id, req.body.sector, 
             req.body.type, req.body.title, req.body.cause, req.body.service_needed, req.body.priority, 
             req.body.description, req.body.property_id, req.body.due_date, req.body.date_completed, 
             req.body.price_estimate, req.body.actual_cost);
-        return res.status(200).json({ token });
+        return res.status(200).json({ workOrder });
     } catch (err) {
         return handleError(err, res);
     }
@@ -27,7 +27,7 @@ workOrderController.post('/', auth, validateBody(creationFields), async (req, re
 workOrderController.get('/', auth, async(req, res) => {
     try {
         const workOrders = await workOrderService.getPropertyWorkOrders(req.params.propertyId);
-        return res.status(200).json(user);
+        return res.status(200).json(workOrders);
     } catch (err) {
         return handleError(err, res);
     } 
@@ -36,7 +36,7 @@ workOrderController.get('/', auth, async(req, res) => {
 workOrderController.get('/:id', auth, async(req, res) => {
     try {
         const workOrder = await workOrderService.getWorkOrder(req.params.id);
-        return res.status(200).json(user);
+        return res.status(200).json(workOrder);
     } catch (err) {
         return handleError(err, res);
     } 
