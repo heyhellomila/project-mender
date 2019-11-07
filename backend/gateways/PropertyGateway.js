@@ -5,9 +5,6 @@ const PropertyGateway = {
 
     async getPropertiesByUser(user_id) {
         const properties = await Property.find({user_id: user_id});
-        if (!properties) {
-            throw new ResourceNotFoundError("Properties belonging to user_id " + user_id + " do not exist");
-        }
         return properties;
     },
 
@@ -19,10 +16,11 @@ const PropertyGateway = {
         return property;
     },
     
-    async createProperty(user_id, name, address) {
-        property = new Property({
+    async createProperty(user_id, name, type, address) {
+        const property = new Property({
             user_id: user_id,
             name: name,
+            type: type,
             address: address
         });
         try {

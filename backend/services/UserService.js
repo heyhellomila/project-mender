@@ -12,11 +12,11 @@ class UserService {
 
     async userExists(id) {
         try {
-            UserGateway.getUserById(id);
+            await UserGateway.getUserById(id);
         } catch (err) {
             return false;
         }
-        return true;
+        return true
     }
 
     async register(email, password, firstName, lastName, type) {

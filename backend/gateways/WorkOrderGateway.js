@@ -20,11 +20,11 @@ const WorkOrderGateway = {
     },
     
     //images are not currently being saved to the DB
-    async createWorkOrder(user_id, sector, type, title, cause, 
-        service_needed, priority, description, property_id, 
-        due_date, date_completed, price_estimate, actual_cost) {
-        workorder = new WorkOrder({
-            user_id: user_id,
+    async createWorkOrder(property_id, sector, type, title, cause, 
+        service_needed, priority, description, due_date, price_estimate) {
+        
+        const workOrder = new WorkOrder({
+            property_id: property_id, 
             sector: sector,
             type: type,
             title: title,
@@ -32,14 +32,11 @@ const WorkOrderGateway = {
             service_needed: service_needed,
             priority: priority,
             description: description,
-            property_id: property_id, 
             due_date: due_date, 
-            date_completed: date_completed,
             price_estimate: price_estimate, 
-            actual_cost: actual_cost
         });
         try {
-            return await workorder.save();
+            return await workOrder.save();
         } catch (err) {
             throw new Error(err);
         }

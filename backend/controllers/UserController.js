@@ -1,5 +1,4 @@
 const express = require('express');
-const User = require('../models/User');
 const UserService = require('../services/UserService');
 const { handleError } = require('../utils/HttpUtils');
 const auth = require('../middleware/auth');

@@ -1,13 +1,24 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const WorkOrderType = require('../enums/WorkOrderType')
+const SectorType = require('../enums/SectorType')
+const PriorityType = require('../enums/PriorityType')
 
 const WorkOrderSchema = mongoose.Schema({
+    property_id: {
+        type : String,
+        required : true,
+        trim : true
+    },
     
     sector: {
         type : String,
         required : true,
-        trim : true
+        trim : true,
+        validate : value => {
+            if (!SectorType.getValue(value)) {
+                throw new Error('Invalid Property Type. Allowed Types: [' + SectorType.enums + ']');
+            }
+        }
     },
 
     type: {
@@ -15,8 +26,8 @@ const WorkOrderSchema = mongoose.Schema({
         required : true,
         trim : true,
         validate : value => {
-            if (!PropertyType.getValue(value)) {
-                throw new Error('Invalid Property Type. Allowed Types: [' + PropertyType.enums + ']');
+            if (!WorkOrderType.getValue(value)) {
+                throw new Error('Invalid Work Order Type. Allowed Types: [' + WorkOrderType.enums + ']');
             }
         }
     },
@@ -41,7 +52,12 @@ const WorkOrderSchema = mongoose.Schema({
     priority: {
         type : String,
         required : true,
-        trim : true
+        trim : true,
+        validate : value => {
+            if (!PriorityType.getValue(value)) {
+                throw new Error('Invalid Property Type. Allowed Types: [' + PriorityType.enums + ']');
+            }
+        }
     },
 
     description: {
@@ -56,12 +72,6 @@ const WorkOrderSchema = mongoose.Schema({
         { data : Buffer, 
           contentType : String 
         },
-
-    property_id: {
-        type : String,
-        required : true,
-        trim : true
-    },
 
     due_date: {
         type: Date
@@ -81,4 +91,3 @@ const WorkOrderSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('WorkOrder', WorkOrderSchema);
-

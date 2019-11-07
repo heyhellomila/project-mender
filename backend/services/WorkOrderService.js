@@ -1,45 +1,30 @@
-const WorkOrder = require('../models/WorkOrder');
 const WorkOrderGateway = require('../gateways/WorkOrderGateway');
-const SectorType = require('../enums/SectorType');
-const PriorityType = require('../enums/PriorityType');
-const UserService = require('../gateways/UserService');
-const PropertyService = require('../gateways/PropertyService');
+const PropertyService = require('./PropertyService');
 const ResourceNotFoundError = require('../errors/ResourceNotFoundError');
+const BadRequestError = require('../errors/BadRequestError');
+
+const propertyService = new PropertyService();
 
 class WorkOrderService {
 
-    async createWorkOrder(user_id, sector, type, title, cause, 
-        service_needed, priority, description, property_id, 
-        due_date, date_completed, price_estimate, actual_cost) {
+    async createWorkOrder(property_id, sector, type, title, cause, 
+        service_needed, priority, description, due_date, price_estimate) {
 
-        if (!UserService.userExists(user_id)) {
-            throw new ResourceNotFoundError("User" + user_id + 
-            "does not exist. Cannot create work order for nonexistent user.");
+        if (!await propertyService.propertyExists(property_id)) {
+            throw new ResourceNotFoundError("Property " + property_id + 
+                " does not exist.");
         }
-
-        if (!PropertyService.propertyExists(property_id)) {
-            throw new ResourceNotFoundError("Property" + property_id + 
-            "does not exist. Cannot create work order for nonexistent property.");
-        }
-
-        if (!(priority in PriorityType)) {
-            throw new TypeError(priority + "is not a valid priority type.");
-        }
-
-        if (!(sector in SectorType)) {
-            throw new TypeError(sector + "is not a valid sector type.");
-        }
-
         try {
-            return await WorkOrderGateway.createWorkOrder(user_id, sector, type, title, cause, 
-                service_needed, priority, description, property_id, 
-                due_date, date_completed, price_estimate, actual_cost);
+            return await WorkOrderGateway.createWorkOrder(property_id, sector, 
+                type, title, cause, service_needed, priority, description, due_date, price_estimate);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
     }
 
-    async getPropertyWorkOrders(property_id) {
+    async getWorkOrdersByPropertyId(property_id) {
+        if (!await propertyService.propertyExists(property_id))
+            throw new ResourceNotFoundError("Property with id " + property_id + " does not exist.")
         try {
             return await WorkOrderGateway.getWorkOrdersByProperty(property_id);
         } catch (err) {

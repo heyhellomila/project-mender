@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const PropertyType = require('../enums/PropertyType');
 
 const PropertySchema = mongoose.Schema({
@@ -12,6 +11,17 @@ const PropertySchema = mongoose.Schema({
         type: String,
         required : true,
         trim : true
+    },
+
+    type: {
+        type: String,
+        required: true,
+        trim: true,
+        validate : value => {
+            if (!PropertyType.getValue(value)) {
+                throw new Error('Invalid Property Type. Allowed Types: [' + PropertyType.enums + ']');
+            }
+        }
     },
 
     address: {

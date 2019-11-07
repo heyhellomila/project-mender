@@ -1,34 +1,34 @@
-const Property = require('../models/Property');
 const PropertyGateway = require('../gateways/PropertyGateway');
-const UserService = require('../gateways/UserService');
+const UserService = require('./UserService');
 const ResourceNotFoundError = require('../errors/ResourceNotFoundError');
+const BadRequestError = require('../errors/BadRequestError');
+
+const userService = new UserService();
 
 class PropertyService {
 
     async propertyExists(id) {
         try {
-            PropertyGateway.getPropertyById(id);
+            await PropertyGateway.getPropertyById(id);
         } catch (err) {
             return false;
         }
         return true;
     }
 
-    async createProperty(user_id, name, address) {
-
-        if (!UserService.userExists(user_id)) {
-            throw new ResourceNotFoundError("User" + user_id + 
-            "does not exist. Cannot create property for nonexistent user.");
-        }
-
+    async createProperty(user_id, name, type, address) {
+        if (!await userService.userExists(user_id))
+            throw new ResourceNotFoundError("User with id " + user_id + " does not exist.")
         try {
-            return await PropertyGateway.createProperty(user_id, name, address);
+            return await PropertyGateway.createProperty(user_id, name, type, address);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
     }
 
     async getPropertiesByUser(user_id) {
+        if (!await userService.userExists(user_id))
+            throw new ResourceNotFoundError("User with id " + user_id + " does not exist.")
         try {
             return await PropertyGateway.getPropertiesByUser(user_id);
         } catch (err) {
