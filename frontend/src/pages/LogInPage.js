@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View} from 'react-native';
 import LoginForm  from '../components/LoginForm';
-import { login } from '../apis/index'
+import { login } from '../apis/UserApis'
 import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
 import { loginComponent } from '../stylesheets/Stylesheet';
@@ -34,7 +34,7 @@ class LogInPage extends React.Component {
   handleLogin = async() => {
     this.setState({ submitting: true })
     try {
-      const {data: {token}} = await login(this.state.email, this.state.password);
+      const { token } = await login(this.state.email, this.state.password);
       await this.props.authenticate(token).then((_) => {
         if (!this.props.user.loading && this.props.user.user) {
           this.props.navigation.navigate('HomePage')
@@ -69,4 +69,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
-

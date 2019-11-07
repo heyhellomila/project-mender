@@ -19,7 +19,7 @@ async function compare(unhashed, hashed) {
             resolve(res)
         });
     });
-
+    
     return match;
 }
 
