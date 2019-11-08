@@ -34,7 +34,7 @@ class LogInPage extends React.Component {
   handleLogin = async() => {
     this.setState({ submitting: true })
     try {
-      const { token } = await login(this.state.email, this.state.password);
+      const { data: {token} } = await login(this.state.email, this.state.password);
       await this.props.authenticate(token).then((_) => {
         if (!this.props.user.loading && this.props.user.user) {
           this.props.navigation.navigate('HomePage')

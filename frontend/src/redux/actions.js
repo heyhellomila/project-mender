@@ -10,12 +10,12 @@ export const authenticate = (token) => async dispatch => {
             dispatch(error('Error'));
             dispatch(loading(false));
         }
-        const user = await getUser(userId); 
-        if (!user) {
+        const {data} = await getUser(userId); 
+        if (!data) {
             dispatch(error('Error'));
             dispatch(loading(false));
         }
-        dispatch(login(user));
+        dispatch(login(data));
         dispatch(loading(false));
     }).catch((err) => {
         dispatch(error(err.message || 'ERROR'));
