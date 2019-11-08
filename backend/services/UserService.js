@@ -6,29 +6,38 @@ const ResourceExistsError = require('../errors/ResourceExistsError');
 const BadRequestError = require('../errors/BadRequestError');
 const generateAuthToken = require('../utils/AuthUtils');
 const passwordValidator = require('../utils/PasswordUtils');
-const DatabaseUtils = require('../utils/DatabaseUtils');
+const UserGateway = require('../gateways/UserGateway');
 
 class UserService {
 
-    async register(email, password, firstName, lastName, type) {
+    async userExists(id) {
+        try {
+            await UserGateway.getUserById(id);
+        } catch (err) {
+            return false;
+        }
+        return true
+    }
+
+    async register(email, password, first_name, last_name, type) {
         if (!passwordValidator.validate(password)) {
             throw new BadRequestError('Password must be at least 8 characters' +  
                 ' and must include at least one digit.')
         }
         const hashedPassword = await generateHash(password);
-        const user = await DatabaseUtils.getUserByEmail(email);
+        const user = await UserGateway.getUserByEmail(email);
         if (user) {
             throw new ResourceExistsError("Email " + email + " already in use.");
         }
         try {
-            return await DatabaseUtils.saveUser(email, hashedPassword, firstName, lastName, type);
+            return await UserGateway.createUser(email, hashedPassword, first_name, last_name, type);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
     }
 
     async login(email, password) {
-        const user = await DatabaseUtils.getUserByEmail(email);
+        const user = await UserGateway.getUserByEmail(email);
         if (!user) {
             throw new ResourceNotFoundError("No user was found with this email.");
         }
@@ -41,7 +50,7 @@ class UserService {
 
     async getUser(id) {
         try {
-            return await DatabaseUtils.getUserById(id);
+            return await UserGateway.getUserById(id);
         } catch (err) {
             throw err;
         }
