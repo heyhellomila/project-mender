@@ -11,7 +11,7 @@ const loginFields = ['email', 'password']
 const registerFields = ['email', 'password', 'first_name', 'last_name', 'type']
 
 // register API
-userController.put('/', validateBody(registerFields), async (req, res) => {
+userController.post('/', validateBody(registerFields), async (req, res) => {
     try {
         const { email, password, first_name, last_name, type } = req.body;
         const user = await userService.register(email, password, first_name, last_name,
