@@ -3,7 +3,7 @@ import { LOCAL_API_KEY } from 'react-native-dotenv'
 
 const baseURL = `http://${LOCAL_API_KEY}/api/`
 
-export const login = async (email, password) => {
+export async function login(email, password) {
     return await fetch(baseURL + 'users/login', {
         method: 'POST',
         headers: {
@@ -20,7 +20,7 @@ export const login = async (email, password) => {
     });
 }
 
-export const getUser = async (id) => {
+export async function getUser(id) {
     return await fetch(baseURL + `users/${id}`, {
         method: 'GET',
         headers: {
