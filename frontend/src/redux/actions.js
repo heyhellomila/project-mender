@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { getUser } from '../apis/UserApis';
+import { getUser } from '../apis/users/GetUser';
 import { getUserId } from '../utils/AuthUtil';
 
 export const authenticate = (token) => async dispatch => {
@@ -10,13 +10,14 @@ export const authenticate = (token) => async dispatch => {
             dispatch(error('Error'));
             dispatch(loading(false));
         }
-        const user = await getUser(userId); 
-        if (!user) {
-            dispatch(error('Error'));
+        await getUser(userId).then((response) => {
+            if (!response.data) {
+                dispatch(error('Error'));
+                dispatch(loading(false));
+            }
+            dispatch(login(response.data));
             dispatch(loading(false));
-        }
-        dispatch(login(user));
-        dispatch(loading(false));
+        })
     }).catch((err) => {
         dispatch(error(err.message || 'ERROR'));
         dispatch(loading(false));
