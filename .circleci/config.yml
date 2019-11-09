@@ -1,16 +1,61 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
 version: 2
 jobs:
-  build:
+
+build:
     docker:
-      - image: debian:stretch
-      
+      # specify the version you desire here
+      - image: circleci/node:4.8.2
+      - image: mongo: 4.2.0
+
     steps:
-      - run:
-          command: |
-            mkdir -p ~/reports
-            eslint ./src/ --format junit --output-file ~/reports/eslint.xml
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "backend/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install --prefix ./backend
+
+      - save_cache:
+          paths:
+            - backend/node_modules
+          key: v1-dependencies-{{ checksum "backend/package.json" }}
           when: always
-      - store_test_results:
-          path: ~/reports
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      
+      - run: 
+          name: test backend
+          command: npm test --prefix ./backend
+          no_output_timeout: 5m
+      
+      - run:
+          name: lint
+          command: npm run lint --prefix ./backend
+
+    - run:
+          name: test
+          command: npm test
+      - run:
+          name: code-coverage
+          command: './node_modules/.bin/nyc report --reporter=text-lcov'
+
       - store_artifacts:
-          path: ~/reports  
+          path: test-results.xml
+          prefix: tests
+
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+
+      - store_test_results:
+          path: test-results.xml
