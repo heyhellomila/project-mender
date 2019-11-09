@@ -4,7 +4,7 @@ import { Image, View, Text } from 'react-native';
 import React from 'react';
 import { Button } from 'react-native-elements';
 import BottomNavigator from './BottomNavigator';
-import WorkOrderModal from '../pages/WorkOrderModal';
+import WorkOrderPage from '../pages/WorkOrderPage';
 
 const menderLogo = require('../../assets/menderlogo.png')
 
@@ -37,7 +37,7 @@ const RootNavigator = createStackNavigator({
         screen: BottomStackNavigatorRoot,
     },
     Modal: {
-        screen: WorkOrderModal,
+        screen: WorkOrderPage,
     },
 },{
     headerMode: 'none',
