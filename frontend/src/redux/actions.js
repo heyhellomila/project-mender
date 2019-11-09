@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { getUser } from '../apis/UserApis';
+import { getUser } from '../apis/users/GetUser';
 import { getUserId } from '../utils/AuthUtil';
 
 export const authenticate = (token) => async dispatch => {
