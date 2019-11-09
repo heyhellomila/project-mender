@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import SignUpForm  from '../components/SignUpForm';
 import { styles } from '../stylesheets/Stylesheet';
 
 export default class SignUpPage extends React.Component {
@@ -8,8 +9,10 @@ export default class SignUpPage extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{flex:1, alignItems: 'center',
+      justifyContent: 'center'}}>
           <Text>Sign Up Here</Text>
+          <SignUpForm/>
       </View>
     );
   }
