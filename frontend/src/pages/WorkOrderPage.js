@@ -21,7 +21,7 @@ class WorkOrderPage extends React.Component {
             //buttonFunction={() => this.props.navigation.goBack(null)
             <View style={styles.elementsContainer}>
                 <Button 
-                style={{alignSelf:'flex-end', position:'absolute'}}
+                style={{alignSelf:'flex-end', position:'absolute', width: 100}}
                 title="close"
                 onPress ={() => this.props.navigation.goBack(null)}/>
             <Text style={styles.headerStyle}>Work Order</Text>
@@ -40,7 +40,7 @@ class WorkOrderPage extends React.Component {
                         <Text style={styles.textOnBlue}>Sector</Text>
                     </View>
                     <View style={styles.individualContainer}>
-                        <Text style={styles.textOnWhite}>Item picker goes here </Text>
+                        <Text style={styles.textOnWhite}>picker here </Text>
                     </View>
                 </View>
 
@@ -86,8 +86,12 @@ class WorkOrderPage extends React.Component {
                 </View>
 
                 <TextInput  
-                style={{width:200, height: 150, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
+                style={{width:230, height: 100, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
                 placeholder="Notes/additional information"/>
+                <Button 
+                style={{alignSelf:'flex-end', position:'absolute', width: 100}}
+                title="Done"
+                onPress ={() => this.props.navigation.goBack(null)}/>
 
             </View>
         );
@@ -102,11 +106,11 @@ export default connect(mapStateToProps, null)(WorkOrderPage);
 
 const styles = {
     headerStyle: {
-      fontSize: 24,
+      fontSize: 36,
       textAlign: 'center',
       fontWeight: '100',
-      marginTop: 48,
-      marginBottom: 24
+      marginTop: 24,
+      marginBottom: 10
     },
     subHeaderStyle: {
         fontSize: 13, 
@@ -122,32 +126,46 @@ const styles = {
     },
     rowContainer: {
         flexDirection: 'row', 
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginBottom: 20
     },
     individualContainer: {
-        width: 100, 
         height: 50, 
         justifyContent: 'center'
     },
     selectedGray:{
+        fontSize: 24,
+        width: 120,
         textAlign: 'center', 
         backgroundColor: '#a3a3a3', 
-        borderRadius: 5
+        borderRadius: 5,
+        marginRight: 30,
+        marginLeft: 30
     },
     unselectedGray:{
+        fontSize: 24,
+        width: 120,
         textAlign: 'center', 
         backgroundColor: '#cccccc', 
-        borderRadius: 5
+        borderRadius: 5,
+        marginRight: 40,
+        marginLeft: 40
     },
     textOnBlue:{
+        fontSize: 24,
+        width: 130,
         textAlign: 'center', 
         backgroundColor: '#00ace6', 
-        borderRadius: 5
+        borderRadius: 5,
+        marginRight: 15
     },
     textOnWhite:{
+        fontSize: 24,
+        width: 130,
         textAlign: 'center', 
         backgroundColor: '#ffffff', 
-        borderRadius: 5
+        borderRadius: 5,
+        marginLeft: 15
     }
     
 }
