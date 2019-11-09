@@ -12,14 +12,13 @@ api.interceptors.response.use(async (response) => {
     if (error.code == 'ECONNABORTED' || error.response.data.statusCode == 500) {
         throw new Error('Internal server error. Please try again later.')
     } else if (error.response.data.statusCode > 400) {
-        throw new Error('Could not add user.')
+        throw new Error('Could not add user. Password must be at least 8 characters and must include at least one digit.')
     } else {
         throw error;
     }
 });
 
 export async function signUp(email, password, first_name, last_name, type) {
-    alert('heyo')
     return await api.post('/users/', {
         email: email,
         password: password,

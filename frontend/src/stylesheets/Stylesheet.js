@@ -29,6 +29,20 @@ const loginComponent = StyleSheet.create({
     }
 })
 
+const signUpComponent = StyleSheet.create({
+    signUpPageComponent:{
+        flex:1, 
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    signUpInputText:{
+        height: 40, 
+        width: 150, 
+        borderBottomColor: 'black', 
+        borderBottomWidth: 1 
+    }
+})
+
 const headerStyles = StyleSheet.create({
     commonHeaderTextComponent:{
         flex: 3
@@ -69,4 +83,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, loginComponent, jobListTable, headerStyles } 
+export { styles, buttons, loginComponent, jobListTable, headerStyles, signUpComponent } 

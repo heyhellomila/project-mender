@@ -1,33 +1,33 @@
 import React from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
+import { Text, TextInput, View, Button, Picker } from 'react-native';
+import { signUpComponent } from '../stylesheets/Stylesheet';
 
 const SignUpForm = (props) => {
-    var errorMsg = <Text>Invalid username or password.</Text>
     return (
         <View>
-            {props.error 
-                ? errorMsg
+            {props.error
+                ? <Text>{props.errorMsg}</Text>
                 : null
             }
             <Text>First Name</Text>
-            <TextInput 
-            style={{height: 40, width:150}}
-            placeholder="Your first name"
-            defaultValue={props.first_name}
-            onChangeText={text => props.handleFirstNameChange(text)}
+            <TextInput
+                style={signUpComponent.signUpInputText}
+                placeholder="Your first name"
+                defaultValue={props.first_name}
+                onChangeText={text => props.handleFirstNameChange(text)}
             />
             <Text>Last Name</Text>
-            <TextInput 
-            style={{height: 40, width:150}}
-            placeholder="Your last name"
-            defaultValue={props.last_name}
-            onChangeText={text => props.handleLastNameChange(text)}
+            <TextInput
+                style={signUpComponent.signUpInputText}
+                placeholder="Your last name"
+                defaultValue={props.last_name}
+                onChangeText={text => props.handleLastNameChange(text)}
             />
             <Text>
                 Email
             </Text>
             <TextInput
-                style={{height: 40, width: 150}}
+                style={signUpComponent.signUpInputText}
                 placeholder="abc@gmail.com"
                 defaultValue={props.email}
                 onChangeText={text => props.handleEmailChange(text)}
@@ -36,7 +36,7 @@ const SignUpForm = (props) => {
                 Password
             </Text>
             <TextInput
-                style={{height: 40, width: 150}}
+                style={signUpComponent.signUpInputText}
                 placeholder="password"
                 defaultValue={props.password}
                 onChangeText={text => props.handlePasswordChange(text)}
@@ -44,12 +44,11 @@ const SignUpForm = (props) => {
             <Text>
                 Type
             </Text>
-            <TextInput
-                style={{height: 40, width: 150}}
-                placeholder="type"
-                defaultValue={props.type}
-                onChangeText={text => props.handleTypeChange(text)}
-            />
+            <Picker selectedValue = {props.type} onValueChange = {value => props.handleTypeChange(value)}>
+               <Picker.Item label = "Homeowner" value = "HOMEOWNER" />
+               <Picker.Item label = "Contractor" value = "CONTRACTOR" />
+               <Picker.Item label = "Inspector" value = "INSPECTOR" />
+            </Picker>
             <Button
                 title="Sign up"
                 onPress={() => props.handleSignUp()}

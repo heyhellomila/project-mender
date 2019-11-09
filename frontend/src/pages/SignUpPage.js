@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import SignUpForm  from '../components/SignUpForm';
 import { signUp } from '../apis/users/SignUp'
-import { styles } from '../stylesheets/Stylesheet';
+import { signUpComponent } from '../stylesheets/Stylesheet';
 
 export default class SignUpPage extends React.Component {
   constructor(props) {
@@ -53,14 +53,10 @@ export default class SignUpPage extends React.Component {
   handleSignUp = async() => {
     this.setState({ submitting: true })
     try {
-      alert('poop')
       await signUp(this.state.email, this.state.password, this.state.first_name, this.state.last_name, this.state.type).then(async (response) => {
-        alert('JAMAL')
-        alert(JSON.stringify(response))
         this.props.navigation.navigate('LogInPage')
       });
     } catch (err) {
-      alert(err)
       this.setState({error: true, submitting: false, errorMsg: err.message})
     }
   }
@@ -68,17 +64,18 @@ export default class SignUpPage extends React.Component {
   render() {
     var {submitting} = this.state;
     return (
-      <View style={{flex:1, alignItems: 'center',
-      justifyContent: 'center'}}>
-          <Text>Sign Up Here</Text>
+      <View style={signUpComponent.signUpPageComponent}>
+        <View style={{width: '50%'}}>
+          <Text style={{alignSelf:'center'}}>Sign Up Here</Text>
           {submitting 
           ? <Text>Loading...</Text>
-          : <SignUpForm {...this.state} 
+          : <SignUpForm  {...this.state} 
             handleEmailChange={this.handleEmailChange} 
             handlePasswordChange={this.handlePasswordChange} handleFirstNameChange={this.handleFirstNameChange}
             handleLastNameChange={this.handleLastNameChange} handleTypeChange={this.handleTypeChange}
             handleSignUp={this.handleSignUp}/>
         }
+        </View>
       </View>
     );
   }
