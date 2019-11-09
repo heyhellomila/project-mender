@@ -10,13 +10,14 @@ export const authenticate = (token) => async dispatch => {
             dispatch(error('Error'));
             dispatch(loading(false));
         }
-        const {data} = await getUser(userId); 
-        if (!data) {
-            dispatch(error('Error'));
+        await getUser(userId).then((response) => {
+            if (!response.data) {
+                dispatch(error('Error'));
+                dispatch(loading(false));
+            }
+            dispatch(login(response.data));
             dispatch(loading(false));
-        }
-        dispatch(login(data));
-        dispatch(loading(false));
+        })
     }).catch((err) => {
         dispatch(error(err.message || 'ERROR'));
         dispatch(loading(false));

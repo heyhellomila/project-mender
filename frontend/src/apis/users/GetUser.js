@@ -20,9 +20,7 @@ api.interceptors.response.use(async (response) => {
 });
 
 export async function getUser(id) {	
-    return await api({	
-        method: 'get',	
-        url: `/users/${id}`,	
+    return await api.get(`/users/${id}`, {	
         headers: {	
             'Authorization': await AsyncStorage.getItem('Authorization')	
         }	
