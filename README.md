@@ -4,6 +4,11 @@
 Home Maintenance Application
 
 
+![CircleCI](https://img.shields.io/circleci/build/github/milaroisin/project-mender/master?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/milaroisin/project-mender?style=for-the-badge)
+![License](https://img.shields.io/github/license/milaroisin/project-mender?color=blue&style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/milaroisin/project-mender?color=purple&style=for-the-badge)
+
 
 
 
