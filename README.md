@@ -1,14 +1,14 @@
 [![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg&circle-token=161d9b3dbb9771c1b5168d8b7ef2e8a2dbef19bf)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
 
-# project-mender
-Home Maintenance Application
-
+# Project Mender
 
 ![CircleCI](https://img.shields.io/circleci/build/github/milaroisin/project-mender/master?style=for-the-badge)
+![CommitActivity](https://img.shields.io/github/last-commit/milaroisin/project-mender?color=lightgrey&style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/milaroisin/project-mender?style=for-the-badge)
-![License](https://img.shields.io/github/license/milaroisin/project-mender?color=blue&style=for-the-badge)
-![Stars](https://img.shields.io/github/stars/milaroisin/project-mender?color=purple&style=for-the-badge)
+![License](https://img.shields.io/github/license/milaroisin/project-mender?color=ultraviolet&style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/milaroisin/project-mender?color=blue&style=for-the-badge)
 
+![CompanyLogo](https://raw.githubusercontent.com/milaroisin/project-mender/readme/CourseAdmin/mender-logo.jpg)
 
 
 
@@ -20,6 +20,7 @@ This web application uses the following technologies:
 
 ```
 node --version
+npm --version
 ```
 
 ### Installing Dependencies
