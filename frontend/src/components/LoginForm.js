@@ -2,11 +2,10 @@ import React from 'react';
 import { Text, TextInput, View, Button } from 'react-native';
 
 const LoginForm = (props) => {
-    var errorMsg = <Text>Invalid username or password.</Text>
     return (
         <View>
             {props.error 
-                ? errorMsg
+                ? <Text>{props.errorMsg}</Text>
                 : null
             }
             <Text>
