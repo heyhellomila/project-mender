@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Picker, Text, TextInput, Switch, Button, KeyboardAvoidingView } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder'
 import { connect } from 'react-redux';
 import { workOrderPage } from '../stylesheets/WorkOrderPageStyleSheet'
@@ -145,21 +146,22 @@ class WorkOrderPage extends React.Component {
                     </View>
                     <View style={workOrderPage.individualContainer}>
                         <View style={workOrderPage.textOnWhite}>  
-                        <Picker selectedValue = {this.state.sector} style={workOrderPage.pickerComponent} onValueChange = {this.handleSector}>
-                            <Picker.Item label='Roof' value='ROOF' />
-                            <Picker.Item label='Kitchen' value='KITCHEN' />
-                            <Picker.Item label='Utilities' value='UTILITIES' />
-                            <Picker.Item label='Living Room' value='LIVINGROOM' />
-                            <Picker.Item label='Bathroom' value='BATHROOM' />
-                            <Picker.Item label='Appliances' value='APPLIANCES' />
-                            <Picker.Item label='Bedroom' value='BEDROOM' />
-                            <Picker.Item label='Balcony' value='BALCONY' />
-                            <Picker.Item label='Garage' value='GARAGE' />
-                            <Picker.Item label='Envelope' value='ENVELOPE' />
-                            <Picker.Item label='Electrical' value='ELECTRICAL' />
-                            <Picker.Item label='HVAC' value='HVAC' />
-                            <Picker.Item label='other' value='OTHER' />
-                        </Picker>
+                            <RNPickerSelect value = {this.state.sector} style={workOrderPage.pickerComponent} onValueChange = {this.handleSector}
+                                items={[
+                                    { label: 'Kitchen', value: 'KITCHEN' },
+                                    { label: 'Utilities', value: 'UTILITIES' },
+                                    { label: 'Living Room', value: 'LIVINGROOM' },
+                                    { label: 'Bathroom', value: 'BATHROOM' },
+                                    { label: 'Appliances', value: 'APPLIANCES' },
+                                    { label: 'Bedroom', value: 'BEDROOM' },
+                                    { label: 'Balcony', value: 'BALCONY' },
+                                    { label: 'Garage', value: 'GARAGE' },
+                                    { label: 'Envelope', value: 'ENVELOPE' },
+                                    { label: 'Electrical', value: 'ELECTRICAL' },
+                                    { label: 'HVAC', value: 'HVAC' },
+                                    { label: 'Other', value: 'OTHER' }
+                                ]}
+                            />
                         </View>
                     </View>
                 </View>
@@ -191,10 +193,10 @@ class WorkOrderPage extends React.Component {
                         <Text style={workOrderPage.textOnBlue}>Service needed?</Text>
                     </View>
                     <View style={workOrderPage.individualContainer}>
-                    <Switch 
-                        style={{alignSelsf:'center'}}
-                        onValueChange = {this.toggleServiceNeeded}
-                        value = {this.state.service_needed}/>
+                        <Switch 
+                            style={{alignSelf:'center'}}
+                            onValueChange = {this.toggleServiceNeeded}
+                            value = {this.state.service_needed}/>
                     </View>
                 </View>
 
@@ -204,19 +206,27 @@ class WorkOrderPage extends React.Component {
                     </View>
                     <View style={workOrderPage.individualContainer}>
                         <View style={workOrderPage.textOnWhite}>  
-                        <Picker selectedValue = {this.state.priority} onValueChange = {this.handlePriority}>
-                            <Picker.Item label='LOW' value='LOW' />
-                            <Picker.Item label='MEDIUM' value='MEDIUM' />
-                            <Picker.Item label='HIGH' value='HIGH' />
-                        </Picker>
+                        <RNPickerSelect value = {this.state.priority} style={workOrderPage.pickerComponent} onValueChange = {this.handlePriority}
+                            items={[
+                                { label: 'LOW', value: 'LOW' },
+                                { label: 'MEDIUM', value: 'MEDIUM' },
+                                { label: 'HIGH', value: 'HIGH' }
+                            ]}
+                        />
                         </View>    
                     </View>
                 </View>
-
-                <TextInput  
-                    style={{width:230, height: 100, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
-                    placeholder = 'Notes/additional information'
-                    onChangeText = {this.handleDescription}/>
+                
+                <View style={workOrderPage.rowContainer}>
+                    <TextInput  
+                        style={workOrderPage.notesInput}
+                        placeholder = 'Notes/additional information'
+                        onChangeText = {this.handleDescription}/>
+                </View>
+                <Button 
+                    style={{alignSelf:'flex-end', position:'absolute', width: 100}}
+                    title='Done'
+                    onPress ={this.handleWorkOrder}/>
             </KeyboardAvoidingView>
         );
     }
