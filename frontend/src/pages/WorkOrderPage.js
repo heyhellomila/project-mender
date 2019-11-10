@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Picker, Text, TextInput, Switch, Button } from 'react-native';
+import { View, Picker, Text, TextInput, Switch, Button, KeyboardAvoidingView } from 'react-native';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder'
 import { connect } from 'react-redux';
 
@@ -7,7 +7,7 @@ class WorkOrderPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            property_id: '',
+            property_id: '5db9ee23349a0b4244e7693a',
             sector: 'ROOF',
             type: 'IMP', 
             title: '', 
@@ -26,6 +26,7 @@ class WorkOrderPage extends React.Component {
     handleWorkOrder = async() => {
         try {
             await createWorkOrder(
+                this.state.property_id,
                 this.state.sector,
                 this.state.type,
                 this.state.title,
@@ -42,7 +43,8 @@ class WorkOrderPage extends React.Component {
                     })
                     });
         } catch (err) {
-            alert('' + this.state.sector + ' ' +
+            alert('' + this.state.property_id + ' ' + 
+                this.state.sector + ' ' +
                 this.state.type + ' ' + 
                 this.state.title + ' ' + 
                 this.state.cause + ' ' + 
@@ -118,8 +120,9 @@ class WorkOrderPage extends React.Component {
     
     render() {
         return (
+            
             //buttonFunction={() => this.props.navigation.goBack(null)
-            <View style={styles.elementsContainer}>
+            <KeyboardAvoidingView style={styles.elementsContainer} behavior="position" enabled>
                 <Button 
                 style={{alignSelf:'flex-end', position:'absolute', width: 100}}
                 title='close'
@@ -219,7 +222,7 @@ class WorkOrderPage extends React.Component {
                     style={{alignSelf:'flex-end', position:'absolute', width: 100}}
                     title='Done'
                     onPress ={this.handleWorkOrder}/>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
