@@ -1,9 +1,11 @@
-const chai = require('chai');
-const expect = chai.expect;
+const assert  = require('assert');
 
-describe('smoke test', function() {
-  it('checks equality', function() {
-    expect(true).to.be.true;
+const pluralize = require('../lib/example').pluralize;
+
+describe('example', function () {
+  describe('pluralize', function () {
+    it('keeps singular when count is 1', function () {
+      assert.strictEqual(pluralize(1, 'cat'), '1 cat');
+    });
   });
 });
-
