@@ -23,14 +23,15 @@ This web application uses the following technologies:
 -   _MongoDB_, a cross-platform document-oriented database
 -   _React Native_, an application framework
 -   _Expo, a framework and platform for React applications.
-```
-node --version
-npm --version
-```
 
 ### Installing Dependencies
 
 Before starting, make sure you have working versions of npm (6.12+) and Node (12.9.0+).
+
+```
+node --version
+npm --version
+```
 
 ### Database Set Up
 
