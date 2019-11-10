@@ -34,6 +34,13 @@ class DrawerComponent extends Component {
                 <ScrollView style={{ flex: 3, marginBottom: '50%' }}>
                     <PropertyComponent />
                 </ScrollView>
+                <View style={{ flex: 1 }}>
+                    <View style={{alignSelf:'flex-end', width:'50%'}}>
+                        <Button 
+                            title='Add Property'
+                        />
+                    </View>
+                </View>
                 <ScrollView>
                     <DrawerItems {...this.props} />
                 </ScrollView>
