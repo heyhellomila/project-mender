@@ -8,9 +8,6 @@
 ![BeerPay](https://img.shields.io/beerpay/milaroisin/project-mender?color=9cf&style=for-the-badge)
 ![CompanyLogo](https://raw.githubusercontent.com/milaroisin/project-mender/readme/mender-logo.jpg)
 
-<<<<<<< HEAD
-# project-mender
-
 Home Maintenance Application
 =======
 
@@ -71,4 +68,4 @@ npm start
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
 Note that both servers must be running as separate processes for the application to function.
->>>>>>> master
+
