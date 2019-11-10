@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native'
+import { StyleSheet} from 'react-native';
 
 const drawerComponent = StyleSheet.create({ 
     container: {
@@ -34,6 +34,6 @@ const drawerComponent = StyleSheet.create({
         paddingBottom: '1%'
     }
 
-})
+});
 
 export { drawerComponent };

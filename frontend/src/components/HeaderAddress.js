@@ -8,7 +8,7 @@ class HeaderAddress extends Component {
         super(props);
         this.state = {
             property: props.property
-        }
+        };
     }
 
     render() {
@@ -19,11 +19,11 @@ class HeaderAddress extends Component {
                     : null
                 }
             </View>
-        )
+        );
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     property: state.property.property,
     user: state.user.user
 });

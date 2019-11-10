@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { getPropertiesByUser } from '../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
-import { selectProperty } from '../redux/actions'
+import { selectProperty } from '../redux/actions';
 import { propertyList } from '../stylesheets/PropertyListStyleSheet';
 import { DrawerItems } from 'react-navigation-drawer';
 
@@ -12,26 +12,26 @@ class PropertyComponent extends Component {
         this.state = {
             properties: [],
             property: this.props.property
-        }
+        };
     }
 
     async componentDidMount() {
         await getPropertiesByUser(this.props.user.user._id)
-            .then(res => {
+            .then((res) => {
                 this.setState({
-                    properties: res.data.map(property => ({
+                    properties: res.data.map((property) => ({
                         id: property._id,
                         name: property.name,
                         address: property.address,
                     }))
                 }, () => {
                     if (this.state.properties.length > 0) {
-                        this.props.selectProperty(this.state.properties[0])
+                        this.props.selectProperty(this.state.properties[0]);
                     }
-                })
-            }).catch(error => {
-                alert(error)
-        })
+                });
+            }).catch((error) => {
+                alert(error);
+        });
     }
 
     renderPropertyList() {
@@ -51,7 +51,7 @@ class PropertyComponent extends Component {
                     </TouchableOpacity>
                 ))}
             </View>
-        )
+        );
     }
 
     render() {
@@ -59,11 +59,11 @@ class PropertyComponent extends Component {
             <View>
                 {this.renderPropertyList()}
             </View>
-        )
+        );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     selectProperty: (property) => dispatch(selectProperty(property))
 });
 
