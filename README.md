@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/github/license/milaroisin/project-mender?color=ultraviolet&style=for-the-badge)
 ![Stars](https://img.shields.io/github/stars/milaroisin/project-mender?color=blue&style=for-the-badge)
 ![BeerPay](https://img.shields.io/beerpay/milaroisin/project-mender?color=9cf&style=for-the-badge)
-![CompanyLogo](https://raw.githubusercontent.com/milaroisin/project-mender/readme/CourseAdmin/mender-logo.jpg)
+![CompanyLogo](https://drive.google.com/file/d/1iZnfer5xu1um5BJ6pGR6dVIyBsqsAri0/view?usp=sharing)
 
 A home renovation & maintenance application for homeowners where users are will then be able to create work orders for corrective and preventive maintenance work aimed specifically for the Quebec markets. Every home purchase is required to be catalogued and pass under strict inspection standards that are set by provincial and regional requirements. However, the results of the inspection are too long-winded and are not easily translatable for the client. This application aims to condense, summarize and interpret the results in a visually appealing manner for the client to understand their home better. With this in mind, the homeowner will be able to create and track work orders for corrective and preventive maintenance.
 
