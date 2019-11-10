@@ -17,7 +17,10 @@ const styles = StyleSheet.create({
         marginTop: '30%',
         flex: 1,
         justifyContent: 'center'
-    },
+    }, propertyContainer: {
+        height: 50
+    }
+
 })
 
 const loginComponent = StyleSheet.create({
@@ -132,6 +135,24 @@ const buttons = StyleSheet.create({
         width: '50%',
         alignSelf: 'center',
         borderRadius: 25
+    },
+    buttonProperty: {
+        marginRight:0,
+        marginLeft:0,
+        marginTop: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor:'#f5f5f5',
+        borderRadius: 0,
+        height: 50
+    },
+    buttonTextProperty: {
+        textAlign:'center',
+        alignSelf: 'center',
+        paddingLeft : 0,
+        paddingRight : 0,
+        marginBottom: 10,
+        fontSize: 20
     }
 })
 
