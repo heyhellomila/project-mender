@@ -33,7 +33,7 @@ node --version
 npm --version
 ```
 
-### Database Set Up
+### Package Set Up
 
 Necessary dependencies must be installed for both parts of the application.
 
