@@ -25,9 +25,9 @@ class PropertyComponent extends Component {
                     }))
                 }, () => {
                     if (this.state.properties.length > 0) {
-                        this.props.selectProperty(this.state.properties[0])
+                        this.props.selectProperty(this.state.properties[0]);
                     }
-                })
+                });
             }).catch((error) => {
                 alert(error);
         });
@@ -50,7 +50,7 @@ class PropertyComponent extends Component {
                     </TouchableOpacity>
                 ))}
             </View>
-        )
+        );
     }
 
     render() {
@@ -62,7 +62,7 @@ class PropertyComponent extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     selectProperty: (property) => dispatch(selectProperty(property))
 });
 
