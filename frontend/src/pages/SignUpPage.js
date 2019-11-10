@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import SignUpForm  from '../components/SignUpForm';
-import { register } from '../apis/users/Register'
+import { register } from '../apis/users/Register';
 import { signUpComponent } from '../stylesheets/Stylesheet';
 import validator from 'validator';
-import passwordValidator from '../utils/PasswordUtils'
+import passwordValidator from '../utils/PasswordUtils';
 
 export default class SignUpPage extends React.Component {
   constructor(props) {
@@ -36,8 +36,9 @@ export default class SignUpPage extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.validFormInputs == true && this.state.submitting == true)
+    if (this.state.validFormInputs == true && this.state.submitting == true) {
       this.registerUser();
+    }
     else if (this.state.validFormInputs == false && this.state.submitting == true) {
       this.setState({ submitting: false });
       if (this.state.errorMsg.length > 0) {
@@ -50,49 +51,49 @@ export default class SignUpPage extends React.Component {
     title: 'Sign Up',
   };
 
-  handleEmailChange = event => {
-    this.setState({email: event})
+  handleEmailChange = (event) => {
+    this.setState({email: event});
   }
 
-  handlePasswordChange = event => {
-    this.setState({password: event})
+  handlePasswordChange = (event) => {
+    this.setState({password: event});
   }
 
-  handleConfirmPasswordChange = event => {
-    this.setState({confirmPassword: event})
+  handleConfirmPasswordChange = (event) => {
+    this.setState({confirmPassword: event});
   }
 
-  handleFirstNameChange = event => {
-    this.setState({firstName: event})
+  handleFirstNameChange = (event) => {
+    this.setState({firstName: event});
   }
 
-  handleLastNameChange = event =>{
-    this.setState({lastName: event})
+  handleLastNameChange = (event) =>{
+    this.setState({lastName: event});
   }
 
-  handleTypeChange = event =>{
-    this.setState({type: event})
+  handleTypeChange = (event) =>{
+    this.setState({type: event});
   }
 
   validateFields = () => {
     if (!this.state.firstName) {
-      this.setState({validFormInputs: false, validFirstName: false})
+      this.setState({validFormInputs: false, validFirstName: false});
     }
     if (!this.state.lastName) {
-      this.setState({validFormInputs: false, validLastName: false})
+      this.setState({validFormInputs: false, validLastName: false});
     }    
     if (this.state.password !== this.state.confirmPassword) {
       this.setState({validFormInputs: false, validPasswordMatch: false, 
-        errorMsg: 'Passwords entered do not match.'})
+        errorMsg: 'Passwords entered do not match.'});
     }
     if (!passwordValidator.validate(this.state.password)) {
       this.setState({validFormInputs: false, validPassword: false, 
         errorMsg: 'Password must be at least 8 characters, and must include at least one ' +
-          'number and at least one letter.'})
+          'number and at least one letter.'});
     }
     if (!validator.isEmail(this.state.email)) {
       this.setState({ validFormInputs: false, validEmail: false, 
-        errorMsg: 'Invalid email address.'})
+        errorMsg: 'Invalid email address.'});
     }
   }
 
@@ -100,10 +101,10 @@ export default class SignUpPage extends React.Component {
     try {
       await register(this.state.email, this.state.password, this.state.firstName, 
         this.state.lastName, this.state.type).then(() => {
-          this.props.navigation.navigate('LogInPage')
+          this.props.navigation.navigate('LogInPage');
       });
     } catch (err) {
-      this.setState({submitting: false, errorMsg: err.message})
+      this.setState({submitting: false, errorMsg: err.message});
       alert(this.state.errorMsg);
     }
   }
@@ -111,7 +112,7 @@ export default class SignUpPage extends React.Component {
   handleRegister = async() => {
     this.setState({ submitting: true, validFormInputs: true, errorMsg: '', 
       validFirstName: true, validLastName: true, validEmail: true, 
-      validPassword: true, validPasswordMatch: true })
+      validPassword: true, validPasswordMatch: true });
 
     this.validateFields();
   }

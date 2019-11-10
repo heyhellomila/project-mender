@@ -135,4 +135,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, loginComponent, jobListTable, headerStyles, signUpComponent } 
+export { styles, buttons, loginComponent, jobListTable, headerStyles, signUpComponent };
