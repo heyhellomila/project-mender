@@ -8,13 +8,18 @@ class HeaderButton extends Component {
         super(props);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.user == null) {
+            return false;
+        } 
+    }
+
     render() {
         return (
             <View>
-                {this.props.user
-                    ? <Button title={this.props.user.first_name[0]} onPress={() => this.props.navigation.openDrawer()}></Button>
-                    : <Button onPress={() => this.props.navigation.openDrawer()}></Button>
-                }
+                <Button title={this.props.user.first_name[0]} 
+                    onPress={() => this.props.navigation.openDrawer()}>
+                </Button>
             </View>
         );
     }
