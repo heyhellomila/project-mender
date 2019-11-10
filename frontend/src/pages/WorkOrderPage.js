@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Picker, Text, TextInput, Switch, Button, KeyboardAvoidingView } from 'react-native';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder'
 import { connect } from 'react-redux';
+import { workOrderPage } from '../stylesheets/WorkOrderPageStyleSheet'
 
 class WorkOrderPage extends React.Component {
     constructor(props){
@@ -104,19 +105,19 @@ class WorkOrderPage extends React.Component {
 
     correctiveStyle = function() {
         if(this.state.type == 'CM'){
-            return styles.selectedGray;
+            return workOrderPage.selectedGray;
         }
         else{
-            return styles.unselectedGray;
+            return workOrderPage.unselectedGray;
         }
     }
 
     preventiveStyle = function() {
         if(this.state.type == 'PM'){
-            return styles.selectedGray;
+            return workOrderPage.selectedGray;
         }
         else{
-            return styles.unselectedGray;
+            return workOrderPage.unselectedGray;
         }
     }
     
@@ -124,31 +125,31 @@ class WorkOrderPage extends React.Component {
         return (
             
             //buttonFunction={() => this.props.navigation.goBack(null)
-            <KeyboardAvoidingView style={styles.elementsContainer} behavior="position" enabled>
+            <KeyboardAvoidingView style={workOrderPage.elementsContainer} behavior="position" enabled>
                 <Button 
                 style={{alignSelf:'flex-end', position:'absolute', width: 100}}
                 title='close'
                 onPress ={() => this.props.navigation.goBack(null)}/>
-            <Text style={styles.headerStyle}>Work Order</Text>
-            <Text style={styles.subHeaderStyle}>Property Number and Property Address</Text>
-                <View style={styles.rowContainer}>
-                    <View style={styles.individualContainer}>
+            <Text style={workOrderPage.headerStyle}>Work Order</Text>
+            <Text style={workOrderPage.subHeaderStyle}>Property Number and Property Address</Text>
+                <View style={workOrderPage.rowContainer}>
+                    <View style={workOrderPage.individualContainer}>
                         <Text style = {this.correctiveStyle()}
                            onPress = {this.toggleCorrective} >Corrective</Text>
                     </View>
-                    <View style={styles.individualContainer}>
+                    <View style={workOrderPage.individualContainer}>
                         <Text style={this.preventiveStyle()}
                             onPress = {this.togglePreventive}>Preventive</Text>
                     </View>
                 </View>
 
-                <View style={styles.rowContainer}>
-                    <View style={styles.individualContainer}>
-                        <Text style={styles.textOnBlue}>Sector</Text>
+                <View style={workOrderPage.rowContainer}>
+                    <View style={workOrderPage.individualContainer}>
+                        <Text style={workOrderPage.textOnBlue}>Sector</Text>
                     </View>
-                    <View style={styles.individualContainer}>
-                        <View style={styles.textOnWhite}>  
-                        <Picker selectedValue = {this.state.sector} onValueChange = {this.handleSector}>
+                    <View style={workOrderPage.individualContainer}>
+                        <View style={workOrderPage.textOnWhite}>  
+                        <Picker selectedValue = {this.state.sector} style={workOrderPage.pickerComponent} onValueChange = {this.handleSector}>
                             <Picker.Item label='Roof' value='ROOF' />
                             <Picker.Item label='Kitchen' value='KITCHEN' />
                             <Picker.Item label='Utilities' value='UTILITIES' />
@@ -167,33 +168,33 @@ class WorkOrderPage extends React.Component {
                     </View>
                 </View>
 
-                <View style={styles.rowContainer}>
-                    <View style={styles.individualContainer}>
-                        <Text style={styles.textOnBlue}>Title</Text>
+                <View style={workOrderPage.rowContainer}>
+                    <View style={workOrderPage.individualContainer}>
+                        <Text style={workOrderPage.textOnBlue}>Title</Text>
                     </View>
-                    <View style={styles.individualContainer}>
-                        <TextInput style = {styles.textOnWhite}
+                    <View style={workOrderPage.individualContainer}>
+                        <TextInput style = {workOrderPage.textOnWhite}
                             placeholder = 'title'
                             onChangeText = {this.handleTitle}/>
                     </View>
                 </View>
 
-                <View style={styles.rowContainer}>
-                    <View style={styles.individualContainer}>
-                        <Text style={styles.textOnBlue}>Cause</Text>
+                <View style={workOrderPage.rowContainer}>
+                    <View style={workOrderPage.individualContainer}>
+                        <Text style={workOrderPage.textOnBlue}>Cause</Text>
                     </View>
-                    <View style={styles.individualContainer}>
-                        <TextInput style={styles.textOnWhite}
+                    <View style={workOrderPage.individualContainer}>
+                        <TextInput style={workOrderPage.textOnWhite}
                             placeholder = 'cause'
                             onChangeText = {this.handleCause}/>
                     </View>
                 </View>
                 
-                <View style={styles.rowContainer}>
-                    <View style={styles.individualContainer}>
-                        <Text style={styles.textOnBlue}>Service needed?</Text>
+                <View style={workOrderPage.rowContainer}>
+                    <View style={workOrderPage.individualContainer}>
+                        <Text style={workOrderPage.textOnBlue}>Service needed?</Text>
                     </View>
-                    <View style={styles.individualContainer}>
+                    <View style={workOrderPage.individualContainer}>
                     <Switch 
                         style={{alignSelsf:'center'}}
                         onValueChange = {this.toggleServiceNeeded}
@@ -201,12 +202,12 @@ class WorkOrderPage extends React.Component {
                     </View>
                 </View>
 
-                <View style={styles.rowContainer}>
-                    <View style={styles.individualContainer}>
-                        <Text style={styles.textOnBlue}>Urgency</Text>
+                <View style={workOrderPage.rowContainer}>
+                    <View style={workOrderPage.individualContainer}>
+                        <Text style={workOrderPage.textOnBlue}>Urgency</Text>
                     </View>
-                    <View style={styles.individualContainer}>
-                        <View style={styles.textOnWhite}>  
+                    <View style={workOrderPage.individualContainer}>
+                        <View style={workOrderPage.textOnWhite}>  
                         <Picker selectedValue = {this.state.priority} onValueChange = {this.handlePriority}>
                             <Picker.Item label='LOW' value='LOW' />
                             <Picker.Item label='MEDIUM' value='MEDIUM' />
@@ -234,69 +235,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, null)(WorkOrderPage);
-
-const styles = {
-    headerStyle: {
-      fontSize: 36,
-      textAlign: 'center',
-      fontWeight: '100',
-      marginTop: 24,
-      marginBottom: 10
-    },
-    subHeaderStyle: {
-        fontSize: 13, 
-        alignSelf: 'center'
-    },
-    elementsContainer: {
-      flex: 1,
-      backgroundColor: '#ecf5fd',
-      marginLeft: 24,
-      marginRight: 24,
-      marginBottom: 24,
-      marginTop: 24
-    },
-    rowContainer: {
-        flexDirection: 'row', 
-        alignSelf: 'center',
-        marginBottom: 20
-    },
-    individualContainer: {
-        height: 50, 
-        justifyContent: 'center'
-    },
-    selectedGray:{
-        fontSize: 24,
-        width: 120,
-        textAlign: 'center', 
-        backgroundColor: '#a3a3a3', 
-        borderRadius: 5,
-        marginRight: 30,
-        marginLeft: 30
-    },
-    unselectedGray:{
-        fontSize: 24,
-        width: 120,
-        textAlign: 'center', 
-        backgroundColor: '#cccccc', 
-        borderRadius: 5,
-        marginRight: 30,
-        marginLeft: 30
-    },
-    textOnBlue:{
-        fontSize: 24,
-        width: 130,
-        textAlign: 'center', 
-        backgroundColor: '#00ace6', 
-        borderRadius: 5,
-        marginRight: 15
-    },
-    textOnWhite:{
-        fontSize: 24,
-        width: 130,
-        textAlign: 'center', 
-        backgroundColor: '#ffffff', 
-        borderRadius: 5,
-        marginLeft: 15
-    }
-    
-}
