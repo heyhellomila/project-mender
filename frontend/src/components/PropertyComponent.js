@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import { View, Button } from 'react-native';
+import { View, Button, Text, TouchableOpacity } from 'react-native';
 import { getPropertiesByUser } from '../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
+import { buttons, styles } from '../stylesheets/Stylesheet';
 
 class PropertyComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            properties: []
+            properties: [],
+            onPress: false
         }
     }
 
@@ -26,11 +28,19 @@ class PropertyComponent extends Component {
             })
     }
 
-    RenderPropertyList() {
+    handleButtonOnPress = () => {
+        this.setState({
+            onPress: true
+        })
+    }
+
+    renderPropertyList() {
         return (
             <View>
                 {this.state.properties.map(property => (
-                    <Button key={property.id} title={property.name} onPress={() => {}}></Button>
+                    <TouchableOpacity style={buttons.buttonProperty} underlayColor="#fff" onPress={() => {}}>
+                        <Text key={property.id} style={buttons.buttonTextProperty} suppressHighlighting={true}>{property.name}</Text>
+                    </TouchableOpacity>
                 ))}
             </View>
         )
@@ -39,7 +49,7 @@ class PropertyComponent extends Component {
     render() {
         return (
             <View>
-                {this.RenderPropertyList()}
+                {this.renderPropertyList()}
             </View>
         )
     }

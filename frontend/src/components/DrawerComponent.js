@@ -5,6 +5,7 @@ import { userLogout } from '../redux/actions';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import PropertyComponent from './PropertyComponent';
+import { styles } from '../stylesheets/Stylesheet';
 
 const menderLogo = require('../../assets/menderlogo.png');
 
@@ -25,13 +26,14 @@ class DrawerComponent extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex: 1, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
-                <View style={{ flex: 2, height: 150, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={menderLogo} style={{ height: 100, width: 100 }} />
+                <View style={{ flex: 1, height: 150, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+                    <Image source={menderLogo} style={{ height: 50, width: 50 }} />
                     <Text>{this.state.user.firstName} {this.state.user.lastName}</Text>
                 </View>
-                <View style={{ flex: 3 }}>
+                <Text style={styles.propertyHeader}>My Properties</Text>
+                <ScrollView style={{ flex: 3, marginBottom: '50%' }}>
                     <PropertyComponent />
-                </View>
+                </ScrollView>
                 <ScrollView>
                     <DrawerItems {...this.props} />
                 </ScrollView>
