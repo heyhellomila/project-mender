@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import SignUpForm  from '../components/SignUpForm';
-import { signUp } from '../apis/users/SignUp'
+import { register } from '../apis/users/Register'
 import { signUpComponent } from '../stylesheets/Stylesheet';
+import validator from 'validator';
+import passwordValidator from '../utils/PasswordUtils'
 
 export default class SignUpPage extends React.Component {
   constructor(props) {
@@ -10,22 +12,40 @@ export default class SignUpPage extends React.Component {
     this.state = {
       email: '', 
       password: '',
-      first_name: '',
-      last_name: '',
-      type: '',
+      confirmPassword: '',
+      firstName: '',
+      lastName: '',
+      type: 'HOMEOWNER',
       submitting: false,
-      error: false,
-      errorMsg: ''
+      errorMsg: '',
+      validEmail: true,
+      validPassword: true,
+      validFirstName: true,
+      validLastName: true,
+      validPasswordMatch: true,
+      validFormInputs: true
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
-
-    this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
+
+  componentDidUpdate() {
+    if (this.state.validFormInputs == true && this.state.submitting == true)
+      this.registerUser();
+    else if (this.state.validFormInputs == false && this.state.submitting == true) {
+      this.setState({ submitting: false });
+      if (this.state.errorMsg.length > 0) {
+        alert(this.state.errorMsg);
+      }
+    }
+  }
+  
   static navigationOptions = {
     title: 'Sign Up',
   };
@@ -38,27 +58,62 @@ export default class SignUpPage extends React.Component {
     this.setState({password: event})
   }
 
+  handleConfirmPasswordChange = event => {
+    this.setState({confirmPassword: event})
+  }
+
   handleFirstNameChange = event => {
-    this.setState({first_name: event})
+    this.setState({firstName: event})
   }
 
   handleLastNameChange = event =>{
-    this.setState({last_name: event})
+    this.setState({lastName: event})
   }
 
   handleTypeChange = event =>{
     this.setState({type: event})
   }
 
-  handleSignUp = async() => {
-    this.setState({ submitting: true })
+  validateFields = () => {
+    if (!this.state.firstName) {
+      this.setState({validFormInputs: false, validFirstName: false})
+    }
+    if (!this.state.lastName) {
+      this.setState({validFormInputs: false, validLastName: false})
+    }    
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({validFormInputs: false, validPasswordMatch: false, 
+        errorMsg: 'Passwords entered do not match.'})
+    }
+    if (!passwordValidator.validate(this.state.password)) {
+      this.setState({validFormInputs: false, validPassword: false, 
+        errorMsg: 'Password must be at least 8 characters, and must include at least one ' +
+          'number and at least one letter.'})
+    }
+    if (!validator.isEmail(this.state.email)) {
+      this.setState({ validFormInputs: false, validEmail: false, 
+        errorMsg: 'Invalid email address.'})
+    }
+  }
+
+  registerUser = async() => {
     try {
-      await signUp(this.state.email, this.state.password, this.state.first_name, this.state.last_name, this.state.type).then(async (response) => {
-        this.props.navigation.navigate('LogInPage')
+      await register(this.state.email, this.state.password, this.state.firstName, 
+        this.state.lastName, this.state.type).then(() => {
+          this.props.navigation.navigate('LogInPage')
       });
     } catch (err) {
-      this.setState({error: true, submitting: false, errorMsg: err.message})
+      this.setState({submitting: false, errorMsg: err.message})
+      alert(this.state.errorMsg);
     }
+  }
+
+  handleRegister = async() => {
+    this.setState({ submitting: true, validFormInputs: true, errorMsg: '', 
+      validFirstName: true, validLastName: true, validEmail: true, 
+      validPassword: true, validPasswordMatch: true })
+
+    this.validateFields();
   }
 
   render() {
@@ -66,14 +121,16 @@ export default class SignUpPage extends React.Component {
     return (
       <View style={signUpComponent.signUpPageComponent}>
         <View style={{width: '50%'}}>
-          <Text style={{alignSelf:'center'}}>Sign Up Here</Text>
+          <View style={signUpComponent.headerView}>
+            <Text style={signUpComponent.header}>Sign Up</Text>
+          </View>
           {submitting 
           ? <Text>Loading...</Text>
           : <SignUpForm  {...this.state} 
             handleEmailChange={this.handleEmailChange} 
-            handlePasswordChange={this.handlePasswordChange} handleFirstNameChange={this.handleFirstNameChange}
-            handleLastNameChange={this.handleLastNameChange} handleTypeChange={this.handleTypeChange}
-            handleSignUp={this.handleSignUp}/>
+            handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange} 
+            handleFirstNameChange={this.handleFirstNameChange} handleLastNameChange={this.handleLastNameChange} 
+            handleTypeChange={this.handleTypeChange} handleRegister={this.handleRegister}/>
         }
         </View>
       </View>

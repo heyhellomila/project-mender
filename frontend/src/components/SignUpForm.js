@@ -1,58 +1,79 @@
 import React from 'react';
-import { Text, TextInput, View, Button, Picker } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Picker } from 'react-native';
 import { signUpComponent } from '../stylesheets/Stylesheet';
 
 const SignUpForm = (props) => {
     return (
         <View>
-            {props.error
-                ? <Text>{props.errorMsg}</Text>
-                : null
-            }
-            <Text>First Name</Text>
+            <Text style={signUpComponent.fieldDescriptor}>
+                First Name
+            </Text>
             <TextInput
-                style={signUpComponent.signUpInputText}
+                style={(props.validFirstName 
+                    ? signUpComponent.signUpInputText : signUpComponent.invalidSignUpInputText)}
                 placeholder="Your first name"
-                defaultValue={props.first_name}
+                defaultValue={props.firstName}
                 onChangeText={text => props.handleFirstNameChange(text)}
             />
-            <Text>Last Name</Text>
+            <Text style={signUpComponent.fieldDescriptor}>
+                Last Name
+            </Text>
             <TextInput
-                style={signUpComponent.signUpInputText}
+                style={(props.validLastName 
+                    ? signUpComponent.signUpInputText : signUpComponent.invalidSignUpInputText)}
                 placeholder="Your last name"
-                defaultValue={props.last_name}
+                defaultValue={props.lastName}
                 onChangeText={text => props.handleLastNameChange(text)}
             />
-            <Text>
+            <Text style={signUpComponent.fieldDescriptor}>
                 Email
             </Text>
             <TextInput
-                style={signUpComponent.signUpInputText}
+                style={(props.validEmail 
+                    ? signUpComponent.signUpInputText : signUpComponent.invalidSignUpInputText)}
                 placeholder="abc@gmail.com"
                 defaultValue={props.email}
                 onChangeText={text => props.handleEmailChange(text)}
             />
-            <Text>
+            <Text style={signUpComponent.fieldDescriptor}>
                 Password
             </Text>
             <TextInput
-                style={signUpComponent.signUpInputText}
+                style={(props.validPassword && props.validPasswordMatch
+                    ? signUpComponent.signUpInputText : signUpComponent.invalidSignUpInputText)}
                 placeholder="password"
                 defaultValue={props.password}
+                secureTextEntry={true}
+                password={true}
                 onChangeText={text => props.handlePasswordChange(text)}
             />
-            <Text>
+            <Text style={signUpComponent.fieldDescriptor}>
+                Confirm password
+            </Text>
+            <TextInput
+                style={(props.validPassword && props.validPasswordMatch
+                    ? signUpComponent.signUpInputText : signUpComponent.invalidSignUpInputText)}
+                placeholder="password"
+                defaultValue={props.confirmPassword}
+                secureTextEntry={true}
+                password={true}
+                onChangeText={text => props.handleConfirmPasswordChange(text)}
+            />
+            <Text style={signUpComponent.fieldDescriptor}>
                 Type
             </Text>
-            <Picker selectedValue = {props.type} onValueChange = {value => props.handleTypeChange(value)}>
+            <Picker style={signUpComponent.picker} itemStyle={signUpComponent.pickerItem} 
+                selectedValue = {props.type} onValueChange = {value => props.handleTypeChange(value)}>
                <Picker.Item label = "Homeowner" value = "HOMEOWNER" />
                <Picker.Item label = "Contractor" value = "CONTRACTOR" />
                <Picker.Item label = "Inspector" value = "INSPECTOR" />
             </Picker>
-            <Button
-                title="Sign up"
-                onPress={() => props.handleSignUp()}
-            />
+            <TouchableOpacity
+                style={signUpComponent.registerButton}
+                onPress={() => props.handleRegister()}
+                underlayColor='#fff'>
+                <Text style={signUpComponent.registerText}>Sign Up</Text>
+            </TouchableOpacity>
         </View>
     );
 };

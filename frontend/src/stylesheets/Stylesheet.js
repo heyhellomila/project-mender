@@ -35,11 +35,63 @@ const signUpComponent = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    header: {
+        alignSelf: 'center',
+        fontSize: 20,
+        paddingTop: 10,
+        marginTop: 25,
+    },
+    headerView: {
+        paddingBottom: 10,
+        marginBottom: 15,
+        borderBottomColor: '#4DAFFF',
+        borderBottomWidth: 3,
+    },
+    fieldDescriptor: {
+        paddingTop: 10
+    },
     signUpInputText:{
         height: 40, 
         width: 150, 
         borderBottomColor: 'black', 
-        borderBottomWidth: 1 
+        borderBottomWidth: 1,
+        marginBottom: 3,
+    },
+    invalidSignUpInputText:{
+        height: 40, 
+        width: 150, 
+        borderBottomColor: 'red', 
+        borderBottomWidth: 1,
+        marginBottom: 3
+    },
+    picker: {
+        width: 160,
+        height: 100
+    },
+    pickerItem: {
+        height: 100
+    },
+    registerButton: {
+        alignSelf: 'center',
+        marginRight:40,
+        marginLeft:40,
+        marginTop:5,
+        paddingTop:5,
+        paddingBottom:10,
+        backgroundColor:'#4DAFFF',
+        borderRadius:10,
+        borderWidth: 2,
+        borderColor: '#fff',
+        width: 200,
+        height: 40
+    },
+    registerText:{
+        alignSelf: 'center',
+        color:'#fff',
+        textAlign:'center',
+        paddingLeft : 10,
+        paddingRight : 10,
+        fontSize: 16
     }
 })
 
