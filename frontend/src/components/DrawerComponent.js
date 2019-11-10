@@ -5,7 +5,7 @@ import { userLogout } from '../redux/actions';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import PropertyComponent from './PropertyComponent';
-import { styles } from '../stylesheets/Stylesheet';
+import { drawerComponent } from '../stylesheets/DrawerStyleSheet';
 
 const menderLogo = require('../../assets/menderlogo.png');
 
@@ -15,6 +15,7 @@ class DrawerComponent extends Component {
         this.state = {
             loggingOut: false,
             user: props.user.user,
+            property: props.property
         }
     }
 
@@ -26,32 +27,30 @@ class DrawerComponent extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex: 1, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
-                <View style={{ flex: 1, height: 150, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={menderLogo} style={{ height: 50, width: 50 }} />
+                <View style={drawerComponent.container}>
+                    <Image source={menderLogo} style={drawerComponent.logo} />
                     <Text>{this.state.user.firstName} {this.state.user.lastName}</Text>
                 </View>
-                <Text style={styles.propertyHeader}>My Properties</Text>
-                <ScrollView style={{ flex: 3, marginBottom: '50%' }}>
-                    <PropertyComponent />
+                <Text style={drawerComponent.propertyHeader}>My Properties</Text>
+                <ScrollView style={drawerComponent.properties}>
+                    <PropertyComponent {...this.props} />
                 </ScrollView>
-                <View style={{ flex: 1 }}>
+                <View>
                     <View style={{alignSelf:'flex-end', width:'50%'}}>
                         <Button 
                             title='Add Property'
                         />
                     </View>
                 </View>
-                <ScrollView>
+                <ScrollView style={{ marginTop: '5%', paddingTop: '10%'}}>
                     <DrawerItems {...this.props} />
                 </ScrollView>
-                <View style={{ flex: 1 }}>
-                    <View style={{alignSelf:'flex-end', width:'50%'}}>
+                    <View style={drawerComponent.logoutButton}>
                         <Button 
                             title='LOG OUT'
                             onPress={() => this.handleLogout()}
                         />
                     </View>
-                </View>
             </SafeAreaView>
         )
     }
@@ -62,6 +61,7 @@ const mapDispatchToProps = dispatch => ({
 });
 const mapStateToProps = state => ({
     user: state.user,
+    property: state.property
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent);

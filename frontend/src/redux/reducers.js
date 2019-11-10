@@ -4,6 +4,7 @@ import { SELECT_PROPERTY } from './actions'
 
 const rootReducer = (state = {
     user: null,
+    property: null,
     loading: false,
     error: null,
 }, action) => {
@@ -12,6 +13,8 @@ const rootReducer = (state = {
             return { ...state, user: action.user };
         case 'LOGOUT':
             return { ...state, user: null };
+        case 'SELECT_PROPERTY':
+            return { ...state, property: action.property };
         case 'LOADING':
             return { ...state, loading: action.isLoading };
         case 'ERROR':
@@ -21,7 +24,7 @@ const rootReducer = (state = {
     }
 };
 
-const selectedProperty = (state = {
+const propertyReducer = (state = {
     property: null
 }, action) => {
     switch (action.type) {
@@ -34,7 +37,7 @@ const selectedProperty = (state = {
 
 const app = combineReducers({
     user: rootReducer,
-    selectedProperty
+    property: propertyReducer
 });
 
 export default app;

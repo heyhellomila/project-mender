@@ -4,6 +4,7 @@ import { Image, View, Text } from 'react-native';
 import React from 'react';
 import { Button } from 'react-native-elements';
 import BottomNavigator from './BottomNavigator';
+import HeaderAddress from '../components/HeaderAddress'
 
 const menderLogo = require('../../assets/menderlogo.png')
 
@@ -17,7 +18,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
             ),
             headerTitle: (
                 <View style={{ alignItems: 'center', width: '100%' }}>
-                    <Text>4035 Jamal's Address</Text>
+                    <HeaderAddress/>
                 </View>
             ),
             headerRight: (

@@ -17,12 +17,6 @@ const styles = StyleSheet.create({
         marginTop: '30%',
         flex: 1,
         justifyContent: 'center'
-    }, propertyHeader: {
-        alignSelf: 'center',
-        justifyContent: 'center',
-        paddingBottom: 10,
-        fontSize: 15,
-        fontWeight: 'bold'
     }, propertyContainer: {
         height: 50
     }

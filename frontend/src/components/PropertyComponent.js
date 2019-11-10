@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
-import { View, Button, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { getPropertiesByUser } from '../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
-import { buttons, styles } from '../stylesheets/Stylesheet';
-import { selectProperty } from '../redux/actions';
-
+import { selectProperty } from '../redux/actions'
+import { propertyList } from '../stylesheets/PropertyListStyleSheet';
 
 class PropertyComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             properties: [],
-            onPress: false
+            property: this.props.property
         }
     }
 
     async componentDidMount() {
-        await getPropertiesByUser('5db9ee23349a0b4244e7693a')
+        await getPropertiesByUser(this.props.user.user._id)
             .then(res => {
                 this.setState({
                     properties: res.data.map(property => ({
@@ -24,23 +23,30 @@ class PropertyComponent extends Component {
                         name: property.name,
                         address: property.address,
                     }))
+                }, () => {
+                    if (this.state.properties.length > 0) {
+                        this.props.selectProperty(this.state.properties[0])
+                    }
                 })
             }).catch(error => {
-                alert(error.res)
-            })
-    }
-
-    handleButtonOnPress = async () => {
-        onPress = true,
-        await this.props.selectProperty(propertySelected);
+                alert(error)
+        })
     }
 
     renderPropertyList() {
         return (
             <View>
-                {this.state.properties.map(userProperty => (
-                    <TouchableOpacity style={buttons.buttonProperty} underlayColor="#fff" onPress={this.hanleButtonOnPress}>
-                        <Text key={userProperty.id} style={buttons.buttonTextProperty} suppressHighlighting={true}>{userProperty.name}</Text>
+                {this.state.properties.map(property => (
+                    <TouchableOpacity style={(this.props.property.property && this.props.property.property.id == property.id) 
+                        ? propertyList.selectedPropertyButton
+                        : propertyList.propertyButton} 
+                        key={property.id}
+                        onPress={() => {this.props.selectProperty(property)}}>
+                            <Text style={(this.props.property.property && this.props.property.property.id == property.id) 
+                                ? propertyList.selectedPropertyText
+                                : propertyList.propertyText}>
+                                    {property.name}
+                                </Text>
                     </TouchableOpacity>
                 ))}
             </View>
@@ -57,11 +63,7 @@ class PropertyComponent extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    selectProperty: () => dispatch(selectProperty(property))
+    selectProperty: (property) => dispatch(selectProperty(property))
 });
 
-const mapStateToProps = state => ({
-    property: state.property
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyComponent);
+export default connect(null, mapDispatchToProps)(PropertyComponent);
