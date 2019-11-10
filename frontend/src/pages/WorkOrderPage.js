@@ -7,7 +7,7 @@ class WorkOrderPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            property_id: '5db9ee23349a0b4244e7693a',
+            property_id: '5dc398c35c942a071043e187',
             sector: 'ROOF',
             type: 'IMP', 
             title: 'untitled', 
@@ -35,15 +35,11 @@ class WorkOrderPage extends React.Component {
                 this.state.priority,
                 this.state.description,
                 this.state.due_date,
-                this.state.price_estimate).then(async (response) => {
-                    await this.props.authenticate(response.data.token).then(() => {
-                        if (!this.props.user.loading && this.props.user.user) {
+                this.state.price_estimate).then(async() => {
                         this.props.navigation.goBack(null)
-                        }
-                    })
-                    });
+                });
         } catch (err) {
-
+            console.log(JSON.stringify(err.response))
             console.log('' + this.state.property_id + '\n' + 
                 this.state.sector + '\n' +
                 this.state.type + '\n' + 
@@ -122,9 +118,7 @@ class WorkOrderPage extends React.Component {
     
     render() {
         return (
-            
-            //buttonFunction={() => this.props.navigation.goBack(null)
-            <KeyboardAvoidingView style={styles.elementsContainer} behavior="position" enabled>
+                        <KeyboardAvoidingView style={styles.elementsContainer} behavior="position" enabled>
                 <Button 
                 style={{alignSelf:'flex-end', position:'absolute', width: 100}}
                 title='close'
@@ -132,6 +126,10 @@ class WorkOrderPage extends React.Component {
             <Text style={styles.headerStyle}>Work Order</Text>
             <Text style={styles.subHeaderStyle}>Property Number and Property Address</Text>
                 <View style={styles.rowContainer}>
+                <Button 
+                    style={{alignSelf:'flex-end', position:'absolute', width: 100}}
+                    title='Done'
+                    onPress ={this.handleWorkOrder}/>
                     <View style={styles.individualContainer}>
                         <Text style = {this.correctiveStyle()}
                            onPress = {this.toggleCorrective} >Corrective</Text>
@@ -220,10 +218,6 @@ class WorkOrderPage extends React.Component {
                     style={{width:230, height: 100, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
                     placeholder = 'Notes/additional information'
                     onChangeText = {this.handleDescription}/>
-                <Button 
-                    style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                    title='Done'
-                    onPress ={this.handleWorkOrder}/>
             </KeyboardAvoidingView>
         );
     }
@@ -231,6 +225,7 @@ class WorkOrderPage extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    property: state.property
 });
 
 export default connect(mapStateToProps, null)(WorkOrderPage);

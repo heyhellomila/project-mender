@@ -1,5 +1,6 @@
 import axios from 'axios';	
-import { LOCAL_API_KEY } from 'react-native-dotenv'	
+import { LOCAL_API_KEY } from 'react-native-dotenv'
+import { AsyncStorage } from 'react-native';
 
 var api = axios.create({	
     baseURL: `http://${LOCAL_API_KEY}/api`,
@@ -20,15 +21,20 @@ api.interceptors.response.use(async (response) => {
 
 export async function createWorkOrder(propertyId, sector, type, title, cause, service_needed, priority, 
     description, due_date, price_estimate) {
-    return await api.post(`/properties/${propertyId}/workorders/`, {	
-        sector: sector,
-        type: type, 
-        title: title, 
-        cause: cause, 
-        service_needed: service_needed, 
-        priority: priority, 
-        description: description, 
-        due_date: due_date, 
-        price_estimate: price_estimate
-    }, headers = {'Authorization': await AsyncStorage.getItem('Authorization')})
+
+    body = {
+        sector, 
+        type, 
+        title, 
+        cause, 
+        service_needed: JSON.stringify(service_needed), 
+        priority, 
+        description, 
+        due_date, 
+        price_estimate: JSON.stringify(price_estimate)
+    }
+
+    return await api.post(`/properties/${propertyId}/workorders/`, body, {
+        headers: {'Authorization': await AsyncStorage.getItem('Authorization')}
+    })
 }	
