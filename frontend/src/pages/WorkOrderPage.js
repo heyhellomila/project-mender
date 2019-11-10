@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Modal, Text, TextInput, Switch, Button } from 'react-native';
+import { View, Picker, Text, TextInput, Switch, Button } from 'react-native';
 import { connect } from 'react-redux';
 
 class WorkOrderPage extends React.Component {
@@ -40,7 +40,23 @@ class WorkOrderPage extends React.Component {
                         <Text style={styles.textOnBlue}>Sector</Text>
                     </View>
                     <View style={styles.individualContainer}>
-                        <Text style={styles.textOnWhite}>picker here </Text>
+                        <View style={styles.textOnWhite}>  
+                        <Picker>
+                            <Picker.Item label="Roof" value="roof" />
+                            <Picker.Item label="Kitchen" value="kitchen" />
+                            <Picker.Item label="Utilities" value="utilities" />
+                            <Picker.Item label="Living Room" value="livingRoom" />
+                            <Picker.Item label="Bathroom" value="bathroom" />
+                            <Picker.Item label="Appliances" value="appliances" />
+                            <Picker.Item label="Bedroom" value="bedroom" />
+                            <Picker.Item label="Balcony" value="balcony" />
+                            <Picker.Item label="Garage" value="garage" />
+                            <Picker.Item label="Envelope" value="envelope" />
+                            <Picker.Item label="Electrical" value="electrical" />
+                            <Picker.Item label="HVAC" value="hvac" />
+                            <Picker.Item label="other" value="other" />
+                        </Picker>
+                        </View>
                     </View>
                 </View>
 
