@@ -1,15 +1,7 @@
 import React, { Component } from 'react'
-import { FlatList, Text, Modal, View, Button } from 'react-native';
+import { View, Button } from 'react-native';
+import { getPropertiesByUser } from '../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
-import { styles, buttons } from '../stylesheets/Stylesheet';
-import axios from 'axios';
-import { LOCAL_API_KEY } from 'react-native-dotenv'	
-import { AsyncStorage } from 'react-native';
-
-var api = axios.create({	
-    baseURL: `http://${LOCAL_API_KEY}/api`,
-    timeout: 5000
-});
 
 class PropertyComponent extends Component {
     constructor(props) {
@@ -20,25 +12,34 @@ class PropertyComponent extends Component {
     }
 
     async componentDidMount() {
-        await api.get('/users/${id}/properties', {	
-            headers: {	
-                'Authorization': await AsyncStorage.getItem('Authorization')	
-            }	
-            })
+        await getPropertiesByUser('5db9ee23349a0b4244e7693a')
             .then(res => {
-                this.setState({ properties: res.data })
-            .catch(error => {
-                console.log(error.res)
+                this.setState({
+                    properties: res.data.map(property => ({
+                        id: property._id,
+                        name: property.name,
+                        address: property.address,
+                    }))
+                })
+            }).catch(error => {
+                alert(error.res)
             })
-        });
+    }
+
+    RenderPropertyList() {
+        return (
+            <View>
+                {this.state.properties.map(property => (
+                    <Button key={property.id} title={property.name} onPress={() => {}}></Button>
+                ))}
+            </View>
+        )
     }
 
     render() {
         return (
             <View>
-                <Button title="Property 1 - " />
-                <Button title="Property 2 - " />
-                <Button title="Property 3 - " />
+                {this.RenderPropertyList()}
             </View>
         )
     }
