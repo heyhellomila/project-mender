@@ -3,6 +3,8 @@ import { View, Button, Text, TouchableOpacity } from 'react-native';
 import { getPropertiesByUser } from '../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
 import { buttons, styles } from '../stylesheets/Stylesheet';
+import { selectProperty } from '../redux/actions';
+
 
 class PropertyComponent extends Component {
     constructor(props) {
@@ -28,18 +30,17 @@ class PropertyComponent extends Component {
             })
     }
 
-    handleButtonOnPress = () => {
-        this.setState({
-            onPress: true
-        })
+    handleButtonOnPress = async () => {
+        onPress = true,
+        await this.props.selectProperty(propertySelected);
     }
 
     renderPropertyList() {
         return (
             <View>
-                {this.state.properties.map(property => (
-                    <TouchableOpacity style={buttons.buttonProperty} underlayColor="#fff" onPress={() => {}}>
-                        <Text key={property.id} style={buttons.buttonTextProperty} suppressHighlighting={true}>{property.name}</Text>
+                {this.state.properties.map(userProperty => (
+                    <TouchableOpacity style={buttons.buttonProperty} underlayColor="#fff" onPress={this.hanleButtonOnPress}>
+                        <Text key={userProperty.id} style={buttons.buttonTextProperty} suppressHighlighting={true}>{userProperty.name}</Text>
                     </TouchableOpacity>
                 ))}
             </View>

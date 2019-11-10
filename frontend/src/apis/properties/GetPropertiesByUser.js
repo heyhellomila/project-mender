@@ -24,3 +24,11 @@ export async function getPropertiesByUser(id) {
         }	
     })	
 }
+
+export async function getPropertyById(id) {	
+    return await api.get(`/properties/${id}`, {	
+        headers: {	
+            'Authorization': await AsyncStorage.getItem('Authorization')	
+        }	
+    })	
+}

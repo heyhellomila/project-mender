@@ -1,0 +1,3 @@
+import { createStore } from 'redux'
+import app from './reducers'
+const store = createStore(app)

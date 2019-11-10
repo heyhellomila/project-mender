@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import { SELECT_PROPERTY } from './actions'
+
 const rootReducer = (state = {
     user: null,
     loading: false,
@@ -19,6 +21,20 @@ const rootReducer = (state = {
     }
 };
 
-export default combineReducers({
-    user: rootReducer
+const selectedProperty = (state = {
+    property: null
+}, action) => {
+    switch (action.type) {
+        case 'SELECT_PROPERTY':
+            return { ...state, property: action.property };
+        default:
+            return state;
+    }
+};
+
+const app = combineReducers({
+    user: rootReducer,
+    selectedProperty
 });
+
+export default app;
