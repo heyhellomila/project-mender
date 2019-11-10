@@ -37,13 +37,13 @@ class PropertyComponent extends Component {
     renderPropertyList() {
         return (
             <View style={{alignItems: 'stretch'}}>
-                {this.state.properties.map(property => (
-                    <TouchableOpacity style={(this.props.property.property && this.props.property.property.id == property.id) 
+                {this.state.properties.map((property) => (
+                    <TouchableOpacity style={(this.props.property.property && this.props.property.property.id === property.id) 
                         ? propertyList.selectedPropertyButton
                         : propertyList.propertyButton} 
                         key={property.id}
-                        onPress={() => {this.props.selectProperty(property); this.props.navigation.closeDrawer()}}>
-                            <Text style={(this.props.property.property && this.props.property.property.id == property.id) 
+                        onPress={() => {this.props.selectProperty(property); this.props.navigation.closeDrawer();}}>
+                            <Text style={(this.props.property.property && this.props.property.property.id === property.id) 
                                 ? propertyList.selectedPropertyText
                                 : propertyList.propertyText}>
                                     {property.name}
