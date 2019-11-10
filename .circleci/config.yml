@@ -1,24 +1,5 @@
-<<<<<<< .merge_file_7Ecfsh
 # Javascript Node CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
-=======
-version: 2
-jobs:
-  build:
-    docker:
-      - image: debian:stretch
-
-    steps:
-      - checkout
-
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
-          name: Print the Current Time
-          command: date
->>>>>>> .merge_file_lQWfek
