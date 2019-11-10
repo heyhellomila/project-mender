@@ -9,13 +9,13 @@ class WorkOrderPage extends React.Component {
         this.state = {
             property_id: '',
             sector: 'ROOF',
-            type: '', 
+            type: 'IMP', 
             title: '', 
             cause: '', 
             service_needed: false, 
             priority: 'MEDIUM', 
             description: '', 
-            due_date: new Date().getDate() + 1, 
+            due_date: 'DATE GOES HERE', 
             price_estimate: 0
         }
     }
@@ -42,8 +42,36 @@ class WorkOrderPage extends React.Component {
                     })
                     });
         } catch (err) {
-            alert('error');
+            alert('' + this.state.sector + ' ' +
+                this.state.type + ' ' + 
+                this.state.title + ' ' + 
+                this.state.cause + ' ' + 
+                this.state.service_needed + ' ' + 
+                this.state.priority + ' ' + 
+                this.state.description + ' ' + 
+                this.state.due_date + ' ' + 
+                this.state.price_estimate);
         }
+    }
+
+    toggleCorrective = () => {
+        if(this.state.type == 'CM'){
+            this.setState({type: 'IMP'})
+        }
+        else{
+            this.setState({type: 'CM'})
+        }
+
+    }
+
+    togglePreventive = () => {
+        if(this.state.type == 'PM'){
+            this.setState({type: 'IMP'})
+        }
+        else{
+            this.setState({type: 'PM'})
+        }
+
     }
 
     handleSector = (sector) => {
@@ -69,6 +97,24 @@ class WorkOrderPage extends React.Component {
     handlePriority = (priority) => {
         this.setState({priority: priority})
     }
+
+    correctiveStyle = function() {
+        if(this.state.type == 'CM'){
+            return styles.selectedGray;
+        }
+        else{
+            return styles.unselectedGray;
+        }
+    }
+
+    preventiveStyle = function() {
+        if(this.state.type == 'PM'){
+            return styles.selectedGray;
+        }
+        else{
+            return styles.unselectedGray;
+        }
+    }
     
     render() {
         return (
@@ -82,10 +128,12 @@ class WorkOrderPage extends React.Component {
             <Text style={styles.subHeaderStyle}>Property Number and Property Address</Text>
                 <View style={styles.rowContainer}>
                     <View style={styles.individualContainer}>
-                        <Text style={styles.selectedGray}>Corrective</Text>
+                        <Text style = {this.correctiveStyle()}
+                           onPress = {this.toggleCorrective} >Corrective</Text>
                     </View>
                     <View style={styles.individualContainer}>
-                        <Text style={styles.unselectedGray}>Preventive</Text>
+                        <Text style={this.preventiveStyle()}
+                            onPress = {this.togglePreventive}>Preventive</Text>
                     </View>
                 </View>
 
@@ -226,8 +274,8 @@ const styles = {
         textAlign: 'center', 
         backgroundColor: '#cccccc', 
         borderRadius: 5,
-        marginRight: 40,
-        marginLeft: 40
+        marginRight: 30,
+        marginLeft: 30
     },
     textOnBlue:{
         fontSize: 24,
