@@ -22,7 +22,7 @@ This web application uses the following technologies:
 -   _Express_, a Node.js back-end framework
 -   _MongoDB_, a cross-platform document-oriented database
 -   _React Native_, an application framework
-
+-   _Expo, a framework and platform for React applications.
 ```
 node --version
 npm --version
@@ -62,5 +62,7 @@ To start the front-end server, use the following command from `frontend/`:
 ```
 npm start
 ```
+
+Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
 Note that both servers must be running as separate processes for the application to function.
