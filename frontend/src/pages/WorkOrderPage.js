@@ -8,12 +8,12 @@ class WorkOrderPage extends React.Component {
         super(props);
         this.state = {
             property_id: '',
-            sector: '',
+            sector: 'ROOF',
             type: '', 
             title: '', 
             cause: '', 
             service_needed: false, 
-            priority: '', 
+            priority: 'MEDIUM', 
             description: '', 
             due_date: new Date().getDate() + 1, 
             price_estimate: 0
@@ -23,27 +23,51 @@ class WorkOrderPage extends React.Component {
         title: 'Create Work Order',
     };
     
-    handleWorkOrder(){
+    handleWorkOrder = async() => {
         try {
-                await createWorkOrder(
-                    this.state.sector,
-                    this.state.type,
-                    this.state.title,
-                    this.state.cause,
-                    this.state.service_needed,
-                    this.state.priority,
-                    this.state.description,
-                    this.state.due_date,
-                    this.state.price_estimate).then(async (response) => {
-                        await this.props.authenticate(response.data.token).then(() => {
-                          if (!this.props.user.loading && this.props.user.user) {
-                            this.props.navigation.goBack(null)
-                          }
-                        })
-                      });
+            await createWorkOrder(
+                this.state.sector,
+                this.state.type,
+                this.state.title,
+                this.state.cause,
+                this.state.service_needed,
+                this.state.priority,
+                this.state.description,
+                this.state.due_date,
+                this.state.price_estimate).then(async (response) => {
+                    await this.props.authenticate(response.data.token).then(() => {
+                        if (!this.props.user.loading && this.props.user.user) {
+                        this.props.navigation.goBack(null)
+                        }
+                    })
+                    });
         } catch (err) {
             alert('error');
         }
+    }
+
+    handleSector = (sector) => {
+        this.setState({sector: sector})
+    }
+
+    handleTitle = (title) => {
+        this.setState({title: title})
+    }
+    
+    handleCause = (cause) => {
+        this.setState({cause: cause})
+    }
+
+    toggleServiceNeeded = (value) => {
+        this.setState({service_needed: value})
+    }
+
+    handleDescription = (description) => {
+        this.setState({description: description})
+    }
+
+    handlePriority = (priority) => {
+        this.setState({priority: priority})
     }
     
     render() {
@@ -55,7 +79,7 @@ class WorkOrderPage extends React.Component {
                 title='close'
                 onPress ={() => this.props.navigation.goBack(null)}/>
             <Text style={styles.headerStyle}>Work Order</Text>
-            <Text style={styles.subHeaderStyle}>Property Number and Property Adress</Text>
+            <Text style={styles.subHeaderStyle}>Property Number and Property Address</Text>
                 <View style={styles.rowContainer}>
                     <View style={styles.individualContainer}>
                         <Text style={styles.selectedGray}>Corrective</Text>
@@ -71,7 +95,7 @@ class WorkOrderPage extends React.Component {
                     </View>
                     <View style={styles.individualContainer}>
                         <View style={styles.textOnWhite}>  
-                        <Picker>
+                        <Picker selectedValue = {this.state.sector} onValueChange = {this.handleSector}>
                             <Picker.Item label='Roof' value='ROOF' />
                             <Picker.Item label='Kitchen' value='KITCHEN' />
                             <Picker.Item label='Utilities' value='UTILITIES' />
@@ -95,7 +119,9 @@ class WorkOrderPage extends React.Component {
                         <Text style={styles.textOnBlue}>Title</Text>
                     </View>
                     <View style={styles.individualContainer}>
-                        <TextInput style={styles.textOnWhite}/>
+                        <TextInput style = {styles.textOnWhite}
+                            placeholder = 'title'
+                            onChangeText = {this.handleTitle}/>
                     </View>
                 </View>
 
@@ -104,7 +130,9 @@ class WorkOrderPage extends React.Component {
                         <Text style={styles.textOnBlue}>Cause</Text>
                     </View>
                     <View style={styles.individualContainer}>
-                        <TextInput style={styles.textOnWhite}/>
+                        <TextInput style={styles.textOnWhite}
+                            placeholder = 'cause'
+                            onChangeText = {this.handleCause}/>
                     </View>
                 </View>
                 
@@ -115,30 +143,34 @@ class WorkOrderPage extends React.Component {
                     <View style={styles.individualContainer}>
                     <Switch 
                         style={{alignSelsf:'center'}}
-                        value = {this.state.isServiceNeeded}/>
+                        onValueChange = {this.toggleServiceNeeded}
+                        value = {this.state.service_needed}/>
                     </View>
                 </View>
 
                 <View style={styles.rowContainer}>
                     <View style={styles.individualContainer}>
-                        <Text style={styles.textOnBlue}>Urgent?</Text>
+                        <Text style={styles.textOnBlue}>Urgency</Text>
                     </View>
                     <View style={styles.individualContainer}>
-                    <Switch 
-                        style={{alignSelsf:'center'}}
-                        value = {this.state.isUrgent}
-                        />
+                        <View style={styles.textOnWhite}>  
+                        <Picker selectedValue = {this.state.priority} onValueChange = {this.handlePriority}>
+                            <Picker.Item label='LOW' value='LOW' />
+                            <Picker.Item label='MEDIUM' value='MEDIUM' />
+                            <Picker.Item label='HIGH' value='HIGH' />
+                        </Picker>
+                        </View>    
                     </View>
                 </View>
 
                 <TextInput  
-                style={{width:230, height: 100, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
-                placeholder='Notes/additional information'/>
+                    style={{width:230, height: 100, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
+                    placeholder = 'Notes/additional information'
+                    onChangeText = {this.handleDescription}/>
                 <Button 
-                style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                title='Done'
-                onPress ={() => this.props.navigation.goBack(null)}/>
-
+                    style={{alignSelf:'flex-end', position:'absolute', width: 100}}
+                    title='Done'
+                    onPress ={this.handleWorkOrder}/>
             </View>
         );
     }
