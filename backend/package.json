@@ -18,10 +18,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "nodemon": "^1.19.4",
-<<<<<<< .merge_file_YTSjFx
     "nyc": "^14.1.1",
-=======
->>>>>>> .merge_file_UeiqA1
     "password-validator": "^5.0.2",
     "validator": "^12.0.0"
   }
