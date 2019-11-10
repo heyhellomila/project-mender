@@ -12,7 +12,7 @@ api.interceptors.response.use(async (response) => {
         if (error.code == 'ECONNABORTED' || error.response.data.statusCode == '500') {
             throw new Error('Internal server error. Please try again later.')
         } else if (error.response && error.response.data.statusCode > 400) {
-            throw new Error('Invalid username or password.')
+            throw new Error('Invalid something.')
         } else {
             throw error;
         }

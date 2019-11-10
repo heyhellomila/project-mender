@@ -14,8 +14,8 @@ class WorkOrderPage extends React.Component {
             cause: '', 
             service_needed: false, 
             priority: 'MEDIUM', 
-            description: '', 
-            due_date: 'DATE GOES HERE', 
+            description: 'no description', 
+            due_date: '2020-11-07T03:54:52.130+00:00',
             price_estimate: 0
         }
     }
@@ -43,15 +43,15 @@ class WorkOrderPage extends React.Component {
                     })
                     });
         } catch (err) {
-            alert('' + this.state.property_id + ' ' + 
-                this.state.sector + ' ' +
-                this.state.type + ' ' + 
-                this.state.title + ' ' + 
-                this.state.cause + ' ' + 
-                this.state.service_needed + ' ' + 
-                this.state.priority + ' ' + 
-                this.state.description + ' ' + 
-                this.state.due_date + ' ' + 
+            console.log('' + this.state.property_id + '\n' + 
+                this.state.sector + '\n' +
+                this.state.type + '\n' + 
+                this.state.title + '\n' + 
+                this.state.cause + '\n' + 
+                this.state.service_needed + '\n' + 
+                this.state.priority + '\n' + 
+                this.state.description + '\n' + 
+                this.state.due_date + '\n' + 
                 this.state.price_estimate);
         }
     }
