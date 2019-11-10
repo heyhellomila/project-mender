@@ -4,7 +4,8 @@
   "description": "home maintenance application",
   "main": "index.js",
   "scripts": {
-    "test-with-coverage": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
+      "test": "istanbul cover node_modules/jasmine/bin/jasmine.js",
+    "test-with-coverage": "istanbul cover jasmine-node --captureExceptions spec/ && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
