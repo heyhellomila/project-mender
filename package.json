@@ -1,0 +1,30 @@
+{
+  "name": "project-mender",
+  "version": "1.0.0",
+  "description": "home maintenance application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milaroisin/project-mender.git"
+  },
+  "author": "Anamika Pancholy, Daniel Privorotsky, Dania Kalomiris, Patrick Pin, Mila Roisin, Sebastien Ong Tone",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/milaroisin/project-mender/issues"
+  },
+  "homepage": "https://github.com/milaroisin/project-mender#readme",
+  "dependencies": {
+    "mocha": "^6.2.2",
+    "testing": "^1.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "sinon": "^7.5.0"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}
