@@ -16,10 +16,10 @@ Secondly, the application will include an additional feature for the client to b
 
 This web application uses the following technologies:
 
-- _Express_, a Node.js back-end framework
-- _MongoDB_, a cross-platform document-oriented database
-- _React Native_, an application framework
-- _Expo, a framework and platform for React applications.
+-  _Express_, a Node.js back-end framework
+-  _MongoDB_, a cross-platform document-oriented database
+-  _React Native_, an application framework
+-  _Expo, a framework and platform for React applications.
 
 ## Installing Dependencies
 
