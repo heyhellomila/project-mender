@@ -30,5 +30,5 @@ export async function createWorkOrder(propertyId, sector, type, title, cause, se
         description: description, 
         due_date: due_date, 
         price_estimate: price_estimate
-    })
+    }, headers = {'Authorization': await AsyncStorage.getItem('Authorization')})
 }	

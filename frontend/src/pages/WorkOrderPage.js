@@ -10,8 +10,8 @@ class WorkOrderPage extends React.Component {
             property_id: '5db9ee23349a0b4244e7693a',
             sector: 'ROOF',
             type: 'IMP', 
-            title: '', 
-            cause: '', 
+            title: 'untitled', 
+            cause: 'no cause', 
             service_needed: false, 
             priority: 'MEDIUM', 
             description: 'no description', 
@@ -43,6 +43,7 @@ class WorkOrderPage extends React.Component {
                     })
                     });
         } catch (err) {
+
             console.log('' + this.state.property_id + '\n' + 
                 this.state.sector + '\n' +
                 this.state.type + '\n' + 
@@ -52,7 +53,8 @@ class WorkOrderPage extends React.Component {
                 this.state.priority + '\n' + 
                 this.state.description + '\n' + 
                 this.state.due_date + '\n' + 
-                this.state.price_estimate);
+                this.state.price_estimate + '\n' +
+                err.response.data);
         }
     }
 
