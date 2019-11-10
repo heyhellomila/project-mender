@@ -36,10 +36,10 @@ export default class SignUpPage extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.validFormInputs == true && this.state.submitting == true) {
+    if (this.state.validFormInputs === true && this.state.submitting === true) {
       this.registerUser();
     }
-    else if (this.state.validFormInputs == false && this.state.submitting == true) {
+    else if (this.state.validFormInputs === false && this.state.submitting === true) {
       this.setState({ submitting: false });
       if (this.state.errorMsg.length > 0) {
         alert(this.state.errorMsg);
@@ -67,11 +67,11 @@ export default class SignUpPage extends React.Component {
     this.setState({firstName: event});
   }
 
-  handleLastNameChange = (event) =>{
+  handleLastNameChange = (event) => {
     this.setState({lastName: event});
   }
 
-  handleTypeChange = (event) =>{
+  handleTypeChange = (event) => {
     this.setState({type: event});
   }
 
