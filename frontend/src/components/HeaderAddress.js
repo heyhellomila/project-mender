@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { headerStyles } from '../stylesheets/Stylesheet';
 
 class HeaderAddress extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class HeaderAddress extends Component {
         return (
             <View>
                 {this.props.property
-                    ? <Text>{this.props.property.name}</Text>
+                    ? <Text style={headerStyles.propertyHeaderText}>{this.props.property.name}</Text>
                     : null
                 }
             </View>

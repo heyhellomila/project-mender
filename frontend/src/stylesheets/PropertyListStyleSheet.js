@@ -2,28 +2,26 @@ import { StyleSheet} from 'react-native';
 
 const propertyList = StyleSheet.create({
     propertyButton: {
-        marginRight:40,
-        marginLeft:40,
         marginTop:10,
         paddingTop:10,
         paddingBottom:10,
         backgroundColor:'#99d1ff',
-        borderRadius:10,
-        borderWidth: 1,
+        borderWidth: 0,
+        borderLeftWidth: 5,
         borderColor: '#fff',
-        flexDirection: 'row',
+        borderLeftColor: '#3399ff',
+        flexDirection: 'row'
     },
     selectedPropertyButton: {
-        marginRight:40,
-        marginLeft:40,
         marginTop:10,
         paddingTop:10,
         paddingBottom:10,
         backgroundColor:'#99d1ff',
-        borderRadius:10,
         borderWidth: 2,
+        borderLeftWidth: 5,
         borderColor: '#3399ff',
-        flexDirection: 'row',
+        borderLeftColor: '#3399ff',
+        flexDirection: 'row'
     },
     propertyText: {
         color:'black',

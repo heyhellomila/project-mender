@@ -15,7 +15,7 @@ const drawerComponent = StyleSheet.create({
     },
     properties: {
         flex: 1, 
-        marginBottom: '20%' , 
+        marginBottom: '5%' , 
         paddingBottom: '25%'
     }, 
     propertyHeader: {
