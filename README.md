@@ -1,6 +1,4 @@
 # Project Mender
-
-[![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg&circle-token=161d9b3dbb9771c1b5168d8b7ef2e8a2dbef19bf)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
 ![CircleCI](https://img.shields.io/circleci/build/github/milaroisin/project-mender/master?style=for-the-badge)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d3aae514d49b4f6c94b5547755a16e2a)](https://www.codacy.com/manual/milaroisin/project-mender?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=milaroisin/project-mender&amp;utm_campaign=Badge_Grade)
 ![CommitActivity](https://img.shields.io/github/last-commit/milaroisin/project-mender?color=lightgrey&style=for-the-badge)
