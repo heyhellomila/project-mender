@@ -34,23 +34,23 @@ class DrawerComponent extends Component {
                 <Text style={drawerComponent.propertyHeader}>My Properties</Text>
                 <ScrollView style={drawerComponent.properties}>
                     <PropertyComponent {...this.props} />
-                </ScrollView>
-                <View>
-                    <View style={{alignSelf:'flex-end', width:'50%'}}>
-                        <Button 
-                            title='Add Property'
-                        />
-                    </View>
-                </View>
+                </ScrollView> 
+                <View style={{aligntContent:'flex-end', alignSelf:'flex-end', width:'50%'}}>
+                    <Button 
+                        title='Add Property'
+                        type="outline"
+                        raised={true}
+                    />
+                </View> 
                 <ScrollView style={{ marginTop: '5%', paddingTop: '10%'}}>
                     <DrawerItems {...this.props} />
                 </ScrollView>
-                    <View style={drawerComponent.logoutButton}>
-                        <Button 
-                            title='LOG OUT'
-                            onPress={() => this.handleLogout()}
-                        />
-                    </View>
+                <View style={drawerComponent.logoutButton}>
+                    <Button 
+                        title='LOG OUT'
+                        onPress={() => this.handleLogout()}
+                    />
+                </View>
             </SafeAreaView>
         )
     }

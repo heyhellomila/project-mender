@@ -38,7 +38,8 @@ const headerStyles = StyleSheet.create({
     },
     commonHeaderText:{
         textAlign: 'center', 
-        fontSize: 25
+        fontSize: 25,
+        paddingTop: 10
     },
     commonHeaderSearch:{
         flex: 3, 
@@ -49,6 +50,11 @@ const headerStyles = StyleSheet.create({
         flex: 1, 
         borderBottomColor:'#d3d3d3', 
         borderBottomWidth:2
+    },
+    propertyHeaderText:{
+        fontSize: 20,
+        paddingTop: 10,
+        paddingBottom: 10
     }
 })
 
