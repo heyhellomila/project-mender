@@ -8,11 +8,6 @@
 ![BeerPay](https://img.shields.io/beerpay/milaroisin/project-mender?color=9cf&style=for-the-badge)
 ![CompanyLogo](https://raw.githubusercontent.com/milaroisin/project-mender/readme/mender-logo.jpg)
 
-<<<<<<< HEAD
-# project-mender
-
-Home Maintenance Application
-=======
 
 A home renovation & maintenance application for homeowners where users are will then be able to create work orders for corrective and preventive maintenance work aimed specifically for the Quebec markets. Every home purchase is required to be catalogued and pass under strict inspection standards that are set by provincial and regional requirements. However, the results of the inspection are too long-winded and are not easily translatable for the client. This application aims to condense, summarize and interpret the results in a visually appealing manner for the client to understand their home better. With this in mind, the homeowner will be able to create and track work orders for corrective and preventive maintenance.
 
@@ -71,4 +66,3 @@ npm start
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
 Note that both servers must be running as separate processes for the application to function.
->>>>>>> master
