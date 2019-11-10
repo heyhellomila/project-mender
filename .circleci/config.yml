@@ -41,6 +41,8 @@ jobs:
           path: test-results.xml
       - store_artifacts:
           path: coverage
+      - store_test_results:
+          path: test-results
 
 workflows:
   version: 2
