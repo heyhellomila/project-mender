@@ -1,10 +1,8 @@
-[![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg&circle-token=161d9b3dbb9771c1b5168d8b7ef2e8a2dbef19bf)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
-
 # Project Mender
 
+[![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg&circle-token=161d9b3dbb9771c1b5168d8b7ef2e8a2dbef19bf)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
 ![CircleCI](https://img.shields.io/circleci/build/github/milaroisin/project-mender/master?style=for-the-badge)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d3aae514d49b4f6c94b5547755a16e2a)](https://www.codacy.com/manual/milaroisin/project-mender?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=milaroisin/project-mender&amp;utm_campaign=Badge_Grade)
-
 ![CommitActivity](https://img.shields.io/github/last-commit/milaroisin/project-mender?color=lightgrey&style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/milaroisin/project-mender?style=for-the-badge)
 ![License](https://img.shields.io/github/license/milaroisin/project-mender?color=ultraviolet&style=for-the-badge)
@@ -16,19 +14,18 @@ A home renovation & maintenance application for homeowners where users are will 
 
 Secondly, the application will include an additional feature for the client to be connected to network of local contractors in the area where they can request and access services directly with the application. The status of the work order can be easily retrieved, scheduled and updated.
 
-
 This web application uses the following technologies:
 
--   _Express_, a Node.js back-end framework
--   _MongoDB_, a cross-platform document-oriented database
--   _React Native_, an application framework
--   _Expo, a framework and platform for React applications.
+- _Express_, a Node.js back-end framework
+- _MongoDB_, a cross-platform document-oriented database
+- _React Native_, an application framework
+- _Expo, a framework and platform for React applications.
 
-### Installing Dependencies
+## Installing Dependencies
 
 Before starting, make sure you have working versions of npm (6.12+) and Node (12.9.0+).
 
-```
+```shell
 node --version
 npm --version
 ```
@@ -38,11 +35,14 @@ npm --version
 Necessary dependencies must be installed for both parts of the application.
 
 For the back-end, execute:
+
 ```shell
 cd backend/
 npm install
 ```
+
 For the front-end, execute:
+
 ```shell
 cd frontend/
 npm install
@@ -52,7 +52,7 @@ npm install
 
 To start the back-end server, use the following command from `backend/`:
 
-```
+```shell
 npm start
 ```
 
@@ -60,7 +60,7 @@ npm start
 
 To start the front-end server, use the following command from `frontend/`:
 
-```
+```shell
 npm start
 ```
 
