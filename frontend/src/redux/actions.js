@@ -35,8 +35,8 @@ export const userLogout = () => async dispatch => {
     })
 }
 
-export const selectProperty = (property) => async dispatch => {
-    dispatch(property(property));
+export const selectProperty = (property) => dispatch => {
+    dispatch(propertySelection(property));
 }
 
 export const login = user => ({
@@ -58,7 +58,7 @@ export const error = error => ({
     error,
 });
 
-export const property = property => ({
+export const propertySelection = property => ({
     type: 'SELECT_PROPERTY',
     property
 });

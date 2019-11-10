@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 const rootReducer = (state = {
     user: null,
+    property: null,
     loading: false,
     error: null,
 }, action) => {
@@ -10,6 +11,8 @@ const rootReducer = (state = {
             return { ...state, user: action.user };
         case 'LOGOUT':
             return { ...state, user: null };
+        case 'SELECT_PROPERTY':
+            return { ...state, property: action.property };
         case 'LOADING':
             return { ...state, loading: action.isLoading };
         case 'ERROR':
@@ -20,5 +23,6 @@ const rootReducer = (state = {
 };
 
 export default combineReducers({
-    user: rootReducer
+    user: rootReducer,
+    property: rootReducer
 });

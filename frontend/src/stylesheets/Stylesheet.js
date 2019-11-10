@@ -69,4 +69,41 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, loginComponent, jobListTable, headerStyles } 
+const propertyList = StyleSheet.create({
+    propertyButton: {
+        marginRight:40,
+        marginLeft:40,
+        marginTop:10,
+        paddingTop:10,
+        paddingBottom:10,
+        backgroundColor:'#99d1ff',
+        borderRadius:10,
+        borderWidth: 1,
+        borderColor: '#fff',
+        flexDirection: 'row',
+    },
+    selectedPropertyButton: {
+        marginRight:40,
+        marginLeft:40,
+        marginTop:10,
+        paddingTop:10,
+        paddingBottom:10,
+        backgroundColor:'#99d1ff',
+        borderRadius:10,
+        borderWidth: 1,
+        borderColor: 'white',
+        flexDirection: 'row',
+    },
+    propertyText: {
+        color:'black',
+        paddingLeft : 10,
+        paddingRight : 10
+    },
+    selectedPropertyText: {
+        color:'white',
+        paddingLeft : 10,
+        paddingRight : 10
+    }
+})
+
+export { styles, buttons, loginComponent, jobListTable, headerStyles, propertyList } 

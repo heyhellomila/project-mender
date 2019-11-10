@@ -14,6 +14,7 @@ class DrawerComponent extends Component {
         this.state = {
             loggingOut: false,
             user: props.user.user,
+            property: props.property
         }
     }
 
@@ -29,9 +30,9 @@ class DrawerComponent extends Component {
                     <Image source={menderLogo} style={{ height: 100, width: 100 }} />
                     <Text>{this.state.user.firstName} {this.state.user.lastName}</Text>
                 </View>
-                <View style={{ flex: 3 }}>
-                    <PropertyComponent />
-                </View>
+                <ScrollView style={{ flex: 3}}>
+                    <PropertyComponent {...this.props}/>
+                </ScrollView>
                 <ScrollView>
                     <DrawerItems {...this.props} />
                 </ScrollView>
@@ -53,6 +54,7 @@ const mapDispatchToProps = dispatch => ({
 });
 const mapStateToProps = state => ({
     user: state.user,
+    property: state.property
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent);
