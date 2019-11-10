@@ -1,20 +1,50 @@
 import React from 'react';
 import { View, Picker, Text, TextInput, Switch, Button } from 'react-native';
+import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder'
 import { connect } from 'react-redux';
 
 class WorkOrderPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isVisible: true,
-            isServiceNeeded: false,
-            isUrgent: false
+            property_id: '',
+            sector: '',
+            type: '', 
+            title: '', 
+            cause: '', 
+            service_needed: false, 
+            priority: '', 
+            description: '', 
+            due_date: new Date().getDate() + 1, 
+            price_estimate: 0
         }
     }
     static navigationOptions = {
         title: 'Create Work Order',
     };
     
+    handleWorkOrder(){
+        try {
+                await createWorkOrder(
+                    this.state.sector,
+                    this.state.type,
+                    this.state.title,
+                    this.state.cause,
+                    this.state.service_needed,
+                    this.state.priority,
+                    this.state.description,
+                    this.state.due_date,
+                    this.state.price_estimate).then(async (response) => {
+                        await this.props.authenticate(response.data.token).then(() => {
+                          if (!this.props.user.loading && this.props.user.user) {
+                            this.props.navigation.goBack(null)
+                          }
+                        })
+                      });
+        } catch (err) {
+            alert('error');
+        }
+    }
     
     render() {
         return (
@@ -22,7 +52,7 @@ class WorkOrderPage extends React.Component {
             <View style={styles.elementsContainer}>
                 <Button 
                 style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                title="close"
+                title='close'
                 onPress ={() => this.props.navigation.goBack(null)}/>
             <Text style={styles.headerStyle}>Work Order</Text>
             <Text style={styles.subHeaderStyle}>Property Number and Property Adress</Text>
@@ -42,19 +72,19 @@ class WorkOrderPage extends React.Component {
                     <View style={styles.individualContainer}>
                         <View style={styles.textOnWhite}>  
                         <Picker>
-                            <Picker.Item label="Roof" value="roof" />
-                            <Picker.Item label="Kitchen" value="kitchen" />
-                            <Picker.Item label="Utilities" value="utilities" />
-                            <Picker.Item label="Living Room" value="livingRoom" />
-                            <Picker.Item label="Bathroom" value="bathroom" />
-                            <Picker.Item label="Appliances" value="appliances" />
-                            <Picker.Item label="Bedroom" value="bedroom" />
-                            <Picker.Item label="Balcony" value="balcony" />
-                            <Picker.Item label="Garage" value="garage" />
-                            <Picker.Item label="Envelope" value="envelope" />
-                            <Picker.Item label="Electrical" value="electrical" />
-                            <Picker.Item label="HVAC" value="hvac" />
-                            <Picker.Item label="other" value="other" />
+                            <Picker.Item label='Roof' value='ROOF' />
+                            <Picker.Item label='Kitchen' value='KITCHEN' />
+                            <Picker.Item label='Utilities' value='UTILITIES' />
+                            <Picker.Item label='Living Room' value='LIVINGROOM' />
+                            <Picker.Item label='Bathroom' value='BATHROOM' />
+                            <Picker.Item label='Appliances' value='APPLIANCES' />
+                            <Picker.Item label='Bedroom' value='BEDROOM' />
+                            <Picker.Item label='Balcony' value='BALCONY' />
+                            <Picker.Item label='Garage' value='GARAGE' />
+                            <Picker.Item label='Envelope' value='ENVELOPE' />
+                            <Picker.Item label='Electrical' value='ELECTRICAL' />
+                            <Picker.Item label='HVAC' value='HVAC' />
+                            <Picker.Item label='other' value='OTHER' />
                         </Picker>
                         </View>
                     </View>
@@ -103,10 +133,10 @@ class WorkOrderPage extends React.Component {
 
                 <TextInput  
                 style={{width:230, height: 100, backgroundColor: '#ffffff', alignSelf: 'center', borderRadius:5}}
-                placeholder="Notes/additional information"/>
+                placeholder='Notes/additional information'/>
                 <Button 
                 style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                title="Done"
+                title='Done'
                 onPress ={() => this.props.navigation.goBack(null)}/>
 
             </View>
