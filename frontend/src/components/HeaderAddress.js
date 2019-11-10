@@ -7,12 +7,10 @@ class HeaderAddress extends Component {
         super(props);
         this.state = {
             property: props.property
-        }
+        };
     }
 
     render() {
-        alert(JSON.stringify(this.props.property))
-        alert(JSON.stringify(this.props.user))
         return (
             <View>
                 {this.props.property
@@ -20,11 +18,11 @@ class HeaderAddress extends Component {
                     : null
                 }
             </View>
-        )
+        );
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     property: state.property.property,
     user: state.user.user
 });

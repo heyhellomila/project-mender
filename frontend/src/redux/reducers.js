@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { SELECT_PROPERTY } from './actions'
-
 const rootReducer = (state = {
     user: null,
     loading: false,

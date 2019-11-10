@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native'
+import { StyleSheet} from 'react-native';
 
 const propertyList = StyleSheet.create({
     propertyButton: {
@@ -35,6 +35,6 @@ const propertyList = StyleSheet.create({
         paddingLeft : 10,
         paddingRight : 10
     }
-})
+});
 
-export { propertyList }
+export { propertyList };
