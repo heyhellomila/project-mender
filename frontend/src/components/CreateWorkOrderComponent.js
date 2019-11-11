@@ -2,6 +2,7 @@ import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyl
 import { View, Text, TextInput, Switch, KeyboardAvoidingView } from 'react-native';
 import { Button } from 'react-native-elements'
 import RNPickerSelect from 'react-native-picker-select';
+import DatePicker from 'react-native-datepicker'
 import React from 'react';
 
 const CreateWorkOrderComponent = (props) => {
@@ -16,7 +17,7 @@ const CreateWorkOrderComponent = (props) => {
             <View style={createWorkOrderComponent.rowContainer}>
                 <View style={createWorkOrderComponent.individualContainer}>
                     <Text style = {props.correctiveStyle()}
-                        onPress = {() => props.toggleCorrective()} >Corrective</Text>
+                        onPress = {() => props.toggleCorrective()}>Corrective</Text>
                 </View>
                 <View style={createWorkOrderComponent.individualContainer}>
                     <Text style={props.preventiveStyle()}
@@ -76,7 +77,7 @@ const CreateWorkOrderComponent = (props) => {
             
             <View style={createWorkOrderComponent.rowContainer}>
                 <View style={createWorkOrderComponent.individualContainer}>
-                    <Text style={createWorkOrderComponent.textOnBlue}>Service needed?</Text>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Service Needed?</Text>
                 </View>
                 <View style={createWorkOrderComponent.individualContainer}>
                     <Switch 
@@ -99,6 +100,27 @@ const CreateWorkOrderComponent = (props) => {
                             { label: 'MEDIUM', value: 'MEDIUM' },
                             { label: 'HIGH', value: 'HIGH' }
                         ]}
+                    />
+                    </View>    
+                </View>
+            </View>
+
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Due Date</Text>
+                </View>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <View style={createWorkOrderComponent.textOnWhite}>  
+                    <DatePicker
+                        style={{width: 100}}
+                        date={props.today}
+                        mode='date'
+                        placeholder='select date'
+                        format='YYYY-MM-DD'
+                        minDate={props.today}
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        onDateChange={(value) => props.handleDueDate(value)}
                     />
                     </View>    
                 </View>

@@ -18,7 +18,8 @@ class CreateWorkOrderPage extends React.Component {
             description: 'no description', 
             dueDate: '2020-11-07T03:54:52.130+00:00',
             priceEstimate: 0,
-            navigation: props.navigation
+            navigation: props.navigation,
+            today: new Date()
         };
 
         this.preventiveStyle = this.preventiveStyle.bind(this);
@@ -118,7 +119,12 @@ class CreateWorkOrderPage extends React.Component {
             return createWorkOrderComponent.unselectedGray;
         }
     }
-    
+
+    handleDueDate = (value) => {
+        console.log(value)
+        this.setState({dueDate: Date.parse(value)});
+    }
+
     render() {
         return (
           <KeyboardAvoidingView>
@@ -128,7 +134,8 @@ class CreateWorkOrderPage extends React.Component {
                 togglePreventive = {this.togglePreventive} handleSector={this.handleSector} 
                 handleCause = {this.handleCause} handleDescription = {this.handleDescription} 
                 handlePriority = {this.handlePriority} handleTitle = {this.handleTitle} 
-                toggleServiceNeeded = {this.toggleServiceNeeded} />
+                toggleServiceNeeded = {this.toggleServiceNeeded} 
+                handleDueDate = {this.handleDueDate}/>
           </KeyboardAvoidingView>
         //   this.handlePriority = this.handlePriority.bind(this);
         //   this.handleTitle = this.handleTitle.bind(this);
