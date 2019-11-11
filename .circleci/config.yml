@@ -4,6 +4,11 @@
 #
 version: 2.1
 
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov --file coverage/lcov.info --disable search
+  
 jobs:
   build:
     working_directory: ~/project
