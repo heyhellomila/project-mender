@@ -2,7 +2,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { Image, View, Text } from 'react-native';
 import React from 'react';
-import { Button } from 'react-native-elements';
 import BottomNavigator from './BottomNavigator';
 import WorkOrderPage from '../pages/WorkOrderPage';
 import HeaderAddress from '../components/HeaderAddress';
