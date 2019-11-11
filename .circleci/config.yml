@@ -1,7 +1,3 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2.1
 
 orbs:
@@ -9,67 +5,56 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/project
-    # The primary container is an instance of the first image listed. The job's commands run in this container.
+    parameters:
+      node_version:
+          type: string
     docker:
-      - image: circleci/node:12.9.1
-      - image: mongo:4.2.0
+      - image: circleci/node: 12.9.1
+    working_directory: ~/workdir
 
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/
+      - run: npm install
+      - run: |
+          if [ "<< parameters.node_version >>" == "latest" ]; then
+            npm run test-all
+          else
+            npm run test
+          fi
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install npm wee
-          command: npm install
-     - run:
           name: Coverage
           command: |
             if [ -n "$CODACY_PROJECT_TOKEN" ]; then
               cat ./coverage/lcov.info | node ./bin/codacy-coverage.js
             else
-              echo "Skip sending coverage due to no provided codacy token!""
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-  test:
-    docker:
-      - image: circleci/node:12.9.1
-      - image: mongo:4.2.0
-    steps:
-      - checkout
-      - run:
-          name: Test
-          command: npm test
-      - run:
-          name: Generate code coverage
-          command: './node_modules/.bin/nyc report --reporter=text-lcov'
-      - store_artifacts:
-          path: test-results.xml
-      - store_artifacts:
-          path: coverage
-      - store_test_results:
-          path: test-results
-
+              echo "Skip sending coverage due to no provided codacy token!"
+            fi
 workflows:
   version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-              
   install_and_test:
     jobs:
       - codacy/checkout_and_version
+      - build:
+          name: build_6
+          node_version: "6"
+          requires:
+            - codacy/checkout_and_version
+      - build:
+          name: build_7
+          node_version: "7"
+          requires:
+            - codacy/checkout_and_version
+      - build:
+          name: build_8
+          node_version: "8"
+          requires:
+            - codacy/checkout_and_version
+      - build:
+          name: build_9
+          node_version: "9"
+          requires:
+            - codacy/checkout_and_version
       - build:
           name: build_latest
           node_version: "latest"
@@ -83,4 +68,8 @@ workflows:
           name: tag_version
           context: CodacyAWS
           requires:
+            - build_6
+            - build_7
+            - build_8
+            - build_9
             - build_latest
