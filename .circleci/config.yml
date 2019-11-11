@@ -9,7 +9,7 @@ jobs:
       node_version:
           type: string
     docker:
-      - image: circleci/node: 12.9.1
+      - image: circleci/node:<< parameters.node_version >>
     working_directory: ~/workdir
 
     steps:
