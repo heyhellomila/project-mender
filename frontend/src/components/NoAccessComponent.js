@@ -12,7 +12,7 @@ const NoAccessComponent = (props) => {
             <Button
                 style={noAccessComponent.button}
                 title="Go back"
-                onPress={() => {props.navigation.goBack()}}/>
+                onPress={() => {props.navigation.goBack();}}/>
         </View>
     );
 };

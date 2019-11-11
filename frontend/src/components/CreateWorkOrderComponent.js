@@ -1,8 +1,8 @@
 import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyleSheet';
 import { View, Text, TextInput, Switch, ScrollView } from 'react-native';
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
 import RNPickerSelect from 'react-native-picker-select';
-import DatePicker from 'react-native-datepicker'
+// import DatePicker from 'react-native-datepicker';
 import React from 'react';
 
 const CreateWorkOrderComponent = (props) => {
@@ -139,6 +139,6 @@ const CreateWorkOrderComponent = (props) => {
                 onPress ={() => props.handleWorkOrder()}/>
         </ScrollView>
     );
-}
+};
 
 export default CreateWorkOrderComponent;

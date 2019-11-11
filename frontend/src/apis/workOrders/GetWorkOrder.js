@@ -10,7 +10,7 @@ var api = axios.create({
 api.interceptors.response.use(async (response) => {
     return await response;
     }, async (error) => {
-        if (error.code === 'ECONNABORTED' || error.response.data.statusCode == 500){
+        if (error.code === 'ECONNABORTED' || error.response.data.statusCode === 500){
             throw new Error('Internal server error. Please try again later.');
         } else if (error.response.data.statusCode > 400) {
             throw new Error('Could not find work order.');

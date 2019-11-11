@@ -56,12 +56,12 @@ class CreateWorkOrderPage extends React.Component {
                         this.props.navigation.goBack(null);
                 });
         } catch (err) {
-            alert(err.message)
+            alert(err.message);
         }
     }
 
     toggleCorrective = () => {
-        if(this.state.type == 'CM'){
+        if(this.state.type === 'CM'){
             this.setState({type: 'IMP'});
         }
         else{
@@ -71,7 +71,7 @@ class CreateWorkOrderPage extends React.Component {
     }
 
     togglePreventive = () => {
-        if(this.state.type == 'PM'){
+        if(this.state.type === 'PM'){
             this.setState({type: 'IMP'});
         }
         else{
