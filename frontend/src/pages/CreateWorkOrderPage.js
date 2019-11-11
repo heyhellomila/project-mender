@@ -17,7 +17,7 @@ class CreateWorkOrderPage extends React.Component {
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: 'no description', 
-            dueDate: new Date(),
+            dueDate: '2020-11-07T03:54:52.130+00:00',
             priceEstimate: 0,
             navigation: props.navigation,
             today: new Date()

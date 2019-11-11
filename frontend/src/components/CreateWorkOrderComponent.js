@@ -105,7 +105,7 @@ const CreateWorkOrderComponent = (props) => {
                 </View>
             </View>
 
-            <View style={createWorkOrderComponent.rowContainer}>
+            {/* <View style={createWorkOrderComponent.rowContainer}>
                 <View style={createWorkOrderComponent.individualContainer}>
                     <Text style={createWorkOrderComponent.textOnBlue}>Due Date</Text>
                 </View>
@@ -125,7 +125,7 @@ const CreateWorkOrderComponent = (props) => {
                     />
                     </View>    
                 </View>
-            </View>
+            </View> */}
             
             <View style={createWorkOrderComponent.rowContainer}>
                 <TextInput  
