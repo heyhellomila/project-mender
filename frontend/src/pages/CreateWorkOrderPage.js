@@ -4,6 +4,7 @@ import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
 import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyleSheet';
 import CreateWorkOrderComponent from '../components/CreateWorkOrderComponent';
+import NoAccessComponent from '../components/NoAccessComponent';
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
@@ -16,7 +17,7 @@ class CreateWorkOrderPage extends React.Component {
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: 'no description', 
-            dueDate: '2020-11-07T03:54:52.130+00:00',
+            dueDate: new Date(),
             priceEstimate: 0,
             navigation: props.navigation,
             today: new Date()
@@ -33,6 +34,7 @@ class CreateWorkOrderPage extends React.Component {
         this.handlePriority = this.handlePriority.bind(this);
         this.handleTitle = this.handleTitle.bind(this);
         this.toggleServiceNeeded = this.toggleServiceNeeded.bind(this);
+        this.handleDueDate = this.handleDueDate.bind(this);
     }
     static navigationOptions = {
         title: 'Create Work Order',
@@ -121,25 +123,26 @@ class CreateWorkOrderPage extends React.Component {
     }
 
     handleDueDate = (value) => {
-        console.log(value)
         this.setState({dueDate: Date.parse(value)});
     }
 
     render() {
         return (
           <KeyboardAvoidingView>
-              <CreateWorkOrderComponent {...this.state}
-                correctiveStyle = {this.correctiveStyle} preventiveStyle = {this.preventiveStyle} 
-                handleWorkOrder = {this.handleWorkOrder} toggleCorrective = {this.toggleCorrective}
-                togglePreventive = {this.togglePreventive} handleSector={this.handleSector} 
-                handleCause = {this.handleCause} handleDescription = {this.handleDescription} 
-                handlePriority = {this.handlePriority} handleTitle = {this.handleTitle} 
-                toggleServiceNeeded = {this.toggleServiceNeeded} 
-                handleDueDate = {this.handleDueDate}/>
+            {this.props.property 
+                ? <CreateWorkOrderComponent {...this.state}
+                    correctiveStyle = {this.correctiveStyle} preventiveStyle = {this.preventiveStyle} 
+                    handleWorkOrder = {this.handleWorkOrder} toggleCorrective = {this.toggleCorrective}
+                    togglePreventive = {this.togglePreventive} handleSector={this.handleSector} 
+                    handleCause = {this.handleCause} handleDescription = {this.handleDescription} 
+                    handlePriority = {this.handlePriority} handleTitle = {this.handleTitle} 
+                    toggleServiceNeeded = {this.toggleServiceNeeded} 
+                    handleDueDate = {this.handleDueDate}/>
+                : <NoAccessComponent 
+                    errorMessage={'You must have a registered property to create a work order.'}
+                    navigation={this.props.navigation}/>
+            }
           </KeyboardAvoidingView>
-        //   this.handlePriority = this.handlePriority.bind(this);
-        //   this.handleTitle = this.handleTitle.bind(this);
-        //   this.toggleServiceNeeded = this.toggleServiceNeeded.bind(this);
         );
     }
 }

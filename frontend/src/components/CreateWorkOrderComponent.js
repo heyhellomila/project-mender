@@ -1,5 +1,5 @@
 import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyleSheet';
-import { View, Text, TextInput, Switch, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, Switch, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements'
 import RNPickerSelect from 'react-native-picker-select';
 import DatePicker from 'react-native-datepicker'
@@ -7,11 +7,11 @@ import React from 'react';
 
 const CreateWorkOrderComponent = (props) => {
     return (
-        <KeyboardAvoidingView style={{paddingTop: '5%'}} enabled>
+        <ScrollView style={{paddingTop: '5%'}} enabled>
             <Button
-            style={{alignSelf:'flex-end'}}
-            title='close'
-            onPress ={() => props.navigation.goBack(null)}/>
+                style={{alignSelf:'flex-end'}}
+                title='close'
+                onPress ={() => props.navigation.goBack(null)}/>
             <Text style={createWorkOrderComponent.headerStyle}>Work Order</Text>
             <Text style={createWorkOrderComponent.subHeaderStyle}>Property Number and Property Address</Text>
             <View style={createWorkOrderComponent.rowContainer}>
@@ -113,11 +113,12 @@ const CreateWorkOrderComponent = (props) => {
                     <View style={createWorkOrderComponent.textOnWhite}>  
                     <DatePicker
                         style={{width: 100}}
-                        date={props.today}
+                        date={props.dueDate}
                         mode='date'
                         placeholder='select date'
                         format='YYYY-MM-DD'
                         minDate={props.today}
+                        maxDate="2030-11-30"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         onDateChange={(value) => props.handleDueDate(value)}
@@ -136,7 +137,7 @@ const CreateWorkOrderComponent = (props) => {
                 style={{alignSelf:'flex-end', width: '100%'}}
                 title='Submit'
                 onPress ={() => props.handleWorkOrder()}/>
-        </KeyboardAvoidingView>
+        </ScrollView>
     );
 }
 
