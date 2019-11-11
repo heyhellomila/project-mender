@@ -19,6 +19,22 @@ const rootReducer = (state = {
     }
 };
 
-export default combineReducers({
-    user: rootReducer
+const propertyReducer = (state = {
+    property: null
+}, action) => {
+    switch (action.type) {
+        case 'LOGOUT':
+                return { ...state, property: null };
+        case 'SELECT_PROPERTY':
+            return { ...state, property: action.property };
+        default:
+            return state;
+    }
+};
+
+const app = combineReducers({
+    user: rootReducer,
+    property: propertyReducer
 });
+
+export default app;

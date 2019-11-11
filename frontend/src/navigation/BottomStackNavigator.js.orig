@@ -4,9 +4,12 @@ import { Image, View, Text } from 'react-native';
 import React from 'react';
 import { Button } from 'react-native-elements';
 import BottomNavigator from './BottomNavigator';
+<<<<<<< HEAD
 import WorkOrderPage from '../pages/WorkOrderPage';
+=======
 import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
+>>>>>>> origin/master
 
 const menderLogo = require('../../assets/menderlogo.png')
 
