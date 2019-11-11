@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { Image, View, Text } from 'react-native';
 import React from 'react';
 import BottomNavigator from './BottomNavigator';
-import WorkOrderPage from '../pages/WorkOrderPage';
+import CreateWorkOrderPage from '../pages/CreateWorkOrderPage';
 import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
 
@@ -38,7 +38,7 @@ const RootNavigator = createStackNavigator({
         screen: BottomStackNavigatorRoot,
     },
     Modal: {
-        screen: WorkOrderPage,
+        screen: CreateWorkOrderPage,
     },
 },{
     headerMode: 'none',

@@ -1,5 +1,5 @@
 import axios from 'axios';	
-import { LOCAL_API_KEY } from 'react-native-dotenv'
+import { LOCAL_API_KEY } from 'react-native-dotenv';
 import { AsyncStorage } from 'react-native';
 
 var api = axios.create({	
@@ -10,31 +10,31 @@ var api = axios.create({
 api.interceptors.response.use(async (response) => {
     return await response;
     }, async (error) => {
-        if (error.code == 'ECONNABORTED' || error.response.data.statusCode == '500') {
-            throw new Error('Internal server error. Please try again later.')
+        if (error.code === 'ECONNABORTED' || error.response.data.statusCode == '500') {
+            throw new Error('Internal server error. Please try again later.');
         } else if (error.response && error.response.data.statusCode > 400) {
-            throw new Error('Invalid something.')
+            throw new Error('Invalid entry.');
         } else {
             throw error;
         }
 });
 
-export async function createWorkOrder(propertyId, sector, type, title, cause, service_needed, priority, 
-    description, due_date, price_estimate) {
+export async function createWorkOrder(propertyId, sector, type, title, cause, serviceNeeded, priority, 
+    description, due_date, priceEstimate) {
 
-    body = {
+    var body = {
         sector, 
         type, 
         title, 
         cause, 
-        service_needed: JSON.stringify(service_needed), 
+        serviceNeeded: JSON.stringify(serviceNeeded), 
         priority, 
         description, 
         due_date, 
-        price_estimate: JSON.stringify(price_estimate)
-    }
+        priceEstimate: JSON.stringify(priceEstimate)
+    };
 
     return await api.post(`/properties/${propertyId}/workorders/`, body, {
         headers: {'Authorization': await AsyncStorage.getItem('Authorization')}
-    })
+    });
 }	

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const workOrderPage = StyleSheet.create({
+const createWorkOrderPage = StyleSheet.create({
     headerStyle: {
         fontSize: 36,
         textAlign: 'center',
@@ -74,4 +74,4 @@ const workOrderPage = StyleSheet.create({
     }
 });
 
-export { workOrderPage };
+export { createWorkOrderPage };
