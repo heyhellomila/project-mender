@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import WorkOrderComponent from '../components/WorkOrderModal';
 
 class JobListPage extends React.Component {
     static navigationOptions = {
@@ -45,11 +44,6 @@ class JobListPage extends React.Component {
                 <CommonHeader user={this.state.user} />
                 <View style={styles.bodyContainer}>
                     <Text>Email</Text>
-                    <WorkOrderComponent
-                        data="Seb"
-                        display={this.state.displayModal}
-                        closeModal={() => this.setState({ displayModal: false })}
-                    />
                 </View>
             </View>
         );

@@ -9,7 +9,6 @@ class CreateWorkOrderPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            propertyId: '5dc398c35c942a071043e187',
             sector: 'ROOF',
             type: 'IMP', 
             title: 'untitled', 
@@ -28,7 +27,7 @@ class CreateWorkOrderPage extends React.Component {
     handleWorkOrder = async() => {
         try {
             await createWorkOrder(
-                this.state.propertyId,
+                this.props.property.id,
                 this.state.sector,
                 this.state.type,
                 this.state.title,
@@ -41,7 +40,7 @@ class CreateWorkOrderPage extends React.Component {
                         this.props.navigation.goBack(null);
                 });
         } catch (err) {
-            //console.log(JSON.stringify(err.response));
+            alert(err.message)
         }
     }
 
@@ -223,7 +222,7 @@ class CreateWorkOrderPage extends React.Component {
 
 const mapStateToProps = (state) => ({
     user: state.user,
-    property: state.property
+    property: state.property.property
 });
 
 export default connect(mapStateToProps, null)(CreateWorkOrderPage);
