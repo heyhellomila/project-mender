@@ -20,7 +20,8 @@ class CreateWorkOrderPage extends React.Component {
             dueDate: '2020-11-07T03:54:52.130+00:00',
             priceEstimate: 0,
             navigation: props.navigation,
-            today: new Date()
+            today: new Date(),
+            property: props.property
         };
 
         this.preventiveStyle = this.preventiveStyle.bind(this);
@@ -56,12 +57,12 @@ class CreateWorkOrderPage extends React.Component {
                         this.props.navigation.goBack(null);
                 });
         } catch (err) {
-            alert(err.message)
+            alert(err.message);
         }
     }
 
     toggleCorrective = () => {
-        if(this.state.type == 'CM'){
+        if(this.state.type === 'CM'){
             this.setState({type: 'IMP'});
         }
         else{
@@ -71,7 +72,7 @@ class CreateWorkOrderPage extends React.Component {
     }
 
     togglePreventive = () => {
-        if(this.state.type == 'PM'){
+        if(this.state.type === 'PM'){
             this.setState({type: 'IMP'});
         }
         else{
