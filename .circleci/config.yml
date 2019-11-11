@@ -3,20 +3,21 @@ version: 2.1
 orbs:
   codacy: codacy/base@1.0.0
 
-jobs:build:
+jobs:
+  build:
     docker:
       - image: circleci/node:12.9.1
       - image: mongo:4.2.0
 
 steps:
-    - checkout
-    - run: npm install
-    - run: npm test
-    - coodacy/upload:
-      - file: coverage/*.json
-      - store_artifacts:
-          path: test-results.xml
-      - store_artifacts:
-          path: coverage
-      - store_test_results:
-          path: test-results
+  - checkout
+  - run: npm install
+  - run: npm test
+  - coodacy/upload:
+  - file: coverage/*.json
+  - store_artifacts:
+      path: test-results.xml
+  - store_artifacts:
+      path: coverage
+  - store_test_results:
+      path: test-results
