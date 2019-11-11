@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Picker, Text, TextInput, Switch, Button, KeyboardAvoidingView } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
+import { KeyboardAvoidingView } from 'react-native';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
-import { createWorkOrderPage } from '../stylesheets/CreateWorkOrderPageStyleSheet';
+import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyleSheet';
+import CreateWorkOrderComponent from '../components/CreateWorkOrderComponent';
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
@@ -17,8 +17,21 @@ class CreateWorkOrderPage extends React.Component {
             priority: 'MEDIUM', 
             description: 'no description', 
             dueDate: '2020-11-07T03:54:52.130+00:00',
-            price_estimate: 0
+            priceEstimate: 0,
+            navigation: props.navigation
         };
+
+        this.preventiveStyle = this.preventiveStyle.bind(this);
+        this.correctiveStyle = this.correctiveStyle.bind(this);
+        this.handleWorkOrder = this.handleWorkOrder.bind(this);
+        this.toggleCorrective = this.toggleCorrective.bind(this);
+        this.togglePreventive = this.togglePreventive.bind(this);
+        this.handleSector = this.handleSector.bind(this);
+        this.handleCause = this.handleCause.bind(this);
+        this.handleDescription = this.handleDescription.bind(this);
+        this.handlePriority = this.handlePriority.bind(this);
+        this.handleTitle = this.handleTitle.bind(this);
+        this.toggleServiceNeeded = this.toggleServiceNeeded.bind(this);
     }
     static navigationOptions = {
         title: 'Create Work Order',
@@ -36,7 +49,7 @@ class CreateWorkOrderPage extends React.Component {
                 this.state.priority,
                 this.state.description,
                 this.state.dueDate,
-                this.state.price_estimate).then(async() => {
+                this.state.priceEstimate).then(async() => {
                         this.props.navigation.goBack(null);
                 });
         } catch (err) {
@@ -90,132 +103,36 @@ class CreateWorkOrderPage extends React.Component {
 
     correctiveStyle = function() {
         if(this.state.type === 'CM'){
-            return createWorkOrderPage.selectedGray;
+            return createWorkOrderComponent.selectedGray;
         }
         else{
-            return createWorkOrderPage.unselectedGray;
+            return createWorkOrderComponent.unselectedGray;
         }
     }
 
     preventiveStyle = function() {
         if(this.state.type === 'PM'){
-            return createWorkOrderPage.selectedGray;
+            return createWorkOrderComponent.selectedGray;
         }
         else{
-            return createWorkOrderPage.unselectedGray;
+            return createWorkOrderComponent.unselectedGray;
         }
     }
     
     render() {
         return (
-            
-            //buttonFunction={() => this.props.navigation.goBack(null)
-            <KeyboardAvoidingView style={createWorkOrderPage.elementsContainer} behavior="position" enabled>
-                <Button 
-                style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                title='close'
-                onPress ={() => this.props.navigation.goBack(null)}/>
-            <Text style={createWorkOrderPage.headerStyle}>Work Order</Text>
-            <Text style={createWorkOrderPage.subHeaderStyle}>Property Number and Property Address</Text>
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style = {this.correctiveStyle()}
-                           onPress = {this.toggleCorrective} >Corrective</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={this.preventiveStyle()}
-                            onPress = {this.togglePreventive}>Preventive</Text>
-                    </View>
-                </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Sector</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <View style={createWorkOrderPage.textOnWhite}>  
-                            <RNPickerSelect value = {this.state.sector} style={createWorkOrderPage.pickerComponent} onValueChange = {this.handleSector}
-                                items={[
-                                    { label: 'Kitchen', value: 'KITCHEN' },
-                                    { label: 'Utilities', value: 'UTILITIES' },
-                                    { label: 'Living Room', value: 'LIVINGROOM' },
-                                    { label: 'Bathroom', value: 'BATHROOM' },
-                                    { label: 'Appliances', value: 'APPLIANCES' },
-                                    { label: 'Bedroom', value: 'BEDROOM' },
-                                    { label: 'Balcony', value: 'BALCONY' },
-                                    { label: 'Garage', value: 'GARAGE' },
-                                    { label: 'Envelope', value: 'ENVELOPE' },
-                                    { label: 'Electrical', value: 'ELECTRICAL' },
-                                    { label: 'HVAC', value: 'HVAC' },
-                                    { label: 'Other', value: 'OTHER' }
-                                ]}
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Title</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <TextInput style = {createWorkOrderPage.textOnWhite}
-                            placeholder = 'title'
-                            onChangeText = {this.handleTitle}/>
-                    </View>
-                </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Cause</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <TextInput style={createWorkOrderPage.textOnWhite}
-                            placeholder = 'cause'
-                            onChangeText = {this.handleCause}/>
-                    </View>
-                </View>
-                
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Service needed?</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Switch 
-                            style={{alignSelf:'center'}}
-                            onValueChange = {this.toggleServiceNeeded}
-                            value = {this.state.serviceNeeded}/>
-                    </View>
-                </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Urgency</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <View style={createWorkOrderPage.textOnWhite}>  
-                        <RNPickerSelect value = {this.state.priority} style={createWorkOrderPage.pickerComponent} onValueChange = {this.handlePriority}
-                            items={[
-                                { label: 'LOW', value: 'LOW' },
-                                { label: 'MEDIUM', value: 'MEDIUM' },
-                                { label: 'HIGH', value: 'HIGH' }
-                            ]}
-                        />
-                        </View>    
-                    </View>
-                </View>
-                
-                <View style={createWorkOrderPage.rowContainer}>
-                    <TextInput  
-                        style={createWorkOrderPage.notesInput}
-                        placeholder = 'Notes/additional information'
-                        onChangeText = {this.handleDescription}/>
-                </View>
-                <Button 
-                    style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                    title='Done'
-                    onPress ={this.handleWorkOrder}/>
-            </KeyboardAvoidingView>
+          <KeyboardAvoidingView>
+              <CreateWorkOrderComponent {...this.state}
+                correctiveStyle = {this.correctiveStyle} preventiveStyle = {this.preventiveStyle} 
+                handleWorkOrder = {this.handleWorkOrder} toggleCorrective = {this.toggleCorrective}
+                togglePreventive = {this.togglePreventive} handleSector={this.handleSector} 
+                handleCause = {this.handleCause} handleDescription = {this.handleDescription} 
+                handlePriority = {this.handlePriority} handleTitle = {this.handleTitle} 
+                toggleServiceNeeded = {this.toggleServiceNeeded} />
+          </KeyboardAvoidingView>
+        //   this.handlePriority = this.handlePriority.bind(this);
+        //   this.handleTitle = this.handleTitle.bind(this);
+        //   this.toggleServiceNeeded = this.toggleServiceNeeded.bind(this);
         );
     }
 }

@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-const createWorkOrderPage = StyleSheet.create({
+const createWorkOrderComponent = StyleSheet.create({
     headerStyle: {
         fontSize: 36,
         textAlign: 'center',
         fontWeight: '100',
-        marginTop: 24,
+        marginTop: 18,
         marginBottom: 10
     },
     subHeaderStyle: {
@@ -13,12 +13,8 @@ const createWorkOrderPage = StyleSheet.create({
         alignSelf: 'center'
     },
     elementsContainer: {
-        flex: 1,
-        backgroundColor: '#ecf5fd',
-        marginLeft: 24,
-        marginRight: 24,
-        marginBottom: 24,
-        marginTop: 24
+        flex: 3,
+        
     },
     rowContainer: {
         flexDirection: 'row', 
@@ -74,4 +70,4 @@ const createWorkOrderPage = StyleSheet.create({
     }
 });
 
-export { createWorkOrderPage };
+export { createWorkOrderComponent };

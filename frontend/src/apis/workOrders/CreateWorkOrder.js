@@ -10,28 +10,29 @@ var api = axios.create({
 api.interceptors.response.use(async (response) => {
     return await response;
     }, async (error) => {
+        console.log(error);
         if (error.code === 'ECONNABORTED' || error.response.data.statusCode == '500') {
             throw new Error('Internal server error. Please try again later.');
         } else if (error.response && error.response.data.statusCode > 400) {
-            throw new Error('Invalid entry.');
+            throw new Error('Could not create work order.');
         } else {
             throw error;
         }
 });
 
 export async function createWorkOrder(propertyId, sector, type, title, cause, serviceNeeded, priority, 
-    description, due_date, priceEstimate) {
+    description, dueDate, priceEstimate) {
 
     var body = {
         sector, 
         type, 
         title, 
         cause, 
-        serviceNeeded: JSON.stringify(serviceNeeded), 
+        service_needed: JSON.stringify(serviceNeeded), 
         priority, 
         description, 
-        due_date, 
-        priceEstimate: JSON.stringify(priceEstimate)
+        due_date: dueDate,
+        price_estimate: JSON.stringify(priceEstimate)
     };
 
     return await api.post(`/properties/${propertyId}/workorders/`, body, {

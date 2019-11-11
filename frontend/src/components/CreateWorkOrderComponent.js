@@ -1,117 +1,121 @@
-import React, { Component } from 'react';
-import { createWorkOrderPage } from '../stylesheets/CreateWorkOrderPageStyleSheet';
+import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyleSheet';
+import { View, Text, TextInput, Switch, KeyboardAvoidingView } from 'react-native';
+import { Button } from 'react-native-elements'
+import RNPickerSelect from 'react-native-picker-select';
+import React from 'react';
 
-class CreateWorkOrderComponent extends Component{
-    render() {
-        return (
-            
-            //buttonFunction={() => this.props.navigation.goBack(null)
-            <KeyboardAvoidingView style={createWorkOrderPage.elementsContainer} behavior="position" enabled>
-                <Button 
-                style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                title='close'
-                onPress ={() => this.props.navigation.goBack(null)}/>
-            <Text style={createWorkOrderPage.headerStyle}>Work Order</Text>
-            <Text style={createWorkOrderPage.subHeaderStyle}>Property Number and Property Address</Text>
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style = {this.correctiveStyle()}
-                           onPress = {this.toggleCorrective} >Corrective</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={this.preventiveStyle()}
-                            onPress = {this.togglePreventive}>Preventive</Text>
-                    </View>
+const CreateWorkOrderComponent = (props) => {
+    return (
+        <KeyboardAvoidingView style={{paddingTop: '5%'}} enabled>
+            <Button
+            style={{alignSelf:'flex-end'}}
+            title='close'
+            onPress ={() => props.navigation.goBack(null)}/>
+            <Text style={createWorkOrderComponent.headerStyle}>Work Order</Text>
+            <Text style={createWorkOrderComponent.subHeaderStyle}>Property Number and Property Address</Text>
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style = {props.correctiveStyle()}
+                        onPress = {() => props.toggleCorrective()} >Corrective</Text>
                 </View>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={props.preventiveStyle()}
+                        onPress = {() => props.togglePreventive()}>Preventive</Text>
+                </View>
+            </View>
 
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Sector</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <View style={createWorkOrderPage.textOnWhite}>  
-                            <RNPickerSelect value = {this.state.sector} style={createWorkOrderPage.pickerComponent} onValueChange = {this.handleSector}
-                                items={[
-                                    { label: 'Kitchen', value: 'KITCHEN' },
-                                    { label: 'Utilities', value: 'UTILITIES' },
-                                    { label: 'Living Room', value: 'LIVINGROOM' },
-                                    { label: 'Bathroom', value: 'BATHROOM' },
-                                    { label: 'Appliances', value: 'APPLIANCES' },
-                                    { label: 'Bedroom', value: 'BEDROOM' },
-                                    { label: 'Balcony', value: 'BALCONY' },
-                                    { label: 'Garage', value: 'GARAGE' },
-                                    { label: 'Envelope', value: 'ENVELOPE' },
-                                    { label: 'Electrical', value: 'ELECTRICAL' },
-                                    { label: 'HVAC', value: 'HVAC' },
-                                    { label: 'Other', value: 'OTHER' }
-                                ]}
-                            />
-                        </View>
-                    </View>
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Sector</Text>
                 </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Title</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <TextInput style = {createWorkOrderPage.textOnWhite}
-                            placeholder = 'title'
-                            onChangeText = {this.handleTitle}/>
-                    </View>
-                </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Cause</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <TextInput style={createWorkOrderPage.textOnWhite}
-                            placeholder = 'cause'
-                            onChangeText = {this.handleCause}/>
-                    </View>
-                </View>
-                
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Service needed?</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Switch 
-                            style={{alignSelf:'center'}}
-                            onValueChange = {this.toggleServiceNeeded}
-                            value = {this.state.serviceNeeded}/>
-                    </View>
-                </View>
-
-                <View style={createWorkOrderPage.rowContainer}>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <Text style={createWorkOrderPage.textOnBlue}>Urgency</Text>
-                    </View>
-                    <View style={createWorkOrderPage.individualContainer}>
-                        <View style={createWorkOrderPage.textOnWhite}>  
-                        <RNPickerSelect value = {this.state.priority} style={createWorkOrderPage.pickerComponent} onValueChange = {this.handlePriority}
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <View style={createWorkOrderComponent.textOnWhite}>  
+                        <RNPickerSelect value = {props.sector} 
+                            style={createWorkOrderComponent.pickerComponent} 
+                            onValueChange = {(value) => props.handleSector(value)}
                             items={[
-                                { label: 'LOW', value: 'LOW' },
-                                { label: 'MEDIUM', value: 'MEDIUM' },
-                                { label: 'HIGH', value: 'HIGH' }
+                                { label: 'Kitchen', value: 'KITCHEN' },
+                                { label: 'Utilities', value: 'UTILITIES' },
+                                { label: 'Living Room', value: 'LIVINGROOM' },
+                                { label: 'Bathroom', value: 'BATHROOM' },
+                                { label: 'Appliances', value: 'APPLIANCES' },
+                                { label: 'Bedroom', value: 'BEDROOM' },
+                                { label: 'Balcony', value: 'BALCONY' },
+                                { label: 'Garage', value: 'GARAGE' },
+                                { label: 'Envelope', value: 'ENVELOPE' },
+                                { label: 'Electrical', value: 'ELECTRICAL' },
+                                { label: 'HVAC', value: 'HVAC' },
+                                { label: 'Other', value: 'OTHER' }
                             ]}
                         />
-                        </View>    
                     </View>
                 </View>
-                
-                <View style={createWorkOrderPage.rowContainer}>
-                    <TextInput  
-                        style={createWorkOrderPage.notesInput}
-                        placeholder = 'Notes/additional information'
-                        onChangeText = {this.handleDescription}/>
+            </View>
+
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Title</Text>
                 </View>
-                <Button 
-                    style={{alignSelf:'flex-end', position:'absolute', width: 100}}
-                    title='Done'
-                    onPress ={this.handleWorkOrder}/>
-            </KeyboardAvoidingView>
-        );
-    }
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <TextInput style = {createWorkOrderComponent.textOnWhite}
+                        placeholder = 'title'
+                        onChangeText = {(value) => props.handleTitle(value)}/>
+                </View>
+            </View>
+
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Cause</Text>
+                </View>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <TextInput style={createWorkOrderComponent.textOnWhite}
+                        placeholder = 'cause'
+                        onChangeText = {(value) => props.handleCause(value)}/>
+                </View>
+            </View>
+            
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Service needed?</Text>
+                </View>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Switch 
+                        onValueChange = {(value) => props.toggleServiceNeeded(value)}
+                        value = {props.serviceNeeded}/>
+                </View>
+            </View>
+
+            <View style={createWorkOrderComponent.rowContainer}>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <Text style={createWorkOrderComponent.textOnBlue}>Urgency</Text>
+                </View>
+                <View style={createWorkOrderComponent.individualContainer}>
+                    <View style={createWorkOrderComponent.textOnWhite}>  
+                    <RNPickerSelect value = {props.priority} 
+                        style={createWorkOrderComponent.pickerComponent} 
+                        onValueChange = {(value) => props.handlePriority(value)}
+                        items={[
+                            { label: 'LOW', value: 'LOW' },
+                            { label: 'MEDIUM', value: 'MEDIUM' },
+                            { label: 'HIGH', value: 'HIGH' }
+                        ]}
+                    />
+                    </View>    
+                </View>
+            </View>
+            
+            <View style={createWorkOrderComponent.rowContainer}>
+                <TextInput  
+                    style={createWorkOrderComponent.notesInput}
+                    placeholder = 'Notes/additional information'
+                    onChangeText = {(value) => props.handleDescription(value)}/>
+            </View>
+            <Button 
+                style={{alignSelf:'flex-end', width: '100%'}}
+                title='Submit'
+                onPress ={() => props.handleWorkOrder()}/>
+        </KeyboardAvoidingView>
+    );
 }
+
+export default CreateWorkOrderComponent;
