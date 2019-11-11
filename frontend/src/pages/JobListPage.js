@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles, jobListTable } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import WorkOrderComponent from '../components/WorkOrderModal';
 import { Table, Row, Rows } from 'react-native-table-component';
 
 class JobListPage extends React.Component {
@@ -58,11 +57,6 @@ class JobListPage extends React.Component {
                         <Row data={state.tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text} />
                         <Rows data={state.tableData} textStyle={jobListTable.jobListTabletext} />
                     </Table>
-                    <WorkOrderComponent
-                        data="Seb"
-                        display={this.state.displayModal}
-                        closeModal={() => this.setState({ displayModal: false })}
-                    />
                 </View>
             </View>
         );
