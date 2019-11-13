@@ -1,13 +1,7 @@
 # Project Mender
-![CircleCI](https://img.shields.io/circleci/build/github/milaroisin/project-mender/master?style=for-the-badge)
+[![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d3aae514d49b4f6c94b5547755a16e2a)](https://www.codacy.com/manual/milaroisin/project-mender?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=milaroisin/project-mender&amp;utm_campaign=Badge_Grade)
-![CommitActivity](https://img.shields.io/github/last-commit/milaroisin/project-mender?color=lightgrey&style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/milaroisin/project-mender?style=for-the-badge)
-![License](https://img.shields.io/github/license/milaroisin/project-mender?color=ultraviolet&style=for-the-badge)
-![Stars](https://img.shields.io/github/stars/milaroisin/project-mender?color=blue&style=for-the-badge)
-![BeerPay](https://img.shields.io/beerpay/milaroisin/project-mender?color=9cf&style=for-the-badge)
-![CompanyLogo](https://raw.githubusercontent.com/milaroisin/project-mender/readme/mender-logo.jpg)
-
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)]
 
 A home renovation & maintenance application for homeowners where users are will then be able to create work orders for corrective and preventive maintenance work aimed specifically for the Quebec markets. Every home purchase is required to be catalogued and pass under strict inspection standards that are set by provincial and regional requirements. However, the results of the inspection are too long-winded and are not easily translatable for the client. This application aims to condense, summarize and interpret the results in a visually appealing manner for the client to understand their home better. With this in mind, the homeowner will be able to create and track work orders for corrective and preventive maintenance.
 
