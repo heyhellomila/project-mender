@@ -8,14 +8,13 @@ const userController = express.Router();
 const userService = new UserService();
 
 const loginFields = ['email', 'password']
-const registerFields = ['email', 'password', 'first_name', 'last_name', 'type']
+const registerFields = ['email', 'password', 'first_name', 'last_name', 'phone_number', 'type']
 
 // register API
 userController.post('/', validateBody(registerFields), async (req, res) => {
     try {
-        const { email, password, first_name, last_name, type } = req.body;
-        const user = await userService.register(email, password, first_name, last_name,
-            type);
+        const { email, password, first_name, last_name, phone_number, type } = req.body;
+        const user = await userService.register(email, password, first_name, last_name, phone_number, type);
         return res.status(200).json(user);
     } catch (err) {
         return handleError(err, res);
