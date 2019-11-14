@@ -19,7 +19,7 @@ class UserService {
         return true
     }
 
-    async register(email, password, first_name, last_name, phone_number,type) {
+    async register(email, password, first_name, last_name, phone_number, type) {
         if (!passwordValidator.validate(password)) {
             throw new BadRequestError('Password must be at least 8 characters' +  
                 ' and must include at least one digit.')
