@@ -1,15 +1,17 @@
 import React from 'react';
-import { KeyboardAvoidingView } from 'react-native';
+import { View, Platform, StatusBar, SafeAreaView, Button, TouchableOpacity, Text } from 'react-native';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
-import { createWorkOrderComponent } from '../stylesheets/CreateWorkOrderPageStyleSheet';
-import CreateWorkOrderComponent from '../components/CreateWorkOrderComponent';
 import NoAccessComponent from '../components/NoAccessComponent';
+import ChooseSector from '../components/workOrderForm/ChooseSector';
+import GeneralInfo from '../components/workOrderForm/GeneralInfo';
+import Header from '../components/workOrderForm/Header';
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            step: 1,
             sector: 'ROOF',
             type: 'IMP', 
             title: 'untitled', 
@@ -24,11 +26,6 @@ class CreateWorkOrderPage extends React.Component {
             property: props.property
         };
 
-        this.preventiveStyle = this.preventiveStyle.bind(this);
-        this.correctiveStyle = this.correctiveStyle.bind(this);
-        this.handleWorkOrder = this.handleWorkOrder.bind(this);
-        this.toggleCorrective = this.toggleCorrective.bind(this);
-        this.togglePreventive = this.togglePreventive.bind(this);
         this.handleSector = this.handleSector.bind(this);
         this.handleCause = this.handleCause.bind(this);
         this.handleDescription = this.handleDescription.bind(this);
@@ -40,6 +37,20 @@ class CreateWorkOrderPage extends React.Component {
     static navigationOptions = {
         title: 'Create Work Order',
     };
+
+    nextStep = () => {
+        const { step } = this.state;
+        this.setState({
+            step: step + 1
+        });
+    }
+
+    prevStep = () => {
+        const { step } = this.state;
+        this.setState({
+            step: step - 1
+        });
+    }
     
     handleWorkOrder = async() => {
         try {
@@ -61,28 +72,13 @@ class CreateWorkOrderPage extends React.Component {
         }
     }
 
-    toggleCorrective = () => {
-        if(this.state.type === 'CM'){
-            this.setState({type: 'IMP'});
-        }
-        else{
-            this.setState({type: 'CM'});
-        }
-
-    }
-
-    togglePreventive = () => {
-        if(this.state.type === 'PM'){
-            this.setState({type: 'IMP'});
-        }
-        else{
-            this.setState({type: 'PM'});
-        }
-
-    }
-
     handleSector = (value) => {
         this.setState({sector: value});
+    }
+
+    handleType = (value) => {
+        console.log(value);
+        this.setState({type: value});
     }
 
     handleTitle = (value) => {
@@ -105,46 +101,58 @@ class CreateWorkOrderPage extends React.Component {
         this.setState({priority: value});
     }
 
-    correctiveStyle = function() {
-        if(this.state.type === 'CM'){
-            return createWorkOrderComponent.selectedGray;
-        }
-        else{
-            return createWorkOrderComponent.unselectedGray;
-        }
-    }
-
-    preventiveStyle = function() {
-        if(this.state.type === 'PM'){
-            return createWorkOrderComponent.selectedGray;
-        }
-        else{
-            return createWorkOrderComponent.unselectedGray;
-        }
-    }
-
     handleDueDate = (value) => {
         this.setState({dueDate: Date.parse(value)});
     }
 
     render() {
-        return (
-          <KeyboardAvoidingView>
-            {this.props.property 
-                ? <CreateWorkOrderComponent {...this.state}
-                    correctiveStyle = {this.correctiveStyle} preventiveStyle = {this.preventiveStyle} 
-                    handleWorkOrder = {this.handleWorkOrder} toggleCorrective = {this.toggleCorrective}
-                    togglePreventive = {this.togglePreventive} handleSector={this.handleSector} 
-                    handleCause = {this.handleCause} handleDescription = {this.handleDescription} 
-                    handlePriority = {this.handlePriority} handleTitle = {this.handleTitle} 
-                    toggleServiceNeeded = {this.toggleServiceNeeded} 
-                    handleDueDate = {this.handleDueDate}/>
-                : <NoAccessComponent 
+        const { property } = this.props;
+        const { step } = this.state;
+        if (!property) {
+            return(
+                <NoAccessComponent 
                     errorMessage={'You must have a registered property to create a work order.'}
                     navigation={this.props.navigation}/>
+            );
+        } else {
+            switch(step) {
+                case 1:
+                    return(
+                        <View>
+                            <Header {...this.state} headerText={"Pick a sector"}/>
+                            <ChooseSector {...this.state} handleSector={this.handleSector} 
+                                nextStep={this.nextStep}/>
+                        </View>
+                    );
+                case 2: 
+                    return(
+                        <SafeAreaView style={{paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
+                            <Header {...this.state} headerText={"General information"}></Header>
+                            <GeneralInfo {...this.state} handleTitle={this.handleTitle}
+                                handleCause={this.handleCause} nextStep={this.nextStep} 
+                                prevStep={this.prevStep} handleType={this.handleType}/>
+                        </SafeAreaView>
+                    );
+                case 3: 
+                        return(
+                            <SafeAreaView style={{paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
+                                <Header {...this.state} headerText={"General information"}></Header>
+                                <Button 
+                                    title="Submit"
+                                    onPress={()=> this.handleWorkOrder()} 
+                                ></Button>
+                            </SafeAreaView>
+                        )
             }
-          </KeyboardAvoidingView>
-        );
+        }
+        // <CreateWorkOrderComponent {...this.state}
+        //     correctiveStyle = {this.correctiveStyle} preventiveStyle = {this.preventiveStyle} 
+        //     handleWorkOrder = {this.handleWorkOrder} toggleCorrective = {this.toggleCorrective}
+        //     togglePreventive = {this.togglePreventive} handleSector={this.handleSector} 
+        //     handleCause = {this.handleCause} handleDescription = {this.handleDescription} 
+        //     handlePriority = {this.handlePriority} handleTitle = {this.handleTitle} 
+        //     toggleServiceNeeded = {this.toggleServiceNeeded} 
+        //     handleDueDate = {this.handleDueDate}/>
     }
 }
 
