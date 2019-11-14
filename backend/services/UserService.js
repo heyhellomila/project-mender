@@ -19,7 +19,7 @@ class UserService {
         return true
     }
 
-    async register(email, password, first_name, last_name, type) {
+    async register(email, password, first_name, last_name, phone_number,type) {
         if (!passwordValidator.validate(password)) {
             throw new BadRequestError('Password must be at least 8 characters' +  
                 ' and must include at least one digit.')
@@ -30,7 +30,7 @@ class UserService {
             throw new ResourceExistsError("Email " + email + " already in use.");
         }
         try {
-            return await UserGateway.createUser(email, hashedPassword, first_name, last_name, type);
+            return await UserGateway.createUser(email, hashedPassword, first_name, last_name, phone_number, type);
         } catch (err) {
             throw new BadRequestError(err.message);
         }

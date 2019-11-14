@@ -15,12 +15,13 @@ const UserGateway = {
         return user;
     },
     
-    async createUser(email, password_hash, first_name, last_name, type) {
+    async createUser(email, password_hash, first_name, last_name, phone_number, type) {
         user = new User({
             email: email,
             password_hash: password_hash,
             first_name: first_name,
             last_name: last_name,
+            phone_number,
             type: type
         });
         try {
@@ -30,7 +31,7 @@ const UserGateway = {
         }
     },
 
-    async updateUser(id, email, password_hash, first_name, last_name, type) {
+    async updateUser(id, email, password_hash, first_name, last_name, phone_number, type) {
         user = this.getUserById(id);
         try {
             return await User.updateOne({id: id},
@@ -40,6 +41,7 @@ const UserGateway = {
                         password_hash: password_hash,
                         first_name: first_name,
                         last_name: last_name,
+                        phone_number: phone_number,
                         type: type
                     }
                 }
