@@ -15,4 +15,13 @@ propertyController.get('/:id', auth, async(req, res) => {
     } 
 })
 
+propertyController.delete('/:id/delete', auth, async(req, res) =>{
+    try {
+        const property = await propertyService.deletePropertyById(req.params.id);
+        return res.status(200).json(property);
+    } catch (err) {
+        return handleError(err, res);
+    } 
+})
+
 module.exports = propertyController;

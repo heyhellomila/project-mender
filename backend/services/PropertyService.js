@@ -43,6 +43,16 @@ class PropertyService {
             throw err;
         }
     }
+
+    async deletePropertyById(id){
+        if(!await this.getPropertyById(id))
+        throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
+        try {
+            return await PropertyGateway.deletePropertyById(id);
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 
 module.exports = PropertyService
