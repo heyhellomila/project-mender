@@ -15,4 +15,13 @@ propertyController.get('/:id', auth, async(req, res) => {
     } 
 })
 
+propertyController.patch('/:id/updateProperty', auth, async(req, res) => {
+    try {
+        const property = await propertyService.updatePropertyById(req.params.id, req.body);
+        return res.status(200).json(property);
+    } catch (err) {
+        return handleError(err, res);
+    } 
+})
+
 module.exports = propertyController;
