@@ -28,7 +28,14 @@ const PropertyGateway = {
         } catch (err) {
             throw new Error(err);
         }
-    }
+    },
 
+    async deletePropertyById(id) {
+        try{
+        return await Property.remove({_id: id});
+        }catch(err){
+            throw new Error(err);
+        }
+    }
 }
 module.exports = PropertyGateway
