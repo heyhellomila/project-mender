@@ -34,7 +34,7 @@ const PropertySchema = mongoose.Schema({
         trim : true,
         validate: value => {
             if (!Status.getValue(value)) {
-                throw new Error('Invalid Status. Allowed Status: [' + Status.enums +']');
+                throw new Error('Invalid Status. Allowed Statuses: [' + Status.enums +']');
             }
         }
     }

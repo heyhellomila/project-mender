@@ -51,7 +51,7 @@ class PropertyService {
             throw new ResourceNotFoundError('Property with id ' + id + ' does not exist.')
         if(propertyObj.status != null){
             if(!Status.getValue(propertyObj.status)){
-                throw new ResourceNotFoundError('Invalid Status. Allowed Types: [' + Status.enums + ']')
+                throw new ResourceNotFoundError('Invalid Status. Allowed Statuses: [' + Status.enums + ']')
             }
         }
         if(propertyObj.type != null){
