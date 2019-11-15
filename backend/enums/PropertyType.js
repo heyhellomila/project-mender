@@ -2,13 +2,13 @@ var Enum = require('enum');
 
 const PropertyType = new Enum([
     'CONDOMINIUM',
-    'APARTMENT',
+    'SINGLE_FAMILY_HOME',
     'TOWNHOUSE',
-    'COOPERATIVE',
-    'SEMI-DETACHED',
-    'BUNGALOW',
     'DUPLEX',
-    'TRIPLEX'
+    'TRIPLEX',
+    'MULTIPLEX',
+    'COTTAGE',
+    'MOBILE_HOME',
 ]);
 
 module.exports = PropertyType;
