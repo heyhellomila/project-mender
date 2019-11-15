@@ -4,9 +4,7 @@ const createWorkOrderComponent = StyleSheet.create({
     headerStyle: {
         fontSize: 36,
         textAlign: 'center',
-        fontWeight: '100',
-        marginTop: 18,
-        marginBottom: 10
+        fontWeight: '100'
     },
     closeButton: {
         alignSelf: 'flex-end',
@@ -26,7 +24,7 @@ const createWorkOrderComponent = StyleSheet.create({
     },
     sectorContainer: {
         padding: '0%',
-        borderWidth: 1,
+        borderWidth: 2,
         width: '25%', 
         height: '80%'
     },
@@ -44,11 +42,13 @@ const createWorkOrderComponent = StyleSheet.create({
         resizeMode: 'contain',
     },
     rowContainer: {
+        flex: 1,
         flexDirection: 'row', 
         alignSelf: 'center',
-        marginVertical: '15%'
+        marginVertical: '1%',
     },
     colContainer: {
+        flex: 1,
         flexDirection: 'column',
         alignSelf: 'center',
         marginHorizontal: '1%'
@@ -59,24 +59,24 @@ const createWorkOrderComponent = StyleSheet.create({
         margin: '15%',
     },
     typeText: {
-        fontSize: 16,
+        fontSize: 20,
         alignSelf: 'center'
     },
     selectedGray:{
         paddingVertical: '2%',
-        width: '40%',
-        height: '30%',
-        backgroundColor: '#a3a3a3', 
-        borderRadius: 5,
-        marginHorizontal: '2%'
+        height: '35%',
+        backgroundColor: '#cccccc', 
+        borderRadius: 8,
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#00ace6'
     },
     unselectedGray:{
         paddingVertical: '2%',
-        width: '40%',
-        height: '30%',
+        height: '35%',
         backgroundColor: '#cccccc', 
-        borderRadius: 5,
-        marginHorizontal: '2%'
+        borderRadius: 8,
+        justifyContent: 'center'
     },
     textBackground: {
         borderRadius: 5,
@@ -87,32 +87,57 @@ const createWorkOrderComponent = StyleSheet.create({
         paddingVertical: '2%'
     },
     infoHeader: {
-        fontSize: 22,
-        alignSelf: 'center'
+        fontSize: 20,
+        alignSelf: 'center',
+        fontWeight: '400'
     },
     generalTextInput:{
-        fontSize: 22,
-        width: 140,
+        fontSize: 16,
         textAlign: 'center', 
         backgroundColor: '#ffffff', 
-        borderColor: 'black',
-        borderBottomWidth: 1,
-        marginLeft: '10%'
+        borderColor: '#cccccc',
+        borderWidth: 1,
+        alignSelf: 'center', 
+        width: '70%',
+        paddingVertical: '2%',
+    },
+    invalidGeneralTextInput: {
+        fontSize: 16,
+        textAlign: 'center', 
+        backgroundColor: '#ffffff', 
+        borderColor: 'red',
+        borderWidth: 1,
+        alignSelf: 'center', 
+        width: '70%',
+        paddingVertical: '2%',
     },
     pickerComponent: {
-        width: 130
+        width: 130,
+        fontSize: 24,
+        textAlign: 'center',
+        borderWidth: 1
     },
     notesInput:{
-        width:250,
-        height: 75,
+        width: '100%',
+        height: '50%',
         backgroundColor: '#ffffff',
         alignSelf: 'center',
         borderRadius: 5,
-        textAlignVertical: 'top'
+        borderWidth: 1,
+        padding: '2%'
     },
     footer: {
         flexDirection: 'row', 
     },
+    rightButton: {
+        alignSelf: 'flex-end',
+    },
+    leftButton: {
+        alignSelf: 'flex-start'
+    },
+    buttonText: {
+        fontSize: 24,
+    }
 });
 
 export { createWorkOrderComponent };
