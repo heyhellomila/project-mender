@@ -5,9 +5,9 @@ x = require('../../../assets/X.png');
 
 const Header = (props) => {
     return (
-        <SafeAreaView style={{paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
+        <SafeAreaView style={{flex: 1, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
             <View>
-                <View style={createWorkOrderComponent.colContainer}>
+                <View>
                     <Text style={createWorkOrderComponent.headerStyle}>{props.headerText}</Text>
                     <Text style={createWorkOrderComponent.subHeaderStyle}>{props.property.name} ({props.property.address})</Text>
                 </View>
