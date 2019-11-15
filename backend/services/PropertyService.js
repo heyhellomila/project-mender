@@ -2,6 +2,8 @@ const PropertyGateway = require('../gateways/PropertyGateway');
 const UserService = require('./UserService');
 const ResourceNotFoundError = require('../errors/ResourceNotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
+const Status = require('../enums/Status')
+const PropertyType = require('../enums/PropertyType')
 
 const userService = new UserService();
 
@@ -44,11 +46,21 @@ class PropertyService {
         }
     }
 
-    async deletePropertyById(id){
+    async updatePropertyById(id, propertyObj){
         if(!await this.getPropertyById(id))
-        throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
+            throw new ResourceNotFoundError('Property with id ' + id + ' does not exist.')
+        if(propertyObj.status != null){
+            if(!Status.getValue(propertyObj.status)){
+                throw new ResourceNotFoundError('Invalid Status. Allowed Types: [' + Status.enums + ']')
+            }
+        }
+        if(propertyObj.type != null){
+            if(!PropertyType.getValue(propertyObj.type)){
+                throw new ResourceNotFoundError('Invalid Property Type. Allowed Types: [' + PropertyType.enums + ']')
+            }
+        }
         try {
-            return await PropertyGateway.deletePropertyById(id);
+            return await PropertyGateway.updatePropertyById(id, propertyObj);
         } catch (err) {
             throw err;
         }

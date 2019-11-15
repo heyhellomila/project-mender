@@ -11,7 +11,7 @@ const PropertyGateway = {
     async getPropertyById(id) {
         const property = await Property.findById(id);
         if (!property) {
-            throw new ResourceNotFoundError("Property with id " + id + " does not exist");
+            throw new ResourceNotFoundError('Property with id ' + id + ' does not exist');
         }
         return property;
     },
@@ -30,9 +30,11 @@ const PropertyGateway = {
         }
     },
 
-    async deletePropertyById(id) {
+    async updatePropertyById(id, propertyObj) {
         try{
-        return await Property.remove({_id: id});
+        return await Property.update({_id: id},{
+            $set: propertyObj
+        });
         }catch(err){
             throw new Error(err);
         }
