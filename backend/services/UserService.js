@@ -59,12 +59,12 @@ class UserService {
     async updateUserById(id, userObj) {
         if (!await this.getUser(id))
             throw new ResourceNotFoundError('User with id ' + id + ' does not exist.')
-        if (userObj.password_hash != null) {
-            if (!passwordValidator.validate(userObj.password_hash)) {
+        if (userObj.new_password != null) {
+            if (!passwordValidator.validate(userObj.new_password)) {
                 throw new BadRequestError('Password must be at least 8 characters' +
                     ' and must include at least one digit.')
             }
-            userObj.password_hash = await generateHash(userObj.password_hash);
+            userObj.password_hash = await generateHash(userObj.new_password);
         }
         if (userObj.email != null) {
             const user = await UserGateway.getUserByEmail(userObj.email);
