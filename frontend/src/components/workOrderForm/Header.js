@@ -1,7 +1,7 @@
 import { headerStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import { View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import React from 'react';
-x = require('../../../assets/X.png');
+const x = require('../../../assets/X.png');
 
 const Header = (props) => {
     return (

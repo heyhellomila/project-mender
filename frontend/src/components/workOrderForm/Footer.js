@@ -1,7 +1,7 @@
 import React from 'react';
 import { formStyles, footerStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import { TouchableOpacity, View, Image } from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
 
 const info = require('../../../assets/Information.png');
 
@@ -39,6 +39,6 @@ const Footer = (props) => {
             </View>
         </View>
     );
-}
+};
 
 export default Footer;

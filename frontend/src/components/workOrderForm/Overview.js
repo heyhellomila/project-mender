@@ -8,7 +8,7 @@ const Overview = (props) => {
             <View style={formStyles.rowContainer}>
                 <View style={formStyles.colContainer}>
                     <TouchableOpacity
-                        style = {props.type == 'CM' ? typeStyles.selectedGray 
+                        style = {props.type === 'CM' ? typeStyles.selectedGray 
                             : typeStyles.unselectedGray}
                         onPress={() => props.handleType('CM')}>
                         <Text style={typeStyles.typeText}>
@@ -18,7 +18,7 @@ const Overview = (props) => {
                 </View>
                 <View style={formStyles.colContainer}>
                     <TouchableOpacity
-                        style = {props.type == 'PM' ? typeStyles.selectedGray
+                        style = {props.type === 'PM' ? typeStyles.selectedGray
                             : typeStyles.unselectedGray}
                         onPress={() => props.handleType('PM')}>
                         <Text style={typeStyles.typeText}>
