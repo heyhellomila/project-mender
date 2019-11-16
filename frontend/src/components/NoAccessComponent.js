@@ -6,13 +6,17 @@ import { noAccessComponent } from '../stylesheets/NoAccessComponent';
 const NoAccessComponent = (props) => {
     return (
         <View style={noAccessComponent.container}>
-            <Text style={noAccessComponent.text}>
-                {props.errorMessage}
-            </Text>
-            <Button
-                style={noAccessComponent.button}
-                title="Go back"
-                onPress={() => props.navigation.goBack()}/>
+            <View style={noAccessComponent.rowContainer}>
+                <Text style={noAccessComponent.text}>
+                    {props.errorMessage}
+                </Text>
+            </View>
+            <View style={noAccessComponent.rowContainer}>
+                <Button
+                    style={noAccessComponent.button}
+                    title="Go back"
+                    onPress={() => props.navigation.goBack()}/>
+            </View>
         </View>
     );
 };

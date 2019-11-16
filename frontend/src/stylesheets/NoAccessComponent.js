@@ -15,10 +15,11 @@ const noAccessComponent = StyleSheet.create({
         textAlign: 'center'
     },
     button: {
-        justifyContent: 'center',
-        alignItems: 'center', 
-        height: '100%', 
-        width: '75%'
+        alignSelf: 'center'
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        alignSelf: 'center'
     }
 });
 
