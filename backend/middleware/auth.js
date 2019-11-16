@@ -17,17 +17,17 @@ const auth = async(req, res, next) => {
         } else {
             return result;
         }
-    })
+    });
     try {
         const user = await User.findOne({ _id: data._id})
         if (!user) {
             throw new UnauthorizedError('Not authorized to access this resource');
         }
-        req.user = user
-        req.token = token
+        req.user = user;
+        req.token = token;
         next()
     } catch (err) {
         res.status(401).json(err);
     }
 }
-module.exports = auth
+module.exports = auth;

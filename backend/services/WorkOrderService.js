@@ -41,4 +41,4 @@ class WorkOrderService {
     }
 }
 
-module.exports = WorkOrderService
+module.exports = WorkOrderService;

@@ -40,4 +40,4 @@ const PropertyGateway = {
         }
     }
 }
-module.exports = PropertyGateway
+module.exports = PropertyGateway;

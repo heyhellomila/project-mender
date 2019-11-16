@@ -2,9 +2,9 @@ const express = require('express');
 
 const userControllerRoute = require('./UserController');
 const userPropertiesControllerRoute = require('./UserPropertiesController');
-const propertyControllerRoute = require('./PropertyController')
+const propertyControllerRoute = require('./PropertyController');
 const propertyWorkOrdersControllerRoute = require('./PropertyWorkOrdersController');
-const workOrderControllerRoute = require('./WorkOrderController')
+const workOrderControllerRoute = require('./WorkOrderController');
 const router = express.Router();
 
 router.use('/api/users', userControllerRoute);

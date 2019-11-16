@@ -67,4 +67,4 @@ class PropertyService {
     }
 }
 
-module.exports = PropertyService
+module.exports = PropertyService;

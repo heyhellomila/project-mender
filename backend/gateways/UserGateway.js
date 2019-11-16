@@ -53,4 +53,4 @@ const UserGateway = {
     
 }
 
-module.exports = UserGateway
+module.exports = UserGateway;

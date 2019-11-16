@@ -44,4 +44,4 @@ const WorkOrderGateway = {
     
 }
 
-module.exports = WorkOrderGateway
+module.exports = WorkOrderGateway;

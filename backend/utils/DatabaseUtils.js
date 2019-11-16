@@ -31,4 +31,4 @@ const DatabaseUtils = {
     }
 }
 
-module.exports = DatabaseUtils
+module.exports = DatabaseUtils;
