@@ -8,7 +8,7 @@ const userController = express.Router();
 const userService = new UserService();
 
 const loginFields = ['email', 'password']
-const registerFields = ['email', 'password', 'firstName', 'lastName', 'phoneNumber', 'type']
+const registerFields = ['email', 'password', 'firstName', 'lastName', 'phoneNumber', 'type'];
 
 // register API
 userController.post('/', validateBody(registerFields), async (req, res) => {

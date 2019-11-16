@@ -24,7 +24,7 @@ class WorkOrderService {
 
     async getWorkOrdersByPropertyId(propertyID) {
         if (!await propertyService.propertyExists(propertyID))
-            throw new ResourceNotFoundError("Property with id " + propertyID + " does not exist.")
+            throw new ResourceNotFoundError("Property with id " + propertyID + " does not exist.");
         try {
             return await WorkOrderGateway.getWorkOrdersByProperty(propertyID);
         } catch (err) {
