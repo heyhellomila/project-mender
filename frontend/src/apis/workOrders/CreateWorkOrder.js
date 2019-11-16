@@ -27,11 +27,11 @@ export async function createWorkOrder(propertyId, sector, type, title, cause, se
         type, 
         title, 
         cause, 
-        service_needed: JSON.stringify(serviceNeeded), 
+        serviceNeeded: JSON.stringify(serviceNeeded), 
         priority, 
         description, 
-        due_date: dueDate,
-        price_estimate: JSON.stringify(priceEstimate)
+        dueDate: dueDate,
+        priceEstimate: JSON.stringify(priceEstimate)
     };
 
     return await api.post(`/properties/${propertyId}/workorders/`, body, {

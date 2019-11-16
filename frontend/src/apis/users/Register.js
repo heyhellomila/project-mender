@@ -24,8 +24,8 @@ export async function register(email, password, firstName, lastName, type) {
     return await api.post('/users/', {
         email,
         password,
-        first_name: firstName,
-        last_name: lastName,
+        firstName: firstName,
+        lastName: lastName,
         type
     });
 }

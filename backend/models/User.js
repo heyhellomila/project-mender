@@ -14,22 +14,22 @@ const UserSchema = mongoose.Schema({
             }
         }
     },
-    password_hash: {
+    passwordHash: {
         type : String,
         required : true,
         trim : true
     },
-    first_name: {
+    firstName: {
         type : String,
         required : true,
         trim : true
     },
-    last_name: {
+    lastName: {
         type: String,
         required : true,
         trim : true
     },
-    phone_number:{
+    phoneNumber:{
         type: String,
         required : true,
         trim: true,

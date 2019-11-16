@@ -4,7 +4,7 @@ const SectorType = require('../enums/SectorType')
 const PriorityType = require('../enums/PriorityType')
 
 const WorkOrderSchema = mongoose.Schema({
-    property_id: {
+    propertyID: {
         type : String,
         required : true,
         trim : true
@@ -44,7 +44,7 @@ const WorkOrderSchema = mongoose.Schema({
         trim : true
     },
 
-    service_needed: {
+    serviceNeeded: {
         type : Boolean,
         default: false
     },
@@ -73,19 +73,19 @@ const WorkOrderSchema = mongoose.Schema({
           contentType : String 
         },
 
-    due_date: {
+    dueDate: {
         type: Date
     },
     
-    date_completed: {
+    dateCompleted: {
         type : Date
     },
 
-    price_estimate: {
+    priceEstimate: {
         type: Number // Double data type doesn't exist
     },
 
-    actual_cost: {
+    actualCost: {
         type: Number // Double data type doesn't exist
     }
 });

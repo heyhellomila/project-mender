@@ -3,8 +3,8 @@ const ResourceNotFoundError = require('../errors/ResourceNotFoundError')
 
 const WorkOrderGateway = {
 
-    async getWorkOrdersByProperty(property_id) {
-        const workorders = await WorkOrder.find({property_id: property_id});
+    async getWorkOrdersByProperty(propertyID) {
+        const workorders = await WorkOrder.find({propertyID: propertyID});
         if (!workorders) {
             throw new ResourceNotFoundError("Work Orders belonging to user_id " + user_id + " do not exist");
         }
@@ -20,20 +20,20 @@ const WorkOrderGateway = {
     },
     
     //images are not currently being saved to the DB
-    async createWorkOrder(property_id, sector, type, title, cause, 
-        service_needed, priority, description, due_date, price_estimate) {
+    async createWorkOrder(propertyID, sector, type, title, cause, 
+        serviceNeeded, priority, description, dueDate, priceEstimate) {
         
         const workOrder = new WorkOrder({
-            property_id: property_id, 
+            propertyID: propertyID, 
             sector: sector,
             type: type,
             title: title,
             cause: cause, 
-            service_needed: service_needed,
+            serviceNeeded: serviceNeeded,
             priority: priority,
             description: description,
-            due_date: due_date, 
-            price_estimate: price_estimate, 
+            dueDate: dueDate, 
+            priceEstimate: priceEstimate, 
         });
         try {
             return await workOrder.save();
