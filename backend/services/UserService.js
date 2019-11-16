@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { generateHash, compare} = require('../utils/HashUtils');
+const { generateHash, compare } = require('../utils/HashUtils');
 const ResourceNotFoundError = require('../errors/ResourceNotFoundError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 const ResourceExistsError = require('../errors/ResourceExistsError');
@@ -21,7 +21,7 @@ class UserService {
 
     async register(email, password, first_name, last_name, phone_number, type) {
         if (!passwordValidator.validate(password)) {
-            throw new BadRequestError('Password must be at least 8 characters' +  
+            throw new BadRequestError('Password must be at least 8 characters' +
                 ' and must include at least one digit.')
         }
         const hashedPassword = await generateHash(password);
@@ -53,6 +53,29 @@ class UserService {
             return await UserGateway.getUserById(id);
         } catch (err) {
             throw err;
+        }
+    }
+
+    async updateUserById(id, userObj) {
+        if (!await this.getUser(id))
+            throw new ResourceNotFoundError('User with id ' + id + ' does not exist.')
+        if (userObj.password_hash != null) {
+            if (!passwordValidator.validate(userObj.password_hash)) {
+                throw new BadRequestError('Password must be at least 8 characters' +
+                    ' and must include at least one digit.')
+            }
+            userObj.password_hash = await generateHash(userObj.password_hash);
+        }
+        if (userObj.email != null) {
+            const user = await UserGateway.getUserByEmail(userObj.email);
+            if (user) {
+                throw new ResourceExistsError("Email " + userObj.email + " already in use.");
+            }
+        }
+        try {
+            return await UserGateway.updateUserById(id, userObj);
+        } catch (err) {
+            throw new BadRequestError(err.message);
         }
     }
 }
