@@ -10,10 +10,10 @@ import { formStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 
 const WorkOrderForm = (props) => {
     return(
-        <KeyboardAwareScrollView scrollEnabled={false} resetScrollToCoords={{ x: 0, y: 0 }}
-            automaticallyAdjustContentInsets={false}
-            contentContainerStyle={formStyles.container, {paddingTop: 
-                (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0}}>
+        <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false} 
+            resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
+            contentContainerStyle={[formStyles.container, {paddingTop: 
+                (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0}]}>
             <View style={{flex: 1}}>
                 <Header {...props} headerText={props.headerText}/>
             </View>
