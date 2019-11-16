@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { noAccessComponent } from '../stylesheets/NoAccessComponent';
 
 const NoAccessComponent = (props) => {

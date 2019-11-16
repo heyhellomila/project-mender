@@ -37,7 +37,7 @@ const Overview = (props) => {
                         : formStyles.invalidTextInput}
                         nativeID = 'name'
                         defaultValue = {props.title}
-                        onChangeText = {(event) => props.handleTitle(event)}/>
+                        onChangeText = {(value) => props.handleTitle(value)}/>
                 </View>
             </View>
             <View style={{flex: 1, marginVertical: '6%'}}>
