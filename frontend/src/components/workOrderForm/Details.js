@@ -31,16 +31,6 @@ const Details = (props) => {
                             initValueTextStyle={{color: 'black'}}
                             onChange={(option) => props.handlePriority(option.label)}
                             childrenContainerStyle	={formStyles.pickerStyle}/>
-                            {/* <Picker 
-                            mode='dropdown'
-                            style={formStyles.pickerStyle}
-                            selectedValue = {props.priority}
-                            onValueChange = {(value, index) => props.handlePriority(value)}
-                        >
-                            <Picker.Item label="LOW" value="LOW"/> 
-                            <Picker.Item label="MEDIUM" value="MEDIUM"/> 
-                            <Picker.Item label="HIGH" value="HIGH"/> 
-                        </Picker> */}
                     </View>
                 </View>
             </View>
