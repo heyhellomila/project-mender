@@ -1,19 +1,19 @@
-import { createWorkOrderComponent } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
-import { View, Text, Image, TouchableOpacity, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { headerStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
+import { View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import React from 'react';
 x = require('../../../assets/X.png');
 
 const Header = (props) => {
     return (
-        <SafeAreaView style={{flex: 1, paddingTop: (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0 }}>
+        <SafeAreaView style={{flex: 1}}>
             <View>
                 <View>
-                    <Text style={createWorkOrderComponent.headerStyle}>{props.headerText}</Text>
-                    <Text style={createWorkOrderComponent.subHeaderStyle}>{props.property.name} ({props.property.address})</Text>
+                    <Text style={headerStyles.headerStyle}>{props.headerText}</Text>
+                    <Text style={headerStyles.subHeaderStyle}>{props.property.name} ({props.property.address})</Text>
                 </View>
-                <View style={createWorkOrderComponent.closeButton}>
-                    <TouchableOpacity style={createWorkOrderComponent.closeButton} onPress={() => props.navigation.goBack(null)}>
-                        <Image style={createWorkOrderComponent.closeButtonImage} source={x}></Image>
+                <View style={headerStyles.closeButton}>
+                    <TouchableOpacity style={headerStyles.closeButton} onPress={() => props.navigation.goBack(null)}>
+                        <Image style={headerStyles.closeButtonImage} source={x}></Image>
                     </TouchableOpacity>
                 </View>
             </View>
