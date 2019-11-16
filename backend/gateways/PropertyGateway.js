@@ -33,8 +33,8 @@ const PropertyGateway = {
     async updatePropertyById(id, propertyObj) {
         try{
         return await Property.update({_id: id},{
-            $set: propertyObj
-        });
+            $set: propertyObj,
+        }, { runValidators: true });
         }catch(err){
             throw new Error(err);
         }

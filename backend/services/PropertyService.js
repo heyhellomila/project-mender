@@ -49,20 +49,10 @@ class PropertyService {
     async updatePropertyById(id, propertyObj){
         if(!await this.getPropertyById(id))
             throw new ResourceNotFoundError('Property with id ' + id + ' does not exist.')
-        if(propertyObj.status != null){
-            if(!Status.getValue(propertyObj.status)){
-                throw new ResourceNotFoundError('Invalid Status. Allowed Statuses: [' + Status.enums + ']')
-            }
-        }
-        if(propertyObj.type != null){
-            if(!PropertyType.getValue(propertyObj.type)){
-                throw new ResourceNotFoundError('Invalid Property Type. Allowed Types: [' + PropertyType.enums + ']')
-            }
-        }
         try {
             return await PropertyGateway.updatePropertyById(id, propertyObj);
         } catch (err) {
-            throw err;
+            throw new BadRequestError(err.message);
         }
     }
 }
