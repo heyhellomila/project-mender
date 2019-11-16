@@ -2,9 +2,8 @@ import React from 'react';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
 import NoAccessComponent from '../components/NoAccessComponent';
-import ChooseSector from '../components/workOrderForm/ChooseSector';
-import Details from '../components/workOrderForm/Details';
-import Overview from '../components/workOrderForm/Overview';
+import { View } from 'react-native';
+import WorkOrderForm from '../components/workOrderForm/WorkOrderForm';
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
@@ -26,16 +25,9 @@ class CreateWorkOrderPage extends React.Component {
             validTitle: true,
             validCause: true,
             submitting: false,
-            success: false
+            success: false,
+            headerText: 'Pick a sector'
         };
-
-        this.handleSector = this.handleSector.bind(this);
-        this.handleCause = this.handleCause.bind(this);
-        this.handleDescription = this.handleDescription.bind(this);
-        this.handlePriority = this.handlePriority.bind(this);
-        this.handleTitle = this.handleTitle.bind(this);
-        this.toggleServiceNeeded = this.toggleServiceNeeded.bind(this);
-        this.handleDueDate = this.handleDueDate.bind(this);
     }
     static navigationOptions = {
         title: 'Create Work Order',
@@ -43,7 +35,12 @@ class CreateWorkOrderPage extends React.Component {
 
     nextStep = () => {
         const { step, title, cause } = this.state;
-        if (step === 2) {
+        if (step === 1) {
+            this.setState({
+                step: step + 1,
+                headerText: 'Overview'
+            });
+        } else if (step === 2) {
             if (title.length === 0 || cause.length === 0) {
                 this.setState({
                     validTitle: title.length !== 0,
@@ -53,21 +50,27 @@ class CreateWorkOrderPage extends React.Component {
                 this.setState({
                     validTitle: true,
                     validCause: true,
-                    step: step + 1
+                    step: step + 1,
+                    headerText: 'Pick a sector'
                 });
             }
-        } else {
-            this.setState({
-                step: step + 1
-            });
-        }
+        } 
     }
 
     prevStep = () => {
         const { step } = this.state;
-        this.setState({
-            step: step - 1
-        });
+
+        if (step === 2) {
+            this.setState({
+                step: step - 1,
+                headerText: 'Pick a sector'
+            });
+        } else if (step === 3) {
+            this.setState({
+                step: step - 1,
+                headerText: 'Overview'
+            });
+        } 
     }
     
     handleWorkOrder = async() => {
@@ -134,33 +137,21 @@ class CreateWorkOrderPage extends React.Component {
     render() {
         const { property } = this.props;
         const { step } = this.state;
-        if (!property) {
-            return(
-                <NoAccessComponent 
-                    errorMessage={'You must have a registered property to create a work order.'}
-                    navigation={this.props.navigation}/>
-            );
-        } else {
-            switch(step) {
-                case 1:
-                    return(
-                        <ChooseSector {...this.state} handleSector={this.handleSector} 
-                            nextStep={this.nextStep}/>
-                    );
-                case 2: 
-                    return(
-                        <Overview {...this.state} handleTitle={this.handleTitle}
-                            handleCause={this.handleCause} nextStep={this.nextStep} 
-                            prevStep={this.prevStep} handleType={this.handleType}/>
-                    );
-                case 3: 
-                        return(
-                            <Details {...this.state} toggleServiceNeeded={this.toggleServiceNeeded}
-                                handlePriority={this.handlePriority} handleDescription={this.handleDescription}
-                                submit={this.handleWorkOrder} prevStep={this.prevStep}/>
-                        )
-            }
-        }
+        return (
+            <View style={{flex: 1}}> 
+                {!property 
+                    ? <NoAccessComponent
+                        errorMessage={'You must have a registered property to create a work order.'}
+                        navigation={this.props.navigation}/>
+                    : <WorkOrderForm {...this.state} handleTitle={this.handleTitle}
+                        handleCause={this.handleCause} nextStep={this.nextStep} 
+                        prevStep={this.prevStep} handleType={this.handleType}
+                        handleSector={this.handleSector} toggleServiceNeeded={this.toggleServiceNeeded}
+                        handlePriority={this.handlePriority} handleDescription={this.handleDescription}
+                        submit={this.handleWorkOrder}/>
+                }
+            </View>
+        );
     }
 }
 
