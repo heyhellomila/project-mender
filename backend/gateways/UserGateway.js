@@ -31,24 +31,14 @@ const UserGateway = {
         }
     },
 
-    async updateUser(id, email, password_hash, first_name, last_name, phone_number, type) {
-        user = this.getUserById(id);
-        try {
-            return await User.updateOne({id: id},
-                {
-                    $set: {
-                        email: email,
-                        password_hash: password_hash,
-                        first_name: first_name,
-                        last_name: last_name,
-                        phone_number: phone_number,
-                        type: type
-                    }
-                }
-                );
-        } catch (err) {
+    async updateUserById(id, userObj) {
+        try{
+        return await User.update({_id: id},{
+            $set: userObj,
+        }, { runValidators: true });
+        }catch(err){
             throw new Error(err);
-        } 
+        }
     }
     
 }
