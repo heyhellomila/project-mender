@@ -1,6 +1,6 @@
 import { formStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
-import { View, Text, TextInput, Switch, Picker} from 'react-native';
-import ModalSelector from 'react-native-modal-selector'
+import { View, Text, TextInput, Switch } from 'react-native';
+import ModalSelector from 'react-native-modal-selector';
 
 import React from 'react';
 

@@ -75,7 +75,7 @@ class CreateWorkOrderPage extends React.Component {
     
     handleWorkOrder = async() => {
         try {
-            var { description } = this.state
+            var { description } = this.state;
             if (description.length === 0) {
                 description = 'N/A';
             }
