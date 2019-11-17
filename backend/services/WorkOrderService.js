@@ -39,6 +39,21 @@ class WorkOrderService {
             throw err;
         }
     }
+
+    async searchWorkOrders(property_id, sector, type, title, cause, 
+        service_needed, priority, description, due_date, price_estimate) {
+
+        if (!await propertyService.propertyExists(property_id)) {
+            throw new ResourceNotFoundError("Property " + property_id + 
+                " does not exist.");
+        }
+        try {
+            return await WorkOrderGateway.searchWorkOrder(property_id, sector, 
+                type, title, cause, service_needed, priority, description, due_date, price_estimate);
+        } catch (err) {
+            throw new BadRequestError(err.message);
+        }
+    }
 }
 
 module.exports = WorkOrderService

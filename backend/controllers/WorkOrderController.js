@@ -15,4 +15,13 @@ workOrderController.get('/:id', auth, async(req, res) => {
     } 
 })
 
+workOrderController.get('/search', auth, async(req,res) => {
+    try {
+        const workOrders = await workOrderService.searchWorkOrders(req.params);
+        return res.status(200).json(workOrders);
+    } catch (err) {
+        return handleError(err, res);
+    }
+})
+
 module.exports = workOrderController;

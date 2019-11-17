@@ -40,6 +40,30 @@ const WorkOrderGateway = {
         } catch (err) {
             throw new Error(err);
         }
+    },
+
+    async searchWorkOrder(property_id, sector, type, title, cause, 
+        service_needed, priority, description, due_date, price_estimate){
+            
+        const searchCriteria = {
+            property_id: property_id, 
+            sector: sector,
+            type: type,
+            title: title,
+            cause: cause, 
+            service_needed: service_needed,
+            priority: priority,
+            description: description,
+            due_date: due_date, 
+            price_estimate: price_estimate
+        }
+
+        const workorders = await WorkOrder.find(searchCriteria);
+        
+        if (!workorders) {
+            throw new ResourceNotFoundError("No Work Orders match that search criteria");
+        }
+        return workorders;
     }
     
 }
