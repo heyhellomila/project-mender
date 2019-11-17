@@ -4,7 +4,7 @@ const ResourceNotFoundError = require('../errors/ResourceNotFoundError')
 const UserGateway = {
 
     async getUserByEmail(email) {
-        return await User.findOne({email: email});
+        return await User.findOne({ email: email });
     },
 
     async getUserById(id) {
@@ -14,7 +14,7 @@ const UserGateway = {
         }
         return user;
     },
-    
+
     async createUser(email, password_hash, first_name, last_name, phone_number, type) {
         user = new User({
             email: email,
@@ -32,15 +32,15 @@ const UserGateway = {
     },
 
     async updateUserById(id, userObj) {
-        try{
-        return await User.update({_id: id},{
-            $set: userObj,
-        }, { runValidators: true });
-        }catch(err){
+        try {
+            return await User.update({ _id: id }, {
+                $set: userObj,
+            }, { runValidators: true });
+        } catch (err) {
             throw new Error(err);
         }
     }
-    
+
 }
 
 module.exports = UserGateway
