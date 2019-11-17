@@ -45,13 +45,13 @@ const WorkOrderGateway = {
     async searchWorkOrder(property_id, sector, type, title, cause, priority, description){
             
         const searchCriteria = {
-            property_id: {$regex: '*' + property_id + '*'}, 
-            sector: {$regex: '*' + sector + '*'},
-            type: {$regex: '*' + type + '*'},
-            title: {$regex: '*' + title + '*'},
-            cause: {$regex: '*' + cause + '*'},
-            priority: {$regex: '*' + priority + '*'},
-            description: {$regex: '*' + description + '*'}
+            property_id: {$regex: property_id, $options: "i" }, 
+            sector: {$regex: sector, $options: "i" },
+            type: {$regex: type, $options: "i" },
+            title: {$regex: title, $options: "i" },
+            cause: {$regex: cause, $options: "i" },
+            priority: {$regex: priority, $options: "i" },
+            description: {$regex: description, $options: "i" }
         }
 
         const workorders = await WorkOrder.find(searchCriteria);
