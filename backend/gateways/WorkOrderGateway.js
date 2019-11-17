@@ -56,9 +56,6 @@ const WorkOrderGateway = {
 
         const workorders = await WorkOrder.find(searchCriteria);
         
-        if (!workorders) {
-            throw new ResourceNotFoundError("No Work Orders match that search criteria");
-        }
         return workorders;
     }
     
