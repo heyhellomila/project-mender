@@ -31,22 +31,22 @@ userController.post('/login', validateBody(loginFields), async (req, res) => {
     }
 })
 
-userController.get('/:id', auth, async(req, res) => {
+userController.get('/:id', auth, async (req, res) => {
     try {
         const user = await userService.getUser(req.params.id);
         return res.status(200).json(user);
     } catch (err) {
         return handleError(err, res);
-    } 
+    }
 })
 
-userController.patch('/:id/updateUser', auth, async(req, res) => {
+userController.patch('/:id/updateUser', auth, async (req, res) => {
     try {
         const user = await userService.updateUserById(req.params.id, req.body);
         return res.status(200).json(user);
     } catch (err) {
         return handleError(err, res);
-    } 
+    }
 })
 
 module.exports = userController;
