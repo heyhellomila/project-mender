@@ -1,7 +1,8 @@
 {
     "scripts": {
         "test":     "mocha --reporter dot",
-        "coverage": "nyc --reporter html --reporter text npm test"
+        "coverage": "nyc --reporter html --reporter text npm test",
+        "report-coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov"
     },
     "devDependencies": {
         "mocha": "^6.2.2",
