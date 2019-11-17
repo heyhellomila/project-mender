@@ -15,9 +15,16 @@ workOrderController.get('/:id', auth, async(req, res) => {
     } 
 })
 
-workOrderController.get('/search', auth, async(req,res) => {
+workOrderController.post('/search', auth, async(req,res) => {
     try {
-        const workOrders = await workOrderService.searchWorkOrders(req.params);
+        const { property_id, sector, type, title, cause, priority, description } = req.body;
+        const workOrders = await workOrderService.searchWorkOrders(property_id, 
+            sector,
+            type,
+            title,
+            cause, 
+            priority,
+            description);
         return res.status(200).json(workOrders);
     } catch (err) {
         return handleError(err, res);

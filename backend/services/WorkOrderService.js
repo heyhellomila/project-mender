@@ -41,7 +41,7 @@ class WorkOrderService {
     }
 
     async searchWorkOrders(property_id, sector, type, title, cause, 
-        service_needed, priority, description, due_date, price_estimate) {
+        priority, description) {
 
         if (!await propertyService.propertyExists(property_id)) {
             throw new ResourceNotFoundError("Property " + property_id + 
@@ -49,7 +49,7 @@ class WorkOrderService {
         }
         try {
             return await WorkOrderGateway.searchWorkOrder(property_id, sector, 
-                type, title, cause, service_needed, priority, description, due_date, price_estimate);
+                type, title, cause, priority, description);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
