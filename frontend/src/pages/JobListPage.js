@@ -14,58 +14,30 @@ class JobListPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggingOut: false,
             user: props.user.user,
-            property: [],
             displayModal: false,
-            tableHead: ['W.O #', 'Name', 'Type', 'Sector'],
-            tableData: []
-            //tableData: workOrders.forEach(function(value) {tableData.push([value._id, value.title, value.type, value.sector.capitalize()])})
-            // tableData: [
-            //     ['1000', 'Broken Floor Tile', 'CM', 'Bathroom'],
-            //     ['1001', 'Plumbing Pipe Leak', 'CM', 'Kitchen'],
-            //     ['1002', 'Gutter Cleaning', 'PM', 'Roof'],
-            //     ['1003', 'Inspect Furnace', 'PM', 'Living Room']
-            // ]
+            tableHead: ['W.O #', 'Title', 'Type', 'Sector'],
+            workOrders: [],
+            tableData: [],
+            loading: true,
+            error: false
         };
-
-
     }
 
    async componentDidMount() {
-          await getWorkOrdersByPropertyId(this.props.property.id).then((response) => {
-            console.log(JSON.stringify(response))
-
-            compressedData = []
-            console.log("\ndata: " + JSON.stringify(response.data))
-            console.log("\nresponse.data length: " + response.data.length)
-            for (var workOrder in response.data) {
-                //console.log("wo "+ i+1 + ": " + response.data[i].stringify) -- prints entire response
-                //arr = Array(workOrder._id, workOrder.title, workOrder.type, workOrder.sector);
-                //[workOrder._id, workOrder["title"], workOrder["type"], workOrder["sector"]]
-                //compressedData.push(arr);
-                compressedData.push([1,2,3,4]); // -- works
-            }
-            // console.log("CompressedData: " + compressedData.stringify)
-
-            
-
+        await getWorkOrdersByPropertyId(this.props.property.id).then((response) => {
             this.setState({
-                tableData: compressedData
-                // tableData: response.data.map((workOrder, index) => {
-                //     [workOrder._id,
-                //     workOrder.title,
-                //     workOrder.type,
-                //     workOrder.sector]
-                // })
-            });
-            // }, () => alert(this.state.tableData));
-            console.log(this.state.tableData.stringify)
-
+                workOrders: response.data.map((workOrder) => ({
+                    id: workOrder._id,
+                    title: workOrder.title,
+                    type: workOrder.type,
+                    sector: workOrder.sector
+                }))
+            }, () => this.transformData());
         }).catch((err) => {
-            this.setState({error: true, submitting: false, errorMsg: err.message})
+            this.setState({error: true, loading: false, errorMsg: err.message})
         });
-      }
+    }
 
     openModal() {
         this.setState(prevState => {
@@ -87,18 +59,32 @@ class JobListPage extends React.Component {
         this.openModal();
     }
 
+    transformData = () => {
+        const { workOrders } = this.state;
+        var data = [];
+        workOrders.forEach((workOrder) => {
+            data.push([workOrder.id, workOrder.title, workOrder.type, workOrder.sector]);
+        });
+        this.setState({tableData: data, loading: false});
+    }
+
     render() {
-        const state = this.state;
+        const { tableHead, loading, tableData} = this.state;
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView styles={styles.container}>
                 <CommonHeader user={this.state.user} />
-                <View style={jobListTable.jobListTableContainer}>
-                    <Text>JOB LIST</Text>
-                    <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-                        <Row data={state.tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text} />
-                        <Rows data={state.tableData} textStyle={jobListTable.jobListTabletext} />
-                    </Table>
-                </View>
+                {loading 
+                    ?   <Text>Loading...</Text>
+                    :   <View>
+                            <View style={jobListTable.jobListTableContainer}>
+                                <Text>JOB LIST</Text>
+                                <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+                                    <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text} />
+                                    <Rows data={tableData} textStyle={jobListTable.jobListTabletext} />
+                                </Table>
+                            </View>
+                        </View>
+                }
             </ScrollView>
         );
     }
