@@ -37,3 +37,5 @@ class ShoppingItemService {
         }
     }
 }
+
+module.exports = ShoppingItemService;
