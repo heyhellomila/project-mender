@@ -36,6 +36,25 @@ class ShoppingItemService {
             throw err;
         }
     }
+
+    async deleteShoppingItem(id) {
+        try {
+            await ShoppingItemGateway.deleteShoppingItem(id);
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateShoppingItem(id, shoppingItemObj){
+        if(!await this.getShoppingItem(id)) {
+            throw new ResourceNotFoundError('Shopping Item with id ' + id + ' Does not exist');
+        }
+        try {
+            return await ShoppingItemGateway.updateShoppingItemById(id, shoppingItemObj);
+        } catch (err) {
+            throw new BadRequestError(err.message);
+        }
+    }
 }
 
 module.exports = ShoppingItemService;

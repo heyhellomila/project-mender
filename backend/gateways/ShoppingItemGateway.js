@@ -32,6 +32,25 @@ const ShoppingItemGateway = {
         } catch (err) {
             throw new Error(err);
         }
+    },
+
+    async deleteShoppingItem(id) {
+        try{
+           await ShoppingItem.findByIdAndDelete(id);
+        } catch (err) {
+            throw new Error(err);
+        }
+    },
+
+    async updateShoppingItemById(id, shoppingItemObj) {
+        try{
+            return await ShoppingItem.update(
+                {_id: id}, 
+                {$set: shoppingItemObj},
+                {runValidators: true});
+        } catch (err) {
+            throw new Error (err);
+        }
     }
 }
 
