@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ShoppingListSchema = mongoose.Schema({
+const ShoppingItemSchema = mongoose.Schema({
     workOrder_id: {
         type: String,
         required: true,
@@ -22,4 +22,4 @@ const ShoppingListSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('ShoppingList', ShoppingListSchema);
+module.exports = mongoose.model('ShoppingList', ShoppingItemSchema);
