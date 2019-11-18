@@ -7,6 +7,15 @@ const propertyService = new PropertyService();
 
 class WorkOrderService {
 
+    async workOrderExists(id) {
+        try {
+            await WorkOrderGateway.getWorkOrderById(id);
+        } catch (err) {
+            return false;
+        }
+        return true;
+    }
+
     async createWorkOrder(property_id, sector, type, title, cause, 
         service_needed, priority, description, due_date, price_estimate) {
 
