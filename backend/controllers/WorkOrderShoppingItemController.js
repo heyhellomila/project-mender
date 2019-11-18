@@ -21,7 +21,7 @@ WorkOrderShoppingItemController.post('/', auth, validateBody(creationFields), as
 
 WorkOrderShoppingItemController.get('/', auth, async(req,res) =>{
     try{
-        const shoppingItems = await shoppingItemService.getShoppingItem(req.params.workOrderId);
+        const shoppingItems = await shoppingItemService.getShoppingItemByWorkOrderId(req.params.workOrderId);
         return res.status(200).json(shoppingItems);
     } catch (err) {
         return handleError(err, res);

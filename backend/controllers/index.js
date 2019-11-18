@@ -1,7 +1,7 @@
 const express = require('express');
 
 const shoppingItemControllerRoute = require('./ShoppingItemController');
-const workOrderShoppingItemRoute = require('./WorkOrderShoppingListController');
+const workOrderShoppingItemRoute = require('./WorkOrderShoppingItemController');
 const userControllerRoute = require('./UserController');
 const userPropertiesControllerRoute = require('./UserPropertiesController');
 const propertyControllerRoute = require('./PropertyController');

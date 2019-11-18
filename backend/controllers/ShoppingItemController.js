@@ -26,7 +26,7 @@ shoppingItemController.patch('/:id', auth, async(req,res) => {
 
 shoppingItemController.delete('/:id', auth, async(req,res) => {
     try{
-        await shoppingItemService.deleteShoppingItem(id);
+        await shoppingItemService.deleteShoppingItem(req.params.id);
         return res.status(204)
     } catch (err) {
         return handleError(err, res);

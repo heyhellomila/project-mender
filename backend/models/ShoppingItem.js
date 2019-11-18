@@ -22,4 +22,4 @@ const ShoppingItemSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('ShoppingList', ShoppingItemSchema);
+module.exports = mongoose.model('ShoppingItem', ShoppingItemSchema);
