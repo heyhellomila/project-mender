@@ -14,3 +14,5 @@ shoppingItemController.get(':/id', auth, async(req,res) =>{
         return handleError(err, res);
     }
 })
+
+module.exports = shoppingItemController;

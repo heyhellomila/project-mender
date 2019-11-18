@@ -1,5 +1,6 @@
 const express = require('express');
 
+const shoppingItemControllerRoute = require('./ShoppingItemController')
 const userControllerRoute = require('./UserController');
 const userPropertiesControllerRoute = require('./UserPropertiesController');
 const propertyControllerRoute = require('./PropertyController')
@@ -12,5 +13,7 @@ router.use('/api/users/:userId/properties', userPropertiesControllerRoute)
 router.use('/api/properties', propertyControllerRoute);
 router.use('/api/workOrders', workOrderControllerRoute);
 router.use('/api/properties/:propertyId/workorders', propertyWorkOrdersControllerRoute);
+router.use('/api/shoppingItems', shoppingItemControllerRoute);
+
 
 module.exports = router;
