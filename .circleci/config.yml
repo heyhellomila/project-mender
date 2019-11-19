@@ -8,8 +8,7 @@ jobs:
     working_directory: ~/project-mender
 
     steps:
-      - ccircleheckout
-
+      - checkout
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@12.9.0'
