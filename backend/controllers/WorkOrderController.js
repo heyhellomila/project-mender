@@ -17,7 +17,7 @@ workOrderController.get('/:id', auth, async(req, res) => {
 
 workOrderController.get('/', auth, async(req,res) => {
     try {
-        const workOrders = await workOrderService.searchWorkOrders(req.query);
+        const workOrders = await workOrderService.getWorkOrders(req.query);
         return res.status(200).json(workOrders);
     } catch (err) {
         return handleError(err, res);

@@ -40,13 +40,13 @@ class WorkOrderService {
         }
     }
 
-    async searchWorkOrders(queries) {
+    async getWorkOrders(queries) {
         if (queries.property_id != null) {
             if (!await propertyService.propertyExists(queries.property_id))
                 throw new ResourceNotFoundError("Property with id " + queries.property_id + " does not exist.")
         }
         try {
-            return await WorkOrderGateway.searchWorkOrder(queries);
+            return await WorkOrderGateway.getWorkOrders(queries);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
