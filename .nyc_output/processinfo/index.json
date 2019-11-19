@@ -1,0 +1,1 @@
+{"processes":{"35a87132-7361-49d5-aa19-4d5cd969611d":{"parent":null,"children":["92ba575e-c0a3-48ad-9242-062009afc1bc"]},"92ba575e-c0a3-48ad-9242-062009afc1bc":{"parent":"35a87132-7361-49d5-aa19-4d5cd969611d","children":[]}},"files":{"/Users/daniakalomiris/Desktop/project-mender/lib/script.js":["92ba575e-c0a3-48ad-9242-062009afc1bc"]},"externalIds":{}}
