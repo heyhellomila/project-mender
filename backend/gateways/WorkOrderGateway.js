@@ -50,23 +50,18 @@ const WorkOrderGateway = {
             if (queries.prev) {
                 queries._id = { $lt: queries.first_id };
                 delete queries.first_id
-                delete queries.last_id
                 delete queries.prev
                 const workorders = await WorkOrder.find(queries).limit(2);
                 return workorders;
             } else if(queries.next){
                 queries._id = { $gt: queries.last_id };
-                delete queries.first_id
                 delete queries.last_id
                 delete queries.next
                 const workorders = await WorkOrder.find(queries).limit(2);
                 return workorders;
             }
         }
-
-
     }
-
 }
 
 module.exports = WorkOrderGateway
