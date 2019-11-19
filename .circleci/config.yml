@@ -24,16 +24,18 @@ jobs:
           name: code-coverage
           command: 'npm run coverage'
       - run:
-          name: Creating Dummy Artifacts
           command: |
-            echo "my artifact file" > /test/artifact-1;
-            mkdir /test/artifacts;
-            echo "my artifact files in a dir" > /test/artifacts/artifact-2;
+            mkdir ~/project-mender/reports
       - store_artifacts:
-          path: /test/artifact-1
-          destination: artifact-file
-      - store_artifacts:
-          path: /test/artifacts
+          path: reports
+      - run:
+          command: |
+            mkdir ~/project-mender/test-results
+      - store_test_results:
+          path: test-results
+      # run ESLint test
+    #   - store_artifacts:
+    #       path: reports
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: test-report.html
           prefix: coverage
