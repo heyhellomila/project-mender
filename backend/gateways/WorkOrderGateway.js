@@ -4,7 +4,7 @@ const ResourceNotFoundError = require('../errors/ResourceNotFoundError')
 const WorkOrderGateway = {
 
     async getWorkOrdersByProperty(property_id) {
-        const workorders = await WorkOrder.find({property_id: property_id});
+        const workorders = await WorkOrder.find({ property_id: property_id });
         if (!workorders) {
             throw new ResourceNotFoundError("Work Orders belonging to user_id " + user_id + " do not exist");
         }
@@ -18,22 +18,22 @@ const WorkOrderGateway = {
         }
         return workorder;
     },
-    
+
     //images are not currently being saved to the DB
-    async createWorkOrder(property_id, sector, type, title, cause, 
+    async createWorkOrder(property_id, sector, type, title, cause,
         service_needed, priority, description, due_date, price_estimate) {
-        
+
         const workOrder = new WorkOrder({
-            property_id: property_id, 
+            property_id: property_id,
             sector: sector,
             type: type,
             title: title,
-            cause: cause, 
+            cause: cause,
             service_needed: service_needed,
             priority: priority,
             description: description,
-            due_date: due_date, 
-            price_estimate: price_estimate, 
+            due_date: due_date,
+            price_estimate: price_estimate,
         });
         try {
             return await workOrder.save();
@@ -42,23 +42,32 @@ const WorkOrderGateway = {
         }
     },
 
-    async searchWorkOrder(property_id, sector, type, title, cause, priority, description){
-            
-        const searchCriteria = {
-            property_id: {$regex: property_id, $options: "i" }, 
-            sector: {$regex: sector, $options: "i" },
-            type: {$regex: type, $options: "i" },
-            title: {$regex: title, $options: "i" },
-            cause: {$regex: cause, $options: "i" },
-            priority: {$regex: priority, $options: "i" },
-            description: {$regex: description, $options: "i" }
+    async searchWorkOrder(queries) {
+        console.log(queries)
+        if (queries.last_id == null && queries.first_id == null) {
+            const workorders = await WorkOrder.find(queries).limit(2);
+            return workorders;
+        } else {
+            if (queries.prev) {
+                queries._id = { $lt: queries.first_id };
+                delete queries.first_id
+                delete queries.last_id
+                delete queries.prev
+                const workorders = await WorkOrder.find(queries).limit(2);
+                return workorders;
+            } else if(queries.next){
+                queries._id = { $gt: queries.last_id };
+                delete queries.first_id
+                delete queries.last_id
+                delete queries.next
+                const workorders = await WorkOrder.find(queries).limit(2);
+                return workorders;
+            }
         }
 
-        const workorders = await WorkOrder.find(searchCriteria);
-        
-        return workorders;
+
     }
-    
+
 }
 
 module.exports = WorkOrderGateway

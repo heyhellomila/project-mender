@@ -7,15 +7,15 @@ const propertyService = new PropertyService();
 
 class WorkOrderService {
 
-    async createWorkOrder(property_id, sector, type, title, cause, 
+    async createWorkOrder(property_id, sector, type, title, cause,
         service_needed, priority, description, due_date, price_estimate) {
 
         if (!await propertyService.propertyExists(property_id)) {
-            throw new ResourceNotFoundError("Property " + property_id + 
+            throw new ResourceNotFoundError("Property " + property_id +
                 " does not exist.");
         }
         try {
-            return await WorkOrderGateway.createWorkOrder(property_id, sector, 
+            return await WorkOrderGateway.createWorkOrder(property_id, sector,
                 type, title, cause, service_needed, priority, description, due_date, price_estimate);
         } catch (err) {
             throw new BadRequestError(err.message);
@@ -40,16 +40,13 @@ class WorkOrderService {
         }
     }
 
-    async searchWorkOrders(property_id, sector, type, title, cause, 
-        priority, description) {
-
-        if (!await propertyService.propertyExists(property_id)) {
-            throw new ResourceNotFoundError("Property " + property_id + 
-                " does not exist.");
+    async searchWorkOrders(queries) {
+        if (queries.property_id != null) {
+            if (!await propertyService.propertyExists(queries.property_id))
+                throw new ResourceNotFoundError("Property with id " + queries.property_id + " does not exist.")
         }
         try {
-            return await WorkOrderGateway.searchWorkOrder(property_id, sector, 
-                type, title, cause, priority, description);
+            return await WorkOrderGateway.searchWorkOrder(queries);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
