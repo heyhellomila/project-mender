@@ -6,8 +6,10 @@ jobs:
       - image: mongo:4.2.0
       - image: debian:stretch
     working_directory: ~/project-mender
+
     steps:
-      - checkout
+      - ccircleheckout
+
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@12.9.0'
@@ -19,7 +21,7 @@ jobs:
       - run: # run tests
           name: test
           command: npm test
-       - run: # run coverage report
+      - run: # run coverage report
           name: code-coverage
           command: 'npm run coverage'
       - run:
@@ -34,5 +36,5 @@ jobs:
       - store_artifacts:
           path: /tests/artifacts
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-          path: coverage
+          path: test-report.html
           prefix: coverage
