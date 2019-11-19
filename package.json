@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "test": "mocha --reporter dot",
+        "test": "nyc mocha",
         "coverage": "nyc --reporter html --reporter text npm test",
         "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
     },

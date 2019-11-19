@@ -26,14 +26,14 @@ jobs:
       - run:
           name: Creating Dummy Artifacts
           command: |
-            echo "my artifact file" > /tests/artifact-1;
-            mkdir /tests/artifacts;
-            echo "my artifact files in a dir" > /tests/artifacts/artifact-2;
+            echo "my artifact file" > /test/artifact-1;
+            mkdir /test/artifacts;
+            echo "my artifact files in a dir" > /test/artifacts/artifact-2;
       - store_artifacts:
-          path: /tests/artifact-1
+          path: /test/artifact-1
           destination: artifact-file
       - store_artifacts:
-          path: /tests/artifacts
+          path: /test/artifacts
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: test-report.html
           prefix: coverage
