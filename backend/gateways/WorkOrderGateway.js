@@ -43,7 +43,6 @@ const WorkOrderGateway = {
     },
 
     async searchWorkOrder(queries) {
-        console.log(queries)
         if (queries.last_id == null && queries.first_id == null) {
             const workorders = await WorkOrder.find(queries).limit(2);
             return workorders;
