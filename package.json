@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "test": "mocha --reporter dot",
+        "coverage": "nyc --reporter html --reporter text npm test",
+        "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    },
+    "devDependencies": {
+        "mocha": "^6.2.2",
+        "nyc": "^14.1.1"
+    }
+}
