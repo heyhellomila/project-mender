@@ -158,12 +158,12 @@ export default class SignUpPage extends React.Component {
     }
     if (!this.validatePhoneNumber(phoneNumber)) {
       this.setState({ validFormInputs: false, validPhoneNumber: false,
-        errorMsg: 'Invalid phone number.'})
+        errorMsg: 'Invalid phone number.'});
     }
   }
 
   validatePhoneNumber = (phoneNumber) => {
-    var phoneNumber = phoneNumber.replace(/\D/g,'');
+    phoneNumber = phoneNumber.replace(/\D/g,'');
     if (phoneNumber.length !== 10) {
       return false;
     } else {
