@@ -3,7 +3,8 @@ var Enum = require('enum');
 const UserType = new Enum([
     'HOMEOWNER',
     'INSPECTOR',
-    'CONTRACTOR'
+    'CONTRACTOR',
+    'HYBRID'
 ]);
 
 module.exports = UserType;
