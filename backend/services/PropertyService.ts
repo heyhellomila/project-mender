@@ -4,6 +4,7 @@ import { Status } from '../enums/Status';
 import { PropertyType } from '../enums/PropertyType';
 import UserService from '../services/UserService';
 import PropertyGateway from '../gateways/PropertyGateway';
+import { IProperty } from '../models/Property';
 
 
 class PropertyService {
@@ -57,15 +58,26 @@ class PropertyService {
         }
     }
 
-    // async updatePropertyById(id: string, propertyObj){
-    //     if(!await this.getPropertyById(id))
-    //         throw new ResourceNotFoundError('Property with id ' + id + ' does not exist.')
-    //     try {
-    //         return await PropertyGateway.updatePropertyById(id, propertyObj);
-    //     } catch (err) {
-    //         throw new BadRequestError(err.message);
-    //     }
-    // }
+    async updatePropertyById(id: string, propertyObj: IProperty){
+        if(!await this.getPropertyById(id))
+            throw new ResourceNotFoundError('Property with id ' + id + ' does not exist.')
+
+        if (propertyObj.status != null && !(propertyObj.status in Status)) {
+            throw new BadRequestError('Invalid Status. Allowed Types: [' 
+                + Object.keys(Status) +']');
+        }
+
+        if (propertyObj.type != null && !(propertyObj.type in PropertyType)) {
+            throw new BadRequestError('Invalid Property Type. Allowed Types: [' 
+                + Object.keys(PropertyType) +']');
+        }
+
+        try {
+            return await PropertyGateway.updatePropertyById(id, propertyObj);
+        } catch (err) {
+            throw new BadRequestError(err.message);
+        }
+    }
 }
 
 export default new PropertyService();

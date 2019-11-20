@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
-import User from '../models/User';
+import User, { IUser } from '../models/User';
 
 class UserGateway {
 
@@ -32,15 +32,15 @@ class UserGateway {
         }
     }
 
-    // async updateUserById(id, userObj) {
-    //     try {
-    //         return await User.update({ _id: id }, {
-    //             $set: userObj,
-    //         }, { runValidators: true });
-    //     } catch (err) {
-    //         throw new Error(err);
-    //     }
-    // }
+    async updateUserById(id: string, userObj: IUser) {
+        try {
+            return await User.update({ _id: id }, {
+                $set: userObj,
+            }, { runValidators: true });
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
 
 }
 

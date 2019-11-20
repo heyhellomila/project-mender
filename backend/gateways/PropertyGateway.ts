@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
-import Property from '../models/Property';
+import Property, { IProperty } from '../models/Property';
 
 class PropertyGateway {
 
@@ -31,15 +31,15 @@ class PropertyGateway {
         }
     }
 
-    // async updatePropertyById(id: number, propertyObj) {
-    //     try{
-    //     return await Property.update({_id: id},{
-    //         $set: propertyObj,
-    //     }, { runValidators: true });
-    //     }catch(err){
-    //         throw new Error(err);
-    //     }
-    // }
+    async updatePropertyById(id: string, propertyObj: IProperty) {
+        try{
+        return await Property.update({_id: id},{
+            $set: propertyObj,
+        }, { runValidators: true });
+        }catch(err){
+            throw new Error(err);
+        }
+    }
 }
 
 export default new PropertyGateway();

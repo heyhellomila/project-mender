@@ -39,13 +39,13 @@ userController.get('/:id', auth, async (req: Request, res: Response) => {
     }
 })
 
-// userController.patch('/:id/updateUser', auth, async (req, res) => {
-//     try {
-//         const user = await userService.updateUserById(req.params.id, req.body);
-//         return res.status(200).json(user);
-//     } catch (err) {
-//         return handleError(err, res);
-//     }
-// })
+userController.patch('/:id', auth, async (req, res) => {
+    try {
+        await UserService.updateUserById(req.params.id, req.body);
+        return res.status(204).end();
+    } catch (err) {
+        return handleError(err, res);
+    }
+})
 
 export { userController };

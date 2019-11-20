@@ -4,6 +4,7 @@ const UserType = require('../enums/UserType');
 
 export interface IUser extends Document {
     email: string,
+    password: string,
     password_hash: string,
     first_name: string,
     last_name: string,
