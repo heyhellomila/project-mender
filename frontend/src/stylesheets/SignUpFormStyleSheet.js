@@ -120,7 +120,11 @@ const footerStyles = StyleSheet.create({
 });
 
 const typeStyles = StyleSheet.create({
-    container:{
+    container: {
+        flex: 2, 
+        marginTop: '6%'
+    },
+    buttonContainer:{
         flex: 1,
         flexDirection: 'row',
         height: '100%',
@@ -137,4 +141,30 @@ const typeStyles = StyleSheet.create({
     }
 });
 
-export { headerStyles, formStyles, footerStyles, typeStyles };
+const accountInfoStyles = StyleSheet.create({
+    firstInputGroup: {
+        flex: 1, 
+        paddingBottom: '3%'
+    },
+    inputGroup: {
+        flex: 1, 
+        paddingVertical: '3%'
+    }
+})
+
+const businessStyles = StyleSheet.create({
+    container: {
+        flex: 3, 
+        marginTop: '6%'
+    }
+})
+
+const nameStyles = StyleSheet.create({
+    inputGroup: {
+        flex: 1, 
+        paddingVertical: '10%'
+    }
+})
+
+export { headerStyles, formStyles, footerStyles, typeStyles, accountInfoStyles,
+    businessStyles, nameStyles };

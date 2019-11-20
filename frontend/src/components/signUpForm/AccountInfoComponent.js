@@ -1,11 +1,11 @@
-import { formStyles } from '../../stylesheets/SignUpFormStyleSheet';
+import { formStyles, accountInfoStyles } from '../../stylesheets/SignUpFormStyleSheet';
 import { View, Text, TextInput } from 'react-native';
 import React from 'react';
 
 const AccountInfoComponent = (props) => {
     return (
         <View style={{flex: 4}}>
-            <View style={{flex: 1, paddingBottom: '3%'}}>
+            <View style={accountInfoStyles.firstInputGroup}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>Phone number</Text>
                 </View>
@@ -18,7 +18,7 @@ const AccountInfoComponent = (props) => {
                         onChangeText = {(value) => props.handlePhoneNumber(value)}/>
                 </View>
             </View>
-            <View style={{flex: 1, paddingVertical: '3%'}}>
+            <View style={accountInfoStyles.inputGroup}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>Email</Text>
                 </View>
@@ -30,7 +30,7 @@ const AccountInfoComponent = (props) => {
                         onChangeText = {(value) => props.handleEmail(value)}/>
                 </View>
             </View>
-            <View style={{flex: 1, paddingVertical: '3%'}}>
+            <View style={accountInfoStyles.inputGroup}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>Password</Text>
                 </View>
@@ -44,7 +44,7 @@ const AccountInfoComponent = (props) => {
                         onChangeText = {(value) => props.handlePassword(value)}/>
                 </View>
             </View>
-            <View style={{flex: 1, paddingVertical: '3%'}}>
+            <View style={accountInfoStyles.inputGroup}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>Confirm Password</Text>
                 </View>
