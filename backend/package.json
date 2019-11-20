@@ -20,6 +20,8 @@
     "mongoose": "^5.7.7",
     "mysql": "^2.17.1",
     "password-validator": "^5.0.2",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.20",
     "validator": "^12.0.0"
   },
   "devDependencies": {

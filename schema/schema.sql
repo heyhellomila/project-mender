@@ -1,6 +1,6 @@
 create table priority_types(
     id int AUTO_INCREMENT PRIMARY KEY,    
-    priority ENUM('HIGH','MEDIUM', 'LOW') NOT NULL
+    type ENUM('HIGH','MEDIUM', 'LOW') NOT NULL
 );
 
 create table property_types(
@@ -32,6 +32,7 @@ create table work_order_types(
 
 create table users(
     id bigint AUTO_INCREMENT PRIMARY KEY,
+    email varchar(60) UNIQUE,
     password_hash varchar(60) NOT NULL,
     first_name varchar(36) NOT NULL,
     last_name varchar(36) NOT NULL,
@@ -66,6 +67,10 @@ create table work_orders(
     priority_id int NOT NULL,
     description varchar(180),
     due_date DATE NOT NULL,
+    created_date DATE NOT NULL,
+    created_by bigint NOT NULL,
+    last_modified_date DATE NOT NULL,
+    last_modified_by bigint NOT NULL,
     date_completed DATE,
     price_estimate BIGINT,
     actual_cost BIGINT,
@@ -76,7 +81,11 @@ create table work_orders(
     FOREIGN KEY (type_id)
         REFERENCES work_order_types(id),
     FOREIGN KEY (priority_id)
-        REFERENCES priority_types(id)
+        REFERENCES priority_types(id),
+    FOREIGN KEY (created_by)
+        REFERENCES users(id),
+    FOREIGN KEY (last_modified_by)
+        REFERENCES users(id)
 );
 
 insert into priority_types (type) VALUES ('HIGH'), ('MEDIUM'), ('LOW');
