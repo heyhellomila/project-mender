@@ -1,6 +1,4 @@
 import mongoose, {Schema, Document} from 'mongoose';
-const validator = require('validator');
-const UserType = require('../enums/UserType');
 
 export interface IUser extends Document {
     email: string,

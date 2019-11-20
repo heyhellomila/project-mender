@@ -1,14 +1,11 @@
 import mongoose, {Schema, Document} from 'mongoose';
-const WorkOrderType = require('../enums/WorkOrderType')
-const SectorType = require('../enums/SectorType')
-const PriorityType = require('../enums/PriorityType')
 
 export interface IWorkOrder extends Document {
     property_id: string,
     sector: string,
     type: string,
     title: string,
-    cause: number,
+    cause: string,
     service_needed: boolean,
     priority: string,
     description: string,

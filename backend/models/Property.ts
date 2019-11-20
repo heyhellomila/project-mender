@@ -1,6 +1,4 @@
 import mongoose, {Schema, Document} from 'mongoose';
-const PropertyType = require('../enums/PropertyType');
-const Status = require('../enums/Status');
 
 export interface IProperty extends Document {
     user_id: string,
