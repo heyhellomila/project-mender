@@ -1,0 +1,35 @@
+{
+  "name": "project-mender",
+  "version": "1.0.0",
+  "description": "home maintenance application",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter html --reporter text npm test",
+    "coverage": "nyc --reporter html --reporter text npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milaroisin/project-mender.git"
+  },
+  "author": "Anamika Pancholy, Daniel Privorotsky, Dania Kalomiris, Patrick Pin, Mila Roisin, Sebastien Ong Tone",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/milaroisin/project-mender/issues"
+  },
+  "homepage": "https://github.com/milaroisin/project-mender#readme",
+  "dependencies": {
+    "casperjs": "^1.1.4",
+    "codacy-coverage": "^3.4.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "testing": "^1.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}
