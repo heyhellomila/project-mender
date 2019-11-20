@@ -150,21 +150,21 @@ const accountInfoStyles = StyleSheet.create({
         flex: 1, 
         paddingVertical: '3%'
     }
-})
+});
 
 const businessStyles = StyleSheet.create({
     container: {
         flex: 3, 
         marginTop: '6%'
     }
-})
+});
 
 const nameStyles = StyleSheet.create({
     inputGroup: {
         flex: 1, 
         paddingVertical: '10%'
     }
-})
+});
 
 export { headerStyles, formStyles, footerStyles, typeStyles, accountInfoStyles,
     businessStyles, nameStyles };
