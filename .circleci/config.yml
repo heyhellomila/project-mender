@@ -1,4 +1,16 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.5
+
+commands:
+  upload:
+    parameters:
+      conf:
+        type: string
+        default: "codecov.yml"
+      token:
+        type: string
+        default: ${{ secrets.CODECOV_TOKEN }}
 jobs:
   build:
     docker:
@@ -39,3 +51,5 @@ jobs:
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: test-report.html
           prefix: coverage
+      - codecov/upload:
+          file: coverage.xml
