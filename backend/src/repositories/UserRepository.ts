@@ -1,5 +1,5 @@
 import { User } from '../entities/User';
-import { UserType } from "../entities/UserType";
+import { UserType } from '../entities/UserType';
 import { BaseRepository } from './BaseRepository';
 
 class UserRepository extends BaseRepository<User> {

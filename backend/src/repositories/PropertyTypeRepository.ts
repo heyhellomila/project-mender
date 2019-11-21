@@ -1,5 +1,4 @@
 import { PropertyType } from '../entities/PropertyType';
-import { Connection, getConnection } from 'typeorm';
 import { BaseRepository } from './BaseRepository';
 
 class PropertyTypeRepository extends BaseRepository<PropertyType> {

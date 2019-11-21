@@ -1,5 +1,4 @@
 import { PriorityType } from '../entities/PriorityType';
-import { Connection, getConnection } from 'typeorm';
 import { BaseRepository } from './BaseRepository';
 
 class PriorityTypeRepository extends BaseRepository<PriorityType> {

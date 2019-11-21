@@ -1,5 +1,4 @@
 import { Property } from '../entities/Property';
-import { Connection, getConnection } from 'typeorm';
 import { PropertyType } from '../entities/PropertyType';
 import { Status } from '../entities/Status';
 import { User } from '../entities/User';

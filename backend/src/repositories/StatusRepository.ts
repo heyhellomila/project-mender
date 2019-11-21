@@ -1,4 +1,3 @@
-import { Connection, getConnection } from 'typeorm';
 import { Status } from '../entities/Status';
 import { BaseRepository } from './BaseRepository';
 

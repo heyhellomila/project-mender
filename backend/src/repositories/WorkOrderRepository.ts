@@ -1,5 +1,4 @@
 import { WorkOrder } from '../entities/WorkOrder';
-import { Connection, getConnection } from 'typeorm';
 import { WorkOrderType } from '../entities/WorkOrderType';
 import { SectorType } from '../entities/SectorType';
 import { PriorityType } from '../entities/PriorityType';

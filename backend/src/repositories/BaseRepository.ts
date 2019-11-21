@@ -1,5 +1,4 @@
 import { getConnection, Connection } from "typeorm";
-import { User } from "../entities/User";
 
 class BaseRepository<Model> {
 
