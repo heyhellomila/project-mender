@@ -5,6 +5,7 @@ import { SectorType } from '../entities/SectorType';
 import { PriorityType } from '../entities/PriorityType';
 import { Property } from '../entities/Property';
 import { User } from '../entities/User';
+import { isDate } from 'util';
 
 class WorkOrderRepository {
 
@@ -38,10 +39,9 @@ class WorkOrderRepository {
         workOrder.serviceNeeded = serviceNeeded;
         workOrder.priorityType = priorityType;
         workOrder.description = description;
-        workOrder.dueDate = new Date();
+        workOrder.dueDate = dueDate;
         workOrder.priceEstimate = priceEstimate;
         workOrder.createdBy = createdBy;
-        console.log(workOrder);
         try {
             return await repository.save(workOrder);
         } catch (err) {
