@@ -6,10 +6,8 @@ commands:
   upload:
     parameters:
       conf:
-        type: string
         default: "codecov.yml"
       token:
-        type: string
         default: ${{ secrets.CODECOV_TOKEN }}
 jobs:
   build:
