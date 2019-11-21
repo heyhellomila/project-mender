@@ -1,7 +1,7 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from "typeorm";
-import { User } from "./User";
-import { PropertyType } from "./PropertyType";
-import { Status } from "./Status";
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from 'typeorm';
+import { User } from './User';
+import { PropertyType } from './PropertyType';
+import { Status } from './Status';
 
 @Entity({name: 'properties'})
 export class Property {
@@ -9,15 +9,18 @@ export class Property {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User,  {eager: true})
+    @ManyToOne(type => User)
     @JoinColumn({
-        name: "user_id",
+        name: 'user_id',
     })
     user: User;
 
+    @Column({name: 'user_id'})
+    userId: number
+
     @ManyToOne(type => PropertyType, {eager: true})
     @JoinColumn({
-        name: "property_type_id",
+        name: 'property_type_id',
     })
     propertyType: PropertyType;
 
@@ -29,7 +32,7 @@ export class Property {
 
     @ManyToOne(type => Status,  {eager: true})
     @JoinColumn({
-        name: "status_id",
+        name: 'status_id',
     })
     status: Status;
 }

@@ -14,7 +14,7 @@ createConnection({
     entities : [
         'src/entities/*.ts'
         ],
-    synchronize : true
+    synchronize : false
 }).then(connection => {
     console.log('Connected to database');
 

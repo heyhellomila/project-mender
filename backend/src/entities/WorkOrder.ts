@@ -11,11 +11,14 @@ export class WorkOrder {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => Property, {eager: true})
+    @ManyToOne(type => Property)
     @JoinColumn({
         name: 'property_id',
     })
     property: Property;
+
+    @Column({name: 'property_id'})
+    propertyId: number;
 
     @ManyToOne(type => SectorType, {eager: true})
     @JoinColumn({
@@ -53,11 +56,14 @@ export class WorkOrder {
     @Column({name: 'created_date'})
     createdDate: Date
 
-    @ManyToOne(type => User, {eager: true})
+    @ManyToOne(type => User)
     @JoinColumn({
         name: 'created_by',
     })
     createdBy: User;
+
+    @Column({name: 'created_by'})
+    createdByUserId: number;
     
     @Column({name: 'last_modified_date', nullable: true})
     lastModifiedDate: Date
