@@ -5,21 +5,17 @@ import { SectorType } from '../entities/SectorType';
 import { PriorityType } from '../entities/PriorityType';
 import { Property } from '../entities/Property';
 import { User } from '../entities/User';
-import { isDate } from 'util';
+import { BaseRepository } from './BaseRepository';
 
-class WorkOrderRepository {
+class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrderById(id: number) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(WorkOrder);
-        const workorder = await repository.findOne({id: id});
+        const workorder = await this.getRepositoryConnection(WorkOrder).findOne({id: id});
         return workorder;
     }
 
     async getWorkOrdersByProperty(property: Property) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(WorkOrder);
-        const workOrders = await repository.find({property: property});
+        const workOrders = await this.getRepositoryConnection(WorkOrder).find({property: property});
         return workOrders;
     }
 
@@ -28,8 +24,6 @@ class WorkOrderRepository {
         title: string, cause: string, serviceNeeded: boolean, priorityType: PriorityType, 
         description: string, dueDate: Date, priceEstimate: number, createdBy: User) {
 
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(WorkOrder);
         const workOrder = new WorkOrder();
         workOrder.property = property;
         workOrder.sectorType = sectorType;
@@ -43,7 +37,7 @@ class WorkOrderRepository {
         workOrder.priceEstimate = priceEstimate;
         workOrder.createdBy = createdBy;
         try {
-            return await repository.save(workOrder);
+            return await this.getRepositoryConnection(WorkOrder).save(workOrder);
         } catch (err) {
             throw new Error(err);
         }

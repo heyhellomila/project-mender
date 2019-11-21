@@ -1,12 +1,11 @@
 import { SectorType } from '../entities/SectorType';
 import { Connection, getConnection } from 'typeorm';
+import { BaseRepository } from './BaseRepository';
 
-class SectorTypeRepository {
+class SectorTypeRepository extends BaseRepository<SectorType> {
 
     async getSectorType(type: string) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(SectorType);
-        return await repository.findOne({type: type});
+        return await this.getRepositoryConnection(SectorType).findOne({type: type});
     }
 }
 

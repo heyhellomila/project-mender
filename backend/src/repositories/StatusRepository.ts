@@ -1,12 +1,11 @@
 import { Connection, getConnection } from 'typeorm';
 import { Status } from '../entities/Status';
+import { BaseRepository } from './BaseRepository';
 
-class StatusRepository {
+class StatusRepository extends BaseRepository<Status> {
 
     async getStatus(status: string) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(Status);
-        return await repository.findOne({status: status});
+        return await this.getRepositoryConnection(Status).findOne({status: status});
     }
 }
 

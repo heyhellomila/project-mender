@@ -1,12 +1,11 @@
 import { UserType } from '../entities/UserType';
 import { Connection, getConnection } from 'typeorm';
+import { BaseRepository } from './BaseRepository';
 
-class UserTypeRepository {
+class UserTypeRepository extends BaseRepository<UserType> {
 
     async getUserType(type: string) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(UserType);
-        return await repository.findOne({type: type});
+        return await this.getRepositoryConnection(UserType).findOne({type: type});
     }
 }
 

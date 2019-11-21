@@ -3,20 +3,17 @@ import { Connection, getConnection } from 'typeorm';
 import { PropertyType } from '../entities/PropertyType';
 import { Status } from '../entities/Status';
 import { User } from '../entities/User';
+import { BaseRepository } from './BaseRepository';
 
-class PropertyRepository {
+class PropertyRepository extends BaseRepository<Property> {
 
     async getPropertyById(id: number) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(Property);
-        const property = await repository.findOne({id: id});
+        const property = await this.getRepositoryConnection(Property).findOne({id: id});
         return property;
     }
 
     async getPropertiesByUser(user: User) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(Property);
-        const properties = await repository.find({user: user});
+        const properties = await this.getRepositoryConnection(Property).find({user: user});
         return properties;
     }
 
@@ -24,8 +21,6 @@ class PropertyRepository {
     async createProperty(user: User, name: string, propertyType: PropertyType, 
         address: string, status: Status) {
 
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(Property);
         const property = new Property();
         property.user = user;
         property.name = name;
@@ -33,16 +28,14 @@ class PropertyRepository {
         property.propertyType = propertyType;
         property.status = status;
         try {
-            return await repository.save(property);
+            return await this.getRepositoryConnection(Property).save(property);
         } catch (err) {
             throw new Error(err);
         }
     }
 
     async updatePropertyById(id: number, property: Property) {
-        const connection : Connection = getConnection();
-        const repository = connection.getRepository(Property);
-        await repository.update({id: id}, property);
+        await this.getRepositoryConnection(Property).update({id: id}, property);
     }
 }
 
