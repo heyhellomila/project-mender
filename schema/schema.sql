@@ -100,6 +100,6 @@ insert into sector_types (type) VALUES ('ROOF'), ('KITCHEN'), ('UTILITIES'),
 
 insert into status (status) VALUES ('ACTIVE'), ('INACTIVE');
 
-insert into user_types (type) VALUES ('HOMEOWNER'), ('INSPECTOR'), ('CONTRACTOR');
+insert into user_types (type) VALUES ('HOMEOWNER'), ('INSPECTOR'), ('CONTRACTOR'), ('HYBRID');
 
 insert into work_order_types (type) VALUES ('CM'), ('PM');
