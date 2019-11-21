@@ -1,5 +1,6 @@
 import express, {Request, Response } from 'express';
 import { PropertyService } from '../services/PropertyService';
+import { PropertyDTO } from '../dtos/PropertyDTO';
 
 const { handleError } = require('../utils/HttpUtils');
 const auth = require('../middleware/auth');
@@ -11,7 +12,10 @@ const propertyController = express.Router();
 propertyController.get('/:id', auth, async(req: Request, res: Response) => {
     try {
         const property = await propertyService.getPropertyById(Number(req.params.id));
-        return res.status(200).json(property);
+        const propertyDTO : PropertyDTO = new PropertyDTO(property.propertyType.type, 
+            property.name, property.address, property.status.status, 
+            undefined, property.userId);
+        return res.status(200).json(propertyDTO);
     } catch (err) {
         return handleError(err, res);
     } 

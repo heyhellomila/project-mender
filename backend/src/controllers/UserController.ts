@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import { UserService } from '../services/UserService';
+import { UserDTO } from '../dtos/UserDTO';
 
 const { handleError } = require('../utils/HttpUtils');
 const auth = require('../middleware/auth');
@@ -17,7 +18,9 @@ userController.post('/', validateBody(registerFields), async (req: Request, res:
         const { email, password, firstName, lastName, phoneNumber, userType } = req.body;
         const user = await userService.register(email, password, 
             firstName, lastName, phoneNumber, userType);
-        return res.status(200).json(user);
+        const userDTO : UserDTO = new UserDTO(user.email, 
+            user.firstName, user.lastName, user.phoneNumber, user.userType.type, user.id);
+        return res.status(200).json(userDTO);
     } catch (err) {
         return handleError(err, res);
     }
@@ -36,7 +39,9 @@ userController.post('/login', validateBody(loginFields), async (req: Request, re
 userController.get('/:id', auth, async (req: Request, res: Response) => {
     try {
         const user = await userService.getUser(Number(req.params.id));
-        return res.status(200).json(user);
+        const userDTO : UserDTO = new UserDTO(user.email, user.firstName, 
+            user.lastName, user.phoneNumber, user.userType.type);
+        return res.status(200).json(userDTO);
     } catch (err) {
         return handleError(err, res);
     }

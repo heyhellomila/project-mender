@@ -74,6 +74,9 @@ export class WorkOrder {
     })
     lastModifiedBy: User;
 
+    @Column({name: 'last_modified_by'})
+    lastModifiedByUserId: number;
+
     @Column({name: 'date_completed', nullable: true})
     dateCompleted: Date
 
