@@ -37,7 +37,7 @@
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.0",
-    "typeorm": "^0.2.9",
+    "typeorm": "^0.3.0-alpha.24",
     "typescript": "^3.7.2"
   }
 }

@@ -9,13 +9,13 @@ export class Property {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User)
+    @ManyToOne(type => User,  {eager: true})
     @JoinColumn({
         name: "user_id",
     })
     user: User;
 
-    @ManyToOne(type => PropertyType)
+    @ManyToOne(type => PropertyType, {eager: true})
     @JoinColumn({
         name: "property_type_id",
     })
@@ -27,7 +27,7 @@ export class Property {
     @Column()
     address: string;
 
-    @ManyToOne(type => Status)
+    @ManyToOne(type => Status,  {eager: true})
     @JoinColumn({
         name: "status_id",
     })

@@ -11,19 +11,19 @@ export class WorkOrder {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => Property)
+    @ManyToOne(type => Property, {eager: true})
     @JoinColumn({
         name: 'property_id',
     })
     property: Property;
 
-    @ManyToOne(type => SectorType)
+    @ManyToOne(type => SectorType, {eager: true})
     @JoinColumn({
         name: 'sector_id',
     })
     sectorType: SectorType;
 
-    @ManyToOne(type => WorkOrderType)
+    @ManyToOne(type => WorkOrderType, {eager: true})
     @JoinColumn({
         name: 'work_order_type_id',
     })
@@ -38,7 +38,7 @@ export class WorkOrder {
     @Column({name: 'service_needed'})
     serviceNeeded: boolean
 
-    @ManyToOne(type => PriorityType)
+    @ManyToOne(type => PriorityType, {eager: true})
     @JoinColumn({
         name: 'priority_id',
     })
@@ -53,7 +53,7 @@ export class WorkOrder {
     @Column({name: 'created_date'})
     createdDate: Date
 
-    @ManyToOne(type => User)
+    @ManyToOne(type => User, {eager: true})
     @JoinColumn({
         name: 'created_by',
     })
