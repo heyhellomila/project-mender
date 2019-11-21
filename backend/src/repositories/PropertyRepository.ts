@@ -7,7 +7,7 @@ import { BaseRepository } from './BaseRepository';
 class PropertyRepository extends BaseRepository<Property> {
 
     async getPropertyById(id: number) {
-        const property = await this.getRepositoryConnection(Property).findOne({id: id});
+        const property = await this.getRepositoryConnection(Property).findOne({id: id,});
         return property;
     }
 
@@ -17,17 +17,18 @@ class PropertyRepository extends BaseRepository<Property> {
     }
 
 
-    async createProperty(user: User, name: string, propertyType: PropertyType, 
+    async createProperty(userId: number, name: string, propertyType: PropertyType, 
         address: string, status: Status) {
 
         const property = new Property();
-        property.user = user;
+        property.userId = userId;
         property.name = name;
         property.address = address;
         property.propertyType = propertyType;
         property.status = status;
         try {
-            return await this.getRepositoryConnection(Property).save(property);
+            const savedProperty : Property = await this.getRepositoryConnection(Property).save(property);
+            return savedProperty;
         } catch (err) {
             throw new Error(err);
         }

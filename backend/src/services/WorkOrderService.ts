@@ -24,7 +24,7 @@ class WorkOrderService {
 
     async createWorkOrder(propertyId: number, sectorType: string, workOrderType: string, 
         title: string, cause: string, serviceNeeded: boolean, priorityType: string, 
-        description: string, dueDate: string, priceEstimate: number, createdBy: User) {
+        description: string, dueDate: string, priceEstimate: number, createdByUserId: number) {
             
         if (!await this.propertyService.propertyExists(Number(propertyId))) {
             throw new ResourceNotFoundError("Property " + propertyId + 
@@ -52,13 +52,11 @@ class WorkOrderService {
             .getPriorityType(priorityType);
         const workOrderTypeObj : WorkOrderType = await this.workOrderTypeService
             .getWorkOrderType(workOrderType);
-        var property : Property = new Property();
-        property.id = propertyId;
+
         try {
-            console.log(dueDate);
-            return await this.workOrderRepository.createWorkOrder(property, sectorTypeObj, 
+            return await this.workOrderRepository.createWorkOrder(propertyId, sectorTypeObj, 
                 workOrderTypeObj, title, cause, serviceNeeded, priorityTypeObj, 
-                description, new Date(Number(dueDate)), priceEstimate, createdBy);
+                description, new Date(Number(dueDate)), priceEstimate, createdByUserId);
         } catch (err) {
             throw new BadRequestError(err.message);
         }

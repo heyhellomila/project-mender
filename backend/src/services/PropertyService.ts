@@ -45,11 +45,9 @@ class PropertyService {
 
         const statusObj : Status = await this.statusService.getStatus(status);
         const propertyType : PropertyType = await this.propertyTypeService.getPropertyType(type);
-        const user : User = new User();
-        user.id = userId;
 
         try {
-            return await this.propertyRepository.createProperty(user, 
+            return await this.propertyRepository.createProperty(userId, 
                 name, propertyType, address, statusObj);
         } catch (err) {
             throw new BadRequestError(err.message);

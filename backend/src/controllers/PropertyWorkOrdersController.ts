@@ -18,7 +18,7 @@ propertyWorkOrdersController.post('/', auth, validateBody(creationFields), async
             description, dueDate, priceEstimate, user } = req.body;
         const workOrder = await workOrderService.createWorkOrder(Number(req.params.propertyId), 
             sectorType, workOrderType, title, cause, serviceNeeded, 
-            priorityType, description, dueDate, priceEstimate, user);
+            priorityType, description, dueDate, priceEstimate, user.id);
         return res.status(200).json(workOrder);
     } catch (err) {
         return handleError(err, res);

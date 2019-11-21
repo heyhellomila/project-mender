@@ -19,12 +19,12 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
     }
 
 
-    async createWorkOrder(property: Property, sectorType: SectorType, workOrderType: WorkOrderType, 
+    async createWorkOrder(propertyId: number, sectorType: SectorType, workOrderType: WorkOrderType, 
         title: string, cause: string, serviceNeeded: boolean, priorityType: PriorityType, 
-        description: string, dueDate: Date, priceEstimate: number, createdBy: User) {
+        description: string, dueDate: Date, priceEstimate: number, createdByUserId: number) {
 
         const workOrder = new WorkOrder();
-        workOrder.property = property;
+        workOrder.propertyId = propertyId;
         workOrder.sectorType = sectorType;
         workOrder.workOrderType = workOrderType;
         workOrder.title = title;
@@ -34,9 +34,11 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         workOrder.description = description;
         workOrder.dueDate = dueDate;
         workOrder.priceEstimate = priceEstimate;
-        workOrder.createdBy = createdBy;
+        workOrder.createdByUserId = createdByUserId;
         try {
-            return await this.getRepositoryConnection(WorkOrder).save(workOrder);
+            const savedWorkOrder : WorkOrder = await this.getRepositoryConnection(
+                WorkOrder).save(workOrder);
+            return savedWorkOrder;
         } catch (err) {
             throw new Error(err);
         }
