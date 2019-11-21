@@ -5,6 +5,7 @@
         "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
     },
     "devDependencies": {
+        "codecov": "^3.6.1",
         "mocha": "^6.2.2",
         "nyc": "^14.1.1"
     }
