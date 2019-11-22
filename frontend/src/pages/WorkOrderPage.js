@@ -30,7 +30,6 @@ class WorkOrderPage extends React.Component {
         }).catch((err) => {
             this.setState({error: true, loading: false, errorMsg: err.message})
         });
-        console.log(this.state.workOrder.stringify);
     }
 
     render() {
@@ -44,7 +43,7 @@ class WorkOrderPage extends React.Component {
                     {/* temp, currently doesn't work. replace with left arrow button in header */} 
                     <Text>{workOrder.stringify}</Text>
                     <Text>Work Order Id: {workOrder._id}</Text>
-                    <Text>Property Id: {workOrder.property_id}</Text>
+                    <Text>Property Id: {this.props.property.name}</Text>
                     <Text>Sector: {workOrder.sector}</Text>
                     <Text>Type: {workOrder.type}</Text>
                     <Text>Title: {workOrder.title}</Text>
