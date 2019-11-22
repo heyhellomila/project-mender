@@ -3,6 +3,7 @@ codecov:
   require_ci_to_pass: false
   wait_for_ci: false
   bot: codecov-bot
+  max_report_age: off
 
 coverage:
   precision: 2
