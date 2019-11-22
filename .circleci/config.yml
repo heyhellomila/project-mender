@@ -25,21 +25,11 @@ jobs:
       - run: # run coverage report
           name: code-coverage
           command: 'npm run coverage'
-      - run:
-          command: |
-            mkdir ~/project-mender/reports
+      - store_test_results: # for storing unit test results
+          path: test/mochawesome-report
       - store_artifacts:
-          path: reports
-      - run:
-          command: |
-            mkdir ~/project-mender/test-results
-      - store_test_results:
-          path: test-results
-      # run ESLint test
-    #   - store_artifacts:
-    #       path: reports
+          path: test/mochawesome-report
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: coverage
-          prefix: coverage
       - codecov/upload:
           file: coverage/index.html
