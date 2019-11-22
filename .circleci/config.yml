@@ -28,7 +28,7 @@ jobs:
       - store_test_results: # for storing unit test results
           path: test/mochawesome-report
       - store_artifacts:
-          path: test/mochawesome-report
+          path: test/mochawesome-report/mochawesome.json
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: coverage
       - codecov/upload:
