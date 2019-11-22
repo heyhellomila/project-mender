@@ -2,23 +2,19 @@ import express, {Request, Response} from 'express';
 
 import { WorkOrderService } from '../services/WorkOrderService';
 import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
+import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
 const { handleError } = require('../utils/HttpUtils');
 const auth = require('../middleware/auth');
 
 const workOrderService = new WorkOrderService();
+const workOrderMapper = new WorkOrderMapper();
 
 const workOrderController = express.Router();
 
 workOrderController.get('/:id', auth, async(req: Request, res: Response) => {
     try {
         const workOrder = await workOrderService.getWorkOrder(Number(req.params.id));
-        const workOrderDTO : WorkOrderDTO = new WorkOrderDTO(workOrder.sectorType.type, 
-            workOrder.workOrderType.type, workOrder.title, workOrder.cause, 
-            workOrder.serviceNeeded,  workOrder.description, workOrder.priorityType.type, 
-            workOrder.dueDate, workOrder.createdDate, workOrder.createdByUserId, 
-            workOrder.lastModifiedDate, workOrder.lastModifiedByUserId, workOrder.dateCompleted, 
-            workOrder.priceEstimate, workOrder.actualCost, undefined, workOrder.propertyId);
-        return res.status(200).json(workOrderDTO);
+        return res.status(200).json(workOrderMapper.toDTO(workOrder));
     } catch (err) {
         return handleError(err, res);
     } 

@@ -1,6 +1,6 @@
 import { Property } from '../entities/Property';
 import { PropertyType } from '../entities/PropertyType';
-import { Status } from '../entities/Status';
+import { ActivityStatus } from '../entities/ActivityStatus';
 import { User } from '../entities/User';
 import { BaseRepository } from './BaseRepository';
 
@@ -18,14 +18,14 @@ class PropertyRepository extends BaseRepository<Property> {
 
 
     async createProperty(userId: number, name: string, propertyType: PropertyType, 
-        address: string, status: Status) {
+        address: string, activityStatus: ActivityStatus) {
 
         const property = new Property();
         property.userId = userId;
         property.name = name;
         property.address = address;
         property.propertyType = propertyType;
-        property.status = status;
+        property.activityStatus = activityStatus;
         try {
             const savedProperty : Property = await this.getRepositoryConnection(Property).save(property);
             return savedProperty;

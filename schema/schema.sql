@@ -15,14 +15,14 @@ create table sector_types(
     'APPLIANCES', 'BEDROOM', 'BALCONY', 'GARAGE', 'ENVELOPE', 'ELECTRICAL', 'HVAC') NOT NULL UNIQUE
 );
 
-create table status(
+create table activity_status(
     id int AUTO_INCREMENT PRIMARY KEY,
     status ENUM('ACTIVE', 'INACTIVE') NOT NULL UNIQUE
 );
 
 create table user_types(
     id int AUTO_INCREMENT PRIMARY KEY,
-    type ENUM('HOMEOWNER', 'INSPECTOR', 'CONTRACTOR') NOT NULL UNIQUE
+    type ENUM('HOMEOWNER', 'INSPECTOR', 'CONTRACTOR', 'HYBRID') NOT NULL UNIQUE
 );
 
 create table work_order_types(
@@ -48,13 +48,13 @@ create table properties(
     property_type_id int NOT NULL,
     name varchar(36) NOT NULL,
     address varchar(100) NOT NULL,
-    status_id int NOT NULL,
+    activity_status_id int NOT NULL,
     FOREIGN KEY (user_id)
         REFERENCES users(id),
     FOREIGN KEY (property_type_id)
         REFERENCES property_types(id),
-    FOREIGN KEY (status_id)
-        REFERENCES status(id)
+    FOREIGN KEY (activity_status_id)
+        REFERENCES activity_status(id)
 );
 
 create table work_orders(
@@ -98,7 +98,7 @@ insert into sector_types (type) VALUES ('ROOF'), ('KITCHEN'), ('UTILITIES'),
     ('LIVING_ROOM'), ('BATHROOM'), ('APPLIANCES'), ('BEDROOM'), ('BALCONY'), 
     ('GARAGE'), ('ENVELOPE'), ('ELECTRICAL'), ('HVAC');
 
-insert into status (status) VALUES ('ACTIVE'), ('INACTIVE');
+insert into activity_status (status) VALUES ('ACTIVE'), ('INACTIVE');
 
 insert into user_types (type) VALUES ('HOMEOWNER'), ('INSPECTOR'), ('CONTRACTOR'), ('HYBRID');
 

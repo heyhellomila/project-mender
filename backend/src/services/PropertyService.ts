@@ -1,12 +1,12 @@
 import { BadRequestError } from '../errors/BadRequestError';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
-import { Status as StatusEnum } from '../enums/Status';
+import { ActivityStatus as ActivityStatusEnum } from '../enums/ActivityStatus';
 import { PropertyType as PropertyTypeEnum } from '../enums/PropertyType';
 import { UserService } from './UserService';
 import { PropertyRepository } from '../repositories/PropertyRepository';
 import { Property } from '../entities/Property';
-import { StatusService } from './StatusService';
-import { Status } from '../entities/Status';
+import { ActivityStatusService } from './ActivityStatusService';
+import { ActivityStatus } from '../entities/ActivityStatus';
 import { PropertyType } from '../entities/PropertyType';
 import { PropertyTypeService } from './PropertyTypeService';
 import { User } from '../entities/User';
@@ -15,7 +15,7 @@ import { User } from '../entities/User';
 class PropertyService {
 
     private userService : UserService = new UserService();
-    private statusService : StatusService = new StatusService();
+    private activityStatusService : ActivityStatusService = new ActivityStatusService();
     private propertyTypeService : PropertyTypeService = new PropertyTypeService();
     private propertyRepository : PropertyRepository = new PropertyRepository();
 
@@ -27,28 +27,28 @@ class PropertyService {
         return property;
     }
 
-    async createProperty(userId: number, name: string, type: string, 
-        address: string, status: string) {
+    async createProperty(userId: number, name: string, propertyType: string, 
+        address: string, activityStatus: string) {
         
         if (!await this.userService.userExists(Number(userId)))
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
 
-        if (!(status in StatusEnum)) {
+        if (!(activityStatus in ActivityStatusEnum)) {
             throw new BadRequestError('Invalid Status. Allowed Types: [' 
-                + Object.keys(StatusEnum) +']');
+                + Object.keys(ActivityStatusEnum) +']');
         }
 
-        if (!(type in PropertyTypeEnum)) {
+        if (!(propertyType in PropertyTypeEnum)) {
             throw new BadRequestError('Invalid Property Type. Allowed Types: [' 
                 + Object.keys(PropertyTypeEnum) +']');
         }
 
-        const statusObj : Status = await this.statusService.getStatus(status);
-        const propertyType : PropertyType = await this.propertyTypeService.getPropertyType(type);
+        const activityStatusObj : ActivityStatus = await this.activityStatusService.getActivityStatus(activityStatus);
+        const propertyTypeObj : PropertyType = await this.propertyTypeService.getPropertyType(propertyType);
 
         try {
             return await this.propertyRepository.createProperty(userId, 
-                name, propertyType, address, statusObj);
+                name, propertyTypeObj, address, activityStatusObj);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
@@ -81,12 +81,12 @@ class PropertyService {
             throw new ResourceNotFoundError('Property with id ' + id + ' does not exist.')
         }
 
-        if (propertyObj.status != null) {
-            if (!(propertyObj.status in StatusEnum)) {
+        if (propertyObj.activityStatus != null) {
+            if (!(propertyObj.activityStatus in ActivityStatusEnum)) {
                 throw new BadRequestError('Invalid Status. Allowed Types: [' 
-                    + Object.keys(StatusEnum) +']');
+                    + Object.keys(ActivityStatusEnum) +']');
             }
-            property.status = await this.statusService.getStatus(propertyObj.status);
+            property.activityStatus = await this.activityStatusService.getActivityStatus(propertyObj.activityStatus);
         }
 
         if (propertyObj.propertyType != null ) {

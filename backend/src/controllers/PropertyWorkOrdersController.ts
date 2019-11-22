@@ -1,7 +1,8 @@
 import express, {Request, Response } from 'express';
-
 import { WorkOrderService } from '../services/WorkOrderService';
+import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
 import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
+
 const { handleError } = require('../utils/HttpUtils');
 const auth = require('../middleware/auth');
 const { validateBody } = require('../middleware/requestValidation');
@@ -9,6 +10,7 @@ const { validateBody } = require('../middleware/requestValidation');
 const propertyWorkOrdersController = express.Router({mergeParams: true});
 
 const workOrderService = new WorkOrderService();
+const workOrderMapper = new WorkOrderMapper();
 
 const creationFields = ['sectorType', 'workOrderType', 'title', 'cause', 'serviceNeeded', 
     'priorityType', 'description', 'dueDate', 'priceEstimate']
@@ -21,13 +23,7 @@ propertyWorkOrdersController.post('/', auth, validateBody(creationFields), async
             sectorType, workOrderType, title, cause, serviceNeeded, 
             priorityType, description, dueDate, priceEstimate, user.id);
 
-        const workOrderDTO : WorkOrderDTO = new WorkOrderDTO(workOrder.sectorType.type, 
-            workOrder.workOrderType.type, workOrder.title, workOrder.cause, 
-            workOrder.serviceNeeded,  workOrder.description, workOrder.priorityType.type, 
-            workOrder.dueDate, workOrder.createdDate, workOrder.createdByUserId, 
-            workOrder.lastModifiedDate, workOrder.lastModifiedByUserId, workOrder.dateCompleted, 
-            workOrder.priceEstimate, workOrder.actualCost, workOrder.id);
-        return res.status(200).json(workOrderDTO);
+        return res.status(200).json(workOrderMapper.toDTO(workOrder));
     } catch (err) {
         return handleError(err, res);
     }
@@ -40,12 +36,7 @@ propertyWorkOrdersController.get('/', auth, async(req: Request, res: Response) =
         
         var workOrderDTOs : WorkOrderDTO[] = [];
         workOrders.map((workOrder) => {
-            workOrderDTOs.push(new WorkOrderDTO(workOrder.sectorType.type, 
-                workOrder.workOrderType.type, workOrder.title, workOrder.cause, 
-                workOrder.serviceNeeded,  workOrder.description, workOrder.priorityType.type, 
-                workOrder.dueDate, workOrder.createdDate, workOrder.createdByUserId, 
-                workOrder.lastModifiedDate, workOrder.lastModifiedByUserId, workOrder.dateCompleted, 
-                workOrder.priceEstimate, workOrder.actualCost, workOrder.id));
+            workOrderDTOs.push(workOrderMapper.toDTO(workOrder));
         });
         return res.status(200).json(workOrderDTOs);
     } catch (err) {

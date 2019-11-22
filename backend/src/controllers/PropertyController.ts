@@ -1,21 +1,19 @@
 import express, {Request, Response } from 'express';
 import { PropertyService } from '../services/PropertyService';
-import { PropertyDTO } from '../dtos/PropertyDTO';
+import { PropertyMapper } from '../entity_mappers/PropertyMapper';
 
 const { handleError } = require('../utils/HttpUtils');
 const auth = require('../middleware/auth');
 
 const propertyService = new PropertyService();
+const propertyMapper = new PropertyMapper();
 
 const propertyController = express.Router();
 
 propertyController.get('/:id', auth, async(req: Request, res: Response) => {
     try {
         const property = await propertyService.getPropertyById(Number(req.params.id));
-        const propertyDTO : PropertyDTO = new PropertyDTO(property.propertyType.type, 
-            property.name, property.address, property.status.status, 
-            undefined, property.userId);
-        return res.status(200).json(propertyDTO);
+        return res.status(200).json(propertyMapper.toDTO(property));
     } catch (err) {
         return handleError(err, res);
     } 
