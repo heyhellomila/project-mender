@@ -26,3 +26,12 @@ export async function getWorkOrdersByPropertyId(propertyId) {
         }	
     });
 }
+
+/* Add getWorkOrderById(workOrderId) */
+export async function getWorkOrderById(workOrderId) {	
+    return await api.get(`/workorders/${workOrderId}`, {	
+        headers: {	
+            'Authorization': await AsyncStorage.getItem('Authorization')	
+        }	
+    });
+}
