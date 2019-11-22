@@ -20,12 +20,13 @@ api.interceptors.response.use(async (response) => {
     }
 });
 
-export async function register(email, password, firstName, lastName, type) {
+export async function register(email, password, firstName, lastName, type, phoneNumber) {
     return await api.post('/users/', {
         email,
         password,
         first_name: firstName,
         last_name: lastName,
-        type
+        type,
+        phone_number: phoneNumber
     });
 }
