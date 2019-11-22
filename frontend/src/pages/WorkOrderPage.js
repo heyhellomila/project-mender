@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { styles } from '../stylesheets/Stylesheet';
+import { styles, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { getWorkOrderById } from '../apis/workOrders/GetWorkOrder';
 
@@ -38,11 +38,12 @@ class WorkOrderPage extends React.Component {
         return (
             <ScrollView styles={styles.container}>
                 {/* <CommonHeader user={this.state.user} /> */}
+                <View style={headerStyles.commonHeaderComponent}>
+                    <View style={headerStyles.commonHeaderTextComponent}><Text style={headerStyles.commonHeaderText}>W.O # {workOrder._id}</Text></View>
+                    <Button title={'Back'} onPress={() => navigate('JobListPage')}></Button>
+                </View>
                 <View>
-                    <Button title={'Back'} onPress={() => navigate.goBack()}></Button>
-                    {/* temp, currently doesn't work. replace with left arrow button in header */} 
-                    <Text>{workOrder.stringify}</Text>
-                    <Text>Work Order Id: {workOrder._id}</Text>
+                    {/* <Text>Work Order Id: {workOrder._id}</Text> */}
                     <Text>Property Id: {this.props.property.name}</Text>
                     <Text>Sector: {workOrder.sector}</Text>
                     <Text>Type: {workOrder.type}</Text>
