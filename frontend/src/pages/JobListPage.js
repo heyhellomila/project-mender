@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View, } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
 import { styles, jobListTable } from '../stylesheets/Stylesheet';
@@ -68,10 +68,36 @@ class JobListPage extends React.Component {
         this.setState({tableData: data, loading: false});
     }
 
-    render() {
+    sortWorkOrders = (attribute, ascending) => {
+        const sortedOrders = [].concat(this.state.workOrders);
+        switch (attribute) {
+            case "id":
+                ascending ? sortedOrders = sortedOrders.sort((x, y) => x._id < y._id)
+                : sortedOrders = sortedOrders.sort((x, y) => x._id > y._id)
+                break;
+            case "title":
+                ascending ? sortedOrders = sortedOrders.sort((x, y) => x.title < y.title)
+                : sortedOrders = sortedOrders.sort((x, y) => x.title > y.title)
+                break; 
+            case "type":
+                ascending ? sortedOrders = sortedOrders.sort((x, y) => x.type < y.type)
+                : sortedOrders = sortedOrders.sort((x, y) => x.type > y.type)
+                break; 
+            case "sector":
+                ascending ? sortedOrders = sortedOrders.sort((x, y) => x.sector < y.sector)
+                : sortedOrders = sortedOrders.sort((x, y) => x.sector > y.sector)
+                break; 
+            default:
+                sortedOrders = this.state.workOrders;
+        }
+        this.setState({workOrders: sortedOrders});
+        this.transformData();
+    }
+
+    renderJobList() {
         const { tableHead, loading, tableData} = this.state;
         return (
-            <ScrollView styles={styles.container}>
+            <View>
                 <CommonHeader user={this.state.user} />
                 {loading 
                     ?   <Text>Loading...</Text>
@@ -80,23 +106,34 @@ class JobListPage extends React.Component {
                                 <Text>JOB LIST</Text>
                                 <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
                                     <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text} />
-                                    <Rows data={tableData} textStyle={jobListTable.jobListTabletext} />
+                                    {
+                                        tableData.map(function(workOrder) {
+                                            return (
+                                            <TouchableOpacity
+                                                key={workOrder[0]}
+                                                onPress={() => {console.log(workOrder[0]); /* Navigate to WorkOrderPage. Send either workOrder or just its id */}}>
+                                                <Row data={workOrder} style={jobListTable.jobListTabletext} />
+                                            </TouchableOpacity>
+                                            )
+                                        })
+                                    }
                                 </Table>
                             </View>
                         </View>
                 }
+            </View>
+        );
+    }
+
+    render() {
+        const { tableHead, loading, tableData} = this.state;
+        return (
+            <ScrollView styles={styles.container}>
+                {this.renderJobList()}
             </ScrollView>
         );
     }
 }
-
-//  function WorkOrderData(this) {
-//      const tableData = this.state.tableData;
-//     if (tableData === [])
-//     return <Text>No work orders for this property</Text>;
-//     else
-//     return <Rows data={state.tableData} textStyle={jobListTable.jobListTabletext} />;
-// }
 
 const mapDispatchToProps = dispatch => ({
     userLogout: () => dispatch(userLogout()),
