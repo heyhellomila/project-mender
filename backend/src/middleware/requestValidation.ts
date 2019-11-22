@@ -16,4 +16,4 @@ const validateBody = (parameters: any) => (req: Request, res: Response, next: Ne
     }
 }
 
-module.exports = { validateBody };
+export default validateBody;

@@ -1,10 +1,8 @@
 import express, {Request, Response} from 'express';
-
 import { WorkOrderService } from '../services/WorkOrderService';
-import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
 import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
-const { handleError } = require('../utils/HttpUtils');
-const auth = require('../middleware/auth');
+import auth from '../middleware/auth';
+import handleError from '../utils/HttpUtils';
 
 const workOrderService = new WorkOrderService();
 const workOrderMapper = new WorkOrderMapper();

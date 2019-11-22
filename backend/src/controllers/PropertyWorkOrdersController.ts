@@ -2,20 +2,16 @@ import express, {Request, Response } from 'express';
 import { WorkOrderService } from '../services/WorkOrderService';
 import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
 import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
-
-const { handleError } = require('../utils/HttpUtils');
-const auth = require('../middleware/auth');
-const { validateBody } = require('../middleware/requestValidation');
+import auth from '../middleware/auth';
+import handleError from '../utils/HttpUtils';
+import validateBody from '../middleware/requestValidation';
+import { WorkOrderFields } from './BodyFields';
 
 const propertyWorkOrdersController = express.Router({mergeParams: true});
-
 const workOrderService = new WorkOrderService();
 const workOrderMapper = new WorkOrderMapper();
 
-const creationFields = ['sectorType', 'workOrderType', 'title', 'cause', 'serviceNeeded', 
-    'priorityType', 'description', 'dueDate', 'priceEstimate']
-
-propertyWorkOrdersController.post('/', auth, validateBody(creationFields), async (req: Request, res: Response) => {
+propertyWorkOrdersController.post('/', auth, validateBody(WorkOrderFields.createFields), async (req: Request, res: Response) => {
     try {
         const {sectorType, workOrderType, title, cause, serviceNeeded, priorityType, 
             description, dueDate, priceEstimate, user } = req.body;

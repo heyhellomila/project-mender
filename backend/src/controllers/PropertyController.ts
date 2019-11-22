@@ -1,9 +1,8 @@
 import express, {Request, Response } from 'express';
 import { PropertyService } from '../services/PropertyService';
 import { PropertyMapper } from '../entity_mappers/PropertyMapper';
-
-const { handleError } = require('../utils/HttpUtils');
-const auth = require('../middleware/auth');
+import auth from '../middleware/auth';
+import handleError from '../utils/HttpUtils';
 
 const propertyService = new PropertyService();
 const propertyMapper = new PropertyMapper();

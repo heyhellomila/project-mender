@@ -1,6 +1,7 @@
 import { Router } from './controllers/index';
-import { Request, Response } from 'express';
 import { createConnection } from 'typeorm';
+import express from 'express';
+import * as config from './config.json';
 
 require('dotenv/config');
 
@@ -18,18 +19,13 @@ createConnection({
 }).then(connection => {
     console.log('Connected to database');
 
-    const express = require('express');
-    const config = require('./config');
-    const { SERVER_PORT } = config;
     const app = express();
     const router : Router = new Router();
 
     app.use(express.json());
     app.use(router.getRouter());
 
-    app.get('/', (req: Request, res: Response) => res.send('Mender backend'));
-
-    app.listen(SERVER_PORT, () => {
-        console.log(`Running server on port ${SERVER_PORT}`)});
+    app.listen(config.SERVER_PORT, () => {
+        console.log(`Running server on port ${config.SERVER_PORT}`)});
     
 });

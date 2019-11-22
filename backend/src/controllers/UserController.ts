@@ -1,21 +1,16 @@
 import express, {Request, Response} from 'express';
 import { UserService } from '../services/UserService';
-import { UserDTO } from '../dtos/UserDTO';
 import { UserMapper } from '../entity_mappers/UserMapper';
-
-const { handleError } = require('../utils/HttpUtils');
-const auth = require('../middleware/auth');
-const { validateBody } = require('../middleware/requestValidation');
+import auth from '../middleware/auth';
+import handleError from '../utils/HttpUtils';
+import validateBody from '../middleware/requestValidation';
+import { UserFields } from './BodyFields';
 
 const userController = express.Router();
-
-const loginFields = ['email', 'password']
-const registerFields = ['email', 'password', 'firstName', 'lastName', 'phoneNumber', 'userType']
-
 const userService : UserService = new UserService();
 const userMapper : UserMapper = new UserMapper();
 
-userController.post('/', validateBody(registerFields), async (req: Request, res: Response) => {
+userController.post('/', validateBody(UserFields.createFields), async (req: Request, res: Response) => {
     try {
         const { email, password, firstName, lastName, phoneNumber, userType } = req.body;
         const user = await userService.register(email, password, 
@@ -26,7 +21,7 @@ userController.post('/', validateBody(registerFields), async (req: Request, res:
     }
 })
 
-userController.post('/login', validateBody(loginFields), async (req: Request, res: Response) => {
+userController.post('/login', validateBody(UserFields.loginFields), async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
         const token = await userService.login(email, password);

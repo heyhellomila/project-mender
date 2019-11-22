@@ -5,7 +5,6 @@ import { propertyController } from './PropertyController';
 import { propertyWorkOrdersController } from './PropertyWorkOrdersController';
 import { workOrderController } from './WorkOrderController';
 
-
 class Router {
 
     private router = express.Router();

@@ -36,4 +36,5 @@ const auth = async(req: Request, res: Response, next: NextFunction) => {
         res.status(401).json(err);
     }
 }
-module.exports = auth
+
+export default auth;

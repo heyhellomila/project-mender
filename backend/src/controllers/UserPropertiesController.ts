@@ -1,20 +1,17 @@
 import express, {Request, Response} from 'express';
-
 import { PropertyService } from '../services/PropertyService';
 import { PropertyDTO } from '../dtos/PropertyDTO';
 import { PropertyMapper } from '../entity_mappers/PropertyMapper';
-const { handleError } = require('../utils/HttpUtils');
-const auth = require('../middleware/auth');
-const { validateBody } = require('../middleware/requestValidation');
+import auth from '../middleware/auth';
+import handleError from '../utils/HttpUtils';
+import validateBody from '../middleware/requestValidation';
+import { PropertyFields } from './BodyFields';
 
 const userPropertiesController = express.Router({mergeParams: true});
-
 const propertyService = new PropertyService();
 const propertyMapper = new PropertyMapper();
 
-const creationFields = ['name', 'propertyType', 'address', 'activityStatus']
-
-userPropertiesController.post('/', auth, validateBody(creationFields), async (req: Request, res: Response) => {
+userPropertiesController.post('/', auth, validateBody(PropertyFields.createFields), async (req: Request, res: Response) => {
     try {
         const { name, propertyType, address, activityStatus } = req.body;
         const property = await propertyService.createProperty(
