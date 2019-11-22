@@ -39,7 +39,7 @@ jobs:
     #   - store_artifacts:
     #       path: reports
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-          path: coverage/index.html
+          path: coverage
           prefix: coverage
       - codecov/upload:
           file: coverage/index.html
