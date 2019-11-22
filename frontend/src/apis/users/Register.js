@@ -14,7 +14,6 @@ api.interceptors.response.use(async (response) => {
     } else if (error.response.data.statusCode === 409) {
         throw new Error('Email is already in use.');
     } else if (error.response.data.statusCode > 400) {
-        console.log(error.response.data.statusCode);
         throw new Error('Could not add user.');
     } else {
         throw error;
