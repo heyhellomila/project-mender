@@ -1,9 +1,9 @@
 import React from 'react';
-import { ScrollView, Text, View, } from 'react-native';
+import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
+import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { getWorkOrderById } from '../apis/workOrders/GetWorkOrder';
-
 
 class WorkOrderPage extends React.Component {
 
@@ -15,34 +15,46 @@ class WorkOrderPage extends React.Component {
         this.state = {
             user: props.user.user,
             displayModal: false,
-            workOrder: null,
+            workOrderId: this.props.navigation.getParam('workOrderId', null),
+            workOrder: [],
             loading: true,
             error: false
         };
     }
 
     async componentDidMount() {
-        // await getWorkOrderById(/* id passed from list */).then((response) => {
-        //     this.setState({
-        //         workOrder = response.data
-        //     });
-        // }).catch((err) => {
-        //     this.setState({error: true, loading: false, errorMsg: err.message})
-        // });
+        await getWorkOrderById(this.state.workOrderId).then((response) => {
+            this.setState({
+                workOrder: response.data
+            });
+        }).catch((err) => {
+            this.setState({error: true, loading: false, errorMsg: err.message})
+        });
+        console.log(this.state.workOrder.stringify);
     }
 
     render() {
-        const { workOrder } = this.state;
+        const { loading, workOrder } = this.state;
+        const { navigate }  = this.props.navigation;
         return (
             <ScrollView styles={styles.container}>
-                <CommonHeader user={this.state.user} />
-                {loading 
-                    ?   <Text>Loading...</Text>
-                    :   <View>
-                            {/* Display current work order */}
-                            <Text>Work Order Id: {workOrder._id}</Text>
-                        </View>
-                }
+                {/* <CommonHeader user={this.state.user} /> */}
+                <View>
+                    <Button title={'Back'} onPress={() => navigate.goBack()}></Button>
+                    {/* temp, currently doesn't work. replace with left arrow button in header */} 
+                    <Text>{workOrder.stringify}</Text>
+                    <Text>Work Order Id: {workOrder._id}</Text>
+                    <Text>Property Id: {workOrder.property_id}</Text>
+                    <Text>Sector: {workOrder.sector}</Text>
+                    <Text>Type: {workOrder.type}</Text>
+                    <Text>Title: {workOrder.title}</Text>
+                    <Text>Cause: {workOrder.cause}</Text>
+                    <Text>Priority: {workOrder.priority}</Text>
+                    <Text>Description: {workOrder.description}</Text>
+                    <Text>Service Needed: {workOrder.service_needed}</Text>
+                    <Text>Due Date: {workOrder.due_date}</Text>
+                    <Text>Price Estimate: {workOrder.price_estimate}</Text>
+                </View>
             </ScrollView>
         );
     }

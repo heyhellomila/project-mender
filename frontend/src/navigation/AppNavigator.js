@@ -3,6 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import WelcomePage from '../pages/WelcomePage';
 import SignUpPage from '../pages/SignUpPage';
 import LogInPage from '../pages/LogInPage';
+import WorkOrderPage from '../pages/WorkOrderPage'
 import DrawerNavigator from './DrawerNavigator';
 
 const RootStack = createStackNavigator({
@@ -17,6 +18,9 @@ const RootStack = createStackNavigator({
     },
     DrawerNavigator: {
         screen: DrawerNavigator
+    },
+    WorkOrderPage: {
+        screen: WorkOrderPage
     }
 }, {
     headerMode: 'none',
