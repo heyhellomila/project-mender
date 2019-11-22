@@ -6,6 +6,7 @@ import { styles, jobListTable } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { Table, Row, Rows } from 'react-native-table-component';
 import { getWorkOrdersByPropertyId } from '../apis/workOrders/GetWorkOrder';
+import { WorkOrderPage } from '../pages/WorkOrderPage';
 
 class JobListPage extends React.Component {
     static navigationOptions = {
@@ -20,7 +21,9 @@ class JobListPage extends React.Component {
             workOrders: [],
             tableData: [],
             loading: true,
-            error: false
+            error: false,
+            attributeOrder: "id",
+            ascending: false
         };
     }
 
@@ -68,7 +71,9 @@ class JobListPage extends React.Component {
         this.setState({tableData: data, loading: false});
     }
 
-    sortWorkOrders = (attribute, ascending) => {
+    sortWorkOrders = (attribute) => {
+        ascending = false;
+        (attribute === this.state.atrribute) ? ascending = !this.state.ascending : ascending = true;
         const sortedOrders = [].concat(this.state.workOrders);
         switch (attribute) {
             case "id":
@@ -90,12 +95,13 @@ class JobListPage extends React.Component {
             default:
                 sortedOrders = this.state.workOrders;
         }
-        this.setState({workOrders: sortedOrders});
+        this.setState({attribute: attribute, ascending: ascending, workOrders: sortedOrders});
         this.transformData();
     }
 
     renderJobList() {
         const { tableHead, loading, tableData} = this.state;
+        const { navigate }  = this.props.navigation;
         return (
             <View>
                 <CommonHeader user={this.state.user} />
@@ -111,7 +117,7 @@ class JobListPage extends React.Component {
                                             return (
                                             <TouchableOpacity
                                                 key={workOrder[0]}
-                                                onPress={() => {console.log(workOrder[0]); /* Navigate to WorkOrderPage. Send either workOrder or just its id */}}>
+                                                onPress={() => navigate("WorkOrderPage", {workOrderId: workOrder[0]})} /*{console.log(workOrder[0]); /* Navigate to WorkOrderPage. Send either workOrder or just its id}*/>
                                                 <Row data={workOrder} style={jobListTable.jobListTabletext} />
                                             </TouchableOpacity>
                                             )
