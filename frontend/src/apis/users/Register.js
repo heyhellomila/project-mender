@@ -14,19 +14,20 @@ api.interceptors.response.use(async (response) => {
     } else if (error.response.data.statusCode === 409) {
         throw new Error('Email is already in use.');
     } else if (error.response.data.statusCode > 400) {
+        console.log(error.response.data.statusCode);
         throw new Error('Could not add user.');
     } else {
         throw error;
     }
 });
 
-export async function register(email, password, firstName, lastName, type, phoneNumber) {
+export async function register(email, password, firstName, lastName, userType, phoneNumber) {
     return await api.post('/users/', {
         email,
         password,
-        first_name: firstName,
-        last_name: lastName,
-        type,
-        phone_number: phoneNumber
+        firstName,
+        lastName,
+        userType,
+        phoneNumber
     });
 }

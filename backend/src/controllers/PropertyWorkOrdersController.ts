@@ -16,7 +16,7 @@ propertyWorkOrdersController.post('/', auth, validateBody(WorkOrderFields.create
         const {sectorType, workOrderType, title, cause, serviceNeeded, priorityType, 
             description, dueDate, priceEstimate, user } = req.body;
         const workOrder = await workOrderService.createWorkOrder(Number(req.params.propertyId), 
-            sectorType, workOrderType, title, cause, serviceNeeded, 
+            sectorType, workOrderType, title, cause, Boolean(JSON.parse(serviceNeeded)), 
             priorityType, description, dueDate, priceEstimate, user.id);
 
         return res.status(200).json(workOrderMapper.toDTO(workOrder));

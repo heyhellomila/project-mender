@@ -15,7 +15,8 @@ createConnection({
     entities : [
         'src/entities/*.ts'
         ],
-    synchronize : false
+    synchronize : false,
+    timezone: 'Z'
 }).then(connection => {
     console.log('Connected to database');
 

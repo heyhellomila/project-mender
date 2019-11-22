@@ -22,7 +22,7 @@ export class WorkOrder {
 
     @ManyToOne(type => SectorType, {eager: true})
     @JoinColumn({
-        name: 'sector_id',
+        name: 'sector_type_id',
     })
     sectorType: SectorType;
 
@@ -39,11 +39,11 @@ export class WorkOrder {
     cause: string
 
     @Column({name: 'service_needed'})
-    serviceNeeded: boolean
+    serviceNeeded: Boolean
 
     @ManyToOne(type => PriorityType, {eager: true})
     @JoinColumn({
-        name: 'priority_id',
+        name: 'priority_type_id',
     })
     priorityType: PriorityType;
 

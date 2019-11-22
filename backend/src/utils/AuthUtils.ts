@@ -4,7 +4,7 @@ require('dotenv/config');
 
 async function generateAuthToken(user: User) {
     const token = await new Promise((resolve, reject) => {
-        jwt.sign({_id: user.id}, process.env.JWT_KEY, { expiresIn: '24h' }, (err, token) => {
+        jwt.sign({id: user.id}, process.env.JWT_KEY, { expiresIn: '24h' }, (err, token) => {
             if (err) {
                 console.log(err);
                 reject(err);

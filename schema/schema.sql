@@ -60,28 +60,28 @@ create table properties(
 create table work_orders(
     id bigint AUTO_INCREMENT PRIMARY KEY,
     property_id bigint NOT NULL,
-    sector_id int NOT NULL,
+    sector_type_id int NOT NULL,
     work_order_type_id int NOT NULL,
     title varchar(36) NOT NULL,
     cause varchar(36) NOT NULL,
-    service_needed BOOLEAN NOT NULL,
-    priority_id int NOT NULL,
+    service_needed bit NOT NULL,
+    priority_type_id int NOT NULL,
     description varchar(180),
-    due_date DATE NOT NULL,
-    created_date DATE NOT NULL,
+    due_date DATETIME NOT NULL,
+    created_date DATETIME NOT NULL,
     created_by bigint NOT NULL,
-    last_modified_date DATE,
+    last_modified_date DATETIME,
     last_modified_by bigint,
-    date_completed DATE,
+    date_completed DATETIME,
     price_estimate BIGINT,
     actual_cost BIGINT,
     FOREIGN KEY (property_id)
         REFERENCES properties(id),
-    FOREIGN KEY (sector_id)
+    FOREIGN KEY (sector_type_id)
         REFERENCES sector_types(id),
     FOREIGN KEY (work_order_type_id)
         REFERENCES work_order_types(id),
-    FOREIGN KEY (priority_id)
+    FOREIGN KEY (priority_type_id)
         REFERENCES priority_types(id),
     FOREIGN KEY (created_by)
         REFERENCES users(id),
