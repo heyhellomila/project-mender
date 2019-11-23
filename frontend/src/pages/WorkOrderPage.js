@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles, headerStyles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
 import { getWorkOrderById } from '../apis/workOrders/GetWorkOrder';
 
 class WorkOrderPage extends React.Component {
