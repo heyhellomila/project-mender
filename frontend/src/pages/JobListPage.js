@@ -23,7 +23,7 @@ class JobListPage extends React.Component {
             loading: true,
             error: false,
             attributeOrder: "id",
-            ascending: false
+            ascending: true
         };
 
         this.sortWorkOrders = this.sortWorkOrders.bind(this);
@@ -33,8 +33,10 @@ class JobListPage extends React.Component {
         this.setWorkOrders()
     }
 
-    componentWillReceiveProps() {
-        this.setWorkOrders()
+    componentWillReceiveProps(nextProps) {
+        if (this.props.property !== nextProps.property) {
+            this.setWorkOrders()
+        }
     }
 
     async setWorkOrders() {
