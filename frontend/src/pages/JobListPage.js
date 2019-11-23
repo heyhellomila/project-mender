@@ -16,6 +16,7 @@ class JobListPage extends React.Component {
         super(props);
         this.state = {
             user: props.user.user,
+            property: this.props.property,
             displayModal: false,
             tableHead: ['W.O #', 'Title', 'Type', 'Sector'],
             workOrders: [],
@@ -27,16 +28,17 @@ class JobListPage extends React.Component {
         };
         this.sortWorkOrders = this.sortWorkOrders.bind(this);
     }
+  
+    componentDidUpdate(prevProps) {
+        if (this.props.property !== prevProps.property) {
+          this.setWorkOrders();
+        }
+    }
 
-   componentDidMount() {
+    componentDidMount() {
         this.setWorkOrders()
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.property !== nextProps.property) {
-            this.setWorkOrders()
-        }
-    }
 
     async setWorkOrders() {
         await getWorkOrdersByPropertyId(this.props.property.id).then((response) => {
