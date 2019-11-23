@@ -25,9 +25,19 @@ class JobListPage extends React.Component {
             attributeOrder: "id",
             ascending: false
         };
+
+        this.sortWorkOrders = this.sortWorkOrders.bind(this);
     }
 
-   async componentDidMount() {
+   componentDidMount() {
+        this.setWorkOrders()
+    }
+
+    componentWillReceiveProps() {
+        this.setWorkOrders()
+    }
+
+    async setWorkOrders() {
         await getWorkOrdersByPropertyId(this.props.property.id).then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
@@ -112,12 +122,13 @@ class JobListPage extends React.Component {
                                 <Text>JOB LIST</Text>
                                 <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
                                     <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text} />
+                                    {/* Each column onPress => sortWorkOrders("columnName") string inputs: id/title/type/sector */}
                                     {
                                         tableData.map(function(workOrder) {
                                             return (
                                             <TouchableOpacity
                                                 key={workOrder[0]}
-                                                onPress={() => navigate("WorkOrderPage", {workOrderId: workOrder[0]})} /*{console.log(workOrder[0]); /* Navigate to WorkOrderPage. Send either workOrder or just its id}*/>
+                                                onPress={() => navigate("WorkOrderPage", {workOrderId: workOrder[0]})}>
                                                 <Row data={workOrder} style={jobListTable.jobListTabletext} />
                                             </TouchableOpacity>
                                             )
