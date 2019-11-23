@@ -19,7 +19,7 @@ class HeaderButton extends Component {
     render() {
         return (
             <View>
-                <Button title={this.props.user.first_name[0]} 
+                <Button title={this.props.user.firstName[0]} 
                     onPress={() => this.props.navigation.openDrawer()}>
                 </Button>
             </View>
