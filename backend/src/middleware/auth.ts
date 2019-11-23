@@ -24,12 +24,12 @@ const auth = async(req: Request, res: Response, next: NextFunction) => {
     try {
         var user = null;
         try {
-            user = await userService.getUser(data._id)
+            user = await userService.getUser(data.id)
         } catch(err) {
             throw new UnauthorizedError('Not authorized to access this resource');
         }
 
-        req.body.user = user
+        req.body.requestUserId = user.id
         req.headers.token = token
         next()
     } catch (err) {

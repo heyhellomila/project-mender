@@ -6,6 +6,6 @@ export class UserDTO {
     firstName: string;
     lastName: string;
     phoneNumber: number
-    userType: String;
+    userType: string;
     
 }

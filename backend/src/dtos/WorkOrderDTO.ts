@@ -6,7 +6,7 @@ export class WorkOrderDTO {
     workOrderType: string;
     title: string
     cause: string
-    serviceNeeded: boolean
+    serviceNeeded: Boolean
     priorityType: string;
     description: string
     dueDate: Date

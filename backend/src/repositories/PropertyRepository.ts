@@ -7,7 +7,7 @@ import { BaseRepository } from './BaseRepository';
 class PropertyRepository extends BaseRepository<Property> {
 
     async getPropertyById(id: number) {
-        const property = await this.getRepositoryConnection(Property).findOne({id: id,});
+        const property = await this.getRepositoryConnection(Property).findOne({id: id});
         return property;
     }
 

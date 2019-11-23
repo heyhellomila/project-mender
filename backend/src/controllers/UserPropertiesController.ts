@@ -13,9 +13,9 @@ const propertyMapper = new PropertyMapper();
 
 userPropertiesController.post('/', auth, validateBody(PropertyFields.createFields), async (req: Request, res: Response) => {
     try {
-        const { name, propertyType, address, activityStatus } = req.body;
+        const { name, propertyType, address } = req.body;
         const property = await propertyService.createProperty(
-            Number(req.params.userId), name, propertyType, address, activityStatus);
+            Number(req.params.userId), name, propertyType, address);
         return res.status(200).json(propertyMapper.toDTO(property));
     } catch (err) {
         return handleError(err, res);

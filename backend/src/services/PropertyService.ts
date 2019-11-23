@@ -28,22 +28,17 @@ class PropertyService {
     }
 
     async createProperty(userId: number, name: string, propertyType: string, 
-        address: string, activityStatus: string) {
+        address: string) {
         
         if (!await this.userService.userExists(Number(userId)))
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
-
-        if (!(activityStatus in ActivityStatusEnum)) {
-            throw new BadRequestError('Invalid Status. Allowed Types: [' 
-                + Object.keys(ActivityStatusEnum) +']');
-        }
 
         if (!(propertyType in PropertyTypeEnum)) {
             throw new BadRequestError('Invalid Property Type. Allowed Types: [' 
                 + Object.keys(PropertyTypeEnum) +']');
         }
 
-        const activityStatusObj : ActivityStatus = await this.activityStatusService.getActivityStatus(activityStatus);
+        const activityStatusObj : ActivityStatus = await this.activityStatusService.getActivityStatus(ActivityStatusEnum.ACTIVE);
         const propertyTypeObj : PropertyType = await this.propertyTypeService.getPropertyType(propertyType);
 
         try {
@@ -54,10 +49,10 @@ class PropertyService {
         }
     }
 
-    async getPropertiesByUser(user_id: number) {
-        const user: User = await this.userService.getUser(user_id);
+    async getPropertiesByUser(userId: number) {
+        const user: User = await this.userService.getUser(userId);
         if (!user) {
-            throw new ResourceNotFoundError("User with id " + user_id + " does not exist.")
+            throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
         }
         try {
             return await this.propertyRepository.getPropertiesByUser(user);
@@ -67,11 +62,11 @@ class PropertyService {
     }
 
     async getPropertyById(id: number) {
-        try {
-            return await this.propertyRepository.getPropertyById(id);
-        } catch (err) {
-            throw err;
+        const property : Property = await this.propertyRepository.getPropertyById(id);
+        if (!property) {
+            throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
         }
+        return property;
     }
 
     async updatePropertyById(id: number, propertyObj: any){

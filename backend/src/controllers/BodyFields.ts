@@ -9,7 +9,7 @@ const WorkOrderFields = {
 }
 
 const PropertyFields = {
-    createFields : ['name', 'propertyType', 'address', 'activityStatus']
+    createFields : ['name', 'propertyType', 'address']
 }
 
 export {UserFields, WorkOrderFields, PropertyFields};

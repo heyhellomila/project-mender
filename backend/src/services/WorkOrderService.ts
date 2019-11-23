@@ -12,7 +12,7 @@ import { PriorityType } from '../entities/PriorityType';
 import { WorkOrderType } from '../entities/WorkOrderType';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
-import { User } from '../entities/User';
+import { WorkOrder } from '../entities/WorkOrder';
 
 class WorkOrderService {
 
@@ -75,11 +75,11 @@ class WorkOrderService {
     }
 
     async getWorkOrder(id: number) {
-        try {
-            return await this.workOrderRepository.getWorkOrderById(id);
-        } catch (err) {
-            throw err;
+        const workOrder : WorkOrder = await this.workOrderRepository.getWorkOrderById(id);
+        if (!workOrder) {
+            throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
         }
+        return workOrder;
     }
 }
 
