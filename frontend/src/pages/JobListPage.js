@@ -29,8 +29,8 @@ class JobListPage extends React.Component {
         this.sortWorkOrders = this.sortWorkOrders.bind(this);
     }
   
-    componentDidUpdate(prevProps) {
-        if (this.props.property !== prevProps.property) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.property !== prevProps.property || this.state.workOrders !== prevState.workOrders ) {
           this.setWorkOrders();
         }
     }
