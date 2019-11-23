@@ -25,7 +25,7 @@ class JobListPage extends React.Component {
             attributeOrder: "W.O #",
             ascending: true
         };
-        this.sortWorkOrders = this.sort.bind(this) 
+        this.sortWorkOrders = this.sortWorkOrders.bind(this);
     }
 
    componentDidMount() {
@@ -82,7 +82,8 @@ class JobListPage extends React.Component {
         this.setState({tableData: data, loading: false});
     }
 
-    sortWorkOrders(attribute) {
+    sortWorkOrders = (attribute) => {
+        console.log("sort");
         ascending = false;
         (attribute === this.state.atrribute) ? ascending = !this.state.ascending : ascending = true;
         sortedOrders = [].concat(this.state.workOrders);
