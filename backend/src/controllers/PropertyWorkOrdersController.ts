@@ -14,10 +14,10 @@ const workOrderMapper = new WorkOrderMapper();
 propertyWorkOrdersController.post('/', auth, validateBody(WorkOrderFields.createFields), async (req: Request, res: Response) => {
     try {
         const {sectorType, workOrderType, title, cause, serviceNeeded, priorityType, 
-            description, dueDate, priceEstimate, requestUserId } = req.body;
+            description, dueDate, priceEstimate, decodedToken } = req.body;
         const workOrder = await workOrderService.createWorkOrder(Number(req.params.propertyId), 
             sectorType, workOrderType, title, cause, Boolean(JSON.parse(serviceNeeded)), 
-            priorityType, description, dueDate, priceEstimate, requestUserId);
+            priorityType, description, dueDate, priceEstimate, decodedToken.userId);
 
         return res.status(200).json(workOrderMapper.toDTO(workOrder));
     } catch (err) {
