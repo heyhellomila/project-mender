@@ -3,6 +3,7 @@ import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles, headerStyles } from '../stylesheets/Stylesheet';
 import { getWorkOrderById } from '../apis/workOrders/GetWorkOrder';
+import { getPropertyById } from '../apis/properties/GetProperty';
 
 class WorkOrderPage extends React.Component {
 
@@ -16,6 +17,7 @@ class WorkOrderPage extends React.Component {
             displayModal: false,
             workOrderId: this.props.navigation.getParam('workOrderId', null),
             workOrder: [],
+            property: [],
             loading: true,
             error: false
         };
@@ -29,21 +31,26 @@ class WorkOrderPage extends React.Component {
         }).catch((err) => {
             this.setState({error: true, loading: false, errorMsg: err.message})
         });
+        await getPropertyById(this.state.workOrder.property_id).then((response) => {
+            this.setState({
+                property: response.data
+            });
+        }).catch((err) => {
+            this.setState({error: true, loading: false, errorMsg: err.message})
+        });
     }
 
     render() {
-        const { loading, workOrder } = this.state;
+        const { loading, workOrder, property } = this.state;
         const { navigate }  = this.props.navigation;
         return (
             <ScrollView styles={styles.container}>
-                {/* <CommonHeader user={this.state.user} /> */}
                 <View style={headerStyles.commonHeaderComponent}>
                     <View style={headerStyles.commonHeaderTextComponent}><Text style={headerStyles.commonHeaderText}>W.O # {workOrder._id}</Text></View>
-                    <Button title={'Back'} onPress={() => navigate('JobListPage')}></Button>
+                    <Button title={'Back to Job List for ' + this.props.property.name} onPress={() => navigate('JobListPage')}></Button>
                 </View>
                 <View>
-                    {/* <Text>Work Order Id: {workOrder._id}</Text> */}
-                    <Text>Property Id: {this.props.property.name}</Text>
+                    <Text>Property: {property.name}</Text>
                     <Text>Sector: {workOrder.sector}</Text>
                     <Text>Type: {workOrder.type}</Text>
                     <Text>Title: {workOrder.title}</Text>
