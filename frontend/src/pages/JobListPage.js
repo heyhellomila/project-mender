@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
 import { styles, jobListTable } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import { Table, Row, Rows } from 'react-native-table-component';
+import { Table, Row, Col } from 'react-native-table-component';
 import { getWorkOrdersByPropertyId } from '../apis/workOrders/GetWorkOrder';
 import { WorkOrderPage } from '../pages/WorkOrderPage';
 
@@ -22,11 +22,10 @@ class JobListPage extends React.Component {
             tableData: [],
             loading: true,
             error: false,
-            attributeOrder: "id",
+            attributeOrder: "W.O #",
             ascending: true
         };
-
-        this.sortWorkOrders = this.sortWorkOrders.bind(this);
+        this.sortWorkOrders = this.sort.bind(this) 
     }
 
    componentDidMount() {
@@ -83,24 +82,24 @@ class JobListPage extends React.Component {
         this.setState({tableData: data, loading: false});
     }
 
-    sortWorkOrders = (attribute) => {
+    sortWorkOrders(attribute) {
         ascending = false;
         (attribute === this.state.atrribute) ? ascending = !this.state.ascending : ascending = true;
-        const sortedOrders = [].concat(this.state.workOrders);
+        sortedOrders = [].concat(this.state.workOrders);
         switch (attribute) {
-            case "id":
+            case "W.O #":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x._id < y._id)
                 : sortedOrders = sortedOrders.sort((x, y) => x._id > y._id)
                 break;
-            case "title":
+            case "Title":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.title < y.title)
                 : sortedOrders = sortedOrders.sort((x, y) => x.title > y.title)
                 break; 
-            case "type":
+            case "Type":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.type < y.type)
                 : sortedOrders = sortedOrders.sort((x, y) => x.type > y.type)
                 break; 
-            case "sector":
+            case "Sector":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.sector < y.sector)
                 : sortedOrders = sortedOrders.sort((x, y) => x.sector > y.sector)
                 break; 
@@ -123,8 +122,21 @@ class JobListPage extends React.Component {
                             <View style={jobListTable.jobListTableContainer}>
                                 <Text>JOB LIST</Text>
                                 <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-                                    <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text} />
-                                    {/* Each column onPress => sortWorkOrders("columnName") string inputs: id/title/type/sector */}
+                                    <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text}>
+                                        {
+                                            tableHead.map(function(header) {
+                                                return (
+                                                    <TouchableOpacity
+                                                        key={header}
+                                                        onPress={() => {this.sortWorkOrders(header)}}> 
+                                                        {/* onPress not working */}
+                                                        <Col data={header} />
+                                                    </TouchableOpacity>
+                                                )
+                                                
+                                            })
+                                        }
+                                    </Row>
                                     {
                                         tableData.map(function(workOrder) {
                                             return (
