@@ -19,6 +19,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         let workOrderSort = null;
 
         let filterByMapper = new Map();
+        filterByMapper.set("id", "work_orders.id = :id")
         filterByMapper.set("sectorType", "work_orders.sectorType = :sectorType")
         filterByMapper.set("propertyId", "work_orders.propertyId = :propertyId")
         filterByMapper.set("workOrderType", "work_orders.workOrderType = :workOrderType")
@@ -26,6 +27,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         filterByMapper.set("priorityType", "work_orders.priorityType = :priorityType")
 
         let filterParameterMapper = new Map();
+        filterParameterMapper.set("id", {id: queries.filterParameter})
         filterParameterMapper.set("sectorType", {sectorType: queries.filterParameter})
         filterParameterMapper.set("propertyId", {propertyId: queries.filterParameter})
         filterParameterMapper.set("workOrderType", {workOrderType: queries.filterParameter})
