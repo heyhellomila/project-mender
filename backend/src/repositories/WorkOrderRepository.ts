@@ -66,26 +66,50 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                 filterQueries += "&& work_orders.priorityType = " + queries.priorityType
             }
         }
+        if (queries.priceEstimate) {
+            if (!filterQueriesFirst) {
+                filterQueries += "work_orders.priceEstimate = " + queries.priceEstimate
+                filterQueriesFirst = true
+            } else {
+                filterQueries += "&& work_orders.priceEstimate = " + queries.priceEstimate
+            }
+        }
+        if(queries.greaterThan){
+            if (!filterQueriesFirst) {
+                filterQueries += "work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
+                filterQueriesFirst = true
+            } else {
+                filterQueries += "&& work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
+            }
+        }
+        if(queries.lowerThan){
+            if (!filterQueriesFirst) {
+                filterQueries += "work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
+                filterQueriesFirst = true
+            } else {
+                filterQueries += "&& work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
+            }
+        }
 
         if (queries.searchTerm == null) {
-                const workorders = await this.getRepositoryConnection(WorkOrder)
-                    .createQueryBuilder("work_orders")
-                    .where(filterQueries)
-                    .orderBy(workOrderSort, ordering)
-                    .skip(queries.pageSize * (queries.pageNumber - 1))
-                    .take(queries.pageSize)
-                    .getMany();
-                return workorders;
+            const workorders = await this.getRepositoryConnection(WorkOrder)
+                .createQueryBuilder("work_orders")
+                .where(filterQueries)
+                .orderBy(workOrderSort, ordering)
+                .skip(queries.pageSize * (queries.pageNumber - 1))
+                .take(queries.pageSize)
+                .getMany();
+            return workorders;
         } else if (queries.searchTerm != null) {
-                const workorders = await this.getRepositoryConnection(WorkOrder)
-                    .createQueryBuilder("work_orders")
-                    .where(filterQueries)
-                    .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
-                    .orderBy(workOrderSort, ordering)
-                    .skip(queries.pageSize * (queries.pageNumber - 1))
-                    .take(queries.pageSize)
-                    .getMany();
-                return workorders;
+            const workorders = await this.getRepositoryConnection(WorkOrder)
+                .createQueryBuilder("work_orders")
+                .where(filterQueries)
+                .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
+                .orderBy(workOrderSort, ordering)
+                .skip(queries.pageSize * (queries.pageNumber - 1))
+                .take(queries.pageSize)
+                .getMany();
+            return workorders;
         }
     }
 
