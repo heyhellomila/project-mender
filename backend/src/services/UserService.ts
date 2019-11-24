@@ -8,7 +8,7 @@ import { UserRepository } from '../repositories/UserRepository';
 import { UserType } from '../entities/UserType';
 import { UserTypeService } from './UserTypeService';
 import { User } from '../entities/User';
-import { UserFields } from '../repositories/FindOptionsFields';
+import { UserFields } from '../constants/FindOptionsFields';
 
 const { generateHash, compare } = require('../utils/HashUtils');
 const generateAuthToken = require('../utils/AuthUtils');
@@ -28,39 +28,22 @@ class UserService {
         }
     }
 
-    async register(email: string, password: string, firstName: string, 
-        lastName:string, phoneNumber: number, type: string) {
+    async register(user: User, password: string) {
 
         if (!passwordValidator.validate(password)) {
             throw new BadRequestError('Password must be at least 8 characters' +
                 ' and must include at least one digit.')
         }
 
-        if (!validator.isEmail(email)) {
-            throw new BadRequestError('Invalid Email address');
-        }
-
-        if (!validator.isMobilePhone(phoneNumber)) {
-            throw new BadRequestError('Invalid phone number');
-        }
-
-        if (!(type in UserTypeEnum)) {
-            throw new BadRequestError('Invalid User Type. Allowed Types: [' 
-                + Object.keys(UserTypeEnum) +']');
-        } 
-
-        const user = await this.userRepository.getUserByEmail(email);
-
-        if (user) {
-            throw new ResourceExistsError("Email " + email + " already in use.");
+        if (await this.userRepository.getUserByEmail(user.email)) {
+            throw new ResourceExistsError("Email " + user.email + " already in use.");
         }
         
-        const hashedPassword = await generateHash(password);
-        const userType : UserType = await this.userTypeService.getUserType(type);
+        user.passwordHash = await generateHash(password);
+        user.userType = await this.userTypeService.getUserType(user.userType.type);
 
         try {
-            return await this.userRepository.createUser(email, hashedPassword, 
-                firstName, lastName, phoneNumber, userType);
+            return await this.userRepository.createUser(user);
         } catch (err) {
             throw new BadRequestError(err.message);
         }

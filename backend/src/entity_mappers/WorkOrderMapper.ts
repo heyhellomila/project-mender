@@ -6,6 +6,10 @@ import { UserMapper } from './UserMapper';
 import { SectorTypeMapper } from './SectorTypeMapper';
 import { WorkOrderTypeMapper } from './WorkOrderTypeMapper';
 import { PriorityTypeMapper } from './PriorityTypeMapper';
+import { SectorTypeDTO } from '../dtos/SectorTypeDTO';
+import { WorkOrderTypeDTO } from '../dtos/WorkOrderTypeDTO';
+import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
+import { exists } from 'fs';
 
 class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
@@ -47,6 +51,36 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.priceEstimate = workOrder.priceEstimate;
         workOrderDTO.actualCost = workOrder.actualCost;
         return workOrderDTO;
+    }
+
+    fromDTO(workOrderDTO: WorkOrderDTO) : WorkOrder {
+        var workOrder : WorkOrder = new WorkOrder();
+
+        workOrder.id = workOrderDTO.id;
+        workOrder.title = workOrderDTO.title;
+        workOrder.cause = workOrderDTO.cause;
+        workOrder.serviceNeeded = workOrderDTO.serviceNeeded;
+        workOrder.description = workOrderDTO.description;
+        workOrder.dueDate = new Date(Number(workOrderDTO.dueDate));
+        workOrder.createdDate = workOrderDTO.createdDate;
+        workOrder.dateCompleted = workOrderDTO.dateCompleted;
+        workOrder.priceEstimate = workOrderDTO.priceEstimate;
+        workOrder.actualCost = workOrderDTO.actualCost;
+
+        if (workOrderDTO.sectorType) {
+            workOrder.sectorType = this.sectorTypeMapper.fromDTO(
+                new SectorTypeDTO(workOrderDTO.sectorType as string));
+        }
+        if (workOrderDTO.workOrderType) {
+            workOrder.workOrderType = this.workOrderTypeMapper.fromDTO(
+                new WorkOrderTypeDTO(workOrderDTO.workOrderType as string));
+        }
+        if (workOrderDTO.priorityType) {
+            workOrder.priorityType = this.priorityTypeMapper.fromDTO(
+                new PriorityTypeDTO(workOrderDTO.priorityType as string));
+        }  
+
+        return workOrder;
     }
 }
 

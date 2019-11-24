@@ -4,7 +4,7 @@ import { SectorType } from '../entities/SectorType';
 import { PriorityType } from '../entities/PriorityType';
 import { Property } from '../entities/Property';
 import { BaseRepository } from './BaseRepository';
-import { WorkOrderFields } from './FindOptionsFields';
+import { WorkOrderFields } from '../constants/FindOptionsFields';
 import { FindOptions } from 'typeorm';
 import { User } from '../entities/User';
 
@@ -24,22 +24,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
     }
 
 
-    async createWorkOrder(property: Property, sectorType: SectorType, workOrderType: WorkOrderType, 
-        title: string, cause: string, serviceNeeded: boolean, priorityType: PriorityType, 
-        description: string, dueDate: Date, priceEstimate: number, createdBy: User) {
-
-        const workOrder = new WorkOrder();
-        workOrder.property = property;
-        workOrder.sectorType = sectorType;
-        workOrder.workOrderType = workOrderType;
-        workOrder.title = title;
-        workOrder.cause = cause;
-        workOrder.serviceNeeded = serviceNeeded;
-        workOrder.priorityType = priorityType;
-        workOrder.description = description;
-        workOrder.dueDate = dueDate;
-        workOrder.priceEstimate = priceEstimate;
-        workOrder.createdBy = createdBy;
+    async createWorkOrder(workOrder: WorkOrder) {
         try {
             const savedWorkOrder : WorkOrder = await this.getRepositoryConnection(
                 WorkOrder).save(workOrder);

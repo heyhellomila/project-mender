@@ -8,12 +8,12 @@ export class WorkOrderDTO {
     
     id: number;
     property: PropertyDTO;
-    sectorType: SectorTypeDTO;
-    workOrderType: WorkOrderTypeDTO;
+    sectorType: SectorTypeDTO | string;
+    workOrderType: WorkOrderTypeDTO | string;
     title: string;
     cause: string;
     serviceNeeded: Boolean;
-    priorityType: PriorityTypeDTO;
+    priorityType: PriorityTypeDTO | string;
     description: string;
     dueDate: Date;
     createdDate: Date;

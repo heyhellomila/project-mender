@@ -5,7 +5,7 @@ import { PropertyMapper } from '../entity_mappers/PropertyMapper';
 import auth from '../middleware/auth';
 import handleError from '../utils/HttpUtils';
 import validateBody from '../middleware/requestValidation';
-import { PropertyFields } from './BodyFields';
+import { PropertyFields } from '../constants/BodyFields';
 
 const userPropertiesController = express.Router({mergeParams: true});
 const propertyService = new PropertyService();
@@ -13,9 +13,9 @@ const propertyMapper = new PropertyMapper();
 
 userPropertiesController.post('/', auth, validateBody(PropertyFields.createFields), async (req: Request, res: Response) => {
     try {
-        const { name, propertyType, address } = req.body;
+        const propertyDTO : PropertyDTO = req.body as PropertyDTO;
         const property = await propertyService.createProperty(
-            Number(req.params.userId), name, propertyType, address);
+            Number(req.params.userId), propertyMapper.fromDTO(propertyDTO));
         return res.status(200).json(propertyMapper.toDTO(property));
     } catch (err) {
         return handleError(err, res);

@@ -1,7 +1,7 @@
 import { User } from '../entities/User';
 import { UserType } from '../entities/UserType';
 import { BaseRepository } from './BaseRepository';
-import { UserFields } from './FindOptionsFields';
+import { UserFields } from '../constants/FindOptionsFields';
 import { FindOptions } from 'typeorm';
 
 class UserRepository extends BaseRepository<User> {
@@ -16,16 +16,7 @@ class UserRepository extends BaseRepository<User> {
         return user;
     }
 
-    async createUser(email: string, passwordHash: string, firstName: string, 
-        lastName: string, phoneNumber: number, userType: UserType) {
-
-        const user = new User();
-        user.email = email;
-        user.passwordHash = passwordHash;
-        user.firstName = firstName;
-        user.lastName = lastName;
-        user.phoneNumber = phoneNumber;
-        user.userType = userType;
+    async createUser(user: User) {
         try {
             return await this.getRepositoryConnection(User).save(user);
         } catch (err) {

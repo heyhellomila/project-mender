@@ -5,7 +5,7 @@ import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
 import auth from '../middleware/auth';
 import handleError from '../utils/HttpUtils';
 import validateBody from '../middleware/requestValidation';
-import { WorkOrderFields } from './BodyFields';
+import { WorkOrderFields } from '../constants/BodyFields';
 
 const propertyWorkOrdersController = express.Router({mergeParams: true});
 const workOrderService = new WorkOrderService();
@@ -13,11 +13,11 @@ const workOrderMapper = new WorkOrderMapper();
 
 propertyWorkOrdersController.post('/', auth, validateBody(WorkOrderFields.createFields), async (req: Request, res: Response) => {
     try {
-        const {sectorType, workOrderType, title, cause, serviceNeeded, priorityType, 
-            description, dueDate, priceEstimate, decodedToken } = req.body;
+        req.body.serviceNeeded = Boolean(JSON.parse(req.body.serviceNeeded));
+        const workOrderDTO : WorkOrderDTO = req.body as WorkOrderDTO;
+        const { decodedToken } = req.body;
         const workOrder = await workOrderService.createWorkOrder(Number(req.params.propertyId), 
-            sectorType, workOrderType, title, cause, Boolean(JSON.parse(serviceNeeded)), 
-            priorityType, description, dueDate, priceEstimate, decodedToken.userId);
+            workOrderMapper.fromDTO(workOrderDTO), decodedToken.userId);
 
         return res.status(200).json(workOrderMapper.toDTO(workOrder));
     } catch (err) {

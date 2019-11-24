@@ -13,7 +13,7 @@ import { WorkOrderType } from '../entities/WorkOrderType';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../repositories/FindOptionsFields';
+import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
 import { User } from '../entities/User';
 
 class WorkOrderService {
@@ -24,45 +24,29 @@ class WorkOrderService {
     private workOrderTypeService : WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderRepository : WorkOrderRepository = new WorkOrderRepository();
 
-    async createWorkOrder(propertyId: number, sectorType: string, workOrderType: string, 
-        title: string, cause: string, serviceNeeded: boolean, priorityType: string, 
-        description: string, dueDate: string, priceEstimate: number, createdByUserId: number) {
+    async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
             
-        if (!await this.propertyService.propertyExists(Number(propertyId))) {
+        if (!(await this.propertyService.propertyExists(propertyId))) {
             throw new ResourceNotFoundError("Property " + propertyId + 
                 " does not exist.");
         }
-
-        if (!(sectorType in SectorTypeEnum)) {
-            throw new BadRequestError('Invalid Sector Type. Allowed Types: [' 
-                + Object.keys(SectorTypeEnum) +']');
-        }
-
-        if (!(priorityType in PriorityTypeEnum)) {
-            throw new BadRequestError('Invalid Priority Type. Allowed Types: [' 
-                + Object.keys(PriorityTypeEnum) +']');
-        }
-
-        if (!(workOrderType in WorkOrderTypeEnum)) {
-            throw new BadRequestError('Invalid Work Order Type. Allowed Types: [' 
-                + Object.keys(WorkOrderTypeEnum) +']');
-        }
-
-        const sectorTypeObj : SectorType = await this.sectorTypeService
-            .getSectorType(sectorType);
-        const priorityTypeObj : PriorityType = await this.priorityTypeService
-            .getPriorityType(priorityType);
-        const workOrderTypeObj : WorkOrderType = await this.workOrderTypeService
-            .getWorkOrderType(workOrderType);
-        var property : Property = new Property();
-        property.id = propertyId;
+        
         var createdBy : User = new User();
         createdBy.id = createdByUserId;
+        var property : Property = new Property();
+        property.id = propertyId;
+
+        workOrder.sectorType = await this.sectorTypeService
+            .getSectorType(workOrder.sectorType.type);
+        workOrder.priorityType = await this.priorityTypeService
+            .getPriorityType(workOrder.priorityType.type);
+        workOrder.workOrderType = await this.workOrderTypeService
+            .getWorkOrderType(workOrder.workOrderType.type);
+        workOrder.property = property;
+        workOrder.createdBy = createdBy;
 
         try {
-            return await this.workOrderRepository.createWorkOrder(property, sectorTypeObj, 
-                workOrderTypeObj, title, cause, serviceNeeded, priorityTypeObj, 
-                description, new Date(Number(dueDate)), priceEstimate, createdBy);
+            return await this.workOrderRepository.createWorkOrder(workOrder);
         } catch (err) {
             throw new BadRequestError(err.message);
         }

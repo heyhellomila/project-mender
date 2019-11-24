@@ -8,5 +8,5 @@ export class UserDTO {
     firstName: string;
     lastName: string;
     phoneNumber: number;
-    userType: UserTypeDTO;
+    userType: UserTypeDTO | string;
 }

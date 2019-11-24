@@ -22,15 +22,7 @@ class PropertyRepository extends BaseRepository<Property> {
     }
 
 
-    async createProperty(user: User, name: string, propertyType: PropertyType, 
-        address: string, activityStatus: ActivityStatus) {
-
-        const property = new Property();
-        property.user = user;
-        property.name = name;
-        property.address = address;
-        property.propertyType = propertyType;
-        property.activityStatus = activityStatus;
+    async createProperty(property : Property) {
         try {
             const savedProperty : Property = await this.getRepositoryConnection(Property).save(property);
             return savedProperty;

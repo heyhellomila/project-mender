@@ -6,8 +6,8 @@ export class PropertyDTO {
     
     id: number;
     user: UserDTO;
-    propertyType: PropertyTypeDTO;
+    propertyType: PropertyTypeDTO | string;
     name: string;
     address: string;
-    activityStatus: ActivityStatusDTO;
+    activityStatus: ActivityStatusDTO | string;
 }
