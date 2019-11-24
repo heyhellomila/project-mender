@@ -15,10 +15,7 @@ export class Property {
     })
     user: User;
 
-    @Column({name: 'user_id'})
-    userId: number
-
-    @ManyToOne(type => PropertyType, {eager: true})
+    @ManyToOne(type => PropertyType)
     @JoinColumn({
         name: 'property_type_id',
     })
@@ -30,7 +27,7 @@ export class Property {
     @Column()
     address: string;
 
-    @ManyToOne(type => ActivityStatus,  {eager: true})
+    @ManyToOne(type => ActivityStatus)
     @JoinColumn({
         name: 'activity_status_id',
     })

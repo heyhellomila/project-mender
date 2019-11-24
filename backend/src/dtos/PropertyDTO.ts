@@ -1,9 +1,13 @@
+import { ActivityStatusDTO } from "./ActivityStatusDTO";
+import { PropertyTypeDTO } from "./PropertyTypeDTO";
+import { UserDTO } from "./UserDTO";
+
 export class PropertyDTO {
     
     id: number;
-    userId: number;
-    propertyType: string;
+    user: UserDTO;
+    propertyType: PropertyTypeDTO | string;
     name: string;
     address: string;
-    activityStatus: string;
+    activityStatus: ActivityStatusDTO | string;
 }

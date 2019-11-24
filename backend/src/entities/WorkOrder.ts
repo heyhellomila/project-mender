@@ -17,16 +17,13 @@ export class WorkOrder {
     })
     property: Property;
 
-    @Column({name: 'property_id'})
-    propertyId: number;
-
-    @ManyToOne(type => SectorType, {eager: true})
+    @ManyToOne(type => SectorType)
     @JoinColumn({
         name: 'sector_type_id',
     })
     sectorType: SectorType;
 
-    @ManyToOne(type => WorkOrderType, {eager: true})
+    @ManyToOne(type => WorkOrderType)
     @JoinColumn({
         name: 'work_order_type_id',
     })
@@ -38,10 +35,10 @@ export class WorkOrder {
     @Column()
     cause: string
 
-    @Column({name: 'service_needed'})
+    @Column({name: 'service_needed', type: 'bit'})
     serviceNeeded: Boolean
 
-    @ManyToOne(type => PriorityType, {eager: true})
+    @ManyToOne(type => PriorityType)
     @JoinColumn({
         name: 'priority_type_id',
     })
@@ -61,9 +58,6 @@ export class WorkOrder {
         name: 'created_by',
     })
     createdBy: User;
-
-    @Column({name: 'created_by'})
-    createdByUserId: number;
     
     @Column({name: 'last_modified_date', nullable: true})
     lastModifiedDate: Date
@@ -73,9 +67,6 @@ export class WorkOrder {
         name: 'last_modified_by',
     })
     lastModifiedBy: User;
-
-    @Column({name: 'last_modified_by', nullable: true})
-    lastModifiedByUserId: number;
 
     @Column({name: 'date_completed', nullable: true})
     dateCompleted: Date
