@@ -14,8 +14,6 @@ workOrderController.get('/', auth, async(req: Request, res: Response) => {
 
     try {
         const workOrders = await workOrderService.getWorkOrders(req.query);
-        console.log(workOrders)
-        console.log(req.query)
         var workOrderDTOs : WorkOrderDTO[] = [];
         workOrders.map((workOrder) => {
             workOrderDTOs.push(workOrderMapper.toDTO(workOrder));

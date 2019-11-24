@@ -65,13 +65,8 @@ class WorkOrderService {
         }
     }
 
-    async getWorkOrder(id: number) {
-        const workOrder : WorkOrder = await this.workOrderRepository.getWorkOrderById(id,
-            WorkOrderFields);
-        if (!workOrder) {
-            throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
-        }
-        return workOrder;
+    async getWorkOrders(queries: any) {
+        return await this.workOrderRepository.getWorkOrders(queries);
     }
 }
 
