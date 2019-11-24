@@ -16,11 +16,11 @@ class PropertyComponent extends Component {
     }
 
     async componentDidMount() {
-        await getPropertiesByUser(this.props.user.user._id)
+        await getPropertiesByUser(this.props.user.user.id)
             .then((res) => {
                 this.setState({
                     properties: res.data.map((property) => ({
-                        id: property._id,
+                        id: property.id,
                         name: property.name,
                         address: property.address,
                     }))

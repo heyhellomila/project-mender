@@ -17,7 +17,7 @@ class CreateWorkOrderPage extends React.Component {
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '', 
-            dueDate: '2020-11-07T03:54:52.130+00:00',
+            dueDate: new Date().getTime(),
             priceEstimate: 0,
             navigation: props.navigation,
             today: new Date(),
@@ -29,6 +29,7 @@ class CreateWorkOrderPage extends React.Component {
             headerText: 'Pick a sector'
         };
     }
+    
     static navigationOptions = {
         title: 'Create Work Order',
     };

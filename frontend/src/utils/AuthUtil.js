@@ -25,7 +25,7 @@ export const isAuthenticated = () => {
 export const getUserId = async() => {
     try {
         decodedToken = await getDecodedToken();
-        return decodedToken._id;
+        return decodedToken.userId;
     } catch(err) {
         return null;
     }
