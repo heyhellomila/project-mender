@@ -20,18 +20,18 @@ jobs:
       - run:
           name: install-npm-wee
           command: npm install
-      # run lint before tests
-      - run: # run tests
-          name: test
-          command: npm test
-      - run: # run coverage report
-          name: code-coverage
-          command: 'npm run coverage'
-      - store_test_results: # for storing unit test results
-          path: test/mochawesome-report
-      - store_artifacts:
-          path: test/mochawesome-report/mochawesome.json
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-          path: coverage
-      - codecov/upload:
-          file: coverage/index.html
+    # run lint before tests
+    #   - run: # run tests
+    #       name: test
+    #       command: npm test
+    #   - run: # run coverage report
+    #       name: code-coverage
+    #       command: 'npm run coverage'
+    #   - store_test_results: # for storing unit test results
+    #       path: test/mochawesome-report
+    #   - store_artifacts:
+    #       path: test/mochawesome-report/mochawesome.json
+    #   - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
+    #       path: coverage
+    #   - codecov/upload:
+    #       file: coverage/index.html

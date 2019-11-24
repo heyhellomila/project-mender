@@ -2,7 +2,7 @@ codecov:
   token: ${{ secrets.CODECOV_TOKEN }}
   require_ci_to_pass: false
   wait_for_ci: false
-  bot: codecov-bot
+  bot: milaroisin
   max_report_age: off
 
 coverage:

@@ -67,6 +67,6 @@ fastlane/readme.md
 node_modules
 
 # Coverage reports
-.nyc_output
-coverage
+.nyc_output/
+coverage/
 *.lcov
