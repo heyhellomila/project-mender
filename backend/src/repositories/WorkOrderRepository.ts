@@ -66,17 +66,8 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                 filterQueries += "&& work_orders.priorityType = " + queries.priorityType
             }
         }
-        
+
         if (queries.searchTerm == null) {
-            if (workOrderSort == null) {
-                const workorders = await this.getRepositoryConnection(WorkOrder)
-                    .createQueryBuilder("work_orders")
-                    .where(filterQueries)
-                    .skip(queries.pageSize * (queries.pageNumber - 1))
-                    .take(queries.pageSize)
-                    .getMany();
-                return workorders;
-            } else if (workOrderSort != null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
                     .where(filterQueries)
@@ -85,18 +76,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                     .take(queries.pageSize)
                     .getMany();
                 return workorders;
-            }
         } else if (queries.searchTerm != null) {
-            if (workOrderSort == null) {
-                const workorders = await this.getRepositoryConnection(WorkOrder)
-                    .createQueryBuilder("work_orders")
-                    .where(filterQueries)
-                    .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
-                    .skip(queries.pageSize * (queries.pageNumber - 1))
-                    .take(queries.pageSize)
-                    .getMany();
-                return workorders;
-            } else if (workOrderSort != null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
                     .where(filterQueries)
@@ -106,7 +86,6 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                     .take(queries.pageSize)
                     .getMany();
                 return workorders;
-            }
         }
     }
 
