@@ -30,7 +30,6 @@ const auth = async(req: Request, res: Response, next: NextFunction) => {
         }
 
         req.body.decodedToken = data;
-        req.headers.token = token;
         next()
     } catch (err) {
         res.status(401).json(err);

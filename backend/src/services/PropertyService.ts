@@ -10,7 +10,7 @@ import { ActivityStatus } from '../entities/ActivityStatus';
 import { PropertyType } from '../entities/PropertyType';
 import { PropertyTypeService } from './PropertyTypeService';
 import { User } from '../entities/User';
-
+import { PropertyFields, PropertyFieldsNoUser } from '../constants/FindOptionsFields';
 
 class PropertyService {
 
@@ -27,23 +27,22 @@ class PropertyService {
         return property;
     }
 
-    async createProperty(userId: number, name: string, propertyType: string, 
-        address: string) {
+    async createProperty(userId: number, property: Property) {
         
-        if (!await this.userService.userExists(Number(userId)))
-            throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
+        if (!(await this.userService.userExists(userId)))
+            throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
 
-        if (!(propertyType in PropertyTypeEnum)) {
-            throw new BadRequestError('Invalid Property Type. Allowed Types: [' 
-                + Object.keys(PropertyTypeEnum) +']');
-        }
+        var user : User = new User();
+        user.id = userId;
 
-        const activityStatusObj : ActivityStatus = await this.activityStatusService.getActivityStatus(ActivityStatusEnum.ACTIVE);
-        const propertyTypeObj : PropertyType = await this.propertyTypeService.getPropertyType(propertyType);
+        property.activityStatus = await this.activityStatusService.getActivityStatus(
+            ActivityStatusEnum.ACTIVE);
+        property.propertyType = await this.propertyTypeService.getPropertyType(
+            property.propertyType.type);
+        property.user = user;
 
         try {
-            return await this.propertyRepository.createProperty(userId, 
-                name, propertyTypeObj, address, activityStatusObj);
+            return await this.propertyRepository.createProperty(property);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
@@ -55,14 +54,14 @@ class PropertyService {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
         }
         try {
-            return await this.propertyRepository.getPropertiesByUser(user);
+            return await this.propertyRepository.getPropertiesByUser(user, PropertyFieldsNoUser);
         } catch (err) {
             throw err;
         }
     }
 
     async getPropertyById(id: number) {
-        const property : Property = await this.propertyRepository.getPropertyById(id);
+        const property : Property = await this.propertyRepository.getPropertyById(id, PropertyFields);
         if (!property) {
             throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
         }

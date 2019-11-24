@@ -1,0 +1,156 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2019-11-22T01:14:32.216Z",
+    "end": "2019-11-22T01:14:32.225Z",
+    "duration": 9,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "09655c04-7179-4f57-97a7-d07b1e425895",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "82b35421-67ea-443f-994a-267c655e3572",
+          "title": "example",
+          "fullFile": "/Users/daniakalomiris/Desktop/project-mender/test/test.js",
+          "file": "/test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "50b96dac-b9e7-4a6a-b3a4-9369199a3979",
+              "title": "pluralize",
+              "fullFile": "/Users/daniakalomiris/Desktop/project-mender/test/test.js",
+              "file": "/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "keeps singular when count is 1",
+                  "fullTitle": "example pluralize keeps singular when count is 1",
+                  "timedOut": false,
+                  "duration": 1,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "assert.strictEqual(pluralize(1, 'cat'), '1 cat');",
+                  "err": {},
+                  "uuid": "a6fac152-28dd-424c-8d5d-79cf25d26175",
+                  "parentUUID": "50b96dac-b9e7-4a6a-b3a4-9369199a3979",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "uses explicit plural when given",
+                  "fullTitle": "example pluralize uses explicit plural when given",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "assert.strictEqual(pluralize(3, 'mouse', 'mice'), '3 mice');",
+                  "err": {},
+                  "uuid": "0223ea2b-a4cd-405a-93e5-88087558bf78",
+                  "parentUUID": "50b96dac-b9e7-4a6a-b3a4-9369199a3979",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "uses implicit plural otherwise",
+                  "fullTitle": "example pluralize uses implicit plural otherwise",
+                  "timedOut": false,
+                  "duration": 0,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "assert.strictEqual(pluralize(3, 'cat'), '3 cats');",
+                  "err": {},
+                  "uuid": "b9d6f618-3644-422f-85ba-abe4ecac7d0a",
+                  "parentUUID": "50b96dac-b9e7-4a6a-b3a4-9369199a3979",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "a6fac152-28dd-424c-8d5d-79cf25d26175",
+                "0223ea2b-a4cd-405a-93e5-88087558bf78",
+                "b9d6f618-3644-422f-85ba-abe4ecac7d0a"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 1,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "6.2.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": null,
+      "version": "4.0.1"
+    }
+  }
+}

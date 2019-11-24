@@ -1,14 +1,15 @@
-import {WorkOrder} from '../entities/WorkOrder';
-import {WorkOrderType} from '../entities/WorkOrderType';
-import {SectorType} from '../entities/SectorType';
-import {PriorityType} from '../entities/PriorityType';
+import { WorkOrder } from '../entities/WorkOrder';
+import { WorkOrderType } from '../entities/WorkOrderType';
+import { SectorType } from '../entities/SectorType';
+import { PriorityType } from '../entities/PriorityType';
+import { Property } from '../entities/Property';
+import { BaseRepository } from './BaseRepository';
+import { WorkOrderFields } from '../constants/FindOptionsFields';
+import { FindOptions } from 'typeorm';
+import { User } from '../entities/User';
 import {OrderingByType} from '../enums/OrderingByType';
-import {Property} from '../entities/Property';
-import {User} from '../entities/User';
-import {BaseRepository} from './BaseRepository';
 import enumerate = Reflect.enumerate;
 import set = Reflect.set;
-
 class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
 
@@ -113,29 +114,18 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         }
     }
 
-    async getWorkOrdersByProperty(property: Property) {
-        const workOrders = await this.getRepositoryConnection(WorkOrder).find({property: property});
+    async getWorkOrdersByProperty(property: Property, fieldOptions?: FindOptions<WorkOrder>) {
+        fieldOptions
+            ? fieldOptions.where = { property: property }
+            : fieldOptions = { where: {property: property} };
+        const workOrders = await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
         return workOrders;
     }
 
-    async createWorkOrder(propertyId: number, sectorType: SectorType, workOrderType: WorkOrderType,
-                          title: string, cause: string, serviceNeeded: boolean, priorityType: PriorityType,
-                          description: string, dueDate: Date, priceEstimate: number, createdByUserId: number) {
 
-        const workOrder = new WorkOrder();
-        workOrder.propertyId = propertyId;
-        workOrder.sectorType = sectorType;
-        workOrder.workOrderType = workOrderType;
-        workOrder.title = title;
-        workOrder.cause = cause;
-        workOrder.serviceNeeded = serviceNeeded;
-        workOrder.priorityType = priorityType;
-        workOrder.description = description;
-        workOrder.dueDate = dueDate;
-        workOrder.priceEstimate = priceEstimate;
-        workOrder.createdByUserId = createdByUserId;
+    async createWorkOrder(workOrder: WorkOrder) {
         try {
-            const savedWorkOrder: WorkOrder = await this.getRepositoryConnection(
+            const savedWorkOrder : WorkOrder = await this.getRepositoryConnection(
                 WorkOrder).save(workOrder);
             return savedWorkOrder;
         } catch (err) {
@@ -144,4 +134,4 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
     }
 }
 
-export {WorkOrderRepository};
+export { WorkOrderRepository };
