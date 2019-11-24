@@ -1,3 +1,5 @@
+import { UserTypeDTO } from "./UserTypeDTO";
+
 export class UserDTO {
     
     id: number;
@@ -5,7 +7,6 @@ export class UserDTO {
     password: string;
     firstName: string;
     lastName: string;
-    phoneNumber: number
-    userType: string;
-    
+    phoneNumber: number;
+    userType: UserTypeDTO;
 }

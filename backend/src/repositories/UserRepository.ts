@@ -1,6 +1,8 @@
 import { User } from '../entities/User';
 import { UserType } from '../entities/UserType';
 import { BaseRepository } from './BaseRepository';
+import { UserFields } from './FindOptionsFields';
+import { FindOptions } from 'typeorm';
 
 class UserRepository extends BaseRepository<User> {
 
@@ -8,8 +10,9 @@ class UserRepository extends BaseRepository<User> {
         return await this.getRepositoryConnection(User).findOne({email: email});
     }
 
-    async getUserById(id: number) {
-        const user = await this.getRepositoryConnection(User).findOne({id: id});
+    async getUserById(id: number, fieldOptions?: FindOptions<User>) {
+        const user = await this.getRepositoryConnection(User).findOne(id, 
+            fieldOptions);
         return user;
     }
 

@@ -13,6 +13,8 @@ import { WorkOrderType } from '../entities/WorkOrderType';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
+import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../repositories/FindOptionsFields';
+import { User } from '../entities/User';
 
 class WorkOrderService {
 
@@ -52,11 +54,15 @@ class WorkOrderService {
             .getPriorityType(priorityType);
         const workOrderTypeObj : WorkOrderType = await this.workOrderTypeService
             .getWorkOrderType(workOrderType);
+        var property : Property = new Property();
+        property.id = propertyId;
+        var createdBy : User = new User();
+        createdBy.id = createdByUserId;
 
         try {
-            return await this.workOrderRepository.createWorkOrder(propertyId, sectorTypeObj, 
+            return await this.workOrderRepository.createWorkOrder(property, sectorTypeObj, 
                 workOrderTypeObj, title, cause, serviceNeeded, priorityTypeObj, 
-                description, new Date(Number(dueDate)), priceEstimate, createdByUserId);
+                description, new Date(Number(dueDate)), priceEstimate, createdBy);
         } catch (err) {
             throw new BadRequestError(err.message);
         }
@@ -68,14 +74,16 @@ class WorkOrderService {
             throw new ResourceNotFoundError("Property with id " + propertyId + " does not exist.")
         }
         try {
-            return await this.workOrderRepository.getWorkOrdersByProperty(property);
+            return await this.workOrderRepository.getWorkOrdersByProperty(property, 
+                WorkOrderFieldsNoProperty);
         } catch (err) {
             throw err;
         }
     }
 
     async getWorkOrder(id: number) {
-        const workOrder : WorkOrder = await this.workOrderRepository.getWorkOrderById(id);
+        const workOrder : WorkOrder = await this.workOrderRepository.getWorkOrderById(id, 
+            WorkOrderFields);
         if (!workOrder) {
             throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
         }

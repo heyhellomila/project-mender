@@ -10,7 +10,7 @@ import { ActivityStatus } from '../entities/ActivityStatus';
 import { PropertyType } from '../entities/PropertyType';
 import { PropertyTypeService } from './PropertyTypeService';
 import { User } from '../entities/User';
-
+import { PropertyFields, PropertyFieldsNoUser } from '../repositories/FindOptionsFields';
 
 class PropertyService {
 
@@ -40,9 +40,11 @@ class PropertyService {
 
         const activityStatusObj : ActivityStatus = await this.activityStatusService.getActivityStatus(ActivityStatusEnum.ACTIVE);
         const propertyTypeObj : PropertyType = await this.propertyTypeService.getPropertyType(propertyType);
+        var user : User = new User();
+        user.id = userId;
 
         try {
-            return await this.propertyRepository.createProperty(userId, 
+            return await this.propertyRepository.createProperty(user, 
                 name, propertyTypeObj, address, activityStatusObj);
         } catch (err) {
             throw new BadRequestError(err.message);
@@ -55,14 +57,14 @@ class PropertyService {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
         }
         try {
-            return await this.propertyRepository.getPropertiesByUser(user);
+            return await this.propertyRepository.getPropertiesByUser(user, PropertyFieldsNoUser);
         } catch (err) {
             throw err;
         }
     }
 
     async getPropertyById(id: number) {
-        const property : Property = await this.propertyRepository.getPropertyById(id);
+        const property : Property = await this.propertyRepository.getPropertyById(id, PropertyFields);
         if (!property) {
             throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
         }

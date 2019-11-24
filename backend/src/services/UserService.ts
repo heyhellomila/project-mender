@@ -8,6 +8,7 @@ import { UserRepository } from '../repositories/UserRepository';
 import { UserType } from '../entities/UserType';
 import { UserTypeService } from './UserTypeService';
 import { User } from '../entities/User';
+import { UserFields } from '../repositories/FindOptionsFields';
 
 const { generateHash, compare } = require('../utils/HashUtils');
 const generateAuthToken = require('../utils/AuthUtils');
@@ -78,7 +79,7 @@ class UserService {
     }
 
     async getUser(id: number) {
-        const user: User = await this.userRepository.getUserById(id);
+        const user: User = await this.userRepository.getUserById(id, UserFields);
         if (!user) {
             throw new ResourceNotFoundError("User with id " + id + " does not exist");
         } 

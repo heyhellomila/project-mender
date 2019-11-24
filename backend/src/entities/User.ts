@@ -22,7 +22,7 @@ export class User {
     @Column({name: 'phone_number'})
     phoneNumber: number
 
-    @ManyToOne(type => UserType, {eager: true})
+    @ManyToOne(type => UserType)
     @JoinColumn({
         name: "user_type_id",
     })
