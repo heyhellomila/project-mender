@@ -14,22 +14,23 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrders(queries: any) {
         let ordering;
-        let whereQueries = null;
+        let filterByQueries = null;
+        let filterParameterQueries = null;
         let workOrderSort = null;
 
-        let queryMapper = new Map();
-        queryMapper.set("sectorType", "work_orders.sectorType = :sectorType")
-        queryMapper.set("propertyId", "work_orders.propertyId = :propertyId")
-        queryMapper.set("workOrderType", "work_orders.workOrderType = :workOrderType")
-        queryMapper.set("serviceNeeded", "work_orders.serviceNeeded = :serviceNeeded")
-        queryMapper.set("priorityType", "work_orders.priorityType = :priorityType")
+        let filterByMapper = new Map();
+        filterByMapper.set("sectorType", "work_orders.sectorType = :sectorType")
+        filterByMapper.set("propertyId", "work_orders.propertyId = :propertyId")
+        filterByMapper.set("workOrderType", "work_orders.workOrderType = :workOrderType")
+        filterByMapper.set("serviceNeeded", "work_orders.serviceNeeded = :serviceNeeded")
+        filterByMapper.set("priorityType", "work_orders.priorityType = :priorityType")
 
-        let parameterMapper = new Map();
-        parameterMapper.set("sectorType", {sectorType: queries.filterParameter})
-        parameterMapper.set("propertyId", {propertyId: queries.filterParameter})
-        parameterMapper.set("workOrderType", {workOrderType: queries.filterParameter})
-        parameterMapper.set("serviceNeeded", {serviceNeeded: queries.filterParameter})
-        parameterMapper.set("priorityType", {priorityType: queries.filterParameter})
+        let filterParameterMapper = new Map();
+        filterParameterMapper.set("sectorType", {sectorType: queries.filterParameter})
+        filterParameterMapper.set("propertyId", {propertyId: queries.filterParameter})
+        filterParameterMapper.set("workOrderType", {workOrderType: queries.filterParameter})
+        filterParameterMapper.set("serviceNeeded", {serviceNeeded: queries.filterParameter})
+        filterParameterMapper.set("priorityType", {priorityType: queries.filterParameter})
 
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
@@ -42,28 +43,29 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         } else if (queries.ordering == "DESC") {
             ordering = OrderingByType.DESC
         }
-        whereQueries = queryMapper.get(queries.filterBy)
-        let parameterQueries = parameterMapper.get(queries.filterBy)
+        
+        filterByQueries = filterByMapper.get(queries.filterBy)
+        filterParameterQueries = filterParameterMapper.get(queries.filterBy)
         workOrderSort = workOrderSortMapper.get(queries.sortBy)
 
         if (queries.searchTerm == null) {
-            if (whereQueries == null && workOrderSort == null) {
+            if (filterByQueries == null && workOrderSort == null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
                     .skip(queries.pageSize * (queries.pageNumber - 1))
                     .take(queries.pageSize)
                     .getMany();
                 return workorders;
-            } else if (whereQueries != null && workOrderSort == null) {
+            } else if (filterByQueries != null && workOrderSort == null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
-                    .where(whereQueries)
+                    .where(filterByQueries)
                     .skip(queries.pageSize * (queries.pageNumber - 1))
                     .take(queries.pageSize)
-                    .setParameters(parameterQueries)
+                    .setParameters(filterParameterQueries)
                     .getMany();
                 return workorders;
-            } else if (whereQueries == null && workOrderSort != null) {
+            } else if (filterByQueries == null && workOrderSort != null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
                     .orderBy(workOrderSort, ordering)
@@ -71,19 +73,19 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                     .take(queries.pageSize)
                     .getMany();
                 return workorders;
-            } else if (whereQueries != null && workOrderSort != null) {
+            } else if (filterByQueries != null && workOrderSort != null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
-                    .where(whereQueries)
+                    .where(filterByQueries)
                     .orderBy(workOrderSort, ordering)
                     .skip(queries.pageSize * (queries.pageNumber - 1))
                     .take(queries.pageSize)
-                    .setParameters(parameterQueries)
+                    .setParameters(filterParameterQueries)
                     .getMany();
                 return workorders;
             }
         } else if (queries.searchTerm != null) {
-            if (whereQueries == null && workOrderSort == null) {
+            if (filterByQueries == null && workOrderSort == null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
                     .where("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
@@ -91,17 +93,17 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                     .take(queries.pageSize)
                     .getMany();
                 return workorders;
-            } else if (whereQueries != null && workOrderSort == null) {
+            } else if (filterByQueries != null && workOrderSort == null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
-                    .where(whereQueries)
+                    .where(filterByQueries)
                     .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
                     .skip(queries.pageSize * (queries.pageNumber - 1))
                     .take(queries.pageSize)
-                    .setParameters(parameterQueries)
+                    .setParameters(filterParameterQueries)
                     .getMany();
                 return workorders;
-            } else if (whereQueries == null && workOrderSort != null) {
+            } else if (filterByQueries == null && workOrderSort != null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
                     .where("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
@@ -110,15 +112,15 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
                     .take(queries.pageSize)
                     .getMany();
                 return workorders;
-            } else if (whereQueries != null && workOrderSort != null) {
+            } else if (filterByQueries != null && workOrderSort != null) {
                 const workorders = await this.getRepositoryConnection(WorkOrder)
                     .createQueryBuilder("work_orders")
-                    .where(whereQueries)
+                    .where(filterByQueries)
                     .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
                     .orderBy(workOrderSort, ordering)
                     .skip(queries.pageSize * (queries.pageNumber - 1))
                     .take(queries.pageSize)
-                    .setParameters(parameterQueries)
+                    .setParameters(filterParameterQueries)
                     .getMany();
                 return workorders;
             }
