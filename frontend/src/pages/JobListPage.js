@@ -2,11 +2,12 @@ import React from 'react';
 import { ScrollView, Text, TouchableOpacity, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
-import { styles, jobListTable } from '../stylesheets/Stylesheet';
+import { styles, jobListTable, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import { Table, Row, Col } from 'react-native-table-component';
+import { Table, Row, Col, Cols } from 'react-native-table-component';
 import { getWorkOrdersByPropertyId } from '../apis/workOrders/GetWorkOrder';
 import { WorkOrderPage } from '../pages/WorkOrderPage';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class JobListPage extends React.Component {
     static navigationOptions = {
@@ -14,23 +15,34 @@ class JobListPage extends React.Component {
     };
     constructor(props) {
         super(props);
+
+        const header = (value) => (
+          <TouchableOpacity key={value} onPress={() => this.sortWorkOrders(value)}>
+              <View>
+                  <Text>
+                      {value} <Icon name="sort"/>
+                  </Text>  
+              </View>
+          </TouchableOpacity>
+        );
+
         this.state = {
             user: props.user.user,
             property: this.props.property,
             displayModal: false,
-            tableHead: ['W.O #', 'Title', 'Type', 'Sector'],
+            tableHead: [header('W.O #'), header('Title'), header('Type'), header('Sector')],
             workOrders: [],
             tableData: [],
             loading: true,
             error: false,
-            attributeOrder: "W.O #",
+            attributeOrder: 'W.O #',
             ascending: true
         };
         this.sortWorkOrders = this.sortWorkOrders.bind(this);
     }
   
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.property !== prevProps.property || this.state.workOrders !== prevState.workOrders ) {
+    componentDidUpdate(prevProps) {
+        if (this.props.property !== prevProps.property) {
           this.setWorkOrders();
         }
     }
@@ -87,29 +99,33 @@ class JobListPage extends React.Component {
     sortWorkOrders = (attribute) => {
         console.log("sort");
         ascending = false;
-        (attribute === this.state.atrribute) ? ascending = !this.state.ascending : ascending = true;
-        sortedOrders = [].concat(this.state.workOrders);
+        (attribute === this.state.attributeOrder) ? ascending = !this.state.ascending : ascending = true;
+        sortedOrders = this.state.workOrders;
         switch (attribute) {
             case "W.O #":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x._id < y._id)
                 : sortedOrders = sortedOrders.sort((x, y) => x._id > y._id)
+                console.log("sorting W.O #");
                 break;
             case "Title":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.title < y.title)
                 : sortedOrders = sortedOrders.sort((x, y) => x.title > y.title)
+                console.log("sorting title");
                 break; 
             case "Type":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.type < y.type)
                 : sortedOrders = sortedOrders.sort((x, y) => x.type > y.type)
+                console.log("sorting type");
                 break; 
             case "Sector":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.sector < y.sector)
                 : sortedOrders = sortedOrders.sort((x, y) => x.sector > y.sector)
+                console.log("sorting sector");
                 break; 
             default:
                 sortedOrders = this.state.workOrders;
         }
-        this.setState({attribute: attribute, ascending: ascending, workOrders: sortedOrders});
+        this.setState({attributeOrder: attribute, ascending: ascending, workOrders: sortedOrders});
         this.transformData();
     }
 
@@ -126,19 +142,7 @@ class JobListPage extends React.Component {
                                 <Text>JOB LIST</Text>
                                 <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
                                     <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text}>
-                                        {
-                                            tableHead.map(function(header) {
-                                                return (
-                                                    <TouchableOpacity
-                                                        key={header}
-                                                        onPress={() => {this.sortWorkOrders(header)}}> 
-                                                        {/* onPress not working */}
-                                                        <Col data={header} />
-                                                    </TouchableOpacity>
-                                                )
-                                                
-                                            })
-                                        }
+                                        <Cols data={this.state.tableHead} />
                                     </Row>
                                     {
                                         tableData.map(function(workOrder) {
