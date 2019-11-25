@@ -7,103 +7,43 @@ import { BaseRepository } from './BaseRepository';
 import { WorkOrderFields } from '../constants/FindOptionsFields';
 import { FindOptions } from 'typeorm';
 import { User } from '../entities/User';
-import {OrderingByType} from '../enums/OrderingByType';
 import enumerate = Reflect.enumerate;
 import set = Reflect.set;
 class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
+    async getWorkOrderById(id: number, fieldOptions?: FindOptions<WorkOrder>) {
+        const workorder = await this.getRepositoryConnection(WorkOrder).findOne(id, fieldOptions);
+        return workorder;
+    }
 
-    async getWorkOrders(queries: any) {
-        let ordering;
-        let workOrderSort = null;
-
-        let workOrderSortMapper = new Map();
-        workOrderSortMapper.set("id", "work_orders.id")
-        workOrderSortMapper.set("dueDate", "work_orders.dueDate")
-        workOrderSortMapper.set("createdDate", "work_orders.createdDate")
-        workOrderSortMapper.set("priceEstimate", "work_orders.priceEstimate")
-
-        workOrderSort = workOrderSortMapper.get(queries.sortBy)
-        if (queries.ordering == "ASC") {
-            ordering = OrderingByType.ASC
-        } else if (queries.ordering == "DESC") {
-            ordering = OrderingByType.DESC
-        }
-        var filterQueries = "";
-        var filterQueriesFirst = false;
-        if (queries.id) {
-            filterQueries += "work_orders.id = " + queries.id
-            filterQueriesFirst = true;
-        }
-        if (queries.propertyId) {
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders.propertyId = " + queries.propertyId
-                filterQueriesFirst = true;
-            } else {
-                filterQueries += "&& work_orders.propertyId = " + queries.propertyId
-            }
-        }
-        if (queries.workOrderType) {
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders.workOrderType = " + queries.workOrderType
-                filterQueriesFirst = true
-            } else {
-                filterQueries += "&& work_orders.workOrderType = " + queries.workOrderType
-            }
-        }
-        if (queries.serviceNeeded) {
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders.serviceNeeded = " + queries.serviceNeeded
-                filterQueriesFirst = true
-            } else {
-                filterQueries += "&& work_orders.serviceNeeded = " + queries.serviceNeeded
-            }
-        }
-        if (queries.priorityType) {
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders.priorityType = " + queries.priorityType
-                filterQueriesFirst = true
-            } else {
-                filterQueries += "&& work_orders.priorityType = " + queries.priorityType
-            }
-        }
-        if (queries.priceEstimate) {
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders.priceEstimate = " + queries.priceEstimate
-                filterQueriesFirst = true
-            } else {
-                filterQueries += "&& work_orders.priceEstimate = " + queries.priceEstimate
-            }
-        }
-        if(queries.greaterThan){
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
-                filterQueriesFirst = true
-            } else {
-                filterQueries += "&& work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
-            }
-        }
-        if(queries.lowerThan){
-            if (!filterQueriesFirst) {
-                filterQueries += "work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
-                filterQueriesFirst = true
-            } else {
-                filterQueries += "&& work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
-            }
-        }
+    async getWorkOrders(filterQueries: any, queries: any, workOrderSort: any, ordering: any ) {
 
         if (queries.searchTerm == null) {
             const workorders = await this.getRepositoryConnection(WorkOrder)
                 .createQueryBuilder("work_orders")
+                .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
+                .leftJoinAndSelect("work_orders.sectorType", "sectorType")
+                .leftJoinAndSelect("work_orders.priorityType", "priorityType")
+                .leftJoin("work_orders.property", "properties",)
+                .leftJoin("work_orders.createdBy", "createdBy")
+                .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
+                .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
                 .where(filterQueries)
                 .orderBy(workOrderSort, ordering)
                 .skip(queries.pageSize * (queries.pageNumber - 1))
                 .take(queries.pageSize)
                 .getMany();
             return workorders;
-        } else if (queries.searchTerm != null) {
+        } else{
             const workorders = await this.getRepositoryConnection(WorkOrder)
                 .createQueryBuilder("work_orders")
+                .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
+                .leftJoinAndSelect("work_orders.sectorType", "sectorType")
+                .leftJoinAndSelect("work_orders.priorityType", "priorityType")
+                .leftJoin("work_orders.property", "properties",)
+                .leftJoin("work_orders.createdBy", "createdBy")
+                .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
+                .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
                 .where(filterQueries)
                 .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
                 .orderBy(workOrderSort, ordering)

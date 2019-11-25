@@ -24,4 +24,12 @@ workOrderController.get('/', auth, async(req: Request, res: Response) => {
     } 
 })
 
+workOrderController.get('/:id', auth, async(req: Request, res: Response) => {
+    try {
+        const workOrder = await workOrderService.getWorkOrder(Number(req.params.id));
+        return res.status(200).json(workOrderMapper.toDTO(workOrder));
+    } catch (err) {
+        return handleError(err, res);
+    }
+})
 export {workOrderController};

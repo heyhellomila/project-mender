@@ -15,6 +15,7 @@ import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
 import { User } from '../entities/User';
+import {OrderingByType} from '../enums/OrderingByType';
 
 class WorkOrderService {
 
@@ -66,7 +67,90 @@ class WorkOrderService {
     }
 
     async getWorkOrders(queries: any) {
-        return await this.workOrderRepository.getWorkOrders(queries);
+        let ordering = OrderingByType.ASC;
+        let workOrderSort = null;
+        if(!queries.pageSize || !queries.pageNumber){
+            throw new BadRequestError("Please enter a pageSize and a pageNumber");
+        }
+        let workOrderSortMapper = new Map();
+        workOrderSortMapper.set("id", "work_orders.id")
+        workOrderSortMapper.set("dueDate", "work_orders.dueDate")
+        workOrderSortMapper.set("createdDate", "work_orders.createdDate")
+        workOrderSortMapper.set("priceEstimate", "work_orders.priceEstimate")
+
+        workOrderSort = workOrderSortMapper.get(queries.sortBy)
+        if (queries.ordering == "DESC") {
+            ordering = OrderingByType.DESC
+        }
+        var filterQueries = "";
+        if (queries.id) {
+            filterQueries += "work_orders.id = " + queries.id
+        }
+        if (queries.propertyId) {
+            if (filterQueries == "") {
+                filterQueries += "work_orders.property = " + queries.propertyId
+            } else {
+                filterQueries += "&& work_orders.property = " + queries.propertyId
+            }
+        }
+        if (queries.sectorType) {
+            if (filterQueries == "") {
+                filterQueries += "work_orders.sectorType = " + queries.sectorType
+            } else {
+                filterQueries += "&& work_orders.sectorType = " + queries.sectorType
+            }
+        }
+        if (queries.workOrderType) {
+            if (filterQueries == "") {
+                filterQueries += "work_orders.workOrderType = " + queries.workOrderType
+            } else {
+                filterQueries += "&& work_orders.workOrderType = " + queries.workOrderType
+            }
+        }
+        if (queries.serviceNeeded) {
+            if (filterQueries == "") {
+                filterQueries += "work_orders.serviceNeeded = " + queries.serviceNeeded
+            } else {
+                filterQueries += "&& work_orders.serviceNeeded = " + queries.serviceNeeded
+            }
+        }
+        if (queries.priorityType) {
+            if (filterQueries == "") {
+                filterQueries += "work_orders.priorityType = " + queries.priorityType
+            } else {
+                filterQueries += "&& work_orders.priorityType = " + queries.priorityType
+            }
+        }
+        if (queries.priceEstimate) {
+            if (filterQueries == "") {
+                filterQueries += "work_orders.priceEstimate = " + queries.priceEstimate
+            } else {
+                filterQueries += "&& work_orders.priceEstimate = " + queries.priceEstimate
+            }
+        }
+        if(queries.greaterThan){
+            if (filterQueries == "") {
+                filterQueries += "work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
+            } else {
+                filterQueries += "&& work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
+            }
+        }
+        if(queries.lowerThan){
+            if (filterQueries == "") {
+                filterQueries += "work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
+            } else {
+                filterQueries += "&& work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
+            }
+        }
+        return await this.workOrderRepository.getWorkOrders(filterQueries, queries, workOrderSort, ordering);
+    }
+    async getWorkOrder(id: number) {
+        const workOrder : WorkOrder = await this.workOrderRepository.getWorkOrderById(id,
+            WorkOrderFields);
+        if (!workOrder) {
+            throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
+        }
+        return workOrder;
     }
 }
 
