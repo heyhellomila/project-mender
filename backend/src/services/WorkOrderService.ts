@@ -68,23 +68,31 @@ class WorkOrderService {
 
     async getWorkOrders(queries: any) {
         let ordering = OrderingByType.ASC;
-        let workOrderSort = null;
         if (!queries.pageSize || !queries.pageNumber) {
             throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber");
         }
         if(queries.pageSize < 1 || queries.pageSize > 10){
             throw new BadRequestError("pageSize parameter must at least 1 and no greater than 10")
         }
+        if (queries.ordering == "DESC") {
+            ordering = OrderingByType.DESC
+        }
+        let workOrderSort = this.getWorkOrderSort(queries);
+        let filterQueries = this.getFilterQueries(queries)
+
+        return await this.workOrderRepository.getWorkOrders(filterQueries, queries, workOrderSort, ordering);
+    }
+
+    getWorkOrderSort(queries: any){
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
         workOrderSortMapper.set("dueDate", "work_orders.dueDate")
         workOrderSortMapper.set("createdDate", "work_orders.createdDate")
         workOrderSortMapper.set("priceEstimate", "work_orders.priceEstimate")
+        return workOrderSortMapper.get(queries.sortBy)
+    }
 
-        workOrderSort = workOrderSortMapper.get(queries.sortBy)
-        if (queries.ordering == "DESC") {
-            ordering = OrderingByType.DESC
-        }
+    getFilterQueries(queries:any){
         var filterQueries = "";
         if (queries.id) {
             filterQueries += "work_orders.id = " + queries.id
@@ -145,7 +153,7 @@ class WorkOrderService {
                 filterQueries += "&& work_orders." + queries.lowerThan + " < " + queries.lowerThanValue
             }
         }
-        return await this.workOrderRepository.getWorkOrders(filterQueries, queries, workOrderSort, ordering);
+        return filterQueries;
     }
 
     async getWorkOrder(id: number) {
