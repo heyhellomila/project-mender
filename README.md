@@ -1,5 +1,5 @@
 # Project Mender
-[![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
+[![CircleCI](https://circleci.com/gh/milaroisin/project-mender/tree/master.svg?style=svg&circle-token=161d9b3dbb9771c1b5168d8b7ef2e8a2dbef19bf)](https://circleci.com/gh/milaroisin/project-mender/tree/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0b0ecc9244c745a3b3c804f2226d5ae9)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=milaroisin/project-mender&amp;utm_campaign=Badge_Grade)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
