@@ -7,8 +7,11 @@ import { BaseRepository } from './BaseRepository';
 import { WorkOrderFields } from '../constants/FindOptionsFields';
 import { FindOptions } from 'typeorm';
 import { User } from '../entities/User';
+import {OrderingByType} from '../enums/OrderingByType';
+
 import enumerate = Reflect.enumerate;
 import set = Reflect.set;
+
 class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrderById(id: number, fieldOptions?: FindOptions<WorkOrder>) {
@@ -16,7 +19,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         return workorder;
     }
 
-    async getWorkOrders(filterQueries: any, queries: any, workOrderSort: any, ordering: any ) {
+    async getWorkOrders(filterQueries: string, pageSize: number, pageNumber: number, searchTerm: string,workOrderSort: string, ordering: OrderingByType ) {
 
         const workorders = await this.getRepositoryConnection(WorkOrder)
             .createQueryBuilder("work_orders")
@@ -28,10 +31,10 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
             .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
             .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
             .where(filterQueries)
-            .andWhere(queries.searchTerm != null ? "concat(cause, title, description) like :searchTerm" : '1=1',{searchTerm: '%' + queries.searchTerm + '%'})
+            .andWhere(searchTerm != null ? "concat(cause, title, description) like :searchTerm" : '1=1',{searchTerm: '%' + searchTerm + '%'})
             .orderBy(workOrderSort, ordering)
-            .skip(queries.pageSize * (queries.pageNumber - 1))
-            .take(queries.pageSize)
+            .skip(pageSize * (pageNumber - 1))
+            .take(pageSize)
             .getMany();
         return workorders;
     }
