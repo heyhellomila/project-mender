@@ -69,7 +69,7 @@ class WorkOrderService {
     async getWorkOrders(queries: any) {
         let ordering = OrderingByType.ASC;
         if (!queries.pageSize || !queries.pageNumber) {
-            throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber");
+            throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
         }
         if(queries.pageSize < 1 || queries.pageSize > 10){
             throw new BadRequestError("pageSize parameter must at least 1 and no greater than 10")
