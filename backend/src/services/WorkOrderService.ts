@@ -66,7 +66,7 @@ class WorkOrderService {
         }
     }
 
-    async getWorkOrders(queriesMapper: Map<string,string>) {
+    async getWorkOrders(queriesMapper: Map<string, string>) {
         let ordering = OrderingByType.ASC;
         if (!queriesMapper.get("pageSize") || !queriesMapper.get("pageNumber")) {
             throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
@@ -86,7 +86,7 @@ class WorkOrderService {
         return await this.workOrderRepository.getWorkOrders(filterQueries, pageSize, pageNumber, searchTerm, workOrderSort, ordering);
     }
 
-    private getWorkOrderSort(queriesMapper: Map<string,string>){
+    private getWorkOrderSort(queriesMapper: Map<string, string>){
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
         workOrderSortMapper.set("dueDate", "work_orders.dueDate")

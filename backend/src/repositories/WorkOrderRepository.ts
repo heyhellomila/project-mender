@@ -19,7 +19,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         return workorder;
     }
 
-    async getWorkOrders(filterQueries: string, pageSize: number, pageNumber: number, searchTerm: string,workOrderSort: string, ordering: OrderingByType ) {
+    async getWorkOrders(filterQueries: string, pageSize: number, pageNumber: number, searchTerm: string, workOrderSort: string, ordering: OrderingByType) {
 
         const workorders = await this.getRepositoryConnection(WorkOrder)
             .createQueryBuilder("work_orders")

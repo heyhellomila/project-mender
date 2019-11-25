@@ -12,8 +12,8 @@ const workOrderController = express.Router();
 
 workOrderController.get('/', auth, async(req: Request, res: Response) => {
     let queryMapper = new Map();
-    for (let member in req.query) {
-        queryMapper.set(member, req.query[member]);
+    for (let queries in req.query) {
+        queryMapper.set(queries, req.query[queries]);
     }
     try {
         const workOrders = await workOrderService.getWorkOrders(queryMapper);
