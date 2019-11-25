@@ -83,7 +83,7 @@ class WorkOrderService {
         return await this.workOrderRepository.getWorkOrders(filterQueries, queries, workOrderSort, ordering);
     }
 
-    getWorkOrderSort(queries: any){
+    private getWorkOrderSort(queries: any){
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
         workOrderSortMapper.set("dueDate", "work_orders.dueDate")
@@ -92,7 +92,7 @@ class WorkOrderService {
         return workOrderSortMapper.get(queries.sortBy)
     }
 
-    getFilterQueries(queries:any){
+    private getFilterQueries(queries:any){
         var filterQueries = "";
         if (queries.id) {
             filterQueries += "work_orders.id = " + queries.id
