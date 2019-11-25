@@ -18,40 +18,22 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrders(filterQueries: any, queries: any, workOrderSort: any, ordering: any ) {
 
-        if (queries.searchTerm == null) {
-            const workorders = await this.getRepositoryConnection(WorkOrder)
-                .createQueryBuilder("work_orders")
-                .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
-                .leftJoinAndSelect("work_orders.sectorType", "sectorType")
-                .leftJoinAndSelect("work_orders.priorityType", "priorityType")
-                .leftJoin("work_orders.property", "properties",)
-                .leftJoin("work_orders.createdBy", "createdBy")
-                .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
-                .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
-                .where(filterQueries)
-                .orderBy(workOrderSort, ordering)
-                .skip(queries.pageSize * (queries.pageNumber - 1))
-                .take(queries.pageSize)
-                .getMany();
-            return workorders;
-        } else{
-            const workorders = await this.getRepositoryConnection(WorkOrder)
-                .createQueryBuilder("work_orders")
-                .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
-                .leftJoinAndSelect("work_orders.sectorType", "sectorType")
-                .leftJoinAndSelect("work_orders.priorityType", "priorityType")
-                .leftJoin("work_orders.property", "properties",)
-                .leftJoin("work_orders.createdBy", "createdBy")
-                .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
-                .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
-                .where(filterQueries)
-                .andWhere("concat(cause, title, description) like :searchTerm", {searchTerm: '%' + queries.searchTerm + '%'})
-                .orderBy(workOrderSort, ordering)
-                .skip(queries.pageSize * (queries.pageNumber - 1))
-                .take(queries.pageSize)
-                .getMany();
-            return workorders;
-        }
+        const workorders = await this.getRepositoryConnection(WorkOrder)
+            .createQueryBuilder("work_orders")
+            .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
+            .leftJoinAndSelect("work_orders.sectorType", "sectorType")
+            .leftJoinAndSelect("work_orders.priorityType", "priorityType")
+            .leftJoin("work_orders.property", "properties",)
+            .leftJoin("work_orders.createdBy", "createdBy")
+            .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
+            .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
+            .where(filterQueries)
+            .andWhere(queries.searchTerm != null ? "concat(cause, title, description) like :searchTerm" : '1=1',{searchTerm: '%' + queries.searchTerm + '%'})
+            .orderBy(workOrderSort, ordering)
+            .skip(queries.pageSize * (queries.pageNumber - 1))
+            .take(queries.pageSize)
+            .getMany();
+        return workorders;
     }
 
     async getWorkOrdersByProperty(property: Property, fieldOptions?: FindOptions<WorkOrder>) {

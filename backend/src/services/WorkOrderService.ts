@@ -69,8 +69,14 @@ class WorkOrderService {
     async getWorkOrders(queries: any) {
         let ordering = OrderingByType.ASC;
         let workOrderSort = null;
-        if(!queries.pageSize || !queries.pageNumber){
-            throw new BadRequestError("Please enter a pageSize and a pageNumber");
+        if (!queries.pageSize || !queries.pageNumber) {
+            if (!queries.pageSize && queries.pageNumber) {
+                throw new BadRequestError("Please enter a pageSize");
+            } else if (queries.pageSize && !queries.pageNumber) {
+                throw new BadRequestError("Please enter a pageNumber");
+            } else {
+                throw new BadRequestError("Please enter a pageSize and a pageNumber");
+            }
         }
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
