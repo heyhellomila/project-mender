@@ -1,40 +1,40 @@
-import { BadRequestError } from '../errors/BadRequestError';
-import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
-import { SectorType as SectorTypeEnum } from '../enums/SectorType';
-import { PriorityType as PriorityTypeEnum } from '../enums/PriorityType';
-import { WorkOrderType as WorkOrderTypeEnum } from '../enums/WorkOrderType';
-import { PropertyService } from './PropertyService';
-import { SectorType } from '../entities/SectorType';
-import { SectorTypeService } from './SectorTypeService';
-import { PriorityTypeService } from './PriorityTypeService';
-import { WorkOrderTypeService } from './WorkOrderTypeService';
-import { PriorityType } from '../entities/PriorityType';
-import { WorkOrderType } from '../entities/WorkOrderType';
-import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
-import { Property } from '../entities/Property';
-import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
-import { User } from '../entities/User';
+import {BadRequestError} from '../errors/BadRequestError';
+import {ResourceNotFoundError} from '../errors/ResourceNotFoundError';
+import {SectorType as SectorTypeEnum} from '../enums/SectorType';
+import {PriorityType as PriorityTypeEnum} from '../enums/PriorityType';
+import {WorkOrderType as WorkOrderTypeEnum} from '../enums/WorkOrderType';
+import {PropertyService} from './PropertyService';
+import {SectorType} from '../entities/SectorType';
+import {SectorTypeService} from './SectorTypeService';
+import {PriorityTypeService} from './PriorityTypeService';
+import {WorkOrderTypeService} from './WorkOrderTypeService';
+import {PriorityType} from '../entities/PriorityType';
+import {WorkOrderType} from '../entities/WorkOrderType';
+import {WorkOrderRepository} from '../repositories/WorkOrderRepository';
+import {Property} from '../entities/Property';
+import {WorkOrder} from '../entities/WorkOrder';
+import {WorkOrderFields, WorkOrderFieldsNoProperty} from '../constants/FindOptionsFields';
+import {User} from '../entities/User';
 import {OrderingByType} from '../enums/OrderingByType';
 
 class WorkOrderService {
 
-    private propertyService : PropertyService = new PropertyService();
-    private sectorTypeService : SectorTypeService = new SectorTypeService();
-    private priorityTypeService : PriorityTypeService = new PriorityTypeService();
-    private workOrderTypeService : WorkOrderTypeService = new WorkOrderTypeService();
-    private workOrderRepository : WorkOrderRepository = new WorkOrderRepository();
+    private propertyService: PropertyService = new PropertyService();
+    private sectorTypeService: SectorTypeService = new SectorTypeService();
+    private priorityTypeService: PriorityTypeService = new PriorityTypeService();
+    private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
+    private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
 
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
-            
+
         if (!(await this.propertyService.propertyExists(propertyId))) {
-            throw new ResourceNotFoundError("Property " + propertyId + 
+            throw new ResourceNotFoundError("Property " + propertyId +
                 " does not exist.");
         }
 
-        var createdBy : User = new User();
+        var createdBy: User = new User();
         createdBy.id = createdByUserId;
-        var property : Property = new Property();
+        var property: Property = new Property();
         property.id = propertyId;
 
         workOrder.sectorType = await this.sectorTypeService
@@ -54,7 +54,7 @@ class WorkOrderService {
     }
 
     async getWorkOrdersByPropertyId(propertyId: number) {
-        const property : Property = await this.propertyService.getPropertyById(propertyId);
+        const property: Property = await this.propertyService.getPropertyById(propertyId);
         if (!property) {
             throw new ResourceNotFoundError("Property with id " + propertyId + " does not exist.")
         }
@@ -70,13 +70,7 @@ class WorkOrderService {
         let ordering = OrderingByType.ASC;
         let workOrderSort = null;
         if (!queries.pageSize || !queries.pageNumber) {
-            if (!queries.pageSize && queries.pageNumber) {
-                throw new BadRequestError("Please enter a pageSize");
-            } else if (queries.pageSize && !queries.pageNumber) {
-                throw new BadRequestError("Please enter a pageNumber");
-            } else {
-                throw new BadRequestError("Please enter a pageSize and a pageNumber");
-            }
+            throw new BadRequestError("Missing required parameter. Required parameters: pageSize + pageNumber");
         }
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
@@ -134,24 +128,25 @@ class WorkOrderService {
                 filterQueries += "&& work_orders.priceEstimate = " + queries.priceEstimate
             }
         }
-        if(queries.greaterThan){
+        if (queries.greaterThan) {
             if (filterQueries == "") {
-                filterQueries += "work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
+                filterQueries += "work_orders." + queries.greaterThan + " > " + queries.greaterThanValue
             } else {
-                filterQueries += "&& work_orders."+queries.greaterThan+" > " + queries.greaterThanValue
+                filterQueries += "&& work_orders." + queries.greaterThan + " > " + queries.greaterThanValue
             }
         }
-        if(queries.lowerThan){
+        if (queries.lowerThan) {
             if (filterQueries == "") {
-                filterQueries += "work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
+                filterQueries += "work_orders." + queries.lowerThan + " < " + queries.lowerThanValue
             } else {
-                filterQueries += "&& work_orders."+queries.lowerThan+" < " + queries.lowerThanValue
+                filterQueries += "&& work_orders." + queries.lowerThan + " < " + queries.lowerThanValue
             }
         }
         return await this.workOrderRepository.getWorkOrders(filterQueries, queries, workOrderSort, ordering);
     }
+
     async getWorkOrder(id: number) {
-        const workOrder : WorkOrder = await this.workOrderRepository.getWorkOrderById(id,
+        const workOrder: WorkOrder = await this.workOrderRepository.getWorkOrderById(id,
             WorkOrderFields);
         if (!workOrder) {
             throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
@@ -160,4 +155,4 @@ class WorkOrderService {
     }
 }
 
-export { WorkOrderService };
+export {WorkOrderService};
