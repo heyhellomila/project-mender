@@ -35,7 +35,7 @@ export class WorkOrder {
     @Column()
     cause: string
 
-    @Column({name: 'service_needed', type: 'bit'})
+    @Column({name: 'service_needed', type: 'bit', transformer: { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
     serviceNeeded: Boolean
 
     @ManyToOne(type => PriorityType)
