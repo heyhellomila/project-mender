@@ -78,7 +78,7 @@ class WorkOrderService {
             ordering = OrderingByType.DESC
         }
         let workOrderSort = this.getWorkOrderSort(queryMap);
-        let filterQueries = this.getFilterQueries(queryMap)
+        let filterQueries = this.getFilterQueries(queryMap);
 
         return await this.workOrderRepository.getWorkOrders(filterQueries, queryMap, workOrderSort, ordering);
     }

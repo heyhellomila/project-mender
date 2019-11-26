@@ -20,7 +20,6 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
     }
 
     async getWorkOrders(filterQueries: string, queryMap: Map<string, string>, workOrderSort: string, ordering: OrderingByType) {
-
         const workorders = await this.getRepositoryConnection(WorkOrder)
             .createQueryBuilder("work_orders")
             .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
