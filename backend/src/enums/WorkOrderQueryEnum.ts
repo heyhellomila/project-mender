@@ -2,7 +2,7 @@ export enum WorkOrderQuery {
     'SECTORTYPE' = 'sectorType',
     'PAGESIZE' = 'pageSize',
     'PAGENUMBER' = 'pageNumber',
-    'SEARCHTERM' = 'searchterm',
+    'SEARCHTERM' = 'searchTerm',
     'PROPERTYID' = 'propertyId',
     'WORKORDERTYPE' = 'workOrderType',
     'SERVICENEEDED' = 'serviceNeeded',
