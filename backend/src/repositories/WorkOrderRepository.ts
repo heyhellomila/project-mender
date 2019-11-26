@@ -19,7 +19,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         return workorder;
     }
 
-    async getWorkOrders(filterQueries: string, queryMap: Map<string, string>, workOrderSort: string, ordering: OrderingByType) {
+    async getWorkOrders(filterQueries: string, pageNumber: number, pageSize: number, searchTerm: string, workOrderSort: string, ordering: OrderingByType) {
         const workorders = await this.getRepositoryConnection(WorkOrder)
             .createQueryBuilder("work_orders")
             .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
@@ -30,10 +30,10 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
             .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
             .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
             .where(filterQueries)
-            .andWhere(queryMap.get("searchTerm") !=null  ? "concat(cause, title, description) like :searchTerm" : '1=1',{searchTerm: '%' + queryMap.get("searchTerm") + '%'})
+            .andWhere(searchTerm != null  ? "concat(cause, title, description) like :searchTerm" : '1=1',{searchTerm: '%' + searchTerm + '%'})
             .orderBy(workOrderSort, ordering)
-            .skip(parseInt(queryMap.get("pageSize")) * (parseInt(queryMap.get("pageNumber")) - 1))
-            .take(parseInt(queryMap.get("pageSize")))
+            .skip(pageSize * (pageNumber- 1))
+            .take(pageSize)
             .getMany();
         return workorders;
     }
