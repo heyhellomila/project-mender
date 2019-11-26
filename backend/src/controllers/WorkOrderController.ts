@@ -11,12 +11,12 @@ const workOrderMapper = new WorkOrderMapper();
 const workOrderController = express.Router();
 
 workOrderController.get('/', auth, async(req: Request, res: Response) => {
-    let queryMapper = new Map();
+    let queryMap = new Map();
     for (let queries in req.query) {
-        queryMapper.set(queries, req.query[queries]);
+        queryMap.set(queries, req.query[queries]);
     }
     try {
-        const workOrders = await workOrderService.getWorkOrders(queryMapper);
+        const workOrders = await workOrderService.getWorkOrders(queryMap);
         var workOrderDTOs : WorkOrderDTO[] = [];
         workOrders.map((workOrder) => {
             workOrderDTOs.push(workOrderMapper.toDTO(workOrder));

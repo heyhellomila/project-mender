@@ -66,94 +66,91 @@ class WorkOrderService {
         }
     }
 
-    async getWorkOrders(queriesMapper: Map<string, string>) {
+    async getWorkOrders(queryMap: Map<string, string>) {
         let ordering = OrderingByType.ASC;
-        if (!queriesMapper.get("pageSize") || !queriesMapper.get("pageNumber")) {
+        if (!queryMap.get("pageSize") || !queryMap.get("pageNumber")) {
             throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
         }
-        if(parseInt(queriesMapper.get("pageSize")) < 1 || parseInt(queriesMapper.get("pageSize"))  > 10){
+        if(parseInt(queryMap.get("pageSize")) < 1 || parseInt(queryMap.get("pageSize"))  > 10){
             throw new BadRequestError("pageSize parameter must be at least 1 and no greater than 10")
         }
-        let pageSize = parseInt(queriesMapper.get("pageSize"));
-        let pageNumber = parseInt(queriesMapper.get("pageNumber"));
-        let searchTerm = queriesMapper.get("searchTerm");
-        if (queriesMapper.get("ordering") == "DESC") {
+        if (queryMap.get("ordering") == "DESC") {
             ordering = OrderingByType.DESC
         }
-        let workOrderSort = this.getWorkOrderSort(queriesMapper);
-        let filterQueries = this.getFilterQueries(queriesMapper)
+        let workOrderSort = this.getWorkOrderSort(queryMap);
+        let filterQueries = this.getFilterQueries(queryMap)
 
-        return await this.workOrderRepository.getWorkOrders(filterQueries, pageSize, pageNumber, searchTerm, workOrderSort, ordering);
+        return await this.workOrderRepository.getWorkOrders(filterQueries, queryMap, workOrderSort, ordering);
     }
 
-    private getWorkOrderSort(queriesMapper: Map<string, string>){
+    private getWorkOrderSort(queryMap: Map<string, string>){
         let workOrderSortMapper = new Map();
         workOrderSortMapper.set("id", "work_orders.id")
         workOrderSortMapper.set("dueDate", "work_orders.dueDate")
         workOrderSortMapper.set("createdDate", "work_orders.createdDate")
         workOrderSortMapper.set("priceEstimate", "work_orders.priceEstimate")
-        return workOrderSortMapper.get(queriesMapper.get("sortBy"))
+        return workOrderSortMapper.get(queryMap.get("sortBy"))
     }
 
-    private getFilterQueries(queriesMapper: Map<string, string>){
+    private getFilterQueries(queryMap: Map<string, string>){
         var filterQueries = "";
-        if (queriesMapper.get("id")) {
-            filterQueries += "work_orders.id = " + queriesMapper.get("id")
+        if (queryMap.get("id")) {
+            filterQueries += "work_orders.id = " + queryMap.get("id")
         }
-        if (queriesMapper.get("propertyId")) {
+        if (queryMap.get("propertyId")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders.property = " + queriesMapper.get("propertyId")
+                filterQueries += "work_orders.property = " + queryMap.get("propertyId")
             } else {
-                filterQueries += "&& work_orders.property = " + queriesMapper.get("propertyId")
+                filterQueries += "&& work_orders.property = " + queryMap.get("propertyId")
             }
         }
-        if (queriesMapper.get("sectorType")) {
+        if (queryMap.get("sectorType")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders.sectorType = " + queriesMapper.get("sectorType")
+                filterQueries += "work_orders.sectorType = " + queryMap.get("sectorType")
             } else {
-                filterQueries += "&& work_orders.sectorType = " + queriesMapper.get("sectorType")
+                filterQueries += "&& work_orders.sectorType = " + queryMap.get("sectorType")
             }
         }
-        if (queriesMapper.get("workOrderType")) {
+        if (queryMap.get("workOrderType")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders.workOrderType = " + queriesMapper.get("workOrderType")
+                filterQueries += "work_orders.workOrderType = " + queryMap.get("workOrderType")
             } else {
-                filterQueries += "&& work_orders.workOrderType = " + queriesMapper.get("workOrderType")
+                filterQueries += "&& work_orders.workOrderType = " + queryMap.get("workOrderType")
             }
         }
-        if (queriesMapper.get("serviceNeeded")) {
+        if (queryMap.get("serviceNeeded")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders.serviceNeeded = " + queriesMapper.get("serviceNeeded")
+                filterQueries += "work_orders.serviceNeeded = " + queryMap.get("serviceNeeded")
             } else {
-                filterQueries += "&& work_orders.serviceNeeded = " + queriesMapper.get("serviceNeeded")
+                filterQueries += "&& work_orders.serviceNeeded = " + queryMap.get("serviceNeeded")
             }
         }
-        if (queriesMapper.get("priorityType")) {
+        if (queryMap.get("priorityType")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders.priorityType = " + queriesMapper.get("priorityType")
+                filterQueries += "work_orders.priorityType = " + queryMap.get("priorityType")
             } else {
-                filterQueries += "&& work_orders.priorityType = " + queriesMapper.get("priorityType")
+                filterQueries += "&& work_orders.priorityType = " + queryMap.get("priorityType")
             }
         }
-        if (queriesMapper.get("priceEstimate")) {
+        if (queryMap.get("priceEstimate")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders.priceEstimate = " + queriesMapper.get("priceEstimate")
+                filterQueries += "work_orders.priceEstimate = " + queryMap.get("priceEstimate")
             } else {
-                filterQueries += "&& work_orders.priceEstimate = " + queriesMapper.get("priceEstimate")
+                filterQueries += "&& work_orders.priceEstimate = " + queryMap.get("priceEstimate")
             }
         }
-        if (queriesMapper.get("greaterThan")) {
+        if (queryMap.get("greaterThan")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders." + queriesMapper.get("greaterThan") + " > " + queriesMapper.get("greaterThanValue")
+                filterQueries += "work_orders." + queryMap.get("greaterThan") + " > " + queryMap.get("greaterThanValue")
             } else {
-                filterQueries += "&& work_orders." + queriesMapper.get("greaterThan") + " > " + queriesMapper.get("greaterThanValue")
+                filterQueries += "&& work_orders." + queryMap.get("greaterThan") + " > " + queryMap.get("greaterThanValue")
             }
         }
-        if (queriesMapper.get("lowerThan")) {
+        if (queryMap.get("lowerThan")) {
             if (filterQueries == "") {
-                filterQueries += "work_orders." + queriesMapper.get("lowerThan") + " < " + queriesMapper.get("lowerThanValue")
+                filterQueries += "work_orders." + queryMap.get("lowerThan") + " < " + queryMap.get("lowerThanValue")
             } else {
-                filterQueries += "&& work_orders." + queriesMapper.get("lowerThan") + " < " + queriesMapper.get("lowerThanValue")
+                filterQueries += "&& work_orders." + queryMap.get("lowerThan") + " < " + queryMap.get("lowerThanValue")
             }
         }
         return filterQueries;
