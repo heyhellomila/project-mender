@@ -70,7 +70,6 @@ class WorkOrderService {
     async getWorkOrders(queryMap: Map<string, string>) {
         let ordering = OrderingByType.ASC;
         let test = WorkOrderQuery.SECTORTYPE
-        console.log(test)
         if (!queryMap.get(WorkOrderQuery.PAGESIZE) || !queryMap.get(WorkOrderQuery.PAGENUMBER)) {
             throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
         }
@@ -97,6 +96,11 @@ class WorkOrderService {
         workOrderSortMapper.set(WorkOrderQuery.DUEDATE, "work_orders.dueDate")
         workOrderSortMapper.set(WorkOrderQuery.CREATEDDATE, "work_orders.createdDate")
         workOrderSortMapper.set(WorkOrderQuery.PRICEESTIMATE, "work_orders.priceEstimate")
+        
+        if(queryMap.get(WorkOrderQuery.SORTBY) != null && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))){
+            throw new BadRequestError(queryMap.get(WorkOrderQuery.SORTBY) + " is an invalid parameter for sorting. Accepted sorting parameters are: [" + Array.from(workOrderSortMapper.keys()) + "]")
+        }
+
         return workOrderSortMapper.get(queryMap.get(WorkOrderQuery.SORTBY))
     }
 
