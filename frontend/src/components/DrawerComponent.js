@@ -64,4 +64,4 @@ const mapStateToProps = state => ({
     property: state.property
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent)    ;
