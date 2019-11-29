@@ -9,10 +9,11 @@ create table property_types(
     'DUPLEX', 'TRIPLEX', 'MULTIPLEX', 'COTTAGE', 'MOBILE_HOME') NOT NULL UNIQUE
 );
 
-create table sector_types(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    type ENUM('ROOF', 'KITCHEN', 'UTILITIES', 'LIVING_ROOM', 'BATHROOM',
-    'APPLIANCES', 'BEDROOM', 'BALCONY', 'GARAGE', 'ENVELOPE', 'ELECTRICAL', 'HVAC') NOT NULL UNIQUE
+create table sectors(
+    id bigint AUTO_INCREMENT PRIMARY KEY,
+    type varchar(255) NOT NULL,
+    kind varchar(255) NOT NULL,
+    UNIQUE(type, kind)
 );
 
 create table activity_status(
@@ -57,10 +58,18 @@ create table properties(
         REFERENCES activity_status(id)
 );
 
+create table property_sectors(
+    id bigint AUTO_INCREMENT PRIMARY KEY,
+    property_id bigint NOT NULL,
+    sector_id bigint NOT NULL,
+    FOREIGN KEY (property_id) REFERENCES  properties(id),
+    FOREIGN KEY (sector_id) REFERENCES sectors(id)
+);
+
 create table work_orders(
     id bigint AUTO_INCREMENT PRIMARY KEY,
     property_id bigint NOT NULL,
-    sector_type_id int NOT NULL,
+    sector_id bigint NOT NULL,
     work_order_type_id int NOT NULL,
     title varchar(36) NOT NULL,
     cause varchar(36) NOT NULL,
@@ -77,8 +86,8 @@ create table work_orders(
     actual_cost BIGINT,
     FOREIGN KEY (property_id)
         REFERENCES properties(id),
-    FOREIGN KEY (sector_type_id)
-        REFERENCES sector_types(id),
+    FOREIGN KEY (sector_id)
+        REFERENCES sectors(id),
     FOREIGN KEY (work_order_type_id)
         REFERENCES work_order_types(id),
     FOREIGN KEY (priority_type_id)
@@ -94,9 +103,28 @@ insert into priority_types (type) VALUES ('LOW'), ('MEDIUM'), ('HIGH');
 insert into property_types (type) VALUES ('CONDOMINIUM'), ('SINGLE_FAMILY_HOME'), 
     ('TOWNHOUSE'), ('DUPLEX'), ('TRIPLEX'), ('MULTIPLEX'), ('COTTAGE'), ('MOBILE_HOME');
 
-insert into sector_types (type) VALUES ('ROOF'), ('KITCHEN'), ('UTILITIES'), 
-    ('LIVING_ROOM'), ('BATHROOM'), ('APPLIANCES'), ('BEDROOM'), ('BALCONY'), 
-    ('GARAGE'), ('ENVELOPE'), ('ELECTRICAL'), ('HVAC');
+insert into sectors (type, kind) VALUES ('BUILDING', 'ROOF'), ('BUILDING', 'ENVELOPE'),
+                                        ('BUILDING', 'GARAGE'), ('BUILDING', 'WINDOWS & DOORS'),
+                                        ('BUILDING', 'INSULATION'), ('ELECTRICITY', 'ELECTRICAL METER'),
+                                        ('ELECTRICITY', 'ELECTRICAL PANEL AND WIRING'),
+                                        ('ELECTRICITY', 'SWITCHES AND SOCKET OUTLET'),
+                                        ('ELECTRICITY', 'LIGHTS'), ('ELECTRICITY', 'SOLAR PANEL'),
+                                        ('STRUCTURE', 'FOUNDATION'), ('STRUCTURE', 'FRAMEWORK'),
+                                        ('STRUCTURE', 'STAIRS'), ('EXTERIOR', 'LANDSCAPE'),
+                                        ('EXTERIOR', 'PARKING SPACE'), ('EXTERIOR', 'DECKING'),
+                                        ('EXTERIOR', 'SWIMMING POOL'), ('UTILITY', 'HOT WATER TANK'),
+                                        ('UTILITY', 'PLUMBING'), ('UTILITY', 'MUNICIPAL WATER FEED'),
+                                        ('UTILITY', 'MUNICIPAL SEWAGE'), ('UTILITY', 'GROUNDWATER SYSTEM'),
+                                        ('UTILITY', 'WELL WATER'), ('HVAC', 'AIR EXCHANGER'),
+                                        ('HVAC', 'HEAT PUMP'), ('HVAC', 'AIR CONDITIONING'),
+                                        ('HVAC', 'CENTRAL SYSTEM'), ('HVAC', 'HOT WATER RADIATOR'),
+                                        ('HVAC', 'FUEL OIL HEATING SYSTEM'), ('HVAC', 'GAS HEATING SYSTEM'),
+                                        ('HVAC', 'AIR EXTRACTOR'), ('HVAC', 'HUMIDIFIER'),
+                                        ('HVAC', 'FIREPLACE'), ('INTERIOR FINISH', 'WALLS'),
+                                        ('INTERIOR FINISH', 'CEILING'), ('INTERIOR FINISH', 'FLOOR'),
+                                        ('INTERIOR FINISH', 'CABINET'), ('INTERIOR FINISH', 'DOORS'),
+                                        ('APPLIANCES AND FURNITURE', 'DISHWASHER'),
+                                        ('APPLIANCES AND FURNITURE', 'REFRIGERATOR');
 
 insert into activity_status (status) VALUES ('ACTIVE'), ('INACTIVE');
 

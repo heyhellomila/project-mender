@@ -1,6 +1,6 @@
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderType } from '../entities/WorkOrderType';
-import { SectorType } from '../entities/SectorType';
+import { Sector } from '../entities/Sector';
 import { PriorityType } from '../entities/PriorityType';
 import { Property } from '../entities/Property';
 import { BaseRepository } from './BaseRepository';

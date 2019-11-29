@@ -1,27 +1,21 @@
-import {BadRequestError} from '../errors/BadRequestError';
-import {ResourceNotFoundError} from '../errors/ResourceNotFoundError';
-import {SectorType as SectorTypeEnum} from '../enums/SectorType';
-import {PriorityType as PriorityTypeEnum} from '../enums/PriorityType';
-import {WorkOrderType as WorkOrderTypeEnum} from '../enums/WorkOrderType';
-import {PropertyService} from './PropertyService';
-import {SectorType} from '../entities/SectorType';
-import {SectorTypeService} from './SectorTypeService';
-import {PriorityTypeService} from './PriorityTypeService';
-import {WorkOrderTypeService} from './WorkOrderTypeService';
-import {PriorityType} from '../entities/PriorityType';
-import {WorkOrderType} from '../entities/WorkOrderType';
-import {WorkOrderRepository} from '../repositories/WorkOrderRepository';
-import {Property} from '../entities/Property';
-import {WorkOrder} from '../entities/WorkOrder';
-import {WorkOrderFields, WorkOrderFieldsNoProperty} from '../constants/FindOptionsFields';
-import {User} from '../entities/User';
-import {OrderingByType} from '../enums/OrderingByType';
-import {WorkOrderQuery} from '../enums/WorkOrderQueryEnum';
+import { BadRequestError } from '../errors/BadRequestError';
+import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
+import { PropertyService } from './PropertyService';
+import { SectorService } from './SectorService';
+import { PriorityTypeService } from './PriorityTypeService';
+import { WorkOrderTypeService } from './WorkOrderTypeService';
+import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
+import { Property } from '../entities/Property';
+import { WorkOrder } from '../entities/WorkOrder';
+import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
+import { User }  from '../entities/User';
+import { OrderingByType } from '../enums/OrderingByType';
+import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 
 class WorkOrderService {
 
     private propertyService: PropertyService = new PropertyService();
-    private sectorTypeService: SectorTypeService = new SectorTypeService();
+    private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
@@ -29,17 +23,16 @@ class WorkOrderService {
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
 
         if (!(await this.propertyService.propertyExists(propertyId))) {
-            throw new ResourceNotFoundError("Property " + propertyId +
-                " does not exist.");
+            throw new ResourceNotFoundError(`Property ${propertyId} does not exist.`);
         }
 
-        var createdBy: User = new User();
+        const createdBy: User = new User();
         createdBy.id = createdByUserId;
-        var property: Property = new Property();
+        const property: Property = new Property();
         property.id = propertyId;
 
-        workOrder.sectorType = await this.sectorTypeService
-            .getSectorType(workOrder.sectorType.type);
+        workOrder.sector = await this.sectorService
+            .getSectorByKind(workOrder.sector.kind);
         workOrder.priorityType = await this.priorityTypeService
             .getPriorityType(workOrder.priorityType.type);
         workOrder.workOrderType = await this.workOrderTypeService
@@ -57,11 +50,11 @@ class WorkOrderService {
     async getWorkOrdersByPropertyId(propertyId: number) {
         const property: Property = await this.propertyService.getPropertyById(propertyId);
         if (!property) {
-            throw new ResourceNotFoundError("Property with id " + propertyId + " does not exist.")
+            throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
         }
         try {
-            return await this.workOrderRepository.getWorkOrdersByProperty(property,
-                WorkOrderFieldsNoProperty);
+            return await this.workOrderRepository.getWorkOrdersByProperty(
+                property, WorkOrderFieldsNoProperty);
         } catch (err) {
             throw err;
         }
@@ -69,7 +62,6 @@ class WorkOrderService {
 
     async getWorkOrders(queryMap: Map<string, string>) {
         let ordering = OrderingByType.ASC;
-        let test = WorkOrderQuery.SECTORTYPE
         if (!queryMap.get(WorkOrderQuery.PAGESIZE) || !queryMap.get(WorkOrderQuery.PAGENUMBER)) {
             throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
         }

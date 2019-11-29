@@ -1,14 +1,15 @@
-import { PropertyDTO } from "./PropertyDTO";
-import { SectorTypeDTO } from "./SectorTypeDTO";
-import { WorkOrderTypeDTO } from "./WorkOrderTypeDTO";
-import { PriorityTypeDTO } from "./PriorityTypeDTO";
-import { UserDTO } from "./UserDTO";
+import { PropertyDTO } from './PropertyDTO';
+import { SectorDTO } from './SectorDTO';
+import { WorkOrderTypeDTO } from './WorkOrderTypeDTO';
+import { PriorityTypeDTO } from './PriorityTypeDTO';
+import { UserDTO } from './UserDTO';
 
 export class WorkOrderDTO {
-    
     id: number;
     property: PropertyDTO;
-    sectorType: SectorTypeDTO | string;
+    sector: SectorDTO;
+    sectorType: string;
+    sectorKind: string;
     workOrderType: WorkOrderTypeDTO | string;
     title: string;
     cause: string;
