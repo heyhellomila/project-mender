@@ -16,7 +16,7 @@ class Router {
         this.router.use('/api/properties', propertyController);
         this.router.use('/api/workOrders', workOrderController);
         this.router.use('/api/properties/:propertyId/workOrders', propertyWorkOrdersController);
-        this.router.use('/api/properties/:propertyId/sectors', propertySectorsController);
+        this.router.use('/api/propertySectors', propertySectorsController);
     }
 
     getRouter() {

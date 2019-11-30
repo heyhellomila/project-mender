@@ -3,8 +3,8 @@ import { PropertyService } from '../services/PropertyService';
 import { PropertyDTO } from '../dtos/PropertyDTO';
 import { PropertyMapper } from '../entity_mappers/PropertyMapper';
 import auth from '../middleware/auth';
-import handleError from '../utils/HttpUtils';
-import validateBody from '../middleware/requestValidation';
+import { handleError } from '../utils/HttpUtils';
+import { validateBody } from '../middleware/requestValidation';
 import { PropertyFields } from '../constants/BodyFields';
 
 const userPropertiesController = express.Router({mergeParams: true});

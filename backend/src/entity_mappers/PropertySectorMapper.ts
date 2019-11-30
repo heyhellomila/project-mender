@@ -1,18 +1,17 @@
 import { ObjectMapper } from './ObjectMapper';
-import { Sector } from '../entities/Sector';
 import { SectorDTO } from '../dtos/SectorDTO';
-import { SectorType as SectorTypeEnum } from '../enums/SectorType';
-import { SectorKind as SectorKindEnum } from '../enums/SectorKind';
-import { BadRequestError } from '../errors/BadRequestError';
-import {PropertySector} from "../entities/PropertySector";
-import {PropertySectorDTO} from "../dtos/PropertySectorDTO";
-import {PropertyMapper} from "./PropertyMapper";
-import {SectorMapper} from "./SectorTypeMapper";
+import { PropertySector } from '../entities/PropertySector';
+import { PropertySectorDTO } from '../dtos/PropertySectorDTO';
+import { PropertyMapper } from './PropertyMapper';
+import { SectorMapper } from './SectorTypeMapper';
+import { ActivityStatusMapper } from './ActivityStatusMapper';
+import { ActivityStatusDTO } from '../dtos/ActivityStatusDTO';
 
 class PropertySectorMapper implements ObjectMapper<PropertySector, PropertySectorDTO> {
 
     private propertyMapper : PropertyMapper = new PropertyMapper();
     private sectorMapper : SectorMapper = new SectorMapper();
+    private activityStatusMapper : ActivityStatusMapper = new ActivityStatusMapper();
 
     toDTO(propertySector: PropertySector) : PropertySectorDTO {
 
@@ -24,6 +23,7 @@ class PropertySectorMapper implements ObjectMapper<PropertySector, PropertySecto
         if (propertySector.sector) {
             propertySectorDTO.sector = this.sectorMapper.toDTO(propertySector.sector);
         }
+        propertySectorDTO.status = propertySector.status;
         return propertySectorDTO;
     }
 
@@ -32,6 +32,10 @@ class PropertySectorMapper implements ObjectMapper<PropertySector, PropertySecto
         if (propertySectorDTO.sectorKind) {
             propertySector.sector = this.sectorMapper.fromDTO(
                 new SectorDTO(propertySectorDTO.sectorKind));
+        }
+        if (propertySectorDTO.status) {
+            propertySector.status = this.activityStatusMapper.fromDTO(
+                new ActivityStatusDTO(propertySectorDTO.status)).status;
         }
         return propertySector;
     }

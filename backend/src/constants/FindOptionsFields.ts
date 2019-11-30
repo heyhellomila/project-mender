@@ -2,6 +2,7 @@ import { FindOptions } from 'typeorm';
 import { Property } from '../entities/Property';
 import { User } from '../entities/User';
 import { WorkOrder } from '../entities/WorkOrder';
+import { PropertySector } from '../entities/PropertySector';
 
 const PropertyFields : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
@@ -51,6 +52,7 @@ const UserFields : FindOptions<User> = {
             id: true,
             type: true,
         },
+        phoneNumber: true,
     },
 };
 
@@ -130,5 +132,15 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
     },
 };
 
+const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
+    relations: ['sector'],
+    select: {
+        id: true,
+        sector: {
+            id: true,
+        },
+    },
+};
+
 export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
-    WorkOrderFieldsNoProperty };
+    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };

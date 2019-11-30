@@ -62,8 +62,10 @@ create table property_sectors(
     id bigint AUTO_INCREMENT PRIMARY KEY,
     property_id bigint NOT NULL,
     sector_id bigint NOT NULL,
+    status ENUM('ACTIVE', 'INACTIVE') NOT NULL,
     FOREIGN KEY (property_id) REFERENCES  properties(id),
-    FOREIGN KEY (sector_id) REFERENCES sectors(id)
+    FOREIGN KEY (sector_id) REFERENCES sectors(id),
+    UNIQUE(property_id, sector_id)
 );
 
 create table work_orders(

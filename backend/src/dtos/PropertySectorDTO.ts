@@ -7,4 +7,5 @@ export class PropertySectorDTO {
     property: PropertyDTO;
     sector: SectorDTO;
     sectorKind: string;
+    status: string;
 }

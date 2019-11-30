@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column } from 'typeorm';
 import { Property } from './Property';
 import { Sector } from './Sector';
 
@@ -19,4 +19,7 @@ export class PropertySector {
         name: 'sector_id',
     })
     sector: Sector;
+
+    @Column()
+    status: string;
 }
