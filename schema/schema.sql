@@ -49,6 +49,10 @@ create table properties(
     property_type_id int NOT NULL,
     name varchar(36) NOT NULL,
     address varchar(100) NOT NULL,
+    city varchar(255) NOT NULL,
+    province ENUM('QC') NOT NULL,
+    postal_code varchar(6) NOT NULL,
+    country_code ENUM('CA') NOT NULL,
     activity_status_id int NOT NULL,
     FOREIGN KEY (user_id)
         REFERENCES users(id),
