@@ -96,59 +96,59 @@ class WorkOrderService {
         return workOrderSortMapper.get(queryMap.get(WorkOrderQuery.SORTBY))
     }
 
-    private getFilterQueries(queryMap: Map<string, string>){
-        var filterQueries = "";
-        
+    private getFilterQueries(queryMap: Map<string, string>) {
+        let filterQueries = '';
+
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
-                filterQueries += "work_orders.property = " + queryMap.get(WorkOrderQuery.PROPERTYID)
+            filterQueries += `work_orders.property = ${queryMap.get(WorkOrderQuery.PROPERTYID)}`;
         }
-        if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders.sectorType = " + queryMap.get(WorkOrderQuery.SECTORTYPE)
+        if (queryMap.get(WorkOrderQuery.SECTOR)) {
+            if (filterQueries === '') {
+                filterQueries += `work_orders.sector = ${queryMap.get(WorkOrderQuery.SECTOR)}`;
             } else {
-                filterQueries += "&& work_orders.sectorType = " + queryMap.get(WorkOrderQuery.SECTORTYPE)
+                filterQueries += `&& work_orders.sector = ${queryMap.get(WorkOrderQuery.SECTOR)}`;
             }
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders.workOrderType = " + queryMap.get(WorkOrderQuery.WORKORDERTYPE)
+            if (filterQueries === '') {
+                filterQueries += `work_orders.workOrderType = ${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}`;
             } else {
-                filterQueries += "&& work_orders.workOrderType = " + queryMap.get(WorkOrderQuery.WORKORDERTYPE)
+                filterQueries += `&& work_orders.workOrderType = ${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}`;
             }
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders.serviceNeeded = " + queryMap.get(WorkOrderQuery.SERVICENEEDED)
+            if (filterQueries === '') {
+                filterQueries += `work_orders.serviceNeeded = ${queryMap.get(WorkOrderQuery.SERVICENEEDED)}`;
             } else {
-                filterQueries += "&& work_orders.serviceNeeded = " + queryMap.get(WorkOrderQuery.SERVICENEEDED)
+                filterQueries += `&& work_orders.serviceNeeded = ${queryMap.get(WorkOrderQuery.SERVICENEEDED)}`;
             }
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders.priorityType = " + queryMap.get(WorkOrderQuery.PRIORITYTYPE)
+            if (filterQueries === '') {
+                filterQueries += `work_orders.priorityType = ${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}`;
             } else {
-                filterQueries += "&& work_orders.priorityType = " + queryMap.get(WorkOrderQuery.PRIORITYTYPE)
+                filterQueries += `&& work_orders.priorityType = ${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}`;
             }
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders.priceEstimate = " + queryMap.get(WorkOrderQuery.PRICEESTIMATE)
+            if (filterQueries === '') {
+                filterQueries += `work_orders.priceEstimate = ${queryMap.get(WorkOrderQuery.PRICEESTIMATE)}`;
             } else {
-                filterQueries += "&& work_orders.priceEstimate = " + queryMap.get(WorkOrderQuery.PRICEESTIMATE)
+                filterQueries += `&& work_orders.priceEstimate = ${queryMap.get(WorkOrderQuery.PRICEESTIMATE)}`;
             }
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders." + queryMap.get(WorkOrderQuery.GREATERTHAN) + " > " + queryMap.get(WorkOrderQuery.GREATERTHANVALUE)
+            if (filterQueries === '') {
+                filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
             } else {
-                filterQueries += "&& work_orders." + queryMap.get(WorkOrderQuery.GREATERTHAN) + " > " + queryMap.get(WorkOrderQuery.GREATERTHANVALUE)
+                filterQueries += `&& work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
             }
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
-            if (filterQueries == "") {
-                filterQueries += "work_orders." + queryMap.get(WorkOrderQuery.LOWERTHAN) + " < " + queryMap.get(WorkOrderQuery.LOWERTHANVALUE)
+            if (filterQueries === '') {
+                filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
             } else {
-                filterQueries += "&& work_orders." + queryMap.get(WorkOrderQuery.LOWERTHAN) + " < " + queryMap.get(WorkOrderQuery.LOWERTHANVALUE)
+                filterQueries += `&& work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
             }
         }
         return filterQueries;
