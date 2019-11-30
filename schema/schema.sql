@@ -129,8 +129,8 @@ insert into sectors (type, kind) VALUES ('BUILDING', 'ROOF'), ('BUILDING', 'ENVE
                                         ('HVAC', 'FIREPLACE'), ('INTERIOR FINISH', 'WALLS'),
                                         ('INTERIOR FINISH', 'CEILING'), ('INTERIOR FINISH', 'FLOOR'),
                                         ('INTERIOR FINISH', 'CABINET'), ('INTERIOR FINISH', 'DOORS'),
-                                        ('APPLIANCES AND FURNITURE', 'DISHWASHER'),
-                                        ('APPLIANCES AND FURNITURE', 'REFRIGERATOR');
+                                        ('APPLIANCES', 'DISHWASHER'),
+                                        ('APPLIANCES', 'REFRIGERATOR');
 
 insert into activity_status (status) VALUES ('ACTIVE'), ('INACTIVE');
 
