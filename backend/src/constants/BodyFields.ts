@@ -8,12 +8,12 @@ const WorkOrderFields = {
         'priorityType', 'description', 'dueDate', 'priceEstimate'],
 };
 
-const PropertyFields = {
-    createFields : ['name', 'propertyType', 'address'],
+const PROPERTY_FIELDS = {
+    createFields : ['name', 'propertyType', 'address', 'city', 'province', 'postalCode', 'countryCode'],
 };
 
 const PROPERTY_SECTOR_FIELDS = {
     createFields : ['sectorKind'],
 };
 
-export { UserFields, WorkOrderFields, PropertyFields, PROPERTY_SECTOR_FIELDS };
+export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };
