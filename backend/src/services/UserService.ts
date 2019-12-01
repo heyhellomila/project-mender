@@ -84,8 +84,8 @@ class UserService {
         }
 
         if (userObj.email != null) {
-            const user = await this.userRepository.getUserByEmail(userObj.email);
-            if (user) {
+            const userValid = await this.userRepository.getUserByEmail(userObj.email);
+            if (userValid) {
                 throw new ResourceExistsError("Email " + userObj.email + " already in use.");
             }
             user.email = userObj.email;
