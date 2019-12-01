@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Platform, StatusBar, TextInput, ScrollView} from 'react-native';
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { formStyles } from '../../stylesheets/AddPropertyStyleSheet';
 import Header from './Header';
 import Footer from './Footer';

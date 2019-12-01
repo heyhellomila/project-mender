@@ -62,19 +62,6 @@ const formStyles = StyleSheet.create({
         padding: '2%',
         borderRadius: 4
     },
-    notesInput: {
-        width: '100%',
-        height: '50%',
-        backgroundColor: '#ffffff',
-        alignSelf: 'center',
-        borderRadius: 5,
-        borderWidth: 1,
-        padding: '2%'
-    },
-    switchStyle: {
-        alignSelf: 'flex-end',
-        marginRight: '5%'
-    },
     pickerStyle: {
         flex: 1,
         alignSelf: 'flex-start',
@@ -111,36 +98,9 @@ const formStyles = StyleSheet.create({
 });
 
 const footerStyles = StyleSheet.create({
-    infoButton: {
-        alignSelf: 'flex-start',
-    },
     submitButton: {
-        alignSelf: 'flex-end',
-        width: '30%'
-    },
-    rightButton: {
-        alignSelf: 'flex-end',
-        backgroundColor: '#008ae6',
-        padding: '5%',
-        borderRadius: 5,
-        width: '30%'
-    },
-    leftButton: {
-        alignSelf: 'flex-start',
-        backgroundColor: '#008ae6',
-        padding: '5%',
-        borderRadius: 5,
-        width: '30%'
-    },
-    imageButton: {
-        width: 45,
-        height: 45
-    },
-    successButton: {
-        width: 45,
-        height: 45,
-        backgroundColor: '#17d402',
-        borderRadius: 25
+        flex: 1,
+        alignSelf: 'flex-end'
     }
 });
 

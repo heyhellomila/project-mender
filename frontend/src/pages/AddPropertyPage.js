@@ -14,11 +14,11 @@ class AddPropertyPage extends React.Component {
         this.state = {
             submitting: false,
             success: false,
-            name: 'ya',
-            address: 'yo',
+            name: '',
+            address: '',
             addressInfo: '',
-            city: 'yup',
-            postalCode: 'j4y 3c4',
+            city: '',
+            postalCode: '',
             province: {'key': Province.QC, 'label': 'Quebec'},
             country: {'key': CountryCode.CA, 'label': 'Canada'},
             propertyType: {},
@@ -34,7 +34,7 @@ class AddPropertyPage extends React.Component {
 
     validatePostalCode(postalCode, countryCode) {
         if (countryCode && !postcodeValidator(postalCode.trim(), countryCode)) {
-            alert('Invalid postal code');
+            alert('Invalid postal code.');
             this.setState({
                 validPostalCode: false
             });
