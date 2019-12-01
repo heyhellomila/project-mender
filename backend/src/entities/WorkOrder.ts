@@ -1,13 +1,13 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, BeforeInsert, BeforeUpdate} from "typeorm";
-import { Property } from "./Property";
-import { SectorType } from "./SectorType";
-import { WorkOrderType } from "./WorkOrderType";
-import { PriorityType } from "./PriorityType";
-import { User } from "./User";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, BeforeInsert,
+    BeforeUpdate } from 'typeorm';
+import { Property } from './Property';
+import { Sector } from './Sector';
+import { WorkOrderType } from './WorkOrderType';
+import { PriorityType } from './PriorityType';
+import { User } from './User';
 
-@Entity({name: 'work_orders'})
+@Entity({ name: 'work_orders' })
 export class WorkOrder {
-    
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -17,11 +17,11 @@ export class WorkOrder {
     })
     property: Property;
 
-    @ManyToOne(type => SectorType)
+    @ManyToOne(type => Sector)
     @JoinColumn({
-        name: 'sector_type_id',
+        name: 'sector_id',
     })
-    sectorType: SectorType;
+    sector: Sector;
 
     @ManyToOne(type => WorkOrderType)
     @JoinColumn({
@@ -35,7 +35,8 @@ export class WorkOrder {
     @Column()
     cause: string
 
-    @Column({name: 'service_needed', type: 'bit', transformer: { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
+    @Column({ name: 'service_needed', type: 'bit', transformer:
+            { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
     serviceNeeded: Boolean
 
     @ManyToOne(type => PriorityType)
@@ -44,13 +45,13 @@ export class WorkOrder {
     })
     priorityType: PriorityType;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     description: string
 
-    @Column({name: 'due_date'})
+    @Column({ name: 'due_date' })
     dueDate: Date
 
-    @Column({name: 'created_date'})
+    @Column({ name: 'created_date' })
     createdDate: Date
 
     @ManyToOne(type => User)
@@ -58,23 +59,23 @@ export class WorkOrder {
         name: 'created_by',
     })
     createdBy: User;
-    
-    @Column({name: 'last_modified_date', nullable: true})
-    lastModifiedDate: Date
-    
-    @ManyToOne(type => User, {nullable: true})
+
+    @Column({ name: 'last_modified_date', nullable: true })
+    lastModifiedDate: Date;
+
+    @ManyToOne(type => User, { nullable: true })
     @JoinColumn({
         name: 'last_modified_by',
     })
     lastModifiedBy: User;
 
-    @Column({name: 'date_completed', nullable: true})
+    @Column({ name: 'date_completed', nullable: true })
     dateCompleted: Date
 
-    @Column({name: 'price_estimate'})
+    @Column({ name: 'price_estimate' })
     priceEstimate: number
 
-    @Column({name: 'actual_cost', nullable: true})
+    @Column({ name: 'actual_cost', nullable: true })
     actualCost: number
 
     @BeforeInsert()

@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1",
     "password-validator": "^5.0.2",
+    "postcode-validator": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "validator": "^12.0.0"
   },

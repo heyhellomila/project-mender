@@ -1,5 +1,5 @@
 export enum WorkOrderQuery {
-    'SECTORTYPE' = 'sectorType',
+    'SECTOR' = 'sector',
     'PAGESIZE' = 'pageSize',
     'PAGENUMBER' = 'pageNumber',
     'SEARCHTERM' = 'searchTerm',
@@ -16,5 +16,5 @@ export enum WorkOrderQuery {
     'DUEDATE' = 'dueDate',
     'CREATEDDATE' = 'createdDate',
     'SORTBY' = 'sortBy',
-    'ORDERING'= 'ordering'
-};
+    'ORDERING'= 'ordering',
+}
