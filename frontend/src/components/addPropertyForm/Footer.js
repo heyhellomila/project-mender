@@ -5,24 +5,16 @@ import { Icon } from 'react-native-elements';
 
 const Footer = (props) => {
     return(
-        <View style={{flex: 2}}>
-            <View style={formStyles.rowContainer}>
-                <View style={formStyles.colContainer}>
-                    <TouchableOpacity style={footerStyles.leftButton}
-                                      onPress={() => props.navigation.goBack()}>
-                        <Icon name='chevron-left' type='octicon' color='white'/>
-                    </TouchableOpacity>
-                </View>
-                <View style={formStyles.colContainer}>
-                    <TouchableOpacity disabled={props.submitting}
-                                          style={footerStyles.submitButton}
-                                          onPress={() => props.submit()}>
-                        {props.success
-                            ?   <Icon name='check-circle' type='font-awesome' color='#1fcf13' size={45}/>
-                            :   <Icon name='check-circle' type='font-awesome' size={45}/>
-                        }
-                    </TouchableOpacity>
-                </View>
+        <View style={formStyles.rowContainer}>
+            <View style={formStyles.colContainer}>
+                <TouchableOpacity disabled={props.submitting || props.success}
+                                      style={footerStyles.submitButton}
+                                      onPress={() => props.submit()}>
+                    {props.success
+                        ?   <Icon name='check-circle' type='font-awesome' color='#1fcf13' size={45}/>
+                        :   <Icon name='check-circle' type='font-awesome' size={45}/>
+                    }
+                </TouchableOpacity>
             </View>
         </View>
     );

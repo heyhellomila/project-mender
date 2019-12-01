@@ -20,13 +20,16 @@ const rootReducer = (state = {
 };
 
 const propertyReducer = (state = {
-    property: null
+    property: null,
+    reloadProperties: false
 }, action) => {
     switch (action.type) {
         case 'LOGOUT':
                 return { ...state, property: null };
         case 'SELECT_PROPERTY':
             return { ...state, property: action.property };
+        case 'RELOAD_PROPERTIES':
+            return { ...state, reloadProperties: action.reloadProperties};
         default:
             return state;
     }

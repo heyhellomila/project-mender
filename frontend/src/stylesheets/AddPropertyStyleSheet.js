@@ -6,19 +6,27 @@ const headerStyles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '100',
         marginTop: '3%',
+    },
+    closeButton: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+    },
+    closeButtonImage: {
+        height: 50,
+        width: 50,
     }
 });
 
 const formStyles = StyleSheet.create({
     container: {
         flex: 6,
-        paddingHorizontal: '7%',
         backgroundColor: '#f0f0f0'
     },
     rowContainer: {
         flex: 1,
         flexDirection: 'row',
-        alignSelf: 'center',
+        alignSelf: 'flex-start',
+        alignItems: 'stretch',
         marginVertical: '1%',
     },
     colContainer: {
@@ -34,24 +42,24 @@ const formStyles = StyleSheet.create({
     },
     textInput:{
         fontSize: 16,
-        textAlign: 'center',
+        textAlign: 'left',
+        width: '100%',
         backgroundColor: '#ffffff',
         borderColor: '#cccccc',
         borderWidth: 1,
-        alignSelf: 'center',
-        width: '70%',
-        paddingVertical: '2%',
+        alignSelf: 'flex-start',
+        padding: '2%',
         borderRadius: 4
     },
     invalidTextInput: {
         fontSize: 16,
-        textAlign: 'center',
+        textAlign: 'left',
+        width: '100%',
         backgroundColor: '#ffffff',
         borderColor: 'red',
         borderWidth: 1,
-        alignSelf: 'center',
-        width: '70%',
-        paddingVertical: '2%',
+        alignSelf: 'flex-start',
+        padding: '2%',
         borderRadius: 4
     },
     notesInput: {
@@ -68,12 +76,38 @@ const formStyles = StyleSheet.create({
         marginRight: '5%'
     },
     pickerStyle: {
-        width: '75%',
-        alignSelf: 'flex-end',
-        borderColor: '#cccccc',
+        flex: 1,
+        alignSelf: 'flex-start',
+        width: '100%',
+        alignItems: 'stretch',
+        alignContent: 'flex-start',
+        borderWidth: 1,
+        borderRadius: 4,
         backgroundColor: 'white',
-        marginRight: '5%'
-    }
+        borderColor: '#cccccc',
+    },
+    invalidPickerStyle: {
+        flex: 1,
+        alignSelf: 'flex-start',
+        width: '100%',
+        alignItems: 'stretch',
+        alignContent: 'flex-start',
+        borderWidth: 1,
+        borderRadius: 4,
+        backgroundColor: 'white',
+        borderColor: 'red'
+    },
+    disabledPickerStyle: {
+        flex: 1,
+        alignSelf: 'flex-start',
+        width: '100%',
+        alignItems: 'stretch',
+        alignContent: 'flex-start',
+        borderWidth: 1,
+        borderRadius: 4,
+        backgroundColor: '#E0E0E0',
+        borderColor: '#cccccc',
+    },
 });
 
 const footerStyles = StyleSheet.create({
@@ -110,54 +144,4 @@ const footerStyles = StyleSheet.create({
     }
 });
 
-const sectorStyles = StyleSheet.create({
-    sectorContainer: {
-        padding: '0%',
-        borderWidth: 2,
-        width: '25%',
-        height: '80%'
-    },
-    selectedSectorContainer: {
-        padding: '0%',
-        borderWidth: 2,
-        borderColor: '#00ace6',
-        width: '25%',
-        height: '80%'
-    },
-    sectorIcon: {
-        flex: 1,
-        width: null,
-        height: null,
-        resizeMode: 'contain',
-    }
-});
-
-const typeStyles = StyleSheet.create({
-    typesContainer: {
-        flexDirection: 'row',
-        alignSelf: 'center',
-        margin: '15%',
-    },
-    typeText: {
-        fontSize: 20,
-        alignSelf: 'center'
-    },
-    selectedGray:{
-        paddingVertical: '2%',
-        height: '35%',
-        backgroundColor: '#cccccc',
-        borderRadius: 8,
-        justifyContent: 'center',
-        borderWidth: 2,
-        borderColor: '#00ace6'
-    },
-    unselectedGray:{
-        paddingVertical: '2%',
-        height: '35%',
-        backgroundColor: '#cccccc',
-        borderRadius: 8,
-        justifyContent: 'center'
-    }
-});
-
-export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles };
+export { headerStyles, formStyles, footerStyles };

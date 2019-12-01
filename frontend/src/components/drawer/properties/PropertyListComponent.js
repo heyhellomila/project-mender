@@ -10,8 +10,8 @@ const PropertyListComponent = (props) => {
                 <TouchableOpacity style={(props.property && props.property.id === property.id)
                     ? propertyList.selectedPropertyButton
                     : propertyList.propertyButton}
-                                  key={property.id}
-                                  onPress={() => {props.selectProperty(property); props.navigation.closeDrawer();}}>
+                      key={property.id}
+                      onPress={() => {props.selectProperty(property); props.navigation.closeDrawer();}}>
                     <Text style={(props.property && props.property.id === property.id)
                         ? propertyList.selectedPropertyText
                         : propertyList.propertyText}>
