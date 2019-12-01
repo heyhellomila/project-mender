@@ -3,30 +3,29 @@ import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
 import { ObjectMapper } from './ObjectMapper';
 import { PropertyMapper } from './PropertyMapper';
 import { UserMapper } from './UserMapper';
-import { SectorTypeMapper } from './SectorTypeMapper';
+import { SectorMapper } from './SectorTypeMapper';
 import { WorkOrderTypeMapper } from './WorkOrderTypeMapper';
 import { PriorityTypeMapper } from './PriorityTypeMapper';
-import { SectorTypeDTO } from '../dtos/SectorTypeDTO';
+import { SectorDTO } from '../dtos/SectorDTO';
 import { WorkOrderTypeDTO } from '../dtos/WorkOrderTypeDTO';
 import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
-import { exists } from 'fs';
 
 class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
     private propertyMapper : PropertyMapper = new PropertyMapper();
-    private sectorTypeMapper : SectorTypeMapper = new SectorTypeMapper();
+    private sectorMapper : SectorMapper = new SectorMapper();
     private workOrderTypeMapper : WorkOrderTypeMapper = new WorkOrderTypeMapper();
     private priorityTypeMapper : PriorityTypeMapper = new PriorityTypeMapper();
     private userMapper : UserMapper = new UserMapper();
 
     toDTO(workOrder: WorkOrder) : WorkOrderDTO {
-        var workOrderDTO : WorkOrderDTO = new WorkOrderDTO();
+        const workOrderDTO : WorkOrderDTO = new WorkOrderDTO();
         workOrderDTO.id = workOrder.id;
         if (workOrder.property) {
-            workOrderDTO.property = this.propertyMapper.toDTO(workOrder.property)
+            workOrderDTO.property = this.propertyMapper.toDTO(workOrder.property);
         }
-        if (workOrder.sectorType) {
-            workOrderDTO.sectorType = this.sectorTypeMapper.toDTO(workOrder.sectorType);
+        if (workOrder.sector) {
+            workOrderDTO.sector = this.sectorMapper.toDTO(workOrder.sector);
         }
         if (workOrder.workOrderType) {
             workOrderDTO.workOrderType = this.workOrderTypeMapper.toDTO(workOrder.workOrderType);
@@ -41,8 +40,8 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.dueDate = workOrder.dueDate;
         workOrderDTO.createdDate = workOrder.createdDate;
         if (workOrder.createdBy) {
-            workOrderDTO.createdBy = this.userMapper.toDTO(workOrder.createdBy)
-        }       
+            workOrderDTO.createdBy = this.userMapper.toDTO(workOrder.createdBy);
+        }
         workOrderDTO.lastModifiedDate = workOrder.lastModifiedDate;
         if (workOrder.lastModifiedBy) {
             workOrderDTO.lastModifiedBy = this.userMapper.toDTO(workOrder.lastModifiedBy);
@@ -54,7 +53,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
     }
 
     fromDTO(workOrderDTO: WorkOrderDTO) : WorkOrder {
-        var workOrder : WorkOrder = new WorkOrder();
+        const workOrder : WorkOrder = new WorkOrder();
 
         workOrder.id = workOrderDTO.id;
         workOrder.title = workOrderDTO.title;
@@ -67,9 +66,9 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrder.priceEstimate = workOrderDTO.priceEstimate;
         workOrder.actualCost = workOrderDTO.actualCost;
 
-        if (workOrderDTO.sectorType) {
-            workOrder.sectorType = this.sectorTypeMapper.fromDTO(
-                new SectorTypeDTO(workOrderDTO.sectorType as string));
+        if (workOrderDTO.sectorKind) {
+            workOrder.sector = this.sectorMapper.fromDTO(
+                new SectorDTO(workOrderDTO.sectorKind));
         }
         if (workOrderDTO.workOrderType) {
             workOrder.workOrderType = this.workOrderTypeMapper.fromDTO(
@@ -78,7 +77,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         if (workOrderDTO.priorityType) {
             workOrder.priorityType = this.priorityTypeMapper.fromDTO(
                 new PriorityTypeDTO(workOrderDTO.priorityType as string));
-        }  
+        }
 
         return workOrder;
     }

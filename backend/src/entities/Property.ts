@@ -1,11 +1,11 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './User';
 import { PropertyType } from './PropertyType';
 import { ActivityStatus } from './ActivityStatus';
 
-@Entity({name: 'properties'})
+@Entity({ name: 'properties' })
 export class Property {
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -26,6 +26,18 @@ export class Property {
 
     @Column()
     address: string;
+
+    @Column()
+    city: string;
+
+    @Column()
+    province: string;
+
+    @Column({ name: 'postal_code' })
+    postalCode: string;
+
+    @Column({ name: 'country_code' })
+    countryCode: string;
 
     @ManyToOne(type => ActivityStatus)
     @JoinColumn({

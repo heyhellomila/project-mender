@@ -2,8 +2,8 @@ import express, {Request, Response} from 'express';
 import { UserService } from '../services/UserService';
 import { UserMapper } from '../entity_mappers/UserMapper';
 import auth from '../middleware/auth';
-import handleError from '../utils/HttpUtils';
-import validateBody from '../middleware/requestValidation';
+import { handleError } from '../utils/HttpUtils';
+import { validateBody } from '../middleware/requestValidation';
 import { UserFields } from '../constants/BodyFields';
 import { UserDTO } from 'src/dtos/UserDTO';
 

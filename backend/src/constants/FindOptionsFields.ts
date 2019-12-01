@@ -1,69 +1,73 @@
-import { FindOptions } from "typeorm";
-import { Property } from "../entities/Property";
-import { User } from "../entities/User";
-import { WorkOrder } from "../entities/WorkOrder";
+import { FindOptions } from 'typeorm';
+import { Property } from '../entities/Property';
+import { User } from '../entities/User';
+import { WorkOrder } from '../entities/WorkOrder';
+import { PropertySector } from '../entities/PropertySector';
 
 const PropertyFields : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
     select: {
-        id: true, 
-        name: true, 
+        id: true,
+        name: true,
         user: {
-            id: true
-        }, 
+            id: true,
+        },
         address: true,
         activityStatus: {
-            id: true, 
-            status: true
-        }, 
+            id: true,
+            status: true,
+        },
         propertyType: {
-            id: true, 
-            type: true
-        }
-    }
-}
+            id: true,
+            type: true,
+        },
+    },
+};
 
 const PropertyFieldsNoUser : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType'],
     select: {
-        id: true, 
-        name: true, 
+        id: true,
+        name: true,
         address: true,
         activityStatus: {
-            id: true, 
-            status: true
-        }, 
+            id: true,
+            status: true,
+        },
         propertyType: {
-            id: true, 
-            type: true
-        }
-    }
-}
+            id: true,
+            type: true,
+        },
+    },
+};
 
 const UserFields : FindOptions<User> = {
     relations: ['userType'],
     select: {
-        id: true, 
-        firstName: true, 
+        id: true,
+        firstName: true,
         lastName: true,
         email: true,
         userType: {
             id: true,
-            type: true
-        }
-    }
-}
+            type: true,
+        },
+        phoneNumber: true,
+    },
+};
 
 const WorkOrderFields : FindOptions<WorkOrder> = {
-    relations: ['workOrderType', 'priorityType', 'sectorType', 'createdBy', 'lastModifiedBy', 'property'],
+    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
+        'lastModifiedBy', 'property'],
     select: {
         id: true,
         property: {
-            id: true
-        },
-        sectorType: {
             id: true,
-            type: true
+        },
+        sector: {
+            id: true,
+            type: true,
+            kind: true,
         },
         workOrderType: {
             id: true,
@@ -74,31 +78,32 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
         serviceNeeded: true,
         priorityType: {
             id: true,
-            type: true
+            type: true,
         },
         description: true,
         dueDate: true,
         createdDate: true,
         createdBy: {
-            id: true
+            id: true,
         },
         lastModifiedDate: true,
         lastModifiedBy: {
-            id: true
+            id: true,
         },
         dateCompleted: true,
         priceEstimate: true,
-        actualCost: true
-    }
-}
+        actualCost: true,
+    },
+};
 
 const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
-    relations: ['workOrderType', 'priorityType', 'sectorType', 'createdBy', 'lastModifiedBy'],
+    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy'],
     select: {
         id: true,
-        sectorType: {
+        sector: {
             id: true,
-            type: true
+            type: true,
+            kind: true,
         },
         workOrderType: {
             id: true,
@@ -109,22 +114,33 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
         serviceNeeded: true,
         priorityType: {
             id: true,
-            type: true
+            type: true,
         },
         description: true,
         dueDate: true,
         createdDate: true,
         createdBy: {
-            id: true
+            id: true,
         },
         lastModifiedDate: true,
         lastModifiedBy: {
-            id: true
+            id: true,
         },
         dateCompleted: true,
         priceEstimate: true,
-        actualCost: true
-    }
-}
+        actualCost: true,
+    },
+};
 
-export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser, WorkOrderFieldsNoProperty };
+const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
+    relations: ['sector'],
+    select: {
+        id: true,
+        sector: {
+            id: true,
+        },
+    },
+};
+
+export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
+    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };

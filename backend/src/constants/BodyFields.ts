@@ -1,15 +1,19 @@
 const UserFields = {
     loginFields : ['email', 'password'],
-    createFields : ['email', 'password', 'firstName', 'lastName', 'phoneNumber', 'userType']
-}
+    createFields : ['email', 'password', 'firstName', 'lastName', 'phoneNumber', 'userType'],
+};
 
 const WorkOrderFields = {
-    createFields : ['sectorType', 'workOrderType', 'title', 'cause', 'serviceNeeded', 
-        'priorityType', 'description', 'dueDate', 'priceEstimate']
-}
+    createFields : ['sectorKind', 'workOrderType', 'title', 'cause', 'serviceNeeded',
+        'priorityType', 'description', 'dueDate', 'priceEstimate'],
+};
 
-const PropertyFields = {
-    createFields : ['name', 'propertyType', 'address']
-}
+const PROPERTY_FIELDS = {
+    createFields : ['name', 'propertyType', 'address', 'city', 'province', 'postalCode', 'countryCode'],
+};
 
-export {UserFields, WorkOrderFields, PropertyFields};
+const PROPERTY_SECTOR_FIELDS = {
+    createFields : ['sectorKind'],
+};
+
+export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };

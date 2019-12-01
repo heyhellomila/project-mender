@@ -2,8 +2,8 @@ import express, {Request, Response} from 'express';
 import { WorkOrderService } from '../services/WorkOrderService';
 import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
 import auth from '../middleware/auth';
-import handleError from '../utils/HttpUtils';
-import {WorkOrderDTO} from 'src/dtos/WorkOrderDTO';
+import { handleError } from '../utils/HttpUtils';
+import { WorkOrderDTO } from 'src/dtos/WorkOrderDTO';
 
 const workOrderService = new WorkOrderService();
 const workOrderMapper = new WorkOrderMapper();
