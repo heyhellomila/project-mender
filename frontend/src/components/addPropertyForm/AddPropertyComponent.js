@@ -20,8 +20,8 @@ const AddPropertyComponent = (props) => {
                 <View style={{flex: 1}}>
                     <Header {...props}/>
                 </View>
-                <View style={{flex: 4, paddingHorizontal: '7%'}}>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                <View style={formStyles.bodyContainer}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Property Type</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -48,7 +48,7 @@ const AddPropertyComponent = (props) => {
                                 style={{flex: 1}}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Address</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -61,7 +61,7 @@ const AddPropertyComponent = (props) => {
                                        onChangeText = {(value) => props.handleAddress(value)}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Apartment, suite, etc.</Text>
                         </View>
@@ -71,7 +71,7 @@ const AddPropertyComponent = (props) => {
                                        onChangeText = {(value) => props.handleAddressInfo(value)}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>City</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -84,7 +84,7 @@ const AddPropertyComponent = (props) => {
                                        onChangeText = {(value) => props.handleCity(value)}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Province</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -103,7 +103,7 @@ const AddPropertyComponent = (props) => {
                                 style={{flex: 1}}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Postal Code</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -116,7 +116,7 @@ const AddPropertyComponent = (props) => {
                                        onChangeText = {(value) => props.handlePostalCode(value)}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Country</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -135,7 +135,7 @@ const AddPropertyComponent = (props) => {
                                 style={{flex: 1}}/>
                         </View>
                     </View>
-                    <View style={{flex: 1, marginVertical: '6%'}}>
+                    <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Name of Property</Text>
                             <Text style={{color: 'red'}}> * </Text>
@@ -149,7 +149,7 @@ const AddPropertyComponent = (props) => {
                         </View>
                     </View>
                 </View>
-                <View style={{flex: 1, marginVertical: '6%'}}>
+                <View style={{flex: 1}}>
                     <Footer {...props}/>
                 </View>
             </ScrollView>

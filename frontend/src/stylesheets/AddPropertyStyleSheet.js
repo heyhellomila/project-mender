@@ -95,12 +95,23 @@ const formStyles = StyleSheet.create({
         backgroundColor: '#E0E0E0',
         borderColor: '#cccccc',
     },
+    bodyContainer: {
+        flex: 4,
+        paddingHorizontal: '7%'
+    },
+    inputContainer: {
+        flex: 1,
+        marginVertical: '6%'
+    }
 });
 
 const footerStyles = StyleSheet.create({
-    submitButton: {
+    container: {
         flex: 1,
-        alignSelf: 'flex-end'
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        marginBottom: '6%',
+        padding: '6%'
     }
 });
 
