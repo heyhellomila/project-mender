@@ -47,6 +47,7 @@ const UserFields : FindOptions<User> = {
         firstName: true, 
         lastName: true,
         email: true,
+        phoneNumber: true,
         userType: {
             id: true,
             type: true

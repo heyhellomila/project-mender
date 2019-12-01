@@ -4,7 +4,6 @@ import WelcomePage from '../pages/WelcomePage';
 import SignUpPage from '../pages/SignUpPage';
 import LogInPage from '../pages/LogInPage';
 import DrawerNavigator from './DrawerNavigator';
-import  BottomNavigator from './BottomNavigator'
 
 const RootStack = createStackNavigator({
     WelcomePage: {

@@ -1,67 +1,74 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Image, TextInput} from 'react-native';
+import {connect} from 'react-redux';
+import { updateUser } from '../../src/apis/users/UpdateUser';
+import ProfilePageComponent from '../components/profileForms/profilePageComponent';
+import EditProfileForm from '../components/profileForms/editProfileForm';
+import ChangePasswordForm from '../components/profileForms/changePasswordForm';
 
 const profilePicture = require('../../assets/jisooProfile.png');
 
-export default class SettingsPage extends Component {
+class ProfilePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            step: 1,
+            user: props.user,
+            firstName: null,
+            lastName: null,
+            email: null,
+            phoneNumber: null
+        }
+    }
+    goToEditProfilePage = () => {
+        const { step } = this.state;
+        this.setState({
+            step: 2
+        })
+    }
+    goToPasswordChange = () =>{
+        const { step } = this.state;
+        this.setState({
+            step: 3
+        })
+    }
+    goToProfilePage = () => {
+        const { step } = this.state;
+        this.setState({
+            step: 1
+        })
+    }
+    handleFirstNameChange = event => {
+        this.setState({firstName: event})
+    }
+    handleLastNameChange = event => {
+        this.setState({lastName: event})
+    }
+    handlePhoneNumberChange = event => {
+        this.setState({phoneNumber: event})
+    }
+    handleUpdate = async () => {
+        try {
+            await updateUser(4, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
+                .then(async (response) => {
+                    const { step } = this.state;
+                    this.setState({
+                        step: 1
+                    })
+            });
+        } catch (err) {
+            this.setState({errorMsg: err.message})
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
-                <View style={{
-                    flex: 0.5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '75%',
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 1
-                }}><Text>Account Pofile</Text></View>
-                <View style={{flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image
-                        style={{width: 75, height: 75, borderRadius: 75/2}}
-                        source={profilePicture}/></View>
-                <View style={{flex: 4.5, width: '75%',justifyContent: 'center'}}>
-                    <View style={{flex: 0.5, justifyContent: 'center'}}>
-                        <View>
-                        <Text>Name</Text>
-                        </View>
-                        <View>
-                        <TextInput style={{borderColor: 'black', borderWidth: 2, borderRadius: 4}}/>
-                        </View>
-                    </View>
-                    <View style={{flex: 0.5, justifyContent: 'center'}}>
-                        <View>
-                            <Text>Email</Text>
-                        </View>
-                        <View>
-                            <TextInput style={{borderColor: 'black', borderWidth: 2, borderRadius: 4}}/>
-                        </View>
-                    </View>
-                    <View style={{flex: 0.5, justifyContent: 'center'}}>
-                        <View>
-                            <Text>PhoneNumber</Text>
-                        </View>
-                        <View>
-                            <TextInput style={{borderColor: 'black', borderWidth: 2, borderRadius: 4}}/>
-                        </View>
-                    </View>
-                    <View style={{flex: 0.5, justifyContent: 'center'}}>
-                        <View>
-                            <Text>Edit Password</Text>
-                        </View>
-                        <View>
-                            <TextInput style={{borderColor: 'black', borderWidth: 2, borderRadius: 4}}/>
-                        </View>
-                    </View>
-                    <View style={{flex: 2.5}}>
-                        <View>
-                            <Text>Notes</Text>
-                        </View>
-                        <View>
-                            <TextInput style={{borderColor: 'black', height: 100, borderWidth: 2, borderRadius: 4}}
-                            multiline={true}/>
-                        </View>
-                    </View>
-                </View>
+                {this.state.step === 1 && <ProfilePageComponent {...this.state} goToEditProfilePage={this.goToEditProfilePage} 
+                                                                goToPasswordChange={this.goToPasswordChange}/>}
+                {this.state.step === 2 && <EditProfileForm {...this.state} goToProfilePage={this.goToProfilePage}
+                                                           handleUpdate={this.handleUpdate} handleFirstNameChange={this.handleFirstNameChange}
+                                                           handleLastNameChange={this.handleLastNameChange} handlePhoneNumberChange={this.handlePhoneNumberChange}/>}
+                {this.state.step === 3 && <ChangePasswordForm {...this.state} goToProfilePage={this.goToProfilePage} />}
             </View>
         );
     }
@@ -80,3 +87,9 @@ const styles = StyleSheet.create({
         marginBottom: 5
     }
 });
+
+const mapStateToProps = (state) => ({
+    user: state.user.user,
+});
+
+export default connect(mapStateToProps, null)(ProfilePage);
