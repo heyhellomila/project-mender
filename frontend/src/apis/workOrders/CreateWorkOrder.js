@@ -19,19 +19,19 @@ api.interceptors.response.use(async (response) => {
         }
 });
 
-export async function createWorkOrder(propertyId, sector, type, title, cause, serviceNeeded, priority, 
-    description, dueDate, priceEstimate) {
+export async function createWorkOrder(propertyId, sectorType, workOrderType, 
+    title, cause, serviceNeeded, priorityType, description, dueDate, priceEstimate) {
 
     var body = {
-        sector, 
-        type, 
+        sectorType, 
+        workOrderType, 
         title, 
         cause, 
-        service_needed: JSON.stringify(serviceNeeded), 
-        priority, 
+        serviceNeeded: JSON.stringify(serviceNeeded),
+        priorityType, 
         description, 
-        due_date: dueDate,
-        price_estimate: JSON.stringify(priceEstimate)
+        dueDate,
+        priceEstimate: JSON.stringify(priceEstimate)
     };
 
     return await api.post(`/properties/${propertyId}/workorders/`, body, {
