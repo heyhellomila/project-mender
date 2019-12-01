@@ -89,6 +89,7 @@ class UserService {
                 throw new ResourceExistsError("Email " + userObj.email + " already in use.");
             }
             user.email = userObj.email;
+
         }
 
         if (userObj.userType != null) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Image, TextInput} from 'react-native';
 import {connect} from 'react-redux';
-import { updateUser } from '../../src/apis/users/UpdateUser';
+import { updateUser, updateUserPassword } from '../../src/apis/users/UpdateUser';
 import ProfilePageComponent from '../components/profileForms/profilePageComponent';
 import EditProfileForm from '../components/profileForms/editProfileForm';
 import ChangePasswordForm from '../components/profileForms/changePasswordForm';
@@ -17,7 +17,10 @@ class ProfilePage extends Component {
             firstName: null,
             lastName: null,
             email: null,
-            phoneNumber: null
+            phoneNumber: null,
+            password: null,
+            confirmPassword: null,
+            errorMsg: null
         }
     }
     goToEditProfilePage = () => {
@@ -44,12 +47,37 @@ class ProfilePage extends Component {
     handleLastNameChange = event => {
         this.setState({lastName: event})
     }
+    handleEmailChange = event => {
+        this.setState({email: event})
+    }
     handlePhoneNumberChange = event => {
         this.setState({phoneNumber: event})
     }
+    handleNewPasswordChange = event => {
+        this.setState({password: event})
+    }
+    handleConfirmPasswordChange = event => {
+        this.setState({confirmPassword: event})
+    }
+    handlePasswordChange = async () => {
+        if(this.state.password != null && (this.state.password == this.state.confirmPassword)) {
+            try{
+                await updateUserPassword(this.state.user.id, this.state.password).then(async (response) =>{
+                    const { step } = this.state;
+                    this.setState({
+                        step: 1
+                    })
+                });
+            }catch(err){
+                this.setState({errorMsg: err.message})
+            }
+        }else{
+            alert('BAD')
+        }
+    }
     handleUpdate = async () => {
         try {
-            await updateUser(4, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
+            await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
                 .then(async (response) => {
                     const { step } = this.state;
                     this.setState({
@@ -67,8 +95,12 @@ class ProfilePage extends Component {
                                                                 goToPasswordChange={this.goToPasswordChange}/>}
                 {this.state.step === 2 && <EditProfileForm {...this.state} goToProfilePage={this.goToProfilePage}
                                                            handleUpdate={this.handleUpdate} handleFirstNameChange={this.handleFirstNameChange}
-                                                           handleLastNameChange={this.handleLastNameChange} handlePhoneNumberChange={this.handlePhoneNumberChange}/>}
-                {this.state.step === 3 && <ChangePasswordForm {...this.state} goToProfilePage={this.goToProfilePage} />}
+                                                           handleLastNameChange={this.handleLastNameChange} handleEmailChange={this.handleEmailChange}
+                                                           handlePhoneNumberChange={this.handlePhoneNumberChange}/>}
+                {this.state.step === 3 && <ChangePasswordForm {...this.state} goToProfilePage={this.goToProfilePage}
+                                                              handleNewPasswordChange={this.handleNewPasswordChange}
+                                                              handleConfirmPasswordChange={this.handleConfirmPasswordChange}
+                                                              handlePasswordChange={this.handlePasswordChange}/>}
             </View>
         );
     }
