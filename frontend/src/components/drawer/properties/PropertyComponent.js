@@ -63,17 +63,18 @@ class PropertyComponent extends Component {
                 <Text style={drawerComponent.propertyHeader}>My Properties</Text>
                     {this.state.loading
                             ?   <View><Text>Loading...</Text></View>
-                            :   <ScrollView>
-                                    <PropertyListComponent {...this.state} {...this.props}/>
-                                    <View style={{alignContent:'flex-end', alignSelf:'flex-end', width:'50%'}}>
+                            :   <View style={{flex: 1}}>
+                                    <ScrollView>
+                                        <PropertyListComponent {...this.state} {...this.props}/>
+                                    </ScrollView>
+                                    <View style={drawerComponent.addPropertyContainer}>
                                         <Button
                                             title='Add Property'
                                             type="outline"
                                             raised={true}
-                                            onPress={() => this.props.navigation.navigate('AddProperty')}
-                                        />
+                                            onPress={() => this.props.navigation.navigate('AddProperty')}/>
                                     </View>
-                                </ScrollView>
+                                </View>
                     }
             </View>
         );

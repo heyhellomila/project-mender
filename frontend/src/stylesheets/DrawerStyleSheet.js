@@ -23,6 +23,11 @@ const drawerComponent = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: '10%'
     },
+    addPropertyContainer: {
+        alignContent:'flex-end',
+        alignSelf:'flex-end',
+        width:'50%'
+    },
     logoutButton: {
         flex: 0.3,
         alignSelf:'flex-end',
