@@ -16,7 +16,6 @@ class PropertySectorMapper implements ObjectMapper<PropertySector, PropertySecto
     toDTO(propertySector: PropertySector) : PropertySectorDTO {
 
         const propertySectorDTO : PropertySectorDTO = new PropertySectorDTO();
-        propertySectorDTO.id = propertySector.id;
         if (propertySector.property) {
             propertySectorDTO.property = this.propertyMapper.toDTO(propertySector.property);
         }

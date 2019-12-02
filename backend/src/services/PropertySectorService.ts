@@ -4,9 +4,9 @@ import { BadRequestError } from '../errors/BadRequestError';
 import { Property } from '../entities/Property';
 import { SectorService } from './SectorService';
 import { ActivityStatus } from '../enums/ActivityStatus';
-import { Sector } from '../entities/Sector';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { PropertyService } from './PropertyService';
+import { SectorKind as SectorKindEnum } from '../enums/SectorKind';
 
 class PropertySectorService {
 
@@ -40,34 +40,37 @@ class PropertySectorService {
         }
     }
 
+    async getSectorsByPropertyId(propertyId: number) {
+        const property : Property = await this.propertyService.getPropertyById(propertyId);
+        return await this.propertySectorRepository.getSectorsByProperty(property);
+    }
 
     async getSectorsByProperty(property: Property) {
         return await this.propertySectorRepository.getSectorsByProperty(property);
     }
 
-    async update(id: number, propertySector: PropertySector) {
-
-        if (Object.keys(propertySector).length === 0) {
-            throw new BadRequestError('Object must include at least one parameter.');
+    async update(propertyId: number, propertySectors: PropertySector[]) {
+        const savedProperty : Property = await this.propertyService.getPropertyById(propertyId);
+        for (const propertySector of propertySectors) {
+            propertySector.property = savedProperty;
+            propertySector.sector = await this.sectorService.getSectorByKind(
+                propertySector.sector.kind);
+            const savedPropertySector : PropertySector = await this.propertySectorRepository
+                .getPropertySectorByPropertyAndKind(propertySector.property, propertySector.sector);
+            if (!savedPropertySector) {
+                throw new BadRequestError(`Sector kind ${propertySector.sector.kind}` +
+                    ` does not exist for property id ${propertyId}.`);
+            }
+            propertySector.id = savedPropertySector.id;
         }
 
-        const savedPropertySector : PropertySector = await this.getPropertySectorById(id);
-        if (!savedPropertySector) {
-            throw new ResourceNotFoundError(`Property sector id ${id} does not exist.`);
-        }
-
-        return await this.propertySectorRepository.update(id, propertySector);
-    }
-
-    async getPropertySectorById(id: number) {
-        return await this.propertySectorRepository.getPropertySectorById(id);
+        return await this.propertySectorRepository.update(propertySectors);
     }
 
     // Assumes the property is same for each property sector in the list.
     private async removeExistentPropertySectorsFromList(propertySectors: PropertySector[]) {
         const savedPropertySectors : PropertySector[] = await this
             .getSectorsByProperty(propertySectors[0].property);
-        console.log(savedPropertySectors);
         const savedSectors : number[] = [];
 
         savedPropertySectors.forEach((savedPropertySector) => {

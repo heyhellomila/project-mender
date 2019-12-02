@@ -138,6 +138,8 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
         id: true,
         sector: {
             id: true,
+            type: true,
+            kind: true,
         },
     },
 };
