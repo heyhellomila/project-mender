@@ -21,9 +21,12 @@ class PropertySectorRepository extends BaseRepository<PropertySector> {
         return await this.getRepositoryConnection(PropertySector).find(findOptions);
     }
 
-    async getPropertySectorByPropertyAndKind(property: Property, sector: Sector) {
-        return await this.getRepositoryConnection(PropertySector).findOne({ property, sector });
+    async getPropertySectorsByPropertyAndSectors(property: Property, sectors: Sector[]) {
+        const findOptions : FindOptions<PropertySector> = PROPERTY_SECTOR_FIELDS;
+        findOptions.where = { property, sector: sectors };
+        return await this.getRepositoryConnection(PropertySector).find(findOptions);
     }
+
 }
 
 export { PropertySectorRepository };
