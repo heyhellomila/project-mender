@@ -1,0 +1,10 @@
+export enum SectorType {
+    'BUILDING' = 'BUILDING',
+    'ELECTRICITY' = 'ELECTRICITY',
+    'STRUCTURE' = 'STRUCTURE',
+    'EXTERIOR' = 'EXTERIOR',
+    'UTILITY' = 'UTILITY',
+    'HVAC' = 'HVAC',
+    'INTERIOR FINISH' = 'INTERIOR FINISH',
+    'APPLIANCES' = 'APPLIANCES',
+}

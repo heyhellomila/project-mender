@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import SignUpForm  from '../components/SignUpForm';
+import SignUpForm  from '../components/signUpForm/SignUpForm';
 import { register } from '../apis/users/Register';
-import { signUpComponent } from '../stylesheets/Stylesheet';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
 
@@ -10,12 +9,14 @@ export default class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      step : 1,
       email: '', 
       password: '',
       confirmPassword: '',
       firstName: '',
       lastName: '',
-      type: 'HOMEOWNER',
+      type: '',
+      phoneNumber: '',
       submitting: false,
       errorMsg: '',
       validEmail: true,
@@ -23,16 +24,9 @@ export default class SignUpPage extends React.Component {
       validFirstName: true,
       validLastName: true,
       validPasswordMatch: true,
-      validFormInputs: true
+      validPhoneNumber: true,
+      validFormInputs: true,
     };
-
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
-    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-    this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    this.handleTypeChange = this.handleTypeChange.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
   }
 
   componentDidUpdate() {
@@ -51,56 +45,136 @@ export default class SignUpPage extends React.Component {
     title: 'Sign Up',
   };
 
-  handleEmailChange = (event) => {
+  nextStep = () => {
+    const { step } = this.state;
+    
+    if (step === 1) {
+      if (this.validateName() === true) {
+        this.setState({
+          step: step + 1
+        });
+      }
+    }
+    if (step === 2) {
+      if (this.state.type === 'HOMEOWNER') {
+        this.setState({
+          step: step + 2
+        });
+      } else {
+        this.setState({
+          step: step + 1
+        });
+      }
+    }
+    if (step === 3) {
+      this.setState({
+        step: step + 1
+      });
+    }
+  }
+
+  prevStep = () => {
+    const { step, type} = this.state;
+
+    if (step === 1) {
+      this.props.navigation.goBack();
+    }
+    if (step === 2) {
+      this.setState({
+        step: step - 1
+      });
+    }
+
+    if (step === 3) {
+      this.setState({
+        step: step - 1
+      });
+    }
+
+    if (step === 4) {
+      if (type === 'HOMEOWNER') {
+        this.setState({
+          step: step - 2
+        });
+      } else {
+        this.setState({
+          step: step - 1
+        });
+      }
+    }
+  }
+
+  validateName() {
+    const { firstName, lastName } = this.state;
+    this.setState({
+      validFirstName: firstName.length !== 0,
+      validLastName: lastName.length !== 0
+    });
+    return (firstName.length !== 0 && lastName.length !== 0);
+  }
+
+  handleEmail = (event) => {
     this.setState({email: event});
   }
 
-  handlePasswordChange = (event) => {
+  handlePassword = (event) => {
     this.setState({password: event});
   }
 
-  handleConfirmPasswordChange = (event) => {
+  handleConfirmPassword = (event) => {
     this.setState({confirmPassword: event});
   }
 
-  handleFirstNameChange = (event) => {
+  handleFirstName = (event) => {
     this.setState({firstName: event});
   }
 
-  handleLastNameChange = (event) => {
+  handleLastName = (event) => {
     this.setState({lastName: event});
   }
 
-  handleTypeChange = (event) => {
-    this.setState({type: event});
+  handleType = (event) => {
+    this.setState({type: event}, () => this.nextStep());
   }
 
-  validateFields = () => {
-    if (!this.state.firstName) {
-      this.setState({validFormInputs: false, validFirstName: false});
-    }
-    if (!this.state.lastName) {
-      this.setState({validFormInputs: false, validLastName: false});
-    }    
-    if (this.state.password !== this.state.confirmPassword) {
+  handlePhoneNumber = (event) => {
+    this.setState({phoneNumber: event});
+  }
+
+  validateFields = () => { 
+    const { password, confirmPassword, email, phoneNumber } = this.state;
+    if (password !== confirmPassword) {
       this.setState({validFormInputs: false, validPasswordMatch: false, 
         errorMsg: 'Passwords entered do not match.'});
     }
-    if (!passwordValidator.validate(this.state.password)) {
+    if (!passwordValidator.validate(password)) {
       this.setState({validFormInputs: false, validPassword: false, 
         errorMsg: 'Password must be at least 8 characters, and must include at least one ' +
           'number and at least one letter.'});
     }
-    if (!validator.isEmail(this.state.email)) {
+    if (!validator.isEmail(email)) {
       this.setState({ validFormInputs: false, validEmail: false, 
         errorMsg: 'Invalid email address.'});
+    }
+    if (!this.validatePhoneNumber(phoneNumber)) {
+      this.setState({ validFormInputs: false, validPhoneNumber: false,
+        errorMsg: 'Invalid phone number.'});
+    }
+  }
+
+  validatePhoneNumber = (phoneNumber) => {
+    phoneNumber = phoneNumber.replace(/\D/g,'');
+    if (phoneNumber.length !== 10) {
+      return false;
+    } else {
+      return true;
     }
   }
 
   registerUser = async() => {
     try {
       await register(this.state.email, this.state.password, this.state.firstName, 
-        this.state.lastName, this.state.type).then(() => {
+        this.state.lastName, this.state.type, this.state.phoneNumber).then(() => {
           this.props.navigation.navigate('LogInPage');
       });
     } catch (err) {
@@ -111,30 +185,26 @@ export default class SignUpPage extends React.Component {
 
   handleRegister = async() => {
     this.setState({ submitting: true, validFormInputs: true, errorMsg: '', 
-      validFirstName: true, validLastName: true, validEmail: true, 
-      validPassword: true, validPasswordMatch: true });
+      validEmail: true, validPassword: true, validPasswordMatch: true, 
+      validPhoneNumber: true });
 
     this.validateFields();
   }
 
   render() {
-    var {submitting} = this.state;
     return (
-      <View style={signUpComponent.signUpPageComponent}>
-        <View style={{width: '50%'}}>
-          <View style={signUpComponent.headerView}>
-            <Text style={signUpComponent.header}>Sign Up</Text>
-          </View>
-          {submitting 
-          ? <Text>Loading...</Text>
-          : <SignUpForm  {...this.state} 
-            handleEmailChange={this.handleEmailChange} 
-            handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange} 
-            handleFirstNameChange={this.handleFirstNameChange} handleLastNameChange={this.handleLastNameChange} 
-            handleTypeChange={this.handleTypeChange} handleRegister={this.handleRegister}/>
-        }
-        </View>
-      </View>
+      <SignUpForm {...this.state} 
+        nextStep={this.nextStep} 
+        prevStep={this.prevStep} 
+        handleEmail={this.handleEmail} 
+        handlePassword={this.handlePassword} 
+        handleConfirmPassword={this.handleConfirmPassword} 
+        handleFirstName={this.handleFirstName} 
+        handleLastName={this.handleLastName} 
+        handleType={this.handleType} 
+        handlePhoneNumber={this.handlePhoneNumber} 
+        submit={this.handleRegister}
+      />
     );
   }
 }
