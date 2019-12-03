@@ -11,9 +11,8 @@ class PropertySectorRepository extends BaseRepository<PropertySector> {
         return await this.getRepositoryConnection(PropertySector).save(propertySectors);
     }
 
-    async update(id: number, propertySector: PropertySector) {
-        return await this.getRepositoryConnection(PropertySector).update(
-            { id }, propertySector);
+    async update(propertySectors: PropertySector[]) {
+        return await this.getRepositoryConnection(PropertySector).save(propertySectors);
     }
 
     async getSectorsByProperty(property: Property) {
@@ -22,9 +21,12 @@ class PropertySectorRepository extends BaseRepository<PropertySector> {
         return await this.getRepositoryConnection(PropertySector).find(findOptions);
     }
 
-    async getPropertySectorById(id: number) {
-        return await this.getRepositoryConnection(PropertySector).findOne({ id });
+    async getPropertySectorsByPropertyAndSectors(property: Property, sectors: Sector[]) {
+        const findOptions : FindOptions<PropertySector> = PROPERTY_SECTOR_FIELDS;
+        findOptions.where = { property, sector: sectors };
+        return await this.getRepositoryConnection(PropertySector).find(findOptions);
     }
+
 }
 
 export { PropertySectorRepository };

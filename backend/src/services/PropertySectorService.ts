@@ -1,12 +1,12 @@
 import { PropertySectorRepository } from '../repositories/PropertySectorRepository';
 import { PropertySector } from '../entities/PropertySector';
-import { BadRequestError } from '../errors/BadRequestError';
 import { Property } from '../entities/Property';
 import { SectorService } from './SectorService';
 import { ActivityStatus } from '../enums/ActivityStatus';
-import { Sector } from '../entities/Sector';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { PropertyService } from './PropertyService';
+import { ResourceExistsError } from '../errors/ResourceExistsError';
+import { Sector } from '../entities/Sector';
 
 class PropertySectorService {
 
@@ -15,74 +15,82 @@ class PropertySectorService {
     private propertyService : PropertyService = new PropertyService();
 
     async createPropertySectors(propertyId: number, propertySectors: PropertySector[]) {
-        try {
-            const property : Property = await this.propertyService.getPropertyById(propertyId);
-            if (!property) {
-                throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
-            }
-
-            for (const propertySector of propertySectors) {
-                propertySector.property = property;
-                propertySector.sector = await this.sectorService.getSectorByKind(
-                    propertySector.sector.kind);
-                propertySector.status = ActivityStatus.ACTIVE;
-            }
-
-            const filteredList : PropertySector[] = await this
-                .removeExistentPropertySectorsFromList(propertySectors);
-
-            if (filteredList.length === 0) {
-                throw new BadRequestError('Property already includes all listed sectors.');
-            }
-            return await this.propertySectorRepository.save(filteredList);
-        } catch (err) {
-            throw new BadRequestError(err.message);
+        const property : Property = await this.propertyService.getPropertyById(propertyId);
+        const sectors : Sector[] = [];
+        if (!property) {
+            throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
         }
+
+        for (const propertySector of propertySectors) {
+            propertySector.property = property;
+            propertySector.sector = await this.sectorService.getSectorByKind(
+                propertySector.sector.kind);
+            propertySector.status = ActivityStatus.ACTIVE;
+            sectors.push(propertySector.sector);
+        }
+        const savedPropertySectors : PropertySector[] = await this.propertySectorRepository
+            .getPropertySectorsByPropertyAndSectors(property, sectors);
+
+        if (savedPropertySectors.length > 0) {
+            throw new ResourceExistsError(`The property with id ${property.id} ` +
+                `already has the following sectors: [${savedPropertySectors.map(
+                    savedPropertySector => savedPropertySector.sector.kind)}]`);
+        }
+
+        return await this.propertySectorRepository.save(propertySectors);
     }
 
-
-    async getSectorsByProperty(property: Property) {
+    async getSectorsByPropertyId(propertyId: number) {
+        const property : Property = await this.propertyService.getPropertyById(propertyId);
         return await this.propertySectorRepository.getSectorsByProperty(property);
     }
 
-    async update(id: number, propertySector: PropertySector) {
-
-        if (Object.keys(propertySector).length === 0) {
-            throw new BadRequestError('Object must include at least one parameter.');
+    // Assumes same property id for all sectors.
+    async update(propertyId: number, propertySectors: PropertySector[]) {
+        const property : Property = await this.propertyService.getPropertyById(propertyId);
+        if (!property) {
+            throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
+        }
+        // Map of sector kind to property sector
+        const propertySectorsMap : Map<string, PropertySector> = new Map();
+        for (const propertySector of propertySectors) {
+            propertySector.property = property;
+            propertySector.sector = await this.sectorService.getSectorByKind(
+                propertySector.sector.kind);
+            propertySectorsMap.set(propertySector.sector.kind, propertySector);
         }
 
-        const savedPropertySector : PropertySector = await this.getPropertySectorById(id);
-        if (!savedPropertySector) {
-            throw new ResourceNotFoundError(`Property sector id ${id} does not exist.`);
+        const savedPropertySectors : PropertySector[] = await this.propertySectorRepository
+            .getPropertySectorsByPropertyAndSectors(property, Array.from(propertySectorsMap
+                .values()).map(propertySector => propertySector.sector));
+
+        /*
+        Cannot patch more objects than there actually are, so throw
+        an error displaying missing sectors.
+         */
+        if (savedPropertySectors.length < propertySectors.length) {
+            const missingSectorKinds : string[] = [];
+            const savedSectorKinds : string[] = savedPropertySectors.map(savedPropertySector =>
+                savedPropertySector.sector.kind);
+            Array.from(propertySectorsMap.keys()).map((sectorKind) => {
+                if (!savedSectorKinds.includes(sectorKind)) {
+                    missingSectorKinds.push(sectorKind);
+                }
+            });
+            throw new ResourceNotFoundError(`Sector kinds [${missingSectorKinds.toString()}] ` +
+                `do not exist for property id ${propertyId}.`);
         }
 
-        return await this.propertySectorRepository.update(id, propertySector);
+        const updatedPropertySectors : PropertySector[] = savedPropertySectors
+            .map((savedPropertySector) => {
+                return this.merge(
+                    savedPropertySector, propertySectorsMap.get(savedPropertySector.sector.kind));
+            });
+        return await this.propertySectorRepository.update(updatedPropertySectors);
     }
 
-    async getPropertySectorById(id: number) {
-        return await this.propertySectorRepository.getPropertySectorById(id);
-    }
-
-    // Assumes the property is same for each property sector in the list.
-    private async removeExistentPropertySectorsFromList(propertySectors: PropertySector[]) {
-        const savedPropertySectors : PropertySector[] = await this
-            .getSectorsByProperty(propertySectors[0].property);
-        console.log(savedPropertySectors);
-        const savedSectors : number[] = [];
-
-        savedPropertySectors.forEach((savedPropertySector) => {
-            savedSectors.push(savedPropertySector.sector.id);
-        });
-
-        const filteredList : PropertySector[] = [];
-
-        propertySectors.forEach((propertySector) => {
-            if (savedSectors.indexOf(propertySector.sector.id) === -1) {
-                filteredList.push(propertySector);
-            }
-        });
-
-        return filteredList;
+    private merge(savedPropertySector: PropertySector, updatedPropertySector : PropertySector) {
+        return { ...savedPropertySector, ...updatedPropertySector };
     }
 }
 
