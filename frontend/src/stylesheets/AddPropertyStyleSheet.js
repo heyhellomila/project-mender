@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 
 const headerStyles = StyleSheet.create({
     headerStyle: {
@@ -20,7 +21,10 @@ const headerStyles = StyleSheet.create({
 const formStyles = StyleSheet.create({
     container: {
         flex: 6,
-        backgroundColor: '#f0f0f0'
+        backgroundColor: '#f0f0f0',
+        paddingTop: (Platform.OS === "android" || Platform.OS === "ios")
+            ? StatusBar.currentHeight
+            : 0
     },
     rowContainer: {
         flex: 1,

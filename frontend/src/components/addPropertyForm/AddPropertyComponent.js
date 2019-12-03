@@ -14,8 +14,7 @@ const AddPropertyComponent = (props) => {
     return(
         <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false}
                                  resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
-                                 contentContainerStyle={[formStyles.container, {flex: 1, paddingTop:
-                                         (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0}]}>
+                                 contentContainerStyle={formStyles.container}>
             <ScrollView style={{ flex: 6}}>
                 <View style={{flex: 1}}>
                     <Header {...props}/>

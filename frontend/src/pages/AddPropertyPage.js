@@ -33,82 +33,47 @@ class AddPropertyPage extends React.Component {
     }
 
     validatePostalCode(postalCode, countryCode) {
-        if (countryCode && !postcodeValidator(postalCode.trim(), countryCode)) {
-            alert('Invalid postal code.');
-            this.setState({
-                validPostalCode: false
-            });
-        } else {
-            this.setState({
-                validPostalCode: true
-            });
-        }
-    }
-
-    validateFields() {
-        const { name, address, propertyType, city, province, postalCode, country } = this.state;
-        if (!name) {
-            this.setState({
-                validName: false
-            });
-        } else {
-            this.setState({
-                validName: true
-            });
-        }
-        if (!address) {
-            this.setState({
-                validAddress: false
-            });
-        } else {
-            this.setState({
-                validAddress: true
-            });
-        }
-        if (!propertyType.key) {
-            this.setState({
-                validPropertyType: false
-            });
-        } else {
-            this.setState({
-                validPropertyType: true
-            });
-        }
-        if (!city) {
-            this.setState({
-                validCity: false
-            });
-        } else {
-            this.setState({
-                validCity: true
-            });
-        }
         if (!postalCode) {
             this.setState({
                 validPostalCode: false
             });
         } else {
-            this.validatePostalCode(postalCode, country.key);
+            if (countryCode && !postcodeValidator(postalCode.trim(), countryCode)) {
+                alert('Invalid postal code.');
+                this.setState({
+                    validPostalCode: false
+                });
+            } else {
+                this.setState({
+                    validPostalCode: true
+                });
+            }
         }
-        if (!province) {
+
+    }
+
+    validateFields() {
+        const { name, address, propertyType, city, province, postalCode, validPostalCode, country } = this.state;
+        this.validateInput(name, 'validName');
+        this.validateInput(address, 'validAddress');
+        this.validateInput(propertyType.key, 'validPropertyType');
+        this.validateInput(city, 'validCity');
+        this.validateInput(province, 'validProvince');
+        this.validateInput(country, 'validCountry');
+        this.validatePostalCode(postalCode, country.key);
+        return (name && address && propertyType && city && postalCode && validPostalCode && province && country);
+    }
+
+    validateInput(input, validField) {
+        if (!input) {
             this.setState({
-                validProvince: false
-            });
+                [validField]: false
+            })
         } else {
             this.setState({
-                validProvince: true
-            });
+                [validField]: true
+            })
         }
-        if (!country) {
-            this.setState({
-                validCountry: false
-            });
-        } else {
-            this.setState({
-                validCountry: true
-            });
-        }
-        return (name && address && propertyType && city && postalCode && province && country);
     }
 
     handleCreateProperty = async() => {

@@ -1,6 +1,12 @@
-import { StyleSheet} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 
 const drawerComponent = StyleSheet.create({
+    container: {
+        flex: 6,
+        paddingTop: (Platform.OS === "android" || Platform.OS === "ios")
+            ? StatusBar.currentHeight
+            : 0
+    },
     header: {
         flex: 0.3,
         alignItems: 'center',
