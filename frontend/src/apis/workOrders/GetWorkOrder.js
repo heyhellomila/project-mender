@@ -19,6 +19,14 @@ api.interceptors.response.use(async (response) => {
         }
 });
 
+export async function getWorkOrders(propertyId, pageSize, pageNumber) {
+    return await api.get(`/workorders/?propertyId=${propertyId}&pageSize=${pageSize}&pageNumber=${pageNumber}`, {
+        headers: {
+            'Authorization': await AsyncStorage.getItem('Authorization')
+        }
+    });
+}
+
 export async function getWorkOrdersByPropertyId(propertyId) {	
     return await api.get(`/properties/${propertyId}/workorders/`, {	
         headers: {	
@@ -27,7 +35,6 @@ export async function getWorkOrdersByPropertyId(propertyId) {
     });
 }
 
-/* Add getWorkOrderById(workOrderId) */
 export async function getWorkOrderById(workOrderId) {	
     return await api.get(`/workorders/${workOrderId}`, {	
         headers: {	
@@ -35,3 +42,4 @@ export async function getWorkOrderById(workOrderId) {
         }	
     });
 }
+

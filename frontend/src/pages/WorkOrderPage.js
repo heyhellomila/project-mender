@@ -17,7 +17,7 @@ class WorkOrderPage extends React.Component {
             displayModal: false,
             workOrderId: this.props.navigation.getParam('workOrderId', null),
             workOrder: [],
-            property: [],
+            property: this.props.property,
             loading: true,
             error: false
         };
@@ -31,13 +31,6 @@ class WorkOrderPage extends React.Component {
         }).catch((err) => {
             this.setState({error: true, loading: false, errorMsg: err.message})
         });
-        await getPropertyById(this.state.workOrder.property_id).then((response) => {
-            this.setState({
-                property: response.data
-            });
-        }).catch((err) => {
-            this.setState({error: true, loading: false, errorMsg: err.message})
-        });
     }
 
     render() {
@@ -46,20 +39,19 @@ class WorkOrderPage extends React.Component {
         return (
             <ScrollView styles={styles.container}>
                 <View style={headerStyles.commonHeaderComponent}>
-                    <View style={headerStyles.commonHeaderTextComponent}><Text style={headerStyles.commonHeaderText}>W.O # {workOrder._id}</Text></View>
-                    <Button title={'Back to Job List for ' + this.props.property.name} onPress={() => navigate('JobListPage')}></Button>
+                    <View style={headerStyles.commonHeaderTextComponent}><Text style={headerStyles.commonHeaderText}>W.O # {workOrder.id}</Text></View>
+                    <Button title={'Back to Job List for ' + property.name} onPress={() => navigate('JobListPage')}></Button>
                 </View>
                 <View>
                     <Text>Property: {property.name}</Text>
                     <Text>Sector: {workOrder.sector}</Text>
-                    <Text>Type: {workOrder.type}</Text>
                     <Text>Title: {workOrder.title}</Text>
                     <Text>Cause: {workOrder.cause}</Text>
                     <Text>Priority: {workOrder.priority}</Text>
                     <Text>Description: {workOrder.description}</Text>
-                    <Text>Service Needed: {workOrder.service_needed}</Text>
-                    <Text>Due Date: {workOrder.due_date}</Text>
-                    <Text>Price Estimate: {workOrder.price_estimate}</Text>
+                    <Text>Service Needed: {workOrder.serviceNeeded}</Text>
+                    <Text>Due Date: {workOrder.dueDate}</Text>
+                    <Text>Price Estimate: {workOrder.priceEstimate}</Text>
                 </View>
             </ScrollView>
         );

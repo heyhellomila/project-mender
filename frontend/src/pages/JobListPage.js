@@ -1,11 +1,11 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View, } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Card, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
 import { styles, jobListTable, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import { Table, Row, Col, Cols } from 'react-native-table-component';
-import { getWorkOrdersByPropertyId } from '../apis/workOrders/GetWorkOrder';
+import { getWorkOrders } from '../apis/workOrders/GetWorkOrder';
 import { WorkOrderPage } from '../pages/WorkOrderPage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -15,28 +15,17 @@ class JobListPage extends React.Component {
     };
     constructor(props) {
         super(props);
-
-        const header = (value) => (
-          <TouchableOpacity key={value} onPress={() => this.sortWorkOrders(value)}>
-              <View>
-                  <Text>
-                      {value} <Icon name="sort"/>
-                  </Text>  
-              </View>
-          </TouchableOpacity>
-        );
-
         this.state = {
             user: props.user.user,
             property: this.props.property,
-            displayModal: false,
-            tableHead: [header('W.O #'), header('Title'), header('Type'), header('Sector')],
             workOrders: [],
-            tableData: [],
+            data: [],
             loading: true,
             error: false,
             attributeOrder: 'W.O #',
-            ascending: true
+            ascending: true,
+            pageSize: 10,
+            pageNumber: 1
         };
         this.sortWorkOrders = this.sortWorkOrders.bind(this);
     }
@@ -51,15 +40,15 @@ class JobListPage extends React.Component {
         this.setWorkOrders()
     }
 
-
     async setWorkOrders() {
-        await getWorkOrdersByPropertyId(this.props.property.id).then((response) => {
+        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber).then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
-                    id: workOrder._id,
+                    id: workOrder.id,
                     title: workOrder.title,
-                    type: workOrder.type,
-                    sector: workOrder.sector
+                    type: workOrder.workOrderType.type,
+                    priority: workOrder.priorityType.type,
+                    dueDate: workOrder.dueDate
                 }))
             }, () => this.transformData());
         }).catch((err) => {
@@ -67,37 +56,20 @@ class JobListPage extends React.Component {
         });
     }
 
-    openModal() {
-        this.setState(prevState => {
-            return {
-                displayModal: true
-            }
-        });
-    }
-
-    closeModal = () => {
-        this.setState(prevState => {
-            return {
-                displayModal: false
-            }
-        })
-    }
-
-    openWorkModal = () => {
-        this.openModal();
-    }
-
     transformData = () => {
         const { workOrders } = this.state;
         var data = [];
         workOrders.forEach((workOrder) => {
-            data.push([workOrder.id, workOrder.title, workOrder.type, workOrder.sector]);
+            data.push([workOrder.id, workOrder.title, workOrder.type, workOrder.priority, workOrder.dueDate]);
         });
-        this.setState({tableData: data, loading: false});
+        this.setState({data: data, loading: false});
+    }
+
+    handlePageEnd = () => {
+        this.setState(state => ({pageNumber: state.page + 1}), () => this.setWorkOrders());
     }
 
     sortWorkOrders = (attribute) => {
-        console.log("sort");
         ascending = false;
         (attribute === this.state.attributeOrder) ? ascending = !this.state.ascending : ascending = true;
         sortedOrders = this.state.workOrders;
@@ -129,42 +101,39 @@ class JobListPage extends React.Component {
         this.transformData();
     }
 
+    renderJobListHeader() {
+    }
+
     renderJobList() {
-        const { tableHead, loading, tableData} = this.state;
-        const { navigate }  = this.props.navigation;
+        const { loading, data, workOrders } = this.state;
+        const { navigate } = this.props.navigation;
         return (
             <View>
                 <CommonHeader user={this.state.user} />
-                {loading 
-                    ?   <Text>Loading...</Text>
-                    :   <View>
-                            <View style={jobListTable.jobListTableContainer}>
-                                <Text>JOB LIST</Text>
-                                <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-                                    <Row data={tableHead} style={jobListTable.jobListTablehead} textStyle={styles.text}>
-                                        <Cols data={this.state.tableHead} />
-                                    </Row>
-                                    {
-                                        tableData.map(function(workOrder) {
-                                            return (
-                                            <TouchableOpacity
-                                                key={workOrder[0]}
-                                                onPress={() => navigate("WorkOrderPage", {workOrderId: workOrder[0]})}>
-                                                <Row data={workOrder} style={jobListTable.jobListTabletext} />
-                                            </TouchableOpacity>
-                                            )
-                                        })
-                                    }
-                                </Table>
-                            </View>
-                        </View>
-                }
+                
+                <View style={jobListTable.jobListTableContainer}>
+                    {
+                        workOrders.map((workOrder, i) => (
+                        <TouchableOpacity
+                            key={workOrder[0]}
+                            onPress={() => navigate("WorkOrderPage", {workOrderId: workOrder[0]})}>
+                            <Card>
+                                <Text>{workOrder.dueDate}</Text>
+                                <Text>{workOrder.title}</Text>
+                                <Text>{workOrder.priority}</Text>
+                                <Text># {workOrder.id}</Text>
+                                <Text>{workOrder.type}</Text>
+                            </Card>
+                        </TouchableOpacity>
+                        ))
+                    }
+                </View>
             </View>
         );
     }
 
     render() {
-        const { tableHead, loading, tableData} = this.state;
+        const { loading, data} = this.state;
         return (
             <ScrollView styles={styles.container}>
                 {this.renderJobList()}
