@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, ScrollView, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
@@ -10,9 +10,11 @@ import { WorkOrderPage } from '../pages/WorkOrderPage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class JobListPage extends React.Component {
+
     static navigationOptions = {
         draweLabel: 'Job List Page',
     };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +22,7 @@ class JobListPage extends React.Component {
             property: this.props.property,
             workOrders: [],
             data: [],
-            loading: true,
+            loading: false,
             error: false,
             attributeOrder: 'W.O #',
             ascending: true,
@@ -28,20 +30,25 @@ class JobListPage extends React.Component {
             pageNumber: 1
         };
         this.sortWorkOrders = this.sortWorkOrders.bind(this);
+        this.handleLoadMore = this.handleLoadMore.bind(this);
     }
   
     componentDidUpdate(prevProps) {
-        if (this.props.property !== prevProps.property) {
-          this.setWorkOrders();
+        if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation) {
+            this.getListOfWorkOrders();
         }
     }
 
     componentDidMount() {
-        this.setWorkOrders()
+        this.setState({
+            loading: false},
+            () => this.getListOfWorkOrders()
+        );
     }
 
-    async setWorkOrders() {
-        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber).then((response) => {
+    async getListOfWorkOrders() {
+        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber)
+        .then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
                     id: workOrder.id,
@@ -49,24 +56,29 @@ class JobListPage extends React.Component {
                     type: workOrder.workOrderType.type,
                     priority: workOrder.priorityType.type,
                     dueDate: workOrder.dueDate
-                }))
-            }, () => this.transformData());
-        }).catch((err) => {
-            this.setState({error: true, loading: false, errorMsg: err.message})
+                    }))
+            });
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            alert (this.state.pageNumber)
+            this.setState({
+                workOrders: [...this.state.workOrders, ...response.results],
+                error: response.error || null,
+                loading: false
+            });
+        })
+        .catch((err) => {
+           this.setState({error: true, loading: false, errorMsg: err.message})
         });
     }
 
-    transformData = () => {
-        const { workOrders } = this.state;
-        var data = [];
-        workOrders.forEach((workOrder) => {
-            data.push([workOrder.id, workOrder.title, workOrder.type, workOrder.priority, workOrder.dueDate]);
-        });
-        this.setState({data: data, loading: false});
-    }
-
-    handlePageEnd = () => {
-        this.setState(state => ({pageNumber: state.page + 1}), () => this.setWorkOrders());
+    handleLoadMore = () => {
+        this.setState({
+            pageNumber: this.state.pageNumber + 1,
+            loading: true},
+            () => this.getListOfWorkOrders()
+        )
     }
 
     sortWorkOrders = (attribute) => {
@@ -98,42 +110,57 @@ class JobListPage extends React.Component {
                 sortedOrders = this.state.workOrders;
         }
         this.setState({attributeOrder: attribute, ascending: ascending, workOrders: sortedOrders});
-        this.transformData();
     }
 
-    renderJobListHeader() {
+    renderCard = ({item}) => {
+        return (   
+            <View>
+                <Card>
+                    <Text>{item.dueDate}</Text>
+                    <Text>{item.title}</Text>
+                    <Text>{item.priority}</Text>
+                    <Text># {item.id}</Text>
+                    <Text>{item.type}</Text>
+                </Card>
+            </View>
+        )
+    }
+
+    renderHeader = () => {
+    }
+
+    renderFooter = () => {
+        return (
+                this.state.loading ?
+                    <View>
+                        <ActivityIndicator color="black" style={{margin: 5}} />
+                    </View>
+                : null
+          );
     }
 
     renderJobList() {
-        const { loading, data, workOrders } = this.state;
-        const { navigate } = this.props.navigation;
+        const { workOrders } = this.state;
         return (
             <View>
                 <CommonHeader user={this.state.user} />
-                
-                <View style={jobListTable.jobListTableContainer}>
+                <SafeAreaView style={jobListTable.jobListTableContainer}>
                     {
-                        workOrders.map((workOrder, i) => (
-                        <TouchableOpacity
-                            key={workOrder[0]}
-                            onPress={() => navigate("WorkOrderPage", {workOrderId: workOrder[0]})}>
-                            <Card>
-                                <Text>{workOrder.dueDate}</Text>
-                                <Text>{workOrder.title}</Text>
-                                <Text>{workOrder.priority}</Text>
-                                <Text># {workOrder.id}</Text>
-                                <Text>{workOrder.type}</Text>
-                            </Card>
-                        </TouchableOpacity>
-                        ))
+                        <FlatList
+                            data={workOrders}
+                            renderItem={this.renderCard}
+                            keyExtractor={(item, index) => index.toString()}
+                            onEndReached={this.handleLoadMore}
+                            onEndReachedThreshold={1}
+                            ListFooterComponent={this.renderFooter}
+                        />
                     }
-                </View>
+                </SafeAreaView>
             </View>
         );
     }
 
     render() {
-        const { loading, data} = this.state;
         return (
             <ScrollView styles={styles.container}>
                 {this.renderJobList()}
