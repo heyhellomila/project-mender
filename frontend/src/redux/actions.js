@@ -35,6 +35,10 @@ export const userLogout = () => async dispatch => {
     })
 }
 
+export const updateUserProfile = (user) => aync dispatch =>{
+    
+}
+
 export const selectProperty = (property) => (dispatch) => {
     dispatch(propertySelection(property));
 }

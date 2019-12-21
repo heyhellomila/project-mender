@@ -20,7 +20,8 @@ class ProfilePage extends Component {
             phoneNumber: null,
             password: null,
             confirmPassword: null,
-            errorMsg: null
+            errorMsg: null,
+            validatePassword: false
         }
     }
     goToEditProfilePage = () => {
@@ -38,7 +39,8 @@ class ProfilePage extends Component {
     goToProfilePage = () => {
         const { step } = this.state;
         this.setState({
-            step: 1
+            step: 1,
+            validatePassword: false
         })
     }
     handleFirstNameChange = event => {
@@ -72,7 +74,9 @@ class ProfilePage extends Component {
                 this.setState({errorMsg: err.message})
             }
         }else{
-            alert('BAD')
+           this.setState({
+               validatePassword: true
+           })
         }
     }
     handleUpdate = async () => {

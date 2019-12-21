@@ -27,11 +27,16 @@ const ChangePasswordForm = (props) => {
                                placeholder={'Confirm Password'}
                                onChangeText={text => props.handleConfirmPasswordChange(text)}/>
                 </View>
+                { props.validatePassword &&
+                        <View style={{flex: 1}}>
+                            <Text style={{color: 'red'}}>Password must be at least 8 characters and must include at least one digit. Passwords must also match.</Text>
+                        </View>
+                }
                 <View style={{flex: 0.5, flexDirection: 'row', justifyContent: 'space-between'}}>
                     <Button title={'Back'} onPress={() => props.goToProfilePage()}/>
                     <Button title={'Confirm'} onPress={() => props.handlePasswordChange()}/>
                 </View>
-                <View style={{flex: 3}}></View>
+                <View style={{flex: 2}}></View>
             </View>
         </View>
     );
