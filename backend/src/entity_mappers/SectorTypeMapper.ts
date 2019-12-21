@@ -1,26 +1,28 @@
 import { ObjectMapper } from './ObjectMapper';
-import { SectorType } from '../entities/SectorType';
-import { SectorTypeDTO } from '../dtos/SectorTypeDTO';
+import { Sector } from '../entities/Sector';
+import { SectorDTO } from '../dtos/SectorDTO';
 import { SectorType as SectorTypeEnum } from '../enums/SectorType';
+import { SectorKind as SectorKindEnum } from '../enums/SectorKind';
 import { BadRequestError } from '../errors/BadRequestError';
 
-class SectorTypeMapper implements ObjectMapper<SectorType, SectorTypeDTO> {
+class SectorMapper implements ObjectMapper<Sector, SectorDTO> {
 
-    toDTO(sectorType: SectorType) : SectorTypeDTO {
-        var sectorTypeDTO : SectorTypeDTO = new SectorTypeDTO();
-        sectorTypeDTO.type = sectorType.type;
-        return sectorTypeDTO;
+    toDTO(sectorType: Sector) : SectorDTO {
+        const sectorDTO : SectorDTO = new SectorDTO();
+        sectorDTO.type = sectorType.type;
+        sectorDTO.kind = sectorType.kind;
+        return sectorDTO;
     }
 
-    fromDTO(sectorTypeDTO: SectorTypeDTO) : SectorType {
-        var sectorType : SectorType = new SectorType();
-        if (!(sectorTypeDTO.type in SectorTypeEnum)) {
-            throw new BadRequestError('Invalid Sector Type. Allowed Types: [' 
-                + Object.keys(SectorTypeEnum) +']');
+    fromDTO(sectorDTO: SectorDTO) : Sector {
+        const sector : Sector = new Sector();
+        if (!(sectorDTO.kind in SectorKindEnum)) {
+            throw new BadRequestError('Invalid Sector Kind. Allowed Types: [' +
+                `${Object.keys(SectorKindEnum)}]`);
         }
-        sectorType.type = sectorTypeDTO.type;
-        return sectorType;
+        sector.kind = sectorDTO.kind;
+        return sector;
     }
 }
 
-export { SectorTypeMapper };
+export { SectorMapper };

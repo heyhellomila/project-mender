@@ -6,8 +6,10 @@ import AboutUsPage from '../pages/AboutUsPage';
 import ProfilePage from '../pages/ProfilePage';
 import { Image } from 'react-native';
 import React from 'react';
-import DrawerComponent from '../components/DrawerComponent'
+import DrawerComponent from '../components/drawer/DrawerComponent'
 import BottomStackNavigator from './BottomStackNavigator';
+import {createStackNavigator} from "react-navigation-stack";
+import AddPropertyPage from "../pages/AddPropertyPage";
 
 const homeIcon = require('../../assets/homeIcon.png');
 const settingsIcon = require("../../assets/settingsIcon.png");
@@ -81,5 +83,17 @@ const DrawerNavigatorStack = createDrawerNavigator({
     contentComponent: DrawerComponent
 })
 
-const DrawerNavigator = createAppContainer(DrawerNavigatorStack);
+const RootNavigator = createStackNavigator({
+    MainApp: {
+        screen: DrawerNavigatorStack,
+    },
+    AddProperty: {
+        screen: AddPropertyPage,
+    },
+},{
+    headerMode: 'none',
+    mode: 'modal',
+})
+
+const DrawerNavigator = createAppContainer(RootNavigator);
 export default DrawerNavigator;

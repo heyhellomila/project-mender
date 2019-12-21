@@ -1,6 +1,6 @@
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderType } from '../entities/WorkOrderType';
-import { SectorType } from '../entities/SectorType';
+import { Sector } from '../entities/Sector';
 import { PriorityType } from '../entities/PriorityType';
 import { Property } from '../entities/Property';
 import { BaseRepository } from './BaseRepository';
@@ -21,18 +21,18 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrders(filterQueries: string, pageNumber: number, pageSize: number, searchTerm: string, workOrderSort: string, ordering: OrderingByType) {
         const workorders = await this.getRepositoryConnection(WorkOrder)
-            .createQueryBuilder("work_orders")
-            .addSelect(["properties.id", "createdBy.id", "lastModifiedBy.id"])
-            .leftJoinAndSelect("work_orders.sectorType", "sectorType")
-            .leftJoinAndSelect("work_orders.priorityType", "priorityType")
-            .leftJoin("work_orders.property", "properties",)
-            .leftJoin("work_orders.createdBy", "createdBy")
-            .leftJoinAndSelect("work_orders.workOrderType", "workOrderType")
-            .leftJoin("work_orders.lastModifiedBy", "lastModifiedBy")
+            .createQueryBuilder('work_orders')
+            .addSelect(['properties.id', 'createdBy.id', 'lastModifiedBy.id'])
+            .leftJoinAndSelect('work_orders.sector', 'sector')
+            .leftJoinAndSelect('work_orders.priorityType', 'priorityType')
+            .leftJoin('work_orders.property', 'properties')
+            .leftJoin('work_orders.createdBy', 'createdBy')
+            .leftJoinAndSelect('work_orders.workOrderType', 'workOrderType')
+            .leftJoin('work_orders.lastModifiedBy', 'lastModifiedBy')
             .where(filterQueries)
-            .andWhere(searchTerm != null  ? "concat(cause, title, description) like :searchTerm" : '1=1',{searchTerm: '%' + searchTerm + '%'})
+            .andWhere(searchTerm != null  ? 'concat(cause, title, description) like :searchTerm' : '1=1',{searchTerm: '%' + searchTerm + '%'})
             .orderBy(workOrderSort, ordering)
-            .skip(pageSize * (pageNumber- 1))
+            .skip(pageSize * (pageNumber - 1))
             .take(pageSize)
             .getMany();
         return workorders;

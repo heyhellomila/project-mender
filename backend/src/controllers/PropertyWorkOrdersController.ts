@@ -3,8 +3,8 @@ import { WorkOrderService } from '../services/WorkOrderService';
 import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
 import { WorkOrderDTO } from '../dtos/WorkOrderDTO';
 import auth from '../middleware/auth';
-import handleError from '../utils/HttpUtils';
-import validateBody from '../middleware/requestValidation';
+import { handleError } from '../utils/HttpUtils';
+import { validateBody } from '../middleware/requestValidation';
 import { WorkOrderFields } from '../constants/BodyFields';
 
 const propertyWorkOrdersController = express.Router({mergeParams: true});

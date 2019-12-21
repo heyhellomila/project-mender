@@ -6,11 +6,10 @@ import { UserService } from './UserService';
 import { PropertyRepository } from '../repositories/PropertyRepository';
 import { Property } from '../entities/Property';
 import { ActivityStatusService } from './ActivityStatusService';
-import { ActivityStatus } from '../entities/ActivityStatus';
-import { PropertyType } from '../entities/PropertyType';
 import { PropertyTypeService } from './PropertyTypeService';
 import { User } from '../entities/User';
 import { PropertyFields, PropertyFieldsNoUser } from '../constants/FindOptionsFields';
+import { postcodeValidator } from 'postcode-validator';
 
 class PropertyService {
 
@@ -22,17 +21,23 @@ class PropertyService {
     async propertyExists(id: number) {
         const property: Property =  await this.propertyRepository.getPropertyById(id);
         if (!property) {
-            throw new ResourceNotFoundError("Property with id " + id + " does not exist");
+            throw new ResourceNotFoundError(`Property with id ${id} does not exist`);
         }
         return property;
     }
 
     async createProperty(userId: number, property: Property) {
-        
-        if (!(await this.userService.userExists(userId)))
-            throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
 
-        var user : User = new User();
+        if (!(await this.userService.userExists(userId))) {
+            throw new ResourceNotFoundError(`User with id ${userId} does not exist.`);
+        }
+
+        if (!postcodeValidator(property.postalCode, property.countryCode)) {
+            throw new BadRequestError(`Postal code ${property.postalCode} is invalid for given country ` +
+                `${property.countryCode}`);
+        }
+
+        const user : User = new User();
         user.id = userId;
 
         property.activityStatus = await this.activityStatusService.getActivityStatus(
@@ -61,9 +66,10 @@ class PropertyService {
     }
 
     async getPropertyById(id: number) {
-        const property : Property = await this.propertyRepository.getPropertyById(id, PropertyFields);
+        const property : Property = await this.propertyRepository.getPropertyById(
+            id, PropertyFields);
         if (!property) {
-            throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
+            throw new ResourceNotFoundError(`Property with id ${id} does not exist.`);
         }
         return property;
     }

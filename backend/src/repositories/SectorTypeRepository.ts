@@ -1,11 +1,13 @@
-import { SectorType } from '../entities/SectorType';
+import { Sector } from '../entities/Sector';
 import { BaseRepository } from './BaseRepository';
 
-class SectorTypeRepository extends BaseRepository<SectorType> {
+class SectorRepository extends BaseRepository<Sector> {
 
-    async getSectorType(type: string) {
-        return await this.getRepositoryConnection(SectorType).findOne({type: type});
+    async getSectorByKind(kind: string) {
+        return await this.getRepositoryConnection(Sector).findOne({
+            kind,
+        });
     }
 }
 
-export { SectorTypeRepository };
+export { SectorRepository };

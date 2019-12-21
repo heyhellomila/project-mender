@@ -8,9 +8,8 @@ import { FindOptions } from 'typeorm';
 class PropertyRepository extends BaseRepository<Property> {
 
     async getPropertyById(id: number, fieldOptions?: FindOptions<Property>) {
-        const property = await this.getRepositoryConnection(Property).findOne(id,
+        return await this.getRepositoryConnection(Property).findOne(id,
             fieldOptions);
-        return property;
     }
 
     async getPropertiesByUser(user: User, fieldOptions?: FindOptions<Property>) {

@@ -66,3 +66,8 @@ export const propertySelection = (property) => ({
     type: 'SELECT_PROPERTY',
     property
 });
+
+export const reloadProperties = bool => ({
+    type: 'RELOAD_PROPERTIES',
+    reloadProperties: bool
+});

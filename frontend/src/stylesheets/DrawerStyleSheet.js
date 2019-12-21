@@ -1,23 +1,26 @@
-import { StyleSheet} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 
-const drawerComponent = StyleSheet.create({ 
+const drawerComponent = StyleSheet.create({
     container: {
-        flex: 1, 
-        height: 150, 
-        backgroundColor: 'white', 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+        flex: 6,
+        paddingTop: (Platform.OS === "android" || Platform.OS === "ios")
+            ? StatusBar.currentHeight
+            : 0
+    },
+    header: {
+        flex: 0.3,
+        alignItems: 'center',
+        marginTop: '3%'
     },
     logo: {
         height: 50, 
         width: 50, 
-        marginTop: '5%'
     },
     properties: {
-        flex: 1, 
-        marginBottom: '5%' , 
-        paddingBottom: '25%'
-    }, 
+        flex: 1.5,
+        marginBottom: '3%',
+        paddingBottom: '5%'
+    },
     propertyHeader: {
         alignSelf: 'center',
         justifyContent: 'center',
@@ -26,14 +29,24 @@ const drawerComponent = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: '10%'
     },
+    addPropertyContainer: {
+        alignContent:'flex-end',
+        alignSelf:'flex-end',
+        width:'50%'
+    },
     logoutButton: {
-        alignSelf:'flex-end', 
+        flex: 0.3,
+        alignSelf:'flex-end',
+        justifyContent: 'flex-end',
         height: '10%', 
         width:'50%', 
         marginBottom: '1%', 
         paddingBottom: '1%'
+    },
+    drawerItems: {
+        flex: 2,
+        justifyContent: 'flex-end'
     }
-
 });
 
 export { drawerComponent };
