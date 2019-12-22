@@ -1,13 +1,14 @@
 import React from 'react';
 import { ActivityIndicator, FlatList, ScrollView, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
-import { Card, ListItem } from 'react-native-elements';
+import { Card, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
-import { styles, jobListTable, headerStyles } from '../stylesheets/Stylesheet';
+import { styles, jobList, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrder';
 import { WorkOrderPage } from '../pages/WorkOrderPage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 class JobListPage extends React.Component {
 
@@ -76,7 +77,7 @@ class JobListPage extends React.Component {
     handleLoadMore = () => {
         this.setState({
             pageNumber: this.state.pageNumber + 1,
-            loading: true},
+            loading: false}, // ! set to false for testing
             () => this.getListOfWorkOrders()
         )
     }
@@ -89,22 +90,18 @@ class JobListPage extends React.Component {
             case "W.O #":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x._id < y._id)
                 : sortedOrders = sortedOrders.sort((x, y) => x._id > y._id)
-                console.log("sorting W.O #");
                 break;
             case "Title":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.title < y.title)
                 : sortedOrders = sortedOrders.sort((x, y) => x.title > y.title)
-                console.log("sorting title");
                 break; 
             case "Type":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.type < y.type)
                 : sortedOrders = sortedOrders.sort((x, y) => x.type > y.type)
-                console.log("sorting type");
                 break; 
             case "Sector":
                 ascending ? sortedOrders = sortedOrders.sort((x, y) => x.sector < y.sector)
                 : sortedOrders = sortedOrders.sort((x, y) => x.sector > y.sector)
-                console.log("sorting sector");
                 break; 
             default:
                 sortedOrders = this.state.workOrders;
@@ -127,15 +124,111 @@ class JobListPage extends React.Component {
     }
 
     renderHeader = () => {
+        return (
+            <View>
+                <ScrollView style={jobList.jobListHeader} horizontal={true}>
+                    <Button
+                        icon={
+                            <Icon
+                                name='bookmark'
+                                size={15}
+                                color='black'
+                            />
+                        }
+                        title='Bookmarked'
+                        type='outline'
+                        containerStyle={jobList.jobListFilterButtonContainer}
+                        buttonStyle={jobList.jobListFilterButton}
+                        titleStyle={jobList.jobListFilterButtonTitle}
+                    />
+                    <Button
+                        icon={
+                            <Icon
+                                name='calendar'
+                                size={15}
+                                color='black'
+                            />
+                        }
+                        title='Due Date'
+                        type='outline'
+                        containerStyle={jobList.jobListFilterButtonContainer}
+                        buttonStyle={jobList.jobListFilterButton}
+                        titleStyle={jobList.jobListFilterButtonTitle}
+                    /> 
+                    <Button
+                        icon={
+                            <Icon
+                                name='list'
+                                size={15}
+                                color='black'
+                            />
+                        }
+                        title='Priority'
+                        type='outline'
+                        containerStyle={jobList.jobListFilterButtonContainer}
+                        buttonStyle={jobList.jobListFilterButton}
+                        titleStyle={jobList.jobListFilterButtonTitle}
+                    />
+                    <Button
+                        icon={
+                            <Icon
+                                name='plug'
+                                size={15}
+                                color='black'
+                            />
+                        }
+                        title='Sector'
+                        type='outline'
+                        containerStyle={jobList.jobListFilterButtonContainer}
+                        buttonStyle={jobList.jobListFilterButton}
+                        titleStyle={jobList.jobListFilterButtonTitle}
+                    />
+                    <Button
+                        icon={
+                            <Icon
+                                name='wrench'
+                                size={15}
+                                color='black'
+                            />
+                        }
+                        title='Type'
+                        type='outline'
+                        containerStyle={jobList.jobListFilterButtonContainer}
+                        buttonStyle={jobList.jobListFilterButton}
+                        titleStyle={jobList.jobListFilterButtonTitle}
+                    />  
+                    <Button
+                        icon={
+                            <Icon
+                                name='check-circle'
+                                size={15}
+                                color='black' 
+                            />
+                        }
+                        title='Status'
+                        type='outline'
+                        containerStyle={jobList.jobListFilterButtonContainer}
+                        buttonStyle={jobList.jobListFilterButton}
+                        titleStyle={jobList.jobListFilterButtonTitle}
+                    />  
+                </ScrollView>
+                <ModalDropdown 
+                    defaultValue='Sort by Work Order #'
+                    options={['Sort by Work Order #', 'Sort by Due Date', 'Sort by Priority', 'Sort by Sector', 'Sort by Type', 'Sort by Status']}
+                    style={jobList.jobListDropdown}
+                    animated={true}
+                />
+            </View>
+        );
     }
 
     renderFooter = () => {
         return (
-                this.state.loading ?
-                    <View>
-                        <ActivityIndicator color="black" style={{margin: 5}} />
-                    </View>
-                : null
+            this.state.loading ?
+                <View>
+                    <ActivityIndicator color='black' style={{margin: 5}} />
+                </View>
+            : null
           );
     }
 
@@ -143,15 +236,15 @@ class JobListPage extends React.Component {
         const { workOrders } = this.state;
         return (
             <View>
-                <CommonHeader user={this.state.user} />
-                <SafeAreaView style={jobListTable.jobListTableContainer}>
+                <SafeAreaView style={jobList.jobListContainer}>
                     {
                         <FlatList
                             data={workOrders}
                             renderItem={this.renderCard}
                             keyExtractor={(item, index) => index.toString()}
-                            onEndReached={this.handleLoadMore}
+                            //onEndReached={this.handleLoadMore} // ! uncomment once cards complete
                             onEndReachedThreshold={1}
+                            ListHeaderComponent={this.renderHeader}
                             ListFooterComponent={this.renderFooter}
                         />
                     }
@@ -162,7 +255,8 @@ class JobListPage extends React.Component {
 
     render() {
         return (
-            <ScrollView styles={styles.container}>
+            <ScrollView style={styles.container}>
+                <CommonHeader user={this.state.user} />
                 {this.renderJobList()}
             </ScrollView>
         );

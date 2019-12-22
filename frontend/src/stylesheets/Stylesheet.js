@@ -33,7 +33,7 @@ const loginComponent = StyleSheet.create({
 })
 
 const signUpComponent = StyleSheet.create({
-    signUpPageComponent:{
+    signUpPageComponent: {
         flex:1, 
         alignItems: 'center',
         justifyContent: 'center'
@@ -53,14 +53,14 @@ const signUpComponent = StyleSheet.create({
     fieldDescriptor: {
         paddingTop: 10
     },
-    signUpInputText:{
+    signUpInputText: {
         height: 40, 
         width: 150, 
         borderBottomColor: 'black', 
         borderBottomWidth: 1,
         marginBottom: 3,
     },
-    invalidSignUpInputText:{
+    invalidSignUpInputText: {
         height: 40, 
         width: 150, 
         borderBottomColor: 'red', 
@@ -99,35 +99,64 @@ const signUpComponent = StyleSheet.create({
 })
 
 const headerStyles = StyleSheet.create({
-    commonHeaderTextComponent:{
+    commonHeaderTextComponent: {
         flex: 3
     },
-    commonHeaderText:{
+    commonHeaderText: {
         textAlign: 'center', 
         fontSize: 25,
         paddingTop: 10
     },
-    commonHeaderSearch:{
+    commonHeaderSearch: {
         flex: 3, 
         alignSelf:'center', 
-        width: '75%' 
+        width: '75%'
     },
-    commonHeaderComponent:{
+    commonHeaderComponent: {
         flex: 1, 
         borderBottomColor:'#d3d3d3', 
         borderBottomWidth:2
     },
-    propertyHeaderText:{
+    propertyHeaderText: {
         fontSize: 20,
         paddingTop: 10,
         paddingBottom: 10
     }
 })
 
-const jobListTable = StyleSheet.create({
-    jobListTableContainer: {flex: 5, padding: 16, paddingTop: 30, backgroundColor: '#fff'},
-    jobListTablehead: { height: 40, backgroundColor: '#f1f8ff' },
-    jobListTabletext: { margin: 6 },
+const jobList = StyleSheet.create({
+    jobListContainer: {
+        flex: 5, 
+        padding: 16, 
+        paddingTop: 30, 
+        backgroundColor: '#fff'
+    },
+    jobListHeader: { 
+        flexDirection: 'row', 
+        paddingTop: 10,
+        height: 50, 
+        backgroundColor: 'white'
+    },
+    jobListFilterButtonContainer: {
+        alignItems: 'flex-start',
+        backgroundColor: 'white',
+        borderColor: 'black',
+        height: 35
+    },
+    jobListFilterButton: {
+        borderRadius: 20,
+        borderColor: 'gray',
+        marginLeft: 15
+    },
+    jobListFilterButtonTitle: {
+        color: 'black',
+        fontSize: 13,
+        padding: 5
+    },
+    jobListDropdown: {
+        marginTop: 10,
+        marginLeft: 15
+    }
 })
 
 const buttons = StyleSheet.create({
@@ -162,4 +191,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, loginComponent, jobListTable, headerStyles, signUpComponent };
+export { styles, buttons, loginComponent, jobList, headerStyles, signUpComponent };

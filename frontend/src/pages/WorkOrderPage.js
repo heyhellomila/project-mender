@@ -37,7 +37,7 @@ class WorkOrderPage extends React.Component {
         const { loading, workOrder, property } = this.state;
         const { navigate }  = this.props.navigation;
         return (
-            <ScrollView styles={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={headerStyles.commonHeaderComponent}>
                     <View style={headerStyles.commonHeaderTextComponent}><Text style={headerStyles.commonHeaderText}>W.O # {workOrder.id}</Text></View>
                     <Button title={'Back to Job List for ' + property.name} onPress={() => navigate('JobListPage')}></Button>
