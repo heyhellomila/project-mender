@@ -1,21 +1,8 @@
 import { formStyles, sectorStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {chunk} from "../../utils/ArrayUtil";
-import {SectorType} from "../../constants/enums/SectorType";
-
-const roof = require('../../../assets/Roof.png');
-const kitchen = require('../../../assets/Kitchen.png');
-const utilities = require('../../../assets/Utilities.png');
-const livingRoom = require('../../../assets/Living_room.png');
-const bathroom = require('../../../assets/Bathroom.png');
-const appliances = require('../../../assets/Appliance.png');
-const bedroom = require('../../../assets/Bedroom.png');
-const balcony = require('../../../assets/Balcony.png');
-const garage = require('../../../assets/Garage.png');
-const envelope = require('../../../assets/Envelope.png');
-const electrical = require('../../../assets/Electrical.png');
-const hvac = require('../../../assets/HVAC.png');
+import {chunk} from '../../utils/ArrayUtils';
+import {SectorType} from '../../constants/enums/SectorType';
 
 const ChooseSectorKind = (props) => {
     return (

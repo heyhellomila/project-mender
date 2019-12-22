@@ -21,8 +21,3 @@ delete from sectors where kind = 'CEILING';
 update sectors set kind = replace(kind, ' ', '_');
 
 update sectors set type = replace(type, ' ', '_');
-
-
-
-
-

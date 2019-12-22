@@ -1,8 +1,8 @@
 import { formStyles, sectorStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {SectorType} from "../../constants/enums/SectorType";
-import {chunk} from "../../utils/ArrayUtil";
+import {SectorType} from '../../constants/enums/SectorType';
+import {chunk} from '../../utils/ArrayUtils';
 
 const ChooseSectorType = (props) => {
     return (

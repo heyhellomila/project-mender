@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from './Header';
-import {View, Platform, StatusBar, TouchableOpacity, Image, Text} from 'react-native';
+import { View, Platform, StatusBar } from 'react-native';
 import  { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ChooseSectorType from './ChooseSectorType';
 import Overview from './Overview';
 import Details from './Details';
 import Footer from './Footer';
-import {formStyles, sectorStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
+import { formStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import ChooseSectorKind from "./ChooseSectorKind";
 
 const WorkOrderForm = (props) => {
