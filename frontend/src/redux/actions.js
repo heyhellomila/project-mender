@@ -35,8 +35,8 @@ export const userLogout = () => async dispatch => {
     })
 }
 
-export const updateUserProfile = (user) => aync dispatch =>{
-    
+export const updateUserProfile = (user) => (dispatch) =>{
+    dispatch(updatedUserProfile(user));
 }
 
 export const selectProperty = (property) => (dispatch) => {
@@ -60,6 +60,11 @@ export const loading = bool => ({
 export const error = error => ({
     type: 'ERROR',
     error,
+});
+
+export const updatedUserProfile = (user) => ({
+    type: 'USER_PROFILE_UPDATED',
+    user
 });
 
 export const propertySelection = (property) => ({

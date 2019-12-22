@@ -53,7 +53,6 @@ const UserFields : FindOptions<User> = {
             id: true,
             type: true,
         },
-        phoneNumber: true,
     },
 };
 
