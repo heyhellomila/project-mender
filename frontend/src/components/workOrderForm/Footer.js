@@ -3,8 +3,8 @@ import { formStyles, footerStyles } from '../../stylesheets/CreateWorkOrderPageS
 import { TouchableOpacity, View, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const backArrow = require('../../../assets/back_arrow.png');
-const nextArrow = require('../../../assets/next_arrow.png');
+const backArrow = require('../../../assets/Back_arrow.png');
+const nextArrow = require('../../../assets/Front_arrow.png');
 const info = require('../../../assets/Information.png');
 
 const Footer = (props) => {
@@ -17,7 +17,7 @@ const Footer = (props) => {
                                 <Image style={footerStyles.imageButton} source={info}></Image>
                             </TouchableOpacity>
                         :    <TouchableOpacity onPress={() => props.prevStep()}>
-                                <Image style={{resizeMode:'contain'}} source={backArrow}></Image>
+                                <Image style={footerStyles.imageButton} source={backArrow}></Image>
                             </TouchableOpacity>
                     }
                 </View>
@@ -34,7 +34,7 @@ const Footer = (props) => {
                     }
                     {props.step === 3 &&
                         <TouchableOpacity style={{alignSelf: 'flex-end'}} onPress={() => props.nextStep()}>
-                            <Image style={{resizeMode:'contain'}} source={nextArrow}></Image>
+                            <Image style={footerStyles.imageButton} source={nextArrow}></Image>
                         </TouchableOpacity>
                     }
                 </View>
