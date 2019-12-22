@@ -155,7 +155,8 @@ const jobList = StyleSheet.create({
     },
     jobListDropdown: {
         marginTop: 10,
-        marginLeft: 15
+        marginLeft: 15,
+        fontSize: 13
     }
 })
 

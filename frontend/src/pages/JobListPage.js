@@ -25,17 +25,20 @@ class JobListPage extends React.Component {
             data: [],
             loading: false,
             error: false,
-            attributeOrder: 'W.O #',
-            ascending: true,
             pageSize: 10,
-            pageNumber: 1
+            pageNumber: 1,
+            sortBy: 'id',
+            ordering: 'ASC',
+            sortIcon: 'sort-up',
+            ascending: true
         };
-        this.sortWorkOrders = this.sortWorkOrders.bind(this);
+        this.handleSort = this.handleSort.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
+        this.handleOrdering = this.handleOrdering.bind(this);
     }
   
-    componentDidUpdate(prevProps) {
-        if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation || this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
             this.getListOfWorkOrders();
         }
     }
@@ -48,7 +51,7 @@ class JobListPage extends React.Component {
     }
 
     async getListOfWorkOrders() {
-        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber)
+        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering)
         .then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
@@ -82,31 +85,34 @@ class JobListPage extends React.Component {
         )
     }
 
-    sortWorkOrders = (attribute) => {
-        ascending = false;
-        (attribute === this.state.attributeOrder) ? ascending = !this.state.ascending : ascending = true;
-        sortedOrders = this.state.workOrders;
-        switch (attribute) {
-            case "W.O #":
-                ascending ? sortedOrders = sortedOrders.sort((x, y) => x._id < y._id)
-                : sortedOrders = sortedOrders.sort((x, y) => x._id > y._id)
+    handleSort = (index, value) => {
+        switch(value) {
+            case 'Sort by Work Order #':
+                this.state.sortBy = 'id'
                 break;
-            case "Title":
-                ascending ? sortedOrders = sortedOrders.sort((x, y) => x.title < y.title)
-                : sortedOrders = sortedOrders.sort((x, y) => x.title > y.title)
-                break; 
-            case "Type":
-                ascending ? sortedOrders = sortedOrders.sort((x, y) => x.type < y.type)
-                : sortedOrders = sortedOrders.sort((x, y) => x.type > y.type)
-                break; 
-            case "Sector":
-                ascending ? sortedOrders = sortedOrders.sort((x, y) => x.sector < y.sector)
-                : sortedOrders = sortedOrders.sort((x, y) => x.sector > y.sector)
-                break; 
+            case 'Sort by Due Date':
+                this.state.sortBy = 'dueDate'
+                break;
+            case 'Sort by Priority':
+                this.state.sortBy = 'priority'
+                break;
+            case 'Sort by Sector':
+                this.state.sortBy = 'sector'
+                break;
+            case 'Sort by Type':
+                this.state.sortBy = 'type'
+                break;
+            case 'Sort by Status':
+                this.state.sortBy = 'status'
             default:
-                sortedOrders = this.state.workOrders;
+                this.state.sortBy = 'id'
         }
-        this.setState({attributeOrder: attribute, ascending: ascending, workOrders: sortedOrders});
+    }
+
+    handleOrdering = () => {
+        this.state.ascending === true
+        ? this.setState({ordering: 'DESC', sortIcon: 'sort-down', ascending: false})
+        : this.setState({ordering: 'ASC', sortIcon: 'sort-up', ascending: true})
     }
 
     renderCard = ({item}) => {
@@ -212,12 +218,34 @@ class JobListPage extends React.Component {
                         titleStyle={jobList.jobListFilterButtonTitle}
                     />  
                 </ScrollView>
-                <ModalDropdown 
-                    defaultValue='Sort by Work Order #'
-                    options={['Sort by Work Order #', 'Sort by Due Date', 'Sort by Priority', 'Sort by Sector', 'Sort by Type', 'Sort by Status']}
-                    style={jobList.jobListDropdown}
-                    animated={true}
-                />
+                <View style={jobList.jobListHeader}>
+                    <ModalDropdown 
+                        defaultValue='Sort by Work Order #'
+                        options={[
+                            'Sort by Work Order #', 
+                            'Sort by Due Date', 
+                            'Sort by Priority', 
+                            'Sort by Sector', 
+                            'Sort by Type', 
+                            'Sort by Status'
+                        ]}
+                        style={jobList.jobListDropdown}
+                        animated={true}
+                        onSelect={this.handleSort}
+                    />
+                    <Button
+                        icon={
+                            <Icon
+                                name={this.state.sortIcon}
+                                size={20}
+                                color='black'
+                            />
+                        }
+                        type='clear'
+                        onPress={this.handleOrdering}
+                    />  
+                </View>
+                
             </View>
         );
     }
