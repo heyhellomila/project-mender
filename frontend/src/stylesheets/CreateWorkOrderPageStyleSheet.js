@@ -133,14 +133,16 @@ const sectorStyles = StyleSheet.create({
         padding: '1%',
         borderWidth: 2,
         width: '25%', 
-        height: '80%'
+        height: '80%',
+        maxHeight: 200
     },
     selectedSectorContainer: {
         padding: '1%',
         borderWidth: 2,
         borderColor: '#00ace6',
         width: '25%', 
-        height: '80%'
+        height: '80%',
+        maxHeight: 200
     },
     sectorIcon: {
         flex: 1,
