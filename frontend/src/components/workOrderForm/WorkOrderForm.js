@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from './Header';
-import { View, Platform, StatusBar } from 'react-native';
+import {View, Platform, StatusBar, TouchableOpacity, Image, Text} from 'react-native';
 import  { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import ChooseSector from './ChooseSector';
+import ChooseSectorType from './ChooseSectorType';
 import Overview from './Overview';
 import Details from './Details';
 import Footer from './Footer';
-import { formStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
+import {formStyles, sectorStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
+import ChooseSectorKind from "./ChooseSectorKind";
 
 const WorkOrderForm = (props) => {
     return(
@@ -17,13 +18,17 @@ const WorkOrderForm = (props) => {
             <View style={{flex: 1}}>
                 <Header {...props} headerText={props.headerText}/>
             </View>
-            <View style={{flex: 4}}>
-                {props.step === 1 &&
-                    <ChooseSector {...props}/>}
-                {props.step === 2 &&
-                    <Overview {...props}/>}
-                {props.step === 3 && 
-                    <Details {...props}/>}
+            <View style={formStyles.bodyContainer}>
+                <View style={{flex: 4}}>
+                    {props.step === 1 &&
+                        <ChooseSectorType {...props}/>}
+                    {props.step === 2 &&
+                        <ChooseSectorKind {...props}/>}
+                    {props.step === 3 &&
+                        <Overview {...props}/>}
+                    {props.step === 4 &&
+                        <Details {...props}/>}
+                </View>
             </View>
             <View style={{flex: 1}}>
                 <Footer {...props}/>

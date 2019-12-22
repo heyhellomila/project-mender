@@ -12,7 +12,7 @@ const headerStyles = StyleSheet.create({
     },
     closeButton: {
         alignSelf: 'flex-end',
-        position: 'absolute',
+        position: 'absolute'
     },
     closeButtonImage: {
         height: 50,
@@ -23,8 +23,11 @@ const headerStyles = StyleSheet.create({
 const formStyles = StyleSheet.create({
     container: {
         flex: 6, 
-        paddingHorizontal: '7%', 
         backgroundColor: '#f0f0f0'
+    },
+    bodyContainer: {
+        flex: 6,
+        paddingHorizontal: '7%',
     },
     rowContainer: {
         flex: 1,
@@ -87,7 +90,11 @@ const formStyles = StyleSheet.create({
     }
 });
 
-const footerStyles = StyleSheet.create({ 
+const footerStyles = StyleSheet.create({
+    container: {
+        flex: 2,
+        paddingHorizontal: '3%'
+    },
     infoButton: {
         alignSelf: 'flex-start',
     },
@@ -123,13 +130,13 @@ const footerStyles = StyleSheet.create({
 
 const sectorStyles = StyleSheet.create({
     sectorContainer: {
-        padding: '0%',
+        padding: '1%',
         borderWidth: 2,
         width: '25%', 
         height: '80%'
     },
     selectedSectorContainer: {
-        padding: '0%',
+        padding: '1%',
         borderWidth: 2,
         borderColor: '#00ace6',
         width: '25%', 
@@ -139,7 +146,7 @@ const sectorStyles = StyleSheet.create({
         flex: 1,
         width: null,
         height: null,
-        resizeMode: 'contain',
+        resizeMode: 'contain'
     }
 });
 

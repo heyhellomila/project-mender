@@ -2,15 +2,18 @@ import React from 'react';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
 import NoAccessComponent from '../components/NoAccessComponent';
-import { View } from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import WorkOrderForm from '../components/workOrderForm/WorkOrderForm';
+import {SectorType} from "../constants/enums/SectorType";
+import {formStyles, sectorStyles} from "../stylesheets/CreateWorkOrderPageStyleSheet";
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             step: 1,
-            sector: 'ROOF',
+            sectorType: '',
+            sectorKind: '',
             type: 'CM', 
             title: '', 
             cause: '', 
@@ -26,7 +29,7 @@ class CreateWorkOrderPage extends React.Component {
             validCause: true,
             submitting: false,
             success: false,
-            headerText: 'Pick a sector'
+            headerText: 'Select a Sector'
         };
     }
     
@@ -39,9 +42,14 @@ class CreateWorkOrderPage extends React.Component {
         if (step === 1) {
             this.setState({
                 step: step + 1,
-                headerText: 'Overview'
+                headerText: SectorType[this.state.sectorType].display
             });
         } else if (step === 2) {
+            this.setState({
+                step: step + 1,
+                headerText: 'Overview'
+            });
+        } else if (step === 3) {
             if (title.length === 0 || cause.length === 0) {
                 this.setState({
                     validTitle: title.length !== 0,
@@ -52,11 +60,11 @@ class CreateWorkOrderPage extends React.Component {
                     validTitle: true,
                     validCause: true,
                     step: step + 1,
-                    headerText: 'Pick a sector'
+                    headerText: 'Details'
                 });
             }
         } 
-    }
+    };
 
     prevStep = () => {
         const { step } = this.state;
@@ -64,26 +72,33 @@ class CreateWorkOrderPage extends React.Component {
         if (step === 2) {
             this.setState({
                 step: step - 1,
-                headerText: 'Pick a sector'
+                sectorType: '',
+                headerText: 'Select a Sector'
             });
         } else if (step === 3) {
             this.setState({
                 step: step - 1,
+                sectorKind: '',
+                headerText: SectorType[this.state.sectorType].display
+            });
+        } else if (step === 4) {
+            this.setState({
+                step: step - 1,
                 headerText: 'Overview'
             });
-        } 
-    }
+        }
+    };
     
     handleWorkOrder = async() => {
         try {
-            var { description } = this.state;
+            let { description } = this.state;
             if (description.length === 0) {
                 description = 'N/A';
             }
             this.setState({submitting: true});
             await createWorkOrder(
                 this.props.property.id,
-                this.state.sector,
+                this.state.sectorKind,
                 this.state.type,
                 this.state.title,
                 this.state.cause,
@@ -101,43 +116,46 @@ class CreateWorkOrderPage extends React.Component {
             this.setState({submitting: false});
             alert(err.message);
         }
-    }
+    };
 
-    handleSector = (value) => {
-        this.setState({sector: value});
-    }
+    handleSectorType = (value) => {
+        this.setState({sectorType: value}, () => this.nextStep());
+    };
+
+    handleSectorKind = (value) => {
+        this.setState({sectorKind: value}, () => this.nextStep());
+    };
 
     handleType = (value) => {
         this.setState({type: value});
-    }
+    };
 
     handleTitle = (value) => {
         this.setState({title: value});
-    }
-    
+    };
+
     handleCause = (value) => {
         this.setState({cause: value});
-    }
+    };
 
     toggleServiceNeeded = (value) => {
         this.setState({serviceNeeded: value});
-    }
+    };
 
     handleDescription = (value) => {
         this.setState({description: value});
-    }
+    };
 
     handlePriority = (value) => {
         this.setState({priority: value});
-    }
+    };
 
     handleDueDate = (value) => {
         this.setState({dueDate: Date.parse(value)});
-    }
+    };
 
     render() {
         const { property } = this.props;
-        const { step } = this.state;
         return (
             <View style={{flex: 1}}> 
                 {!property 
@@ -147,9 +165,9 @@ class CreateWorkOrderPage extends React.Component {
                     : <WorkOrderForm {...this.state} handleTitle={this.handleTitle}
                         handleCause={this.handleCause} nextStep={this.nextStep} 
                         prevStep={this.prevStep} handleType={this.handleType}
-                        handleSector={this.handleSector} toggleServiceNeeded={this.toggleServiceNeeded}
-                        handlePriority={this.handlePriority} handleDescription={this.handleDescription}
-                        submit={this.handleWorkOrder}/>
+                        handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
+                        toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
+                        handleDescription={this.handleDescription} submit={this.handleWorkOrder}/>
                 }
             </View>
         );
