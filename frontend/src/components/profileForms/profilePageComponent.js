@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Platform, StyleSheet, Text, View, Image, Button } from 'react-native';
+import { titleStyles, buttonStyles, imageStyles, containerStyles } from '../../stylesheets/ProfilePageStylesheet';
 
 const profilePicture = require('../../../assets/jisooProfile.png');
 
 const ProfilePageComponent = (props) => {
         return (
-            <View style={styles.container}>
-                <View style={{
-                    flex: 0.5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '75%',
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 1
-                }}><Text>Account Pofile</Text></View>
-                <View style={{flex: 2, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={containerStyles.container}>
+                <View style={titleStyles.title}><Text>Account Pofile</Text></View>
+                <View style={imageStyles.imageView}>
                     <Image
-                        style={{width: 75, height: 75, borderRadius: 75/2}}
+                        style={imageStyles.profileImage}
                         source={profilePicture}/></View>
                 <View style={{flex: 2.5, width: '50%'}}>
                     <View style={{flex: 2}}>
@@ -41,7 +35,7 @@ const ProfilePageComponent = (props) => {
                         </View>
                     </View>
                 </View>
-                <View style={{flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
+                <View style={buttonStyles.bottomButtonsColumn}>
                     <View style={{flex: 3, width: '75%'}}>
                         <Button title={'Edit Profile'} onPress={() => props.goToEditProfilePage()}/>
                     </View>
@@ -54,20 +48,5 @@ const ProfilePageComponent = (props) => {
             </View>
         );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        width: '100%'
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5
-    }
-});
 
 export default ProfilePageComponent;
