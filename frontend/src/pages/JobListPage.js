@@ -1,14 +1,14 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, ScrollView, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
-import { Card, ListItem, Button } from 'react-native-elements';
+import { ActivityIndicator, FlatList, ScrollView, Text, TouchableOpacity, View, SafeAreaView, TouchableHighlight } from 'react-native';
+import { Card, ListItem, Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
 import { styles, jobList, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrder';
-import { WorkOrderPage } from '../pages/WorkOrderPage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 class JobListPage extends React.Component {
 
@@ -30,7 +30,8 @@ class JobListPage extends React.Component {
             sortBy: 'id',
             ordering: 'ASC',
             sortIcon: 'sort-up',
-            ascending: true
+            ascending: true,
+            priority: ''
         };
         this.handleSort = this.handleSort.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
@@ -65,7 +66,6 @@ class JobListPage extends React.Component {
         })
         .then((response) => response.json())
         .then((response) => {
-            alert (this.state.pageNumber)
             this.setState({
                 workOrders: [...this.state.workOrders, ...response.results],
                 error: response.error || null,
@@ -114,16 +114,27 @@ class JobListPage extends React.Component {
         ? this.setState({ordering: 'DESC', sortIcon: 'sort-down', ascending: false})
         : this.setState({ordering: 'ASC', sortIcon: 'sort-up', ascending: true})
     }
-
+    
     renderCard = ({item}) => {
         return (   
             <View>
-                <Card>
-                    <Text>{item.dueDate}</Text>
-                    <Text>{item.title}</Text>
-                    <Text>{item.priority}</Text>
-                    <Text># {item.id}</Text>
-                    <Text>{item.type}</Text>
+            <Card containerStyle={{backgroundColor: '#dfdfdf', borderRadius: 10, padding: 0, paddingBottom: 10}}>
+                <Collapse>
+                    <CollapseHeader> 
+                        <Card containerStyle={jobList.jobListCard}>
+                            <Text>{item.dueDate}</Text>
+                            <Text>{item.title}</Text>
+                            <Text>{item.priority}</Text>
+                            <Text># {item.id}</Text>
+                            <Text>{item.type}</Text>
+                        </Card>
+                    </CollapseHeader>
+                    <CollapseBody style={{alignItems:'center', justifyContent:'center'}}>
+                        <Card containerStyle={jobList.jobListCard}>
+                            <Text>more info</Text>
+                        </Card> 
+                    </CollapseBody>
+                </Collapse>
                 </Card>
             </View>
         )
@@ -266,6 +277,7 @@ class JobListPage extends React.Component {
             <View>
                 <SafeAreaView style={jobList.jobListContainer}>
                     {
+                        
                         <FlatList
                             data={workOrders}
                             renderItem={this.renderCard}

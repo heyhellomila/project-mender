@@ -157,6 +157,15 @@ const jobList = StyleSheet.create({
         marginTop: 10,
         marginLeft: 15,
         fontSize: 13
+    },
+    jobListCard: {
+        backgroundColor: '#dfdfdf', 
+        borderColor: '#dfdfdf', 
+        borderRadius: 10, 
+        elevation: 0, 
+        shadowOffset: {height: 0, width: 0}, 
+        shadowOpacity: 0, 
+        shadowRadius: 0
     }
 })
 
