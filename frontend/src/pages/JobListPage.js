@@ -9,6 +9,7 @@ import { getWorkOrders } from '../apis/workOrders/GetWorkOrder';
 import { WorkOrderPage } from '../pages/WorkOrderPage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+import moment from 'moment';
 
 class JobListPage extends React.Component {
 
@@ -113,11 +114,27 @@ class JobListPage extends React.Component {
         return (   
             <View>
                 <Card>
-                    <Text>{item.dueDate}</Text>
-                    <Text>{item.title}</Text>
-                    <Text>{item.priority}</Text>
-                    <Text># {item.id}</Text>
-                    <Text>{item.type}</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignContent: 'space-between'}}>
+                        <View style={{flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', width: 50, padding: 0}}>
+                            <Icon name='calendar'
+                                    size={25}
+                                    color='black'>
+                            </Icon>   
+                            <Text style={{fontSize: 15}}>{moment(item.dueDate).format("MMM D")}</Text>
+                        </View>
+                        <View style={{flexDirection: 'column', width: 290}}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
+                                <Text style={{fontWeight: 'bold', width: 100}}>{item.title}</Text>
+                                <Text>{item.priority}</Text>
+                                <Text># {item.id}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                 <Text style={{fontSize: 11}}>Utilities -> Plumbing</Text>
+                                 <Text style={{fontSize: 11}}>{item.type === 'CM' ? 'Corrective' : 'Preventive'}</Text>
+                                 <Text style={{fontSize: 11}}>Status: Quote accepted</Text>
+                            </View>
+                        </View>
+                    </View>
                 </Card>
             </View>
         )
