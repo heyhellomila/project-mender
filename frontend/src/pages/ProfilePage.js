@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Image, TextInput} from 'react-native';
-import {connect} from 'react-redux';
-import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
-import {getUser} from '../../src/apis/users/GetUser';
-import {reloadUserProfile} from '../redux/actions';
+import React, { Component } from 'react';
+import {StyleSheet, View} from 'react-native';
+import { connect } from 'react-redux';
+import { updateUser, updateUserPassword } from '../../src/apis/users/UpdateUser';
+import { getUser } from '../../src/apis/users/GetUser';
+import { reloadUserProfile } from '../redux/actions';
 import ProfilePageComponent from '../components/profileForms/profilePageComponent';
 import EditProfileForm from '../components/profileForms/editProfileForm';
 import ChangePasswordForm from '../components/profileForms/changePasswordForm';
-
-const profilePicture = require('../../assets/jisooProfile.png');
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -24,52 +22,67 @@ class ProfilePage extends Component {
             confirmPassword: null,
             errorMsg: null,
             validatePassword: false,
-            updated: false
+            updated: false,
+            loading: false
+        }
+    }
+
+    async componentDidUpdate() {
+        const { loading } = this.state;
+        if (this.props.reloadingUserProfile && !loading) {
+            this.setState({ loading: true }, async () => {
+                await this.getUpdatedProfile();
+            });
         }
     }
 
     goToEditProfilePage = () => {
-        const {step} = this.state;
         this.setState({
             step: 2
         })
-    }
+    };
+
     goToPasswordChange = () => {
-        const {step} = this.state;
         this.setState({
             step: 3
         })
-    }
+    };
+
     goToProfilePage = () => {
-        const {step} = this.state;
         this.setState({
             step: 1,
             validatePassword: false
         })
-    }
+    };
+
     handleFirstNameChange = event => {
         this.setState({firstName: event})
-    }
+    };
+
     handleLastNameChange = event => {
         this.setState({lastName: event})
-    }
+    };
+
     handleEmailChange = event => {
         this.setState({email: event})
-    }
+    };
+
     handlePhoneNumberChange = event => {
         this.setState({phoneNumber: event})
-    }
+    };
+
     handleNewPasswordChange = event => {
         this.setState({password: event})
-    }
+    };
+
     handleConfirmPasswordChange = event => {
         this.setState({confirmPassword: event})
-    }
+    };
+
     handlePasswordChange = async () => {
         if (this.state.password != null && (this.state.password == this.state.confirmPassword)) {
             try {
                 await updateUserPassword(this.state.user.id, this.state.password).then(async (response) => {
-                    const {step} = this.state;
                     this.setState({
                         step: 1
                     })
@@ -82,40 +95,31 @@ class ProfilePage extends Component {
                 validatePassword: true
             })
         }
-    }
+    };
+
     handleUpdate = async () => {
         try {
             await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
-                .then(async (response) => {
-                    this.props.reloadUserProfile();
-                    // alert("hi")
-                    // const {step} = this.state;
-                    // this.setState({
-                    //     step: 1,
-                    //     updated: true
-                    // })
+                .then(() => {
+                    console.log('updating');
+                    this.props.reloadUserProfile(true, this.state.user);
                 });
         } catch (err) {
             this.setState({errorMsg: err.message})
         }
-    }
+    };
 
     async getUpdatedProfile(){
         await getUser(this.state.user.id).then((response) => {
-            alert("hey")
-            this.props.finishReloadingUserProfile();
-            alert(this.props.reloadUserProfile)
+            console.log(response.data);
+            console.log(this.props.user);
+            this.props.reloadUserProfile(false, response.data);
             this.setState({
                 step: 1,
+                user: response.data,
+                loading: false
             })
         })
-    }
-
-    async componentDidUpdate() {
-
-        if (this.props.reloadUserProfile) {
-            this.getUpdatedProfile();
-        }
     }
 
     render() {
@@ -154,12 +158,12 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-    reloadUserProfile: () => dispatch(reloadUserProfile(true)),
-    finishReloadingUserProfile: () => dispatch(reloadUserProfile(false))
+    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
 });
 
 const mapStateToProps = (state) => ({
     user: state.user.user,
+    reloadingUserProfile: state.user.reloadingUserProfile
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

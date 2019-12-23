@@ -10,8 +10,8 @@ class LogInPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'test@gmail.com',
+      password: 'lol12345',
       submitting: false,
       error: false,
       errorMsg: ''
@@ -36,7 +36,7 @@ class LogInPage extends React.Component {
   handleLogin = async() => {
     this.setState({ submitting: true })
     try {
-      await login("jisooFan33@gmail.com", "blackpink333").then(async (response) => {
+      await login(this.state.email, this.state.password).then(async (response) => {
         await this.props.authenticate(response.data.token).then(() => {
           if (!this.props.user.loading && this.props.user.user) {
             this.props.navigation.navigate('HomePage')
