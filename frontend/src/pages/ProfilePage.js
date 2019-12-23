@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Image, TextInput} from 'react-native';
 import {connect} from 'react-redux';
 import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
-import {updateUserProfile} from '../redux/actions';
+import {getUser} from '../../src/apis/users/GetUser';
+import {reloadUserProfile} from '../redux/actions';
 import ProfilePageComponent from '../components/profileForms/profilePageComponent';
 import EditProfileForm from '../components/profileForms/editProfileForm';
 import ChangePasswordForm from '../components/profileForms/changePasswordForm';
@@ -22,7 +23,8 @@ class ProfilePage extends Component {
             password: null,
             confirmPassword: null,
             errorMsg: null,
-            validatePassword: false
+            validatePassword: false,
+            updated: false
         }
     }
 
@@ -85,16 +87,34 @@ class ProfilePage extends Component {
         try {
             await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
                 .then(async (response) => {
-                   this.props.updateUserProfile(this.state.user){
-                        alert("suh")
-                        const {step} = this.state;
-                        this.setState({
-                            step: 1
-                        })
-                    })
+                    this.props.reloadUserProfile();
+                    // alert("hi")
+                    // const {step} = this.state;
+                    // this.setState({
+                    //     step: 1,
+                    //     updated: true
+                    // })
                 });
         } catch (err) {
             this.setState({errorMsg: err.message})
+        }
+    }
+
+    async getUpdatedProfile(){
+        await getUser(this.state.user.id).then((response) => {
+            alert("hey")
+            this.props.finishReloadingUserProfile();
+            alert(this.props.reloadUserProfile)
+            this.setState({
+                step: 1,
+            })
+        })
+    }
+
+    async componentDidUpdate() {
+
+        if (this.props.reloadUserProfile) {
+            this.getUpdatedProfile();
         }
     }
 
@@ -134,7 +154,8 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateUserProfile: (user) => dispatch(updateUserProfile(user))
+    reloadUserProfile: () => dispatch(reloadUserProfile(true)),
+    finishReloadingUserProfile: () => dispatch(reloadUserProfile(false))
 });
 
 const mapStateToProps = (state) => ({

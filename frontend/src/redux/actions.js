@@ -35,10 +35,6 @@ export const userLogout = () => async dispatch => {
     })
 }
 
-export const updateUserProfile = (user) => (dispatch) =>{
-    dispatch(updatedUserProfile(user));
-}
-
 export const selectProperty = (property) => (dispatch) => {
     dispatch(propertySelection(property));
 }
@@ -62,10 +58,10 @@ export const error = error => ({
     error,
 });
 
-export const updatedUserProfile = (user) => ({
-    type: 'USER_PROFILE_UPDATED',
-    user
-});
+export const reloadUserProfile = bool => ({
+    type: 'RELOAD_PROFILE',
+    reloadUserProfile: bool
+})
 
 export const propertySelection = (property) => ({
     type: 'SELECT_PROPERTY',
