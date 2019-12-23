@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Platform, StyleSheet, Text, View, Image, Button } from 'react-native';
 import { titleStyles, buttonStyles, imageStyles, containerStyles } from '../../stylesheets/ProfilePageStylesheet';
 
-const profilePicture = require('../../../assets/jisooProfile.png');
+const profilePicture = require('../../../assets/profileMender.png');
 
 const ProfilePageComponent = (props) => {
         return (

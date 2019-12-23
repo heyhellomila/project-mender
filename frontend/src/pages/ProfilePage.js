@@ -71,7 +71,7 @@ class ProfilePage extends Component {
     };
 
     handleFirstNameValidation = () =>{
-        if(this.state.firstName.length == 0){
+        if(this.state.firstName.length === 0){
             this.setState(
                 {validFirstName: false}
             )
@@ -89,7 +89,7 @@ class ProfilePage extends Component {
     };
 
     handleLastNameValidation = () =>{
-        if(this.state.lastName.length == 0){
+        if(this.state.lastName.length === 0){
             this.setState(
                 {validLastName: false}
             )
@@ -107,7 +107,7 @@ class ProfilePage extends Component {
     };
 
     handleEmailValidation = () =>{
-        if(this.state.email.length == 0 || !validator.isEmail(this.state.email)){
+        if(!validator.isEmail(this.state.email)){
             this.setState(
                 {validEmail: false}
             )
@@ -125,7 +125,7 @@ class ProfilePage extends Component {
     };
 
     handlePhoneNumberValidation = () =>{
-        if(this.state.phoneNumber.length == 0 || !this.validatePhoneNumber(this.state.phoneNumber)){
+        if(!this.validatePhoneNumber(this.state.phoneNumber)){
             this.setState(
                 {validPhoneNumber: false}
             )
@@ -215,21 +215,6 @@ class ProfilePage extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF'
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5
-    }
-});
-
 const mapDispatchToProps = dispatch => ({
     reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
 });

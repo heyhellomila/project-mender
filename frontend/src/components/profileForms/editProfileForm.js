@@ -8,7 +8,7 @@ import {
     imageStyles
 } from '../../stylesheets/ProfilePageStylesheet';
 
-const profilePicture = require('../../../assets/jisooProfile.png');
+const profilePicture = require('../../../assets/profileMender.png');
 
 const EditProfileForm = (props) => {
     return (
