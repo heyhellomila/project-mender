@@ -75,10 +75,10 @@ class WorkOrderService {
         let pageNumber = parseInt(queryMap.get(WorkOrderQuery.PAGENUMBER))
         let pageSize = parseInt(queryMap.get(WorkOrderQuery.PAGESIZE))
         let searchTerm = queryMap.get(WorkOrderQuery.SEARCHTERM)
-
         let workOrderSort = this.getWorkOrderSort(queryMap);
         let filterQueries = this.getFilterQueries(queryMap);
 
+       
         return await this.workOrderRepository.getWorkOrders(filterQueries, pageNumber, pageSize, searchTerm, workOrderSort, ordering);
     }
 
@@ -98,15 +98,22 @@ class WorkOrderService {
 
     private getFilterQueries(queryMap: Map<string, string>) {
         let filterQueries = '';
-
+        
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
             filterQueries += `work_orders.property = ${queryMap.get(WorkOrderQuery.PROPERTYID)}`;
         }
-        if (queryMap.get(WorkOrderQuery.SECTOR)) {
+        if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
             if (filterQueries === '') {
-                filterQueries += `work_orders.sector = ${queryMap.get(WorkOrderQuery.SECTOR)}`;
+                filterQueries += `sector.type = \'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`;
             } else {
-                filterQueries += `&& work_orders.sector = ${queryMap.get(WorkOrderQuery.SECTOR)}`;
+                filterQueries += `&& sector.type = \'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`;
+            }
+        }
+        if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
+            if (filterQueries === '') {
+                filterQueries += `sector.kind = \'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`;
+            } else {
+                filterQueries += `&& sector.kind = \'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`;
             }
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
@@ -161,6 +168,10 @@ class WorkOrderService {
             throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
         }
         return workOrder;
+    }
+
+    async getWorkOrderByType(type: string) {
+        //TODO (requires repository)
     }
 }
 
