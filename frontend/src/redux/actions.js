@@ -67,3 +67,8 @@ export const reloadProperties = bool => ({
     type: 'RELOAD_PROPERTIES',
     reloadProperties: bool
 });
+
+export const loadProperties = bool => ({
+    type: 'LOAD_PROPERTIES',
+    loadingProperties: bool
+});

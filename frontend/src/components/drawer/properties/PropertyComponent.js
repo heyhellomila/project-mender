@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import { getPropertiesByUser } from '../../../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
-import {reloadProperties, selectProperty} from '../../../redux/actions';
-import PropertyListComponent from "./PropertyListComponent";
-import {drawerComponent} from "../../../stylesheets/DrawerStyleSheet";
-import {Button} from "react-native-elements";
+import {reloadProperties, selectProperty, loadProperties} from '../../../redux/actions';
+import PropertyListComponent from './PropertyListComponent';
+import {drawerComponent} from '../../../stylesheets/DrawerStyleSheet';
+import {Button} from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class PropertyComponent extends Component {
     constructor(props) {
@@ -51,6 +52,7 @@ class PropertyComponent extends Component {
                     this.setState({
                         loading: false
                     });
+                    this.props.loadProperties(false);
                 });
             }).catch((error) => {
                 alert(error);
@@ -60,6 +62,9 @@ class PropertyComponent extends Component {
     render() {
         return (
             <View style={drawerComponent.properties}>
+                <Spinner
+                    visible={this.props.loadingProperties}
+                />
                 <Text style={drawerComponent.propertyHeader}>My Properties</Text>
                     {this.state.loading
                             ?   <View><Text>Loading...</Text></View>
@@ -70,7 +75,7 @@ class PropertyComponent extends Component {
                                     <View style={drawerComponent.addPropertyContainer}>
                                         <Button
                                             title='Add Property'
-                                            type="outline"
+                                            type='outline'
                                             raised={true}
                                             onPress={() => this.props.navigation.navigate('AddProperty')}/>
                                     </View>
@@ -82,10 +87,12 @@ class PropertyComponent extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    reloadProperties: state.property.reloadProperties
+    reloadProperties: state.property.reloadProperties,
+    loadingProperties: state.property.loadingProperties
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    loadProperties: (bool) => dispatch(loadProperties(bool)),
     selectProperty: (property) => dispatch(selectProperty(property)),
     finishReloadingProperties: () => dispatch(reloadProperties(false))
 });
