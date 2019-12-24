@@ -103,60 +103,45 @@ class WorkOrderService {
             filterQueries += `work_orders.property = ${queryMap.get(WorkOrderQuery.PROPERTYID)}`;
         }
         if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
-            if (filterQueries === '') {
-                filterQueries += `sector.type = \'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`;
-            } else {
-                filterQueries += `&& sector.type = \'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `sector.type = \'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`;
         }
         if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
-            if (filterQueries === '') {
-                filterQueries += `sector.kind = \'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`;
-            } else {
-                filterQueries += `&& sector.kind = \'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `sector.kind = \'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`;
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
-            if (filterQueries === '') {
-                filterQueries += `work_orders.workOrderType = ${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}`;
-            } else {
-                filterQueries += `&& work_orders.workOrderType = ${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.workOrderType = ${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}`;
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
-            if (filterQueries === '') {
-                filterQueries += `work_orders.serviceNeeded = ${queryMap.get(WorkOrderQuery.SERVICENEEDED)}`;
-            } else {
-                filterQueries += `&& work_orders.serviceNeeded = ${queryMap.get(WorkOrderQuery.SERVICENEEDED)}`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.serviceNeeded = ${queryMap.get(WorkOrderQuery.SERVICENEEDED)}`;
+            
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
-            if (filterQueries === '') {
-                filterQueries += `work_orders.priorityType = ${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}`;
-            } else {
-                filterQueries += `&& work_orders.priorityType = ${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.priorityType = ${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}`;
+            
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
-            if (filterQueries === '') {
+            this.addSQLConnector(filterQueries);
                 filterQueries += `work_orders.priceEstimate = ${queryMap.get(WorkOrderQuery.PRICEESTIMATE)}`;
-            } else {
-                filterQueries += `&& work_orders.priceEstimate = ${queryMap.get(WorkOrderQuery.PRICEESTIMATE)}`;
-            }
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
-            if (filterQueries === '') {
-                filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
-            } else {
-                filterQueries += `&& work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
-            if (filterQueries === '') {
-                filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
-            } else {
-                filterQueries += `&& work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
-            }
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
+        }
+        return filterQueries;
+    }
+
+    private addSQLConnector(filterQueries: string){
+        if (filterQueries !== '') {
+            filterQueries += `&& `;
         }
         return filterQueries;
     }
@@ -168,10 +153,6 @@ class WorkOrderService {
             throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
         }
         return workOrder;
-    }
-
-    async getWorkOrderByType(type: string) {
-        //TODO (requires repository)
     }
 }
 
