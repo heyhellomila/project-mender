@@ -99,31 +99,50 @@ class WorkOrderService {
     private getFilterQueries(queryMap: Map<string, string>) {
         let filterQueries = '';
         
-        queryMap.forEach((value: string, key: string) => {
-            if (filterQueries !== '') {
-                filterQueries += `&& `;
-            }
+        if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
+            filterQueries += `work_orders.property = ${queryMap.get(WorkOrderQuery.PROPERTYID)}`;
+        }
+        if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `sector.type = \'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`;
+        }
+        if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `sector.kind = \'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`;
+        }
+        if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.workOrderType = ${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}`;
+        }
+        if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.serviceNeeded = ${queryMap.get(WorkOrderQuery.SERVICENEEDED)}`;
+            
+        }
+        if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.priorityType = ${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}`;
+            
+        }
+        if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
+            this.addSQLConnector(filterQueries);
+                filterQueries += `work_orders.priceEstimate = ${queryMap.get(WorkOrderQuery.PRICEESTIMATE)}`;
+        }
+        if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
+        }
+        if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
+            this.addSQLConnector(filterQueries);
+            filterQueries += `work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
+        }
+        return filterQueries;
+    }
 
-            if (key == 'propertyId'){
-                filterQueries += `work_orders.property = ${value}`;
-            }
-            else if(key == 'sectorKind') {
-                filterQueries += `sector.kind = \'${value}\'`;
-            }
-            else if (key == 'sectorType'){
-                filterQueries += `sector.type = \'${value}\'`;
-            }
-            else if(key == 'workOrderType' || key == 'serviceNeeded' || key == 'priorityType' || key == 'priceEstimate') {
-                filterQueries += `work_orders.${key} = ${value}`;
-            }
-            else if(key == 'greaterThan'){
-                filterQueries += `work_orders.${key} > ${queryMap.get(WorkOrderQuery.GREATERTHANVALUE)}`;
-            }
-            else if(key == 'lowerThan'){
-                filterQueries += `work_orders.${key} < ${queryMap.get(WorkOrderQuery.LOWERTHANVALUE)}`;
-            }
-        });
-
+    private addSQLConnector(filterQueries: string){
+        if (filterQueries !== '') {
+            filterQueries += `&& `;
+        }
         return filterQueries;
     }
 
