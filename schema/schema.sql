@@ -124,10 +124,10 @@ create table business_user_roles(
 
 create table business_users(
     id bigint AUTO_INCREMENT PRIMARY KEY,
-    user_role_id int NOT NULL,
+    business_user_role_id int NOT NULL,
     user_id bigint NOT NULL,
     business_id bigint NOT NULL,
-    FOREIGN KEY (user_role_id) REFERENCES user_roles(id),
+    FOREIGN KEY (business_user_role_id) REFERENCES business_user_roles(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (business_id) REFERENCES businesses(id)
 )

@@ -5,7 +5,7 @@ import { BusinessDTO } from "./BusinessDTO";
 export class BusinessUserDTO {
     
     id: number;
-    userRole: BusinessUserRoleDTO | string;
+    businessUserRole: BusinessUserRoleDTO | string;
     user: UserDTO;
     business: BusinessDTO;
 }

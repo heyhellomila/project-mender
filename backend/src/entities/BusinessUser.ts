@@ -11,9 +11,9 @@ export class BusinessUser {
 
     @ManyToOne(type => BusinessUserRole)
     @JoinColumn({
-        name: "user_role_id",
+        name: "business_user_role_id",
     })
-    userRole: BusinessUserRole;
+    businessUserRole: BusinessUserRole;
 
     @ManyToOne(type => User)
     @JoinColumn({
