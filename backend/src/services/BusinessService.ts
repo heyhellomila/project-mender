@@ -21,7 +21,7 @@ class BusinessService {
         }
     }
 
-    async getBusiness(id: number) {
+    async getBusinessById(id: number) {
         const business: Business = await this.businessRepository.getBusinessById(id);
         if (!business) {
             throw new ResourceNotFoundError("Business with id " + id + " does not exist");
@@ -35,6 +35,23 @@ class BusinessService {
             throw new ResourceNotFoundError("Business with NEQ " + neq + " does not exist");
         } 
         return business;
+    }
+
+    async createBusiness(business: Business) {
+
+        if (!business.NEQ && (business.name || business.businessType.type == BusinessTypeEnum.BUSINESS)) {
+            throw new BadRequestError("Cannot provide business name or type 'BUSINESS' without an NEQ.")
+        }
+        if (this.businessExists(business.NEQ)) {
+            throw new BadRequestError("A business with the NEQ " + business.NEQ + " aready exists.")
+        }
+        business.businessType = await this.businessTypeService.getBusinessType(business.businessType.type);
+
+        try {
+            return await this.businessRepository.createBusiness(business);
+        } catch (err) {
+            throw new BadRequestError(err.message);
+        }
     }
 }
 

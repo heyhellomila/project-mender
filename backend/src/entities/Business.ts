@@ -4,8 +4,7 @@ import { BusinessType } from "./BusinessType";
 @Entity({name: 'businesses'})
 @Unique(["NEQ"])
 export class Business {
-    [x: string]: any;
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -19,5 +18,5 @@ export class Business {
     @JoinColumn({
         name: "business_type_id",
     })
-    type: BusinessType
+    businessType: BusinessType
 }

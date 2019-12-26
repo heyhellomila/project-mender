@@ -104,6 +104,38 @@ create table work_orders(
         REFERENCES users(id)
 );
 
+create table business_types(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    type ENUM('INDEPENDENT', 'BUSINESS') NOT NULL UNIQUE
+);
+
+create table businesses(
+    id bigint AUTO_INCREMENT PRIMARY KEY,
+    NEQ bigint UNIQUE,
+    name varchar(120),
+    business_type_id int NOT NULL,
+    FOREIGN KEY (business_type_id) REFERENCES business_types(id)
+);
+
+create table business_user_roles(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    type ENUM('EMPLOYEE', 'ADMIN') NOT NULL UNIQUE
+);
+
+create table business_users(
+    id bigint AUTO_INCREMENT PRIMARY KEY,
+    user_role_id int NOT NULL,
+    user_id bigint NOT NULL,
+    business_id bigint NOT NULL,
+    FOREIGN KEY (user_role_id) REFERENCES user_roles(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (business_id) REFERENCES businesses(id)
+)
+
+insert into business_user_roles (type) VALUES ('EMPLOYEE'), ('ADMIN');
+
+insert into business_types (type) VALUES ('INDEPENDENT'), ('BUSINESS');
+
 insert into priority_types (type) VALUES ('LOW'), ('MEDIUM'), ('HIGH');
 
 insert into property_types (type) VALUES ('CONDOMINIUM'), ('SINGLE_FAMILY_HOME'), 
