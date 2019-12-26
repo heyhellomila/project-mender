@@ -9,15 +9,15 @@ import { BadRequestError } from '../errors/BadRequestError';
 
 class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> {
 
-    private userRoleMapper : UserRoleMapper = new UserRoleMapper();
+    private businessUserRoleMapper : UserRoleMapper = new UserRoleMapper();
     private userMapper : UserMapper = new UserMapper();
     private businessMapper : BusinessMapper = new BusinessMapper();
 
     toDTO(businessUser: BusinessUser) : BusinessUserDTO {
         var businessUserDTO : BusinessUserDTO = new BusinessUserDTO();
         businessUserDTO.id = businessUser.id;
-        if (businessUser.userRole) {
-            businessUserDTO.userRole = this.userRoleMapper.toDTO(businessUser.userRole);
+        if (businessUser.businessUserRole) {
+            businessUserDTO.businessUserRole = this.businessUserRoleMapper.toDTO(businessUser.businessUserRole);
         }
         if (businessUser.user) {
             businessUserDTO.user = this.userMapper.toDTO(businessUser.user);
@@ -32,8 +32,8 @@ class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> 
     fromDTO(businessUserDTO: BusinessUserDTO) : BusinessUser {
         var businessUser : BusinessUser = new BusinessUser();
         businessUser.id = businessUserDTO.id;
-        if (businessUserDTO.userRole) {
-            businessUser.userRole = this.userRoleMapper.fromDTO(new BusinessUserRoleDTO(businessUserDTO.userRole as string));
+        if (businessUserDTO.businessUserRole) {
+            businessUser.businessUserRole = this.businessUserRoleMapper.fromDTO(new BusinessUserRoleDTO(businessUserDTO.businessUserRole as string));
         }
         return businessUser;
     }

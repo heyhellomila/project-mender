@@ -9,7 +9,7 @@ import { BadRequestError } from '../errors/BadRequestError';
 class BusinessUserService {
 
     private businessUserRepository : BusinessUserRepository = new BusinessUserRepository();
-    private userRoleService : BusinessUserRoleService = new BusinessUserRoleService();
+    private businessUserRoleService : BusinessUserRoleService = new BusinessUserRoleService();
     private userService : UserService = new UserService();
     private businessService : BusinessService = new BusinessService();
 
@@ -34,7 +34,7 @@ class BusinessUserService {
         if (this.businessUserExists(businessUser)) {
             throw new BadRequestError("This business user aready exists.")
         }
-        businessUser.userRole = await this.userRoleService.getUserRole(businessUser.userRole.role);
+        businessUser.businessUserRole = await this.businessUserRoleService.getUserRole(businessUser.businessUserRole.role);
         businessUser.user = await this.userService.getUser(businessUser.user.id);
         businessUser.business = await this.businessService.getBusinessById(businessUser.business.id);
         try {
