@@ -124,51 +124,6 @@ const headerStyles = StyleSheet.create({
     }
 })
 
-const jobList = StyleSheet.create({
-    jobListContainer: {
-        flex: 5, 
-        padding: 16, 
-        paddingTop: 30, 
-        backgroundColor: '#fff'
-    },
-    jobListHeader: { 
-        flexDirection: 'row', 
-        paddingTop: 10,
-        height: 50, 
-        backgroundColor: 'white'
-    },
-    jobListFilterButtonContainer: {
-        alignItems: 'flex-start',
-        backgroundColor: 'white',
-        borderColor: 'black',
-        height: 35
-    },
-    jobListFilterButton: {
-        borderRadius: 20,
-        borderColor: 'gray',
-        marginLeft: 15
-    },
-    jobListFilterButtonTitle: {
-        color: 'black',
-        fontSize: 13,
-        padding: 5
-    },
-    jobListDropdown: {
-        marginTop: 10,
-        marginLeft: 15,
-        fontSize: 13
-    },
-    jobListCard: {
-        backgroundColor: '#dfdfdf', 
-        borderColor: '#dfdfdf', 
-        borderRadius: 10, 
-        elevation: 0, 
-        shadowOffset: {height: 0, width: 0}, 
-        shadowOpacity: 0, 
-        shadowRadius: 0
-    }
-})
-
 const buttons = StyleSheet.create({
     buttonSignUp: {
         width: '50%',
@@ -201,4 +156,4 @@ const buttons = StyleSheet.create({
     }
 })
 
-export { styles, buttons, loginComponent, jobList, headerStyles, signUpComponent };
+export { styles, buttons, loginComponent, headerStyles, signUpComponent };
