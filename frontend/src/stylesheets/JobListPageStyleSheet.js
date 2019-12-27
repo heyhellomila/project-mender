@@ -84,20 +84,18 @@ const jobListCardStyles = StyleSheet.create({
     },
     collapseHeaderSection: {
         flexDirection: 'column', 
-        width: 300, 
+        flex: 1,
         paddingRight: 10
     },
     collapseHeaderSectionFirstLine: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
         marginBottom: 10, 
-        alignItems: 'center',
-        width: 300
+        alignItems: 'center'
     },
     collapseHeaderSectionSecondLine: {
         flexDirection: 'row', 
-        justifyContent: 'space-between',
-        width: 300
+        justifyContent: 'space-between'
     },
     collapseBodySection: {
         alignItems: 'center', 
@@ -126,7 +124,7 @@ const jobListCardStyles = StyleSheet.create({
         borderRadius: 5, 
         borderColor: 'white', 
         overflow: 'hidden', 
-        width: 275
+        flex: 1
     },
     collapseBodySectionBottom: {
         flexDirection: 'row', 

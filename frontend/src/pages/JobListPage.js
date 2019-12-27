@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import { getWorkOrders, getWorkOrdersByPropertyId } from '../apis/workOrders/GetWorkOrder';
+import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 
 class JobListPage extends React.Component {
@@ -17,7 +17,6 @@ class JobListPage extends React.Component {
         super(props);
         this.state = {
             user: props.user.user,
-            property: this.props.property,
             workOrders: [],
             data: [],
             loading: false,
@@ -25,14 +24,40 @@ class JobListPage extends React.Component {
             pageSize: 10,
             pageNumber: 1,
             sortBy: 'id',
+            sortByFields: [
+            {
+                sortBy: 'id',
+                dropdown: 'Sort by Work Order #'
+            },
+            {
+                sortBy: 'dueDate',
+                dropdown: 'Sort by Due Date'
+            },
+            {
+                sortBy: 'priority',
+                dropdown: 'Sort by Priority'
+            },
+            {
+                sortBy: 'sectorType',
+                dropdown: 'Sort by Sector Type'
+            },
+            {
+                sortBy: 'sectorKind',
+                dropdown: 'Sort by Sector Kind'
+            },
+            {
+                sortBy: 'type',
+                dropdown: 'Sort by Type'
+            },
+            {
+                sortBy: 'status',
+                dropdown: 'Sort by Status'
+            }],
             ordering: 'ASC',
             sortIcon: 'sort-up',
             ascending: true,
             priority: ''
         };
-        this.handleSort = this.handleSort.bind(this);
-        this.handleLoadMore = this.handleLoadMore.bind(this);
-        this.handleOrdering = this.handleOrdering.bind(this);
     }
   
     componentDidUpdate(prevProps, prevState) {
@@ -77,6 +102,7 @@ class JobListPage extends React.Component {
         })
         .catch((err) => {
            this.setState({error: true, loading: false, errorMsg: err.message})
+           alert(err.message);
         });
     }
 
@@ -89,30 +115,11 @@ class JobListPage extends React.Component {
     }
 
     handleSort = (value) => {
-        switch(value) {
-            case 'Sort by Work Order #':
-                this.state.sortBy = 'id'
-                break;
-            case 'Sort by Due Date':
-                this.state.sortBy = 'dueDate'
-                break;
-            case 'Sort by Priority':
-                this.state.sortBy = 'priority'
-                break;
-            case 'Sort by Sector Type':
-                this.state.sortBy = 'sectorType'
-                break;
-            case 'Sort by Sector Kind':
-                this.state.sortBy = 'sectorKind'
-                break;
-            case 'Sort by Type':
-                this.state.sortBy = 'type'
-                break;
-            case 'Sort by Status':
-                this.state.sortBy = 'status'
-            default:
-                this.state.sortBy = 'id'
-        }
+        this.state.sortByFields.map(field => {
+            if (value === field.dropdown) {
+                this.setState({sortBy: field.sortBy})
+            }
+        });
     }
 
     handleOrdering = () => {
@@ -135,14 +142,9 @@ class JobListPage extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    userLogout: () => dispatch(userLogout()),
-    selectProperty: (property) => dispatch(selectProperty(property))
-});
-
 const mapStateToProps = state => ({
     user: state.user,
     property: state.property.property
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobListPage);
+export default connect(mapStateToProps)(JobListPage);
