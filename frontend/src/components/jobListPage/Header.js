@@ -103,7 +103,8 @@ const Header = (props) => {
                                 'Sort by Work Order #', 
                                 'Sort by Due Date', 
                                 'Sort by Priority', 
-                                'Sort by Sector', 
+                                'Sort by Sector Type',
+                                'Sort by Sector Kind', 
                                 'Sort by Type', 
                                 'Sort by Status'
                             ]}

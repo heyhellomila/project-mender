@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { userLogout, selectProperty } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-import { getWorkOrders } from '../apis/workOrders/GetWorkOrder';
+import { getWorkOrders, getWorkOrdersByPropertyId } from '../apis/workOrders/GetWorkOrder';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 
 class JobListPage extends React.Component {
@@ -55,9 +55,15 @@ class JobListPage extends React.Component {
                 workOrders: response.data.map((workOrder) => ({
                     id: workOrder.id,
                     title: workOrder.title,
+                    cause: workOrder.cause,
+                    notification: workOrder.description,
                     type: workOrder.workOrderType.type,
                     priority: workOrder.priorityType.type,
-                    dueDate: workOrder.dueDate
+                    sectorType: workOrder.sector.type,
+                    sectorKind: workOrder.sector.kind,
+                    dueDate: workOrder.dueDate,
+                    createdDate: workOrder.createdDate,
+                    serviceNeeded: workOrder.serviceNeeded
                     }))
             });
         })
@@ -93,8 +99,11 @@ class JobListPage extends React.Component {
             case 'Sort by Priority':
                 this.state.sortBy = 'priority'
                 break;
-            case 'Sort by Sector':
-                this.state.sortBy = 'sector'
+            case 'Sort by Sector Type':
+                this.state.sortBy = 'sectorType'
+                break;
+            case 'Sort by Sector Kind':
+                this.state.sortBy = 'sectorKind'
                 break;
             case 'Sort by Type':
                 this.state.sortBy = 'type'

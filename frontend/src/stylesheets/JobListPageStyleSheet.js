@@ -71,7 +71,7 @@ const jobListCardStyles = StyleSheet.create({
         paddingBottom: 10
     },
     dueDate: {
-        fontSize: 15
+        fontSize: 13
     },
     title: {
         fontWeight: 'bold', 
@@ -84,18 +84,20 @@ const jobListCardStyles = StyleSheet.create({
     },
     collapseHeaderSection: {
         flexDirection: 'column', 
-        width: 290, 
+        width: 300, 
         paddingRight: 10
     },
     collapseHeaderSectionFirstLine: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
         marginBottom: 10, 
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 300
     },
     collapseHeaderSectionSecondLine: {
         flexDirection: 'row', 
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        width: 300
     },
     collapseBodySection: {
         alignItems: 'center', 

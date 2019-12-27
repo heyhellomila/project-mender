@@ -38,7 +38,7 @@ const CardComponent = (props) => {
                                         <Text># {props.id}</Text>
                                     </View>
                                     <View style={jobListCardStyles.collapseHeaderSectionSecondLine}>
-                                        <Text style={jobListStyles.text}>Utilities -> Plumbing</Text>
+                                        <Text style={jobListStyles.text}>{props.sectorType}->{props.sectorKind}</Text>
                                         <Text style={jobListStyles.text}>Status: Quote accepted</Text>
                                     </View>
                                     </View>
@@ -49,15 +49,15 @@ const CardComponent = (props) => {
                         <Card containerStyle={jobListCardStyles.jobListCardContainer}> 
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.dateCreated}>Date created:</Text>
-                                <Text style={jobListCardStyles.date}>December 23rd, 2019</Text>
+                                <Text style={jobListCardStyles.date}>{moment(props.createdDate).format("MMMM Do YYYY")}</Text>
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Notification:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>I noticed a small leak on the first connection on the drain pipe under the sink.</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.notification}</Text>
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Cause:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>Normal wear</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.cause}</Text>
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Location:</Text>
@@ -65,9 +65,12 @@ const CardComponent = (props) => {
                             </View> 
                             <View style={jobListCardStyles.collapseBodySectionBottom}>
                                 <View style={jobListCardStyles.serviceNeeded}>
-                                    <Text style={jobListCardStyles.serviceNeededText}>Service needed:</Text>
+                                    <Text style={jobListCardStyles.serviceNeededText}>Service needed: {props.serviceNeeded}</Text>
                                     <ToggleSwitch
-                                        isOn={true}
+                                        isOn={props.serviceNeeded === true
+                                            ? true
+                                            : false
+                                        }
                                         onColor='#42d553'
                                         size='small'
                                         onToggle={isOn => console.log(isOn)}
