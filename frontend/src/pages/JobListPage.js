@@ -83,7 +83,7 @@ class JobListPage extends React.Component {
     handleLoadMore = () => {
         this.setState({
             pageNumber: this.state.pageNumber + 1,
-            loading: false}, // ! set to false for testing
+            loading: true},
             () => this.getListOfWorkOrders()
         )
     }

@@ -105,7 +105,7 @@ const Header = (props) => {
                                 'Sort by Priority', 
                                 'Sort by Sector Type',
                                 'Sort by Sector Kind', 
-                                'Sort by Type', 
+                                'Sort by Type',
                                 'Sort by Status'
                             ]}
                             style={headerStyles.jobListDropdown}
