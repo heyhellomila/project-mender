@@ -12,8 +12,8 @@ const jobListStyles = StyleSheet.create({
     },
     jobListContainer: {
         flex: 5, 
-        padding: 16, 
-        paddingTop: 30, 
+        padding: 10, 
+        paddingTop: 35, 
         backgroundColor: '#fff'
     }
 });
@@ -38,8 +38,9 @@ const headerStyles = StyleSheet.create({
         fontSize: 13
     },
     prioritySection: {
-        flexDirection: 'column', 
-        width: 250
+        flexDirection: 'column',
+        flex: 1,
+        marginBottom: 5
     },
     priorities: {
         flexDirection: 'row', 
@@ -63,7 +64,13 @@ const jobListCardStyles = StyleSheet.create({
     workOrderCard: {
         backgroundColor: '#dfdfdf', 
         borderRadius: 10, 
-        padding: 0
+        padding: 0,
+        borderColor: '#dfdfdf', 
+        borderRadius: 10, 
+        elevation: 0, 
+        shadowOffset: {height: 0, width: 0}, 
+        shadowOpacity: 0, 
+        shadowRadius: 0
     },
     topDetails: {
         flexDirection: 'row', 

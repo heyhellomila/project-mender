@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { ActivityIndicator, Text, View, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { jobListStyles, headerStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -135,6 +135,13 @@ const Header = (props) => {
                         <Text style={jobListStyles.text}>Priority 3</Text>
                     </View>
                 </View>
+            </View>
+            <View style={{justifyContent: 'center'}}>
+                {
+                    props.loading === true
+                        ? <ActivityIndicator animating size={'small'} style={{height: 25}} />
+                        : null
+                }
             </View>
         </View>
     );

@@ -55,8 +55,7 @@ class JobListPage extends React.Component {
             }],
             ordering: 'ASC',
             sortIcon: 'sort-up',
-            ascending: true,
-            priority: ''
+            ascending: true
         };
     }
   
@@ -74,6 +73,7 @@ class JobListPage extends React.Component {
     }
 
     async getListOfWorkOrders() {
+        this.setState({loading: true});
         await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering)
         .then((response) => {
             this.setState({
@@ -101,8 +101,8 @@ class JobListPage extends React.Component {
             });
         })
         .catch((err) => {
-           this.setState({error: true, loading: false, errorMsg: err.message})
-           alert(err.message);
+            this.setState({error: true, loading: false, errorMsg: err.message})
+            alert(this.state.errorMsg);
         });
     }
 
