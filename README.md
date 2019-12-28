@@ -46,14 +46,6 @@ npm install
 
 To start the back-end server, use the following command from `backend/`:
 
-```shell
-npm run dev
-```
-
-### Running the Front-end Server
-
-To start the front-end server, use the following command from `frontend/`:
-
 A. on NodeDemon:
 
 ```shell
@@ -65,6 +57,15 @@ B. on ts-node:
 ```shell
 npm run dev
 ```
+
+
+### Running the Front-end Server
+
+To start the front-end server, use the following command from `frontend/`:
+
+``` shell
+npm start
+
 
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
