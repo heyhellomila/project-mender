@@ -47,7 +47,7 @@ npm install
 To start the back-end server, use the following command from `backend/`:
 
 ```shell
-npm start
+npm run dev
 ```
 
 ### Running the Front-end Server
