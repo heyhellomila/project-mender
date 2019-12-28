@@ -100,40 +100,40 @@ class WorkOrderService {
         let filterQueries = '';
         
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders.property = ', queryMap.get(WorkOrderQuery.PROPERTYID));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'property', '=', queryMap.get(WorkOrderQuery.PROPERTYID));
         }
         if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
-            this.createSQLFilterQuery(filterQueries, 'sector.type = \'', queryMap.get(WorkOrderQuery.SECTORTYPE) + '\'');
+            this.createSQLFilterQuery(filterQueries, 'sector','type', '=', `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
-            this.createSQLFilterQuery(filterQueries, 'sector.kind = \'', queryMap.get(WorkOrderQuery.SECTORKIND) + '\'');
+            this.createSQLFilterQuery(filterQueries, 'sector', 'kind', '=', `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders.workOrderType = ', queryMap.get(WorkOrderQuery.WORKORDERTYPE));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'workOrderType','=', queryMap.get(WorkOrderQuery.WORKORDERTYPE));
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders.serviceNeeded = ', queryMap.get(WorkOrderQuery.SERVICENEEDED));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'serviceNeeded', '=', queryMap.get(WorkOrderQuery.SERVICENEEDED));
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders.priorityType = ', queryMap.get(WorkOrderQuery.PRIORITYTYPE));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'priorityType', '=', queryMap.get(WorkOrderQuery.PRIORITYTYPE));
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders.priceEstimate = ', queryMap.get(WorkOrderQuery.PRICEESTIMATE));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'priceEstimate', '=', queryMap.get(WorkOrderQuery.PRICEESTIMATE));
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
-            this.createSQLFilterQuery(filterQueries, `work_orders.${queryMap.get(WorkOrderQuery.GREATERTHAN)} > `, queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', queryMap.get(WorkOrderQuery.GREATERTHAN), '>', queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
-            this.createSQLFilterQuery(filterQueries, `work_orders.${queryMap.get(WorkOrderQuery.LOWERTHAN)} < `, queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
+            this.createSQLFilterQuery(filterQueries, 'work_orders', queryMap.get(WorkOrderQuery.LOWERTHAN), '<', queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
         }
         return filterQueries;
     }
 
-    private createSQLFilterQuery(filterQueries: string, prefix: string, queryMapString: string){
+    private createSQLFilterQuery(filterQueries: string, table: string, column:string, operator: string , queryMapString: string){
         if (filterQueries !== '') {
             filterQueries += `&& `;
         }
-        filterQueries += prefix + queryMapString;
+        filterQueries += `${table}.${column} ${operator} ${queryMapString}`;
         return filterQueries;
     }
 
