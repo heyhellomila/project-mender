@@ -10,7 +10,7 @@ class BusinessUserRoleService {
     async getUserRole(role: string) {
         const userRoleObj: BusinessUserRole = await this.userRoleRepository.getUserRole(role);
         if (!userRoleObj) {
-            throw new ResourceNotFoundError('Invalid Status. Allowed Roles: [' 
+            throw new ResourceNotFoundError('Invalid Role. Allowed Types: [' 
                 + Object.keys(BusinessUserRoleEnum) +']');
         }
         return userRoleObj;

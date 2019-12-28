@@ -38,12 +38,11 @@ class BusinessService {
     }
 
     async createBusiness(business: Business) {
-
         if (!business.NEQ && (business.name || business.businessType.type == BusinessTypeEnum.BUSINESS)) {
             throw new BadRequestError("Cannot provide business name or type 'BUSINESS' without an NEQ.")
         }
         if (this.businessExists(business.NEQ)) {
-            throw new BadRequestError("A business with the NEQ " + business.NEQ + " aready exists.")
+            throw new ResourceExistsError("A business with the NEQ " + business.NEQ + " aready exists.")
         }
         business.businessType = await this.businessTypeService.getBusinessType(business.businessType.type);
 

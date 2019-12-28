@@ -5,6 +5,7 @@ import { UserService } from './UserService';
 import { BusinessService } from './BusinessService';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { BadRequestError } from '../errors/BadRequestError';
+import { ResourceExistsError } from '../errors/ResourceExistsError';
 
 class BusinessUserService {
 
@@ -32,7 +33,7 @@ class BusinessUserService {
 
     async createBusinessUser(businessUser: BusinessUser) {
         if (this.businessUserExists(businessUser)) {
-            throw new BadRequestError("This business user aready exists.")
+            throw new ResourceExistsError("This business user aready exists.")
         }
         businessUser.businessUserRole = await this.businessUserRoleService.getUserRole(businessUser.businessUserRole.role);
         businessUser.user = await this.userService.getUser(businessUser.user.id);

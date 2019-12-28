@@ -7,6 +7,8 @@ import { workOrderController } from './WorkOrderController';
 import { propertySectorsController } from './PropertySectorsController';
 import { businessController } from './BusinessController';
 import { businessUserController } from './BusinessUserController';
+import { licenseController } from './LicenseController';
+import { userLicenseController } from './UserLicensesController';
 
 class Router {
 
@@ -21,6 +23,8 @@ class Router {
         this.router.use('/api/properties/:propertyId/sectors', propertySectorsController);
         this.router.use('/api/businesses', businessController);
         this.router.use('/api/businessUsers', businessUserController);
+        this.router.use('/api/licenses', licenseController);
+        this.router.use('/api/users/:userId/licenses', userLicenseController);
     }
 
     getRouter() {

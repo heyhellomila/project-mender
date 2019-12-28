@@ -10,7 +10,7 @@ class BusinessTypeService {
     async getBusinessType(type: string) {
         const businessTypeObj: BusinessType = await this.businessTypeRepository.getBusinessType(type);
         if (!businessTypeObj) {
-            throw new ResourceNotFoundError('Invalid Status. Allowed Types: [' 
+            throw new ResourceNotFoundError('Invalid Type. Allowed Types: [' 
                 + Object.keys(BusinessTypeEnum) +']');
         }
         return businessTypeObj;
