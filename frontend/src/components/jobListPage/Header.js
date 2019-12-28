@@ -136,7 +136,7 @@ const Header = (props) => {
                     </View>
                 </View>
             </View>
-            <View style={{justifyContent: 'center'}}>
+            <View style={headerStyles.loadingContainer}>
                 {
                     props.loading === true
                         ? <ActivityIndicator animating size={'small'} style={{height: 25}} />

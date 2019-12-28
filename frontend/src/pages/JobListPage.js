@@ -55,12 +55,24 @@ class JobListPage extends React.Component {
             }],
             ordering: 'ASC',
             sortIcon: 'sort-up',
-            ascending: true
+            ascending: true,
+            lastPage: false
         };
     }
   
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation || this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+        if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation) {
+            this.setState({
+                pageNumber: 1,
+                sortBy: 'id',
+                ordering: 'ASC',
+                sortIcon: 'sort-up',
+                ascending: true,
+                lastPage: false
+            });
+            this.getListOfWorkOrders();
+        }
+        else if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
             this.getListOfWorkOrders();
         }
     }
@@ -92,32 +104,39 @@ class JobListPage extends React.Component {
                     }))
             });
         })
-        .then((response) => response.json())
         .then((response) => {
-            this.setState({
-                workOrders: [...this.state.workOrders, ...response.results],
-                error: response.error || null,
+            this.setState(prevState => ({
+                data: (prevState.data).concat(this.state.workOrders),
                 loading: false
-            });
+            }));
+            if (this.state.data.length%this.state.pageSize != 0) {
+                this.setState({
+                    lastPage: true
+                });
+            }
         })
         .catch((err) => {
             this.setState({error: true, loading: false, errorMsg: err.message})
-            alert(this.state.errorMsg);
+            //alert(this.state.errorMsg);
         });
     }
 
     handleLoadMore = () => {
-        this.setState({
-            pageNumber: this.state.pageNumber + 1,
-            loading: true},
-            () => this.getListOfWorkOrders()
-        )
+        if (!this.state.loading) {
+            this.setState({
+                pageNumber: this.state.pageNumber + 1,
+                loading: true},
+                () => this.getListOfWorkOrders()
+            );
+        }
     }
 
     handleSort = (value) => {
         this.state.sortByFields.map(field => {
             if (value === field.dropdown) {
-                this.setState({sortBy: field.sortBy})
+                this.setState({
+                    sortBy: field.sortBy
+                });
             }
         });
     }

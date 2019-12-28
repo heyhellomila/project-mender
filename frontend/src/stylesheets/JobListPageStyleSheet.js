@@ -15,6 +15,12 @@ const jobListStyles = StyleSheet.create({
         padding: 10, 
         paddingTop: 35, 
         backgroundColor: '#fff'
+    },
+    loadMoreContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
+        marginBottom: 15
     }
 });
 
@@ -46,6 +52,12 @@ const headerStyles = StyleSheet.create({
         flexDirection: 'row', 
         justifyContent: 'space-evenly', 
         alignItems: 'center'
+    },
+    loadingContainer: {
+        justifyContent: 'center'
+    },
+    loadMoreIcon: {
+        height: 50
     }
 });
 
@@ -208,6 +220,13 @@ const buttonStyles = StyleSheet.create({
         borderColor: '#ededed',
         backgroundColor: '#ededed',
         marginRight: 10
+    },
+    loadMoreButton: {
+        borderRadius: 20,
+        borderColor: '#f5f5f5',
+        backgroundColor: '#f5f5f5',
+        padding: 15,
+        width: 250
     }
 });
 
