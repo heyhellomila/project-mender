@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { userLogout, selectProperty } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
@@ -18,7 +17,6 @@ class JobListPage extends React.Component {
         this.state = {
             user: props.user.user,
             workOrders: [],
-            data: [],
             loading: false,
             error: false,
             pageSize: 10,
@@ -56,7 +54,10 @@ class JobListPage extends React.Component {
             ordering: 'ASC',
             sortIcon: 'sort-up',
             ascending: true,
-            lastPage: false
+            lastPage: false,
+            isEmpty: false,
+            showSortIndicator: false,
+            isSorting: false
         };
     }
   
@@ -64,15 +65,19 @@ class JobListPage extends React.Component {
         if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation) {
             this.setState({
                 pageNumber: 1,
+                pageSize: 10,
                 sortBy: 'id',
                 ordering: 'ASC',
                 sortIcon: 'sort-up',
                 ascending: true,
-                lastPage: false
+                lastPage: false,
+                isEmpty: false,
+                showSortIndicator: false,
+                isSorting: false
             });
             this.getListOfWorkOrders();
         }
-        else if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+        if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering || this.state.pageSize !== prevState.pageSize) {
             this.getListOfWorkOrders();
         }
     }
@@ -105,15 +110,23 @@ class JobListPage extends React.Component {
             });
         })
         .then((response) => {
-            this.setState(prevState => ({
-                data: (prevState.data).concat(this.state.workOrders),
-                loading: false
-            }));
-            if (this.state.data.length%this.state.pageSize != 0) {
+            if (this.state.workOrders.length % this.state.pageSize !== 0) {
                 this.setState({
-                    lastPage: true
+                    lastPage: true,
+                    showSortIndicator: false
                 });
             }
+            if (this.state.workOrders.length === 0) {
+                this.setState({
+                    lastPage: true,
+                    isEmpty: true
+                });
+            }
+            this.setState({
+                loading: false,
+                showSortIndicator: false,
+                isSorting: false
+            })
         })
         .catch((err) => {
             this.setState({error: true, loading: false, errorMsg: err.message})
@@ -124,7 +137,7 @@ class JobListPage extends React.Component {
     handleLoadMore = () => {
         if (!this.state.loading) {
             this.setState({
-                pageNumber: this.state.pageNumber + 1,
+                pageSize: this.state.pageSize + 10,
                 loading: true},
                 () => this.getListOfWorkOrders()
             );
@@ -143,8 +156,8 @@ class JobListPage extends React.Component {
 
     handleOrdering = () => {
         this.state.ascending === true
-        ? this.setState({ordering: 'DESC', sortIcon: 'sort-down', ascending: false})
-        : this.setState({ordering: 'ASC', sortIcon: 'sort-up', ascending: true})
+        ? this.setState({ordering: 'DESC', sortIcon: 'sort-down', ascending: false, showSortIndicator: true, isSorting: true})
+        : this.setState({ordering: 'ASC', sortIcon: 'sort-up', ascending: true, showSortIndicator: true, isSorting: true})
     }
 
     render() {

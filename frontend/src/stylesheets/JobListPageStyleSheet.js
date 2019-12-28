@@ -21,6 +21,16 @@ const jobListStyles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 15,
         marginBottom: 15
+    },
+    emptyWorkOrders: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '25%',
+    },
+    emptyText: {
+        fontSize: 20,
+        color: '#ababab'
     }
 });
 
