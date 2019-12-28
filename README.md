@@ -9,18 +9,18 @@ Secondly, the application will include an additional feature for the client to b
 
 This web application uses the following technologies:
 
--   _Express_, a Node.js back-end framework
--   _MongoDB_, a cross-platform document-oriented database
--   _React Native_, an application framework
+- _Express_, a Node.js back-end framework
+- _MySQL_, a cross-platform document-oriented database
+- _React Native_, an application framework
 -   _Expo_, a framework and platform for React applications.
 
 ## Installing Dependencies
 
-Before starting, make sure you have working versions of npm (6.12+) and Node (12.9.0+).
+Before starting, make sure you have working versions of npm (6.12+) and mySQL (5.7.22+).
 
 ```shell
 node --version
-npm --version
+mysql --version
 ```
 
 ### Package Set Up
@@ -53,8 +53,16 @@ npm start
 
 To start the front-end server, use the following command from `frontend/`:
 
+A. on NodeDemon:
+
 ```shell
 npm start
+```
+
+B. on ts-node:
+
+```shell
+npm run dev
 ```
 
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
