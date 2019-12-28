@@ -1,0 +1,15 @@
+{
+    "swagger": {
+        "host": "localhost:3000",
+        "basePath": "/api/v1",
+        "entryFile": "./src/app.ts",
+        "outputDirectory": ".",
+        "controllerPathGlobs": ["./src/api/controllers/*Controller.ts"]
+    },
+    "routes": {
+        "basePath": "/api/v1",
+        "entryFile": "./src/app.ts",
+        "routesDir": "./src/api/routes",
+        "middleware": "express"
+    }
+}
