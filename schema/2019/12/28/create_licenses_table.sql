@@ -1,7 +1,7 @@
 create table licenses(
     id bigint AUTO_INCREMENT PRIMARY KEY,
-    license_number bigint,
-    user_id int NOT NULL,
+    license_number bigint NOT NULL,
+    user_id bigint NOT NULL,
     license_type_id int NOT NULL,
     license_status_id int NOT NULL,
     expiry_date DATETIME,
