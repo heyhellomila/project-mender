@@ -1,7 +1,7 @@
-import { headerStyles } from '../../stylesheets/AddPropertyStyleSheet';
+import { headerStyles } from '../../../stylesheets/AddPropertyStyleSheet';
 import {Text, SafeAreaView, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-const x = require('../../../assets/X.png');
+const x = require('../../../../assets/X.png');
 
 const Header = (props) => {
     return (

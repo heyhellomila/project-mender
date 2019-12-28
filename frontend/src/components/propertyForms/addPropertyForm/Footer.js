@@ -1,5 +1,5 @@
 import React from 'react';
-import { footerStyles } from '../../stylesheets/AddPropertyStyleSheet';
+import { footerStyles } from '../../../stylesheets/AddPropertyStyleSheet';
 import { TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 

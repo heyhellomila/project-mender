@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { postcodeValidator } from 'postcode-validator';
-import { CountryCode } from '../constants/enums/CountryCode';
-import { Province } from '../constants/enums/Province';
-import { createProperty } from '../apis/properties/CreateProperty';
-import AddPropertyComponent from '../components/addPropertyForm/AddPropertyComponent';
-import { reloadProperties } from '../redux/actions';
+import { CountryCode } from '../../constants/enums/CountryCode';
+import { Province } from '../../constants/enums/Province';
+import { createProperty } from '../../apis/properties/CreateProperty';
+import AddPropertyComponent from '../../components/propertyForms/addPropertyForm/AddPropertyComponent';
+import { reloadProperties } from '../../redux/actions';
 
 class AddPropertyPage extends React.Component {
     constructor(props){
@@ -76,6 +76,14 @@ class AddPropertyPage extends React.Component {
         }
     }
 
+    getFinalAddress(address, addressInfo) {
+        let finalAddress = '';
+        addressInfo
+            ? finalAddress = `${address}, ${addressInfo}`.trim()
+            : finalAddress = address.trim();
+        return finalAddress;
+    }
+
     handleCreateProperty = async() => {
         if (this.validateFields()) {
             try {
@@ -83,7 +91,7 @@ class AddPropertyPage extends React.Component {
                 const { propertyType, address, addressInfo, city, province,
                     postalCode, country, name } = this.state;
                 await createProperty(this.props.user.id, propertyType.key,
-                    `${address}, ${addressInfo}`.trim(), city.trim(), province.key,
+                    this.getFinalAddress(address, addressInfo), city.trim(), province.key,
                     postalCode.trim(), country.key, name.trim()).then(() => {
                         this.setState({success: true});
                         this.props.reloadProperties();

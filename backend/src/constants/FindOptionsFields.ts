@@ -24,7 +24,7 @@ const PropertyFields : FindOptions<Property> = {
     },
 };
 
-const PropertyFieldsNoUser : FindOptions<Property> = {
+const PROPERTY_FIELDS_NO_USER : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType'],
     select: {
         id: true,
@@ -38,6 +38,10 @@ const PropertyFieldsNoUser : FindOptions<Property> = {
             id: true,
             type: true,
         },
+        city: true,
+        province: true,
+        postalCode: true,
+        countryCode: true,
     },
 };
 
@@ -144,5 +148,5 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
-export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
+export { PropertyFields, UserFields, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
     WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };

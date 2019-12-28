@@ -30,9 +30,14 @@ const drawerComponent = StyleSheet.create({
         marginTop: '10%'
     },
     addPropertyContainer: {
-        alignContent:'flex-end',
-        alignSelf:'flex-end',
-        width:'50%'
+        width:'50%',
+        flex: 1,
+        height: 500
+    },
+    editPropertyContainer: {
+        width:'50%',
+        flex: 1,
+        height: 500
     },
     logoutButton: {
         flex: 0.3,

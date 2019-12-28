@@ -7,6 +7,9 @@ import PropertyListComponent from './PropertyListComponent';
 import {drawerComponent} from '../../../stylesheets/DrawerStyleSheet';
 import {Button} from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {PropertyType} from "../../../constants/enums/PropertyType";
+import {Province} from "../../../constants/enums/Province";
+import {CountryCode} from "../../../constants/enums/CountryCode";
 
 class PropertyComponent extends Component {
     constructor(props) {
@@ -41,7 +44,12 @@ class PropertyComponent extends Component {
                     properties: res.data.map((property) => ({
                         id: property.id,
                         name: property.name,
-                        address: property.address
+                        address: property.address,
+                        propertyType: PropertyType[property.propertyType.type],
+                        city: property.city,
+                        province: Province[property.province],
+                        postalCode: property.postalCode,
+                        country: CountryCode[property.countryCode]
                     }))
                 }, () => {
                     if (this.state.properties.length > 0) {
@@ -63,21 +71,30 @@ class PropertyComponent extends Component {
         return (
             <View style={drawerComponent.properties}>
                 <Spinner
-                    visible={this.props.loadingProperties}
+                    visible={this.props.loadingProperties || this.props.reloadProperties || this.state.loading}
                 />
                 <Text style={drawerComponent.propertyHeader}>My Properties</Text>
                     {this.state.loading
                             ?   <View><Text>Loading...</Text></View>
-                            :   <View style={{flex: 1}}>
+                            :   <View style={{flex: 2}}>
                                     <ScrollView>
                                         <PropertyListComponent {...this.state} {...this.props}/>
                                     </ScrollView>
-                                    <View style={drawerComponent.addPropertyContainer}>
-                                        <Button
-                                            title='Add Property'
-                                            type='outline'
-                                            raised={true}
-                                            onPress={() => this.props.navigation.navigate('AddProperty')}/>
+                                    <View style={{flex: 1, flexDirection: 'row'}}>
+                                        <View style={drawerComponent.editPropertyContainer}>
+                                            <Button
+                                                title='Details'
+                                                type='outline'
+                                                raised={true}
+                                                onPress={() => this.props.navigation.navigate('PropertyDetails')}/>
+                                        </View>
+                                        <View style={drawerComponent.addPropertyContainer}>
+                                            <Button
+                                                title='Add Property'
+                                                type='outline'
+                                                raised={true}
+                                                onPress={() => this.props.navigation.navigate('AddProperty')}/>
+                                        </View>
                                     </View>
                                 </View>
                     }
@@ -87,6 +104,7 @@ class PropertyComponent extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    property: state.property.property,
     reloadProperties: state.property.reloadProperties,
     loadingProperties: state.property.loadingProperties
 });

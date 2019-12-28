@@ -1,8 +1,9 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';	
 import { LOCAL_API_KEY } from 'react-native-dotenv';
+import {ActivityStatus} from "../../constants/enums/ActivityStatus";
 
-var api = axios.create({	
+const api = axios.create({
     baseURL: `http://${LOCAL_API_KEY}/api`,
     timeout: 5000
 });	
@@ -21,6 +22,7 @@ export async function getPropertiesByUser(id) {
     return await api.get(`/users/${id}/properties`, {	
         headers: {	
             'Authorization': await AsyncStorage.getItem('Authorization')	
-        }
+        },
+        params: { activityStatus : ActivityStatus.ACTIVE }
     });
 }
