@@ -65,7 +65,7 @@ To start the front-end server, use the following command from `frontend/`:
 
 ``` shell
 npm start
-
+```
 
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
