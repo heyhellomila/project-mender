@@ -46,13 +46,14 @@ npm install
 
 To start the back-end server, use the following command from `backend/`:
 
-A. on NodeDemon:
+_A. on NodeDemon:_
 
 ```shell
 npm start
 ```
+or
 
-B. on ts-node:
+_B. on ts-node:_
 
 ```shell
 npm run dev
