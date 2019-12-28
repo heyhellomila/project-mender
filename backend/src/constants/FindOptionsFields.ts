@@ -3,6 +3,7 @@ import { Property } from '../entities/Property';
 import { User } from '../entities/User';
 import { WorkOrder } from '../entities/WorkOrder';
 import { PropertySector } from '../entities/PropertySector';
+import { ShoppingItem } from 'src/entities/ShoppingItem';
 
 const PropertyFields : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
@@ -132,6 +133,32 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
     },
 };
 
+
+const ShoppingItemFields : FindOptions<ShoppingItem> = {
+    relations: ['workOrder'],
+    select:{
+        id: true,
+        workOrder: {
+            id: true,
+        },
+        name: true,
+        quantity: true,
+        price: true,
+        status: true,
+    },
+};
+
+const ShoppingItemFieldsNoWorkOrder : FindOptions<ShoppingItem> = {
+    relations: ['workOrder'],
+    select:{
+        id: true,
+        name: true,
+        quantity: true,
+        price: true,
+        status: true,
+    },
+};
+
 const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     relations: ['sector'],
     select: {
@@ -143,4 +170,4 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
 };
 
 export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
-    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };
+    WorkOrderFieldsNoProperty, ShoppingItemFields, ShoppingItemFieldsNoWorkOrder, PROPERTY_SECTOR_FIELDS };
