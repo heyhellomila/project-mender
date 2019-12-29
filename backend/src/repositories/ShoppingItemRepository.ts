@@ -24,7 +24,7 @@ class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
                 ShoppingItem).save(shoppingItem);
             return savedShoppingItem;
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 

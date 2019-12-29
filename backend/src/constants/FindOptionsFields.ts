@@ -134,7 +134,7 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
 };
 
 
-const ShoppingItemFields : FindOptions<ShoppingItem> = {
+const SHOPPING_ITEM_FIELDS : FindOptions<ShoppingItem> = {
     relations: ['workOrder'],
     select:{
         id: true,
@@ -148,7 +148,7 @@ const ShoppingItemFields : FindOptions<ShoppingItem> = {
     },
 };
 
-const ShoppingItemFieldsNoWorkOrder : FindOptions<ShoppingItem> = {
+const SHOPPING_ITEM_FIELDS_NO_WORK_ORDER : FindOptions<ShoppingItem> = {
     select:{
         id: true,
         name: true,
@@ -171,4 +171,4 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
 };
 
 export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
-    WorkOrderFieldsNoProperty, ShoppingItemFields, ShoppingItemFieldsNoWorkOrder, PROPERTY_SECTOR_FIELDS };
+    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS };

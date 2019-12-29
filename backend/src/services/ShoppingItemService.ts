@@ -2,7 +2,7 @@ import { BadRequestError } from '../errors/BadRequestError';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { ShoppingItem } from '../entities/ShoppingItem';
 import { ShoppingItemRepository } from '../repositories/ShoppingItemRepository';
-import { ShoppingItemFields, ShoppingItemFieldsNoWorkOrder } from '../constants/FindOptionsFields';
+import { SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER } from '../constants/FindOptionsFields';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderService } from './WorkOrderService';
 
@@ -34,14 +34,14 @@ class ShoppingItemService {
         try {
             const workOrder_onlyId: WorkOrder = new WorkOrder();
             workOrder_onlyId.id = workOrderId;
-            return await this.shoppingItemRepository.getShoppingItemsByWorkOrder(workOrder_onlyId, ShoppingItemFieldsNoWorkOrder);
+            return await this.shoppingItemRepository.getShoppingItemsByWorkOrder(workOrder_onlyId, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER);
         } catch (err) {
             throw err;
         }
     }
 
     async getShoppingItem(id: number) {
-        const shoppingItem: ShoppingItem = await this.shoppingItemRepository.getShoppingItemById(id, ShoppingItemFields);
+        const shoppingItem: ShoppingItem = await this.shoppingItemRepository.getShoppingItemById(id, SHOPPING_ITEM_FIELDS);
         if (!shoppingItem){
             throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`)
         }

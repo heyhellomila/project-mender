@@ -8,7 +8,7 @@ const WorkOrderFields = {
         'priorityType', 'description', 'dueDate', 'priceEstimate'],
 };
 
-const ShoppingItemFields = {
+const SHOPPING_ITEM_FIELDS = {
     createFields : ['name', 'quantity', 'price', 'status'],
 };
 
@@ -21,4 +21,4 @@ const PROPERTY_SECTOR_FIELDS = {
     patchFields: ['sectorKind']
 };
 
-export { UserFields, WorkOrderFields, ShoppingItemFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };
+export { UserFields, WorkOrderFields, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };

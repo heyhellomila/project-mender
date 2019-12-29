@@ -5,13 +5,13 @@ import { ShoppingItemMapper } from '../entity_mappers/ShoppingItemMapper'
 import { validateBody } from '../middleware/requestValidation';
 import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
-import { ShoppingItemFields } from '../constants/BodyFields';
+import { SHOPPING_ITEM_FIELDS } from '../constants/BodyFields';
 
 const workOrderShoppingItemController = express.Router({mergeParams: true});
 const shoppingItemService = new ShoppingItemService();
 const shoppingItemMapper = new ShoppingItemMapper();
 
-workOrderShoppingItemController.post('/', auth, validateBody(ShoppingItemFields.createFields), async (req: Request, res: Response) => {
+workOrderShoppingItemController.post('/', auth, validateBody(SHOPPING_ITEM_FIELDS.createFields), async (req: Request, res: Response) => {
     try{
         req.body.status = Boolean(JSON.parse(req.body.status));
         const shoppingItemDTO : ShoppingItemDTO = req.body as ShoppingItemDTO;
