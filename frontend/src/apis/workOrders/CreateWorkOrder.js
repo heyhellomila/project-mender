@@ -19,11 +19,11 @@ api.interceptors.response.use(async (response) => {
         }
 });
 
-export async function createWorkOrder(propertyId, sectorType, workOrderType, 
+export async function createWorkOrder(propertyId, sectorKind, workOrderType,
     title, cause, serviceNeeded, priorityType, description, dueDate, priceEstimate) {
 
-    var body = {
-        sectorType, 
+    let body = {
+        sectorKind,
         workOrderType, 
         title, 
         cause, 

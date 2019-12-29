@@ -10,11 +10,12 @@ class LogInPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '', 
+      email: '',
       password: '',
       submitting: false,
       error: false,
-      errorMsg: ''
+      errorMsg: '',
+      navigation: this.props.navigation
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);

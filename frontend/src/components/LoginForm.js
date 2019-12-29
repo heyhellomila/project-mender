@@ -32,6 +32,11 @@ const LoginForm = (props) => {
                 title="Login"
                 onPress={() => props.handleLogin()}
             />
+            <Button
+                title="Back"
+                onPress={() => props.navigation.goBack()}
+            />
+
         </View>
     );
 };

@@ -21,6 +21,7 @@ class Router {
         this.router.use('/api/propertySectors', propertySectorsController);
         this.router.use('/api/shoppingItem', shoppingItemController);
         this.router.use('/api/workOrders/:workOrderId/shoppingItem', workOrderShoppingItemController);
+        this.router.use('/api/properties/:propertyId/sectors', propertySectorsController);
     }
 
     getRouter() {

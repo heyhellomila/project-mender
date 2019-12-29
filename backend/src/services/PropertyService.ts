@@ -66,9 +66,10 @@ class PropertyService {
     }
 
     async getPropertyById(id: number) {
-        const property : Property = await this.propertyRepository.getPropertyById(id, PropertyFields);
+        const property : Property = await this.propertyRepository.getPropertyById(
+            id, PropertyFields);
         if (!property) {
-            throw new ResourceNotFoundError("Property with id " + id + " does not exist.")
+            throw new ResourceNotFoundError(`Property with id ${id} does not exist.`);
         }
         return property;
     }
