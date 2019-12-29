@@ -10,7 +10,7 @@ const JobListComponent = (props) => {
         <View>
             <SafeAreaView style={jobListStyles.jobListContainer}> 
                 <FlatList
-                    data={props.workOrders}
+                    data={props.data}
                     renderItem={ ({item}) => (
                         <CardComponent {...item} />
                     )}

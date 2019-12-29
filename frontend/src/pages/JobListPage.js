@@ -17,6 +17,7 @@ class JobListPage extends React.Component {
         this.state = {
             user: props.user.user,
             workOrders: [],
+            data: [],
             loading: false,
             error: false,
             pageSize: 10,
@@ -62,8 +63,11 @@ class JobListPage extends React.Component {
     }
   
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.property !== prevProps.property || this.props.navigation !== prevProps.navigation) {
+        if (this.props.property !== prevProps.property) {
             this.setState({
+                data: [],
+                loading: false,
+                error: false,
                 pageNumber: 1,
                 pageSize: 10,
                 sortBy: 'id',
@@ -73,12 +77,15 @@ class JobListPage extends React.Component {
                 lastPage: false,
                 isEmpty: false,
                 showSortIndicator: false,
-                isSorting: false
-            });
-            this.getListOfWorkOrders();
+                isSorting: false},
+                () => this.getListOfWorkOrders()
+            );
         }
-        if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering || this.state.pageSize !== prevState.pageSize) {
-            this.getListOfWorkOrders();
+        else if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+            this.setState({
+                data: []},
+                () => this.getListOfWorkOrders()
+            );
         }
     }
 
@@ -110,7 +117,17 @@ class JobListPage extends React.Component {
             });
         })
         .then((response) => {
-            if (this.state.workOrders.length % this.state.pageSize !== 0) {
+            if (this.state.pageNumber === 1) {
+                this.setState({
+                    data: this.state.workOrders
+                });
+            }
+            if (this.state.pageNumber !== 1) {
+                this.setState({
+                    data: (this.state.data).concat(this.state.workOrders)
+                })
+            }
+            if (this.state.data.length % this.state.pageSize !== 0) {
                 this.setState({
                     lastPage: true,
                     showSortIndicator: false
@@ -126,19 +143,24 @@ class JobListPage extends React.Component {
                 loading: false,
                 showSortIndicator: false,
                 isSorting: false
-            })
+            });
         })
         .catch((err) => {
-            this.setState({error: true, loading: false, errorMsg: err.message})
-            //alert(this.state.errorMsg);
+            this.setState({
+                error: true, 
+                loading: false, 
+                errorMsg: err.message
+            })
+            alert(this.state.errorMsg);
         });
     }
 
     handleLoadMore = () => {
         if (!this.state.loading) {
             this.setState({
-                pageSize: this.state.pageSize + 10,
-                loading: true},
+                pageNumber: this.state.pageNumber + 1,
+                loading: true,
+                isEmpty: false},
                 () => this.getListOfWorkOrders()
             );
         }
@@ -152,12 +174,37 @@ class JobListPage extends React.Component {
                 });
             }
         });
+        this.setState({
+            data: [], 
+            pageNumber: 1, 
+            showSortIndicator: true, 
+            isSorting: true, 
+            lastPage: false
+        });
     }
 
     handleOrdering = () => {
         this.state.ascending === true
-        ? this.setState({ordering: 'DESC', sortIcon: 'sort-down', ascending: false, showSortIndicator: true, isSorting: true})
-        : this.setState({ordering: 'ASC', sortIcon: 'sort-up', ascending: true, showSortIndicator: true, isSorting: true})
+        ? this.setState({
+            data: [], 
+            pageNumber: 1, 
+            ordering: 'DESC', 
+            sortIcon: 'sort-down', 
+            ascending: false, 
+            showSortIndicator: true, 
+            isSorting: true, 
+            lastPage: false
+        })
+        : this.setState({
+            data: [], 
+            pageNumber: 1, 
+            ordering: 'ASC', 
+            sortIcon: 'sort-up', 
+            ascending: true, 
+            showSortIndicator: true, 
+            isSorting: true, 
+            lastPage: false
+        })
     }
 
     render() {
