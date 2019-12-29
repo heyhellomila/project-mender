@@ -27,14 +27,13 @@ class ShoppingItemService {
         }
     }
 
-    async getShoppingItemByWorkOrderId(workOrderId: number) {
-        const workOrder: WorkOrder = await this.workOrderService.getWorkOrder(workOrderId);
-        if(!workOrder) {
+    async getShoppingItemByWorkOrderId(workOrderId: number) {        
+        if(!await this.workOrderService.getWorkOrder(workOrderId)) {
             throw new ResourceNotFoundError(`Work Order with id ${workOrderId} does not exist.`);
         }
         try {
             const workOrder_onlyId: WorkOrder = new WorkOrder();
-            workOrder_onlyId.id = workOrder.id;
+            workOrder_onlyId.id = workOrderId;
             return await this.shoppingItemRepository.getShoppingItemsByWorkOrder(workOrder_onlyId, ShoppingItemFieldsNoWorkOrder);
         } catch (err) {
             throw err;
