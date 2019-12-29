@@ -36,12 +36,12 @@ const textInputStyles = StyleSheet.create({
       height: 40,
       borderBottomColor: 'red',
       borderBottomWidth: 1
-  }  
+  }
 })
 
 const buttonStyles = StyleSheet.create({
     bottomButtonsRow:{
-        flex: 1, 
+        flex: 1.1,
         flexDirection: 'row', 
         justifyContent: 'space-between'
     },
@@ -54,7 +54,7 @@ const buttonStyles = StyleSheet.create({
 
 const imageStyles = StyleSheet.create({
     imageView:{
-        flex: 2, 
+        flex: 1.5,
         width: '100%', 
         justifyContent: 'center', 
         alignItems: 'center'

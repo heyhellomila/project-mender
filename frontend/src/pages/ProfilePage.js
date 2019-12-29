@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import { connect } from 'react-redux';
-import { updateUser, updateUserPassword } from '../../src/apis/users/UpdateUser';
-import { getUser } from '../../src/apis/users/GetUser';
-import { reloadUserProfile } from '../redux/actions';
+import {connect} from 'react-redux';
+import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
+import {getUser} from '../../src/apis/users/GetUser';
+import {reloadUserProfile} from '../redux/actions';
 import ProfilePageComponent from '../components/profileForms/profilePageComponent';
 import EditProfileForm from '../components/profileForms/editProfileForm';
 import ChangePasswordForm from '../components/profileForms/changePasswordForm';
-import { titleStyles, containerStyles } from '../stylesheets/ProfilePageStylesheet';
+import {titleStyles, containerStyles} from '../stylesheets/ProfilePageStylesheet';
 import validator from 'validator';
 
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            step: 1,
+            page: "profilePage",
             user: props.user,
             firstName: null,
             lastName: null,
@@ -34,9 +34,9 @@ class ProfilePage extends Component {
     }
 
     async componentDidUpdate() {
-        const { loading } = this.state;
+        const {loading} = this.state;
         if (this.props.reloadingUserProfile && !loading) {
-            this.setState({ loading: true }, async () => {
+            this.setState({loading: true}, async () => {
                 await this.getUpdatedProfile();
             });
         }
@@ -44,60 +44,47 @@ class ProfilePage extends Component {
 
     goToEditProfilePage = () => {
         this.setState({
-            step: 2
+            page: "editProfilePage"
         })
     };
 
     goToPasswordChange = () => {
         this.setState({
-            step: 3
+            page: "passwordChangePage"
         })
     };
 
     goToProfilePage = () => {
         this.setState({
-            step: 1,
+            page: "profilePage",
             validatePassword: false,
             validFirstName: true,
             validLastName: true,
-            validEmail: true
+            validEmail: true,
+            validPhoneNumber: true
         })
     };
 
     handleFirstNameChange = event => {
-        this.setState({firstName: event}, () =>{
-            this.handleFirstNameValidation();
+        this.setState({firstName: event}, () => {
+            this.handleNameValidation(this.state.firstName, 'validFirstName');
         })
     };
-
-    handleFirstNameValidation = () =>{
-        if(this.state.firstName.length === 0){
-            this.setState(
-                {validFirstName: false}
-            )
-        }else {
-            this.setState({
-                validFirstName: true
-            })
-        }
-    }
 
     handleLastNameChange = event => {
         this.setState({lastName: event}, () => {
-            this.handleLastNameValidation();
+            this.handleNameValidation(this.state.lastName, 'validLastName');
         })
     };
 
-    handleLastNameValidation = () =>{
-        if(this.state.lastName.length === 0){
-            this.setState(
-                {validLastName: false}
+    handleNameValidation = (input, validField) => {
+        input.length > 0
+            ? this.setState(
+            {[validField]: true}
             )
-        }else{
-            this.setState({
-                validLastName: true
+            : this.setState({
+                [validField]: false
             })
-        }
     }
 
     handleEmailChange = event => {
@@ -106,16 +93,15 @@ class ProfilePage extends Component {
         })
     };
 
-    handleEmailValidation = () =>{
-        if(!validator.isEmail(this.state.email)){
-            this.setState(
+    handleEmailValidation = () => {
+        const{email}=this.state
+        !validator.isEmail(email)
+            ? this.setState(
                 {validEmail: false}
             )
-        }else{
-            this.setState({
+        : this.setState({
                 validEmail: true
             })
-        }
     }
 
     handlePhoneNumberChange = event => {
@@ -124,20 +110,19 @@ class ProfilePage extends Component {
         })
     };
 
-    handlePhoneNumberValidation = () =>{
-        if(!this.validatePhoneNumber(this.state.phoneNumber)){
-            this.setState(
+    handlePhoneNumberValidation = () => {
+        const{phoneNumber}=this.state
+        !this.validatePhoneNumber(phoneNumber)
+            ? this.setState(
                 {validPhoneNumber: false}
             )
-        }else{
-            this.setState({
+        : this.setState({
                 validPhoneNumber: true
             })
-        }
     }
 
     validatePhoneNumber = (phoneNumber) => {
-        phoneNumber = phoneNumber.replace(/\D/g,'');
+        phoneNumber = phoneNumber.replace(/\D/g, '');
         if (phoneNumber.length !== 10) {
             return false;
         } else {
@@ -159,7 +144,7 @@ class ProfilePage extends Component {
                 await updateUserPassword(this.state.user.id, this.state.password).then(async (response) => {
                     alert("Password Changed!")
                     this.setState({
-                        step: 1
+                        page: "profilePage"
                     })
                 });
             } catch (err) {
@@ -173,22 +158,24 @@ class ProfilePage extends Component {
     };
 
     handleUpdate = async () => {
+        alert("fuck")
         try {
             await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
                 .then(() => {
+                    alert("shit")
                     this.props.reloadUserProfile(true, this.state.user);
                 });
-        } catch (err) {
+        } catch (err) {alert(err)
             this.setState({errorMsg: err.message})
         }
     };
 
-    async getUpdatedProfile(){
+    async getUpdatedProfile() {
         await getUser(this.state.user.id).then((response) => {
             this.props.reloadUserProfile(false, response.data);
             alert("Profile Updated")
             this.setState({
-                step: 1,
+                page: "profilePage",
                 user: response.data,
                 loading: false
             })
@@ -198,23 +185,26 @@ class ProfilePage extends Component {
     render() {
         return (
             <View style={containerStyles.mainContainer}>
-                {this.state.step === 1 &&
+                {this.state.page === "profilePage" &&
                 <ProfilePageComponent {...this.state} goToEditProfilePage={this.goToEditProfilePage}
                                       goToPasswordChange={this.goToPasswordChange}/>}
-                {this.state.step === 2 && <EditProfileForm {...this.state} goToProfilePage={this.goToProfilePage}
-                                                           handleUpdate={this.handleUpdate}
-                                                           handleFirstNameChange={this.handleFirstNameChange}
-                                                           handleLastNameChange={this.handleLastNameChange}
-                                                           handleEmailChange={this.handleEmailChange}
-                                                           handlePhoneNumberChange={this.handlePhoneNumberChange}/>}
-                {this.state.step === 3 && <ChangePasswordForm {...this.state} goToProfilePage={this.goToProfilePage}
-                                                              handleNewPasswordChange={this.handleNewPasswordChange}
-                                                              handleConfirmPasswordChange={this.handleConfirmPasswordChange}
-                                                              handlePasswordChange={this.handlePasswordChange}/>}
+                {this.state.page === "editProfilePage" &&
+                <EditProfileForm {...this.state} goToProfilePage={this.goToProfilePage}
+                                 handleUpdate={this.handleUpdate}
+                                 handleFirstNameChange={this.handleFirstNameChange}
+                                 handleLastNameChange={this.handleLastNameChange}
+                                 handleEmailChange={this.handleEmailChange}
+                                 handlePhoneNumberChange={this.handlePhoneNumberChange}/>}
+                {this.state.page === "passwordChangePage" &&
+                <ChangePasswordForm {...this.state} goToProfilePage={this.goToProfilePage}
+                                    handleNewPasswordChange={this.handleNewPasswordChange}
+                                    handleConfirmPasswordChange={this.handleConfirmPasswordChange}
+                                    handlePasswordChange={this.handlePasswordChange}/>}
             </View>
         );
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
 });

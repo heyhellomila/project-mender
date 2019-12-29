@@ -20,8 +20,8 @@ const EditProfileForm = (props) => {
                     source={profilePicture}/>
                 <TouchableOpacity><Text style={{alignSelf: 'center'}}>Change Profile Picture</Text></TouchableOpacity>
             </View>
-            <View style={{flex: 4.5, width: '50%'}}>
-                <View style={{flex: 0.5}}>
+            <View style={{flex: 5, width: '50%'}}>
+                <View style={{flex: 0.6}}>
                     <Text>First Name</Text>
                     {props.validFirstName
                         ? <TextInput style={textInputStyles.textInput}
@@ -32,7 +32,7 @@ const EditProfileForm = (props) => {
                                      onChangeText={text => props.handleFirstNameChange(text)}/>
                     }
                 </View>
-                <View style={{flex: 0.5}}>
+                <View style={{flex: 0.6}}>
                     <Text>Last Name</Text>
                     {props.validLastName
                         ? < TextInput style={textInputStyles.textInput}
@@ -43,7 +43,7 @@ const EditProfileForm = (props) => {
                                       onChangeText={text => props.handleLastNameChange(text)}/>
                     }
                 </View>
-                <View style={{flex: 0.5}}>
+                <View style={{flex: 0.6}}>
                     <Text>Email</Text>
                     {props.validEmail
                         ? < TextInput style={textInputStyles.textInput}
@@ -54,7 +54,7 @@ const EditProfileForm = (props) => {
                                       onChangeText={text => props.handleEmailChange(text)}/>
                     }
                 </View>
-                <View style={{flex: 0.5}}>
+                <View style={{flex: 0.6}}>
                     <Text>Phone Number</Text>
                     {props.validPhoneNumber
                         ? < TextInput style={textInputStyles.textInput}
