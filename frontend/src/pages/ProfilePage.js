@@ -10,6 +10,7 @@ import ChangePasswordForm from '../components/profileForms/changePasswordForm';
 import {titleStyles, containerStyles} from '../stylesheets/ProfilePageStylesheet';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
+import validatePhoneNumber from '../utils/PhoneNumberUtils';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -121,22 +122,13 @@ class ProfilePage extends Component {
 
     handlePhoneNumberValidation = () => {
         const {phoneNumber} = this.state;
-        !this.validatePhoneNumber(phoneNumber)
+        !validatePhoneNumber(phoneNumber)
             ? this.setState(
             {validPhoneNumber: false}
             )
             : this.setState({
                 validPhoneNumber: true
             })
-    }
-
-    validatePhoneNumber = (phoneNumber) => {
-        phoneNumber = phoneNumber.replace(/\D/g, '');
-        if (phoneNumber.length !== 10) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     handleNewPasswordChange = event => {
