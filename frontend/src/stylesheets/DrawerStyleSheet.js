@@ -46,6 +46,10 @@ const drawerComponent = StyleSheet.create({
     drawerItems: {
         flex: 2,
         justifyContent: 'flex-end'
+    },
+    drawerIcons:{
+        width: 20,
+        height: 20
     }
 });
 

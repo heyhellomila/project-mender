@@ -10,6 +10,7 @@ import DrawerComponent from '../components/drawer/DrawerComponent'
 import BottomStackNavigator from './BottomStackNavigator';
 import {createStackNavigator} from "react-navigation-stack";
 import AddPropertyPage from "../pages/AddPropertyPage";
+import {drawerComponent} from "../../src/stylesheets/DrawerStyleSheet"
 
 const homeIcon = require('../../assets/homeIcon.png');
 const settingsIcon = require("../../assets/settingsIcon.png");
@@ -26,7 +27,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
                 <Image
                     source={homeIcon}
                     resizeMode="contain"
-                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+                    style={drawerComponent.drawerIcons} />
             )
         }
     },
@@ -38,7 +39,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
                 <Image
                     source={profileMenderIcon}
                     resizeMode="contain"
-                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+                    style={drawerComponent.drawerIcons} />
             )
         }
     },
@@ -50,7 +51,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
                 <Image
                     source={settingsIcon}
                     resizeMode="contain"
-                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+                    style={drawerComponent.drawerIcons} />
             )
         }
     },
@@ -62,7 +63,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
                 <Image
                     source={helpIcon}
                     resizeMode="contain"
-                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+                    style={drawerComponent.drawerIcons} />
             )
         }
     },
@@ -74,7 +75,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
                 <Image
                     source={aboutUsIcon}
                     resizeMode="contain"
-                    style={{ width: 20, height: 20, tintColor: tintColor }} />
+                    style={drawerComponent.drawerIcons} />
             )
         }
     }
