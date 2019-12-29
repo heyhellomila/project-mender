@@ -19,13 +19,9 @@ class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
     }
 
     async createShoppingItem(shoppingItem: ShoppingItem){
-        try{
             const savedShoppingItem : ShoppingItem = await this.getRepositoryConnection(
                 ShoppingItem).save(shoppingItem);
             return savedShoppingItem;
-        } catch (err) {
-            throw err;
-        }
     }
 
     async deleteShoppingItem(id: number) {
