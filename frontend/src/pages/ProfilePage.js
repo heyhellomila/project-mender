@@ -9,6 +9,7 @@ import EditProfileForm from '../components/profileForms/editProfileForm';
 import ChangePasswordForm from '../components/profileForms/changePasswordForm';
 import {titleStyles, containerStyles} from '../stylesheets/ProfilePageStylesheet';
 import validator from 'validator';
+import passwordValidator from '../utils/PasswordUtils';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -28,6 +29,8 @@ class ProfilePage extends Component {
             validLastName: true,
             validEmail: true,
             validPhoneNumber: true,
+            validPasswordMatch: true,
+            validPassword: true,
             updated: false,
             loading: false
         }
@@ -94,12 +97,12 @@ class ProfilePage extends Component {
     };
 
     handleEmailValidation = () => {
-        const{email}=this.state
+        const {email} = this.state;
         !validator.isEmail(email)
             ? this.setState(
-                {validEmail: false}
+            {validEmail: false}
             )
-        : this.setState({
+            : this.setState({
                 validEmail: true
             })
     }
@@ -111,12 +114,12 @@ class ProfilePage extends Component {
     };
 
     handlePhoneNumberValidation = () => {
-        const{phoneNumber}=this.state
+        const {phoneNumber} = this.state;
         !this.validatePhoneNumber(phoneNumber)
             ? this.setState(
-                {validPhoneNumber: false}
+            {validPhoneNumber: false}
             )
-        : this.setState({
+            : this.setState({
                 validPhoneNumber: true
             })
     }
@@ -139,33 +142,25 @@ class ProfilePage extends Component {
     };
 
     handlePasswordChange = async () => {
-        if (this.state.password != null && (this.state.password == this.state.confirmPassword)) {
-            try {
-                await updateUserPassword(this.state.user.id, this.state.password).then(async (response) => {
-                    alert("Password Changed!")
-                    this.setState({
-                        page: "profilePage"
-                    })
-                });
-            } catch (err) {
-                this.setState({errorMsg: err.message})
-            }
-        } else {
-            this.setState({
-                validatePassword: true
-            })
+        const {password, confirmPassword} = this.state;
+        if (password !== confirmPassword) {
+            this.setState({validPasswordMatch: false});
+        }
+        if (!passwordValidator.validate(password)) {
+            this.setState({validPassword: false});
+        }
+        if (this.state.validPasswordMatch && this.state.validPassword) {
+            this.handleUpdate();
         }
     };
 
     handleUpdate = async () => {
-        alert("fuck")
         try {
-            await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber)
+            await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber, this.state.password)
                 .then(() => {
-                    alert("shit")
                     this.props.reloadUserProfile(true, this.state.user);
                 });
-        } catch (err) {alert(err)
+        } catch (err) {
             this.setState({errorMsg: err.message})
         }
     };

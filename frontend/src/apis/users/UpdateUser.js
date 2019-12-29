@@ -19,18 +19,12 @@ api.interceptors.response.use(async (response) => {
     }
 });
 
-export async function updateUser(id, firstName, lastName, email, phoneNumber) {
+export async function updateUser(id, firstName, lastName, email, phoneNumber, password) {
     return await api.patch(`/users/${id}`, {
         firstName,
         lastName,
         email,
-        phoneNumber
-    },{
-        headers: {'Authorization': await AsyncStorage.getItem('Authorization')}});
-}
-
-export async function updateUserPassword(id, password) {
-    return await api.patch(`/users/${id}`, {
+        phoneNumber,
         password
     },{
         headers: {'Authorization': await AsyncStorage.getItem('Authorization')}});
