@@ -76,13 +76,13 @@ class AddPropertyPage extends React.Component {
         }
     }
 
-    getFinalAddress(address, addressInfo) {
+    getFinalAddress = (address, addressInfo) => {
         let finalAddress = '';
         addressInfo
             ? finalAddress = `${address}, ${addressInfo}`.trim()
             : finalAddress = address.trim();
         return finalAddress;
-    }
+    };
 
     handleCreateProperty = async() => {
         if (this.validateFields()) {
@@ -176,7 +176,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    reloadProperties: () => dispatch(reloadProperties(true))
+    reloadProperties: () => dispatch(reloadProperties(true, {selectLast: true}))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPropertyPage);

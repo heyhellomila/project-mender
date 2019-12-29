@@ -10,7 +10,6 @@ class EditPropertyPage extends React.Component {
         super(props);
         this.state = {
             validName: true,
-            validPropertyType: true,
             propertyType: this.props.property.propertyType,
             name: this.props.property.name,
             submitting: false,
@@ -43,20 +42,46 @@ class EditPropertyPage extends React.Component {
         return property;
     };
 
+    validateFields() {
+        const { name } = this.state;
+        this.validateInput(name, 'validName');
+        return (name);
+    }
+
+    validateInput(input, validField) {
+        if (!input) {
+            this.setState({
+                [validField]: false
+            })
+        } else {
+            this.setState({
+                [validField]: true
+            })
+        }
+    }
+
     updateProperty = async() => {
-        this.setState({
-            submitting: true
-        });
-        await updatePropertyById(this.props.property.id,
-            this.getChangedFields()).then(
-            () => {
-                this.setState({
-                    success: true,
-                    loading: false
-                });
-                this.props.reloadProperties();
-                this.props.navigation.goBack();
+        if (this.validateFields()) {
+            this.setState({
+                submitting: true
             });
+            try {
+                await updatePropertyById(this.props.property.id,
+                    this.getChangedFields()).then(
+                    () => {
+                        this.setState({
+                            success: true,
+                            loading: false
+                        });
+                        this.props.reloadProperties();
+                        this.props.navigation.goBack();
+                    });
+            } catch (err) {
+                alert('Error updating property, please try again later.');
+            } finally {
+                this.setState({submitting: false});
+            }
+        }
     };
 
     render() {
@@ -76,7 +101,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    reloadProperties: () => dispatch(reloadProperties(true))
+    reloadProperties: () => dispatch(reloadProperties(true, {maintainSelection: true}))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPropertyPage);

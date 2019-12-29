@@ -7,9 +7,9 @@ import PropertyListComponent from './PropertyListComponent';
 import {drawerComponent} from '../../../stylesheets/DrawerStyleSheet';
 import {Button} from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {PropertyType} from "../../../constants/enums/PropertyType";
-import {Province} from "../../../constants/enums/Province";
-import {CountryCode} from "../../../constants/enums/CountryCode";
+import {PropertyType} from '../../../constants/enums/PropertyType';
+import {Province} from '../../../constants/enums/Province';
+import {CountryCode} from '../../../constants/enums/CountryCode';
 
 class PropertyComponent extends Component {
     constructor(props) {
@@ -22,19 +22,21 @@ class PropertyComponent extends Component {
         };
     }
 
-    async componentDidUpdate() {
-        if (this.props.reloadProperties && !this.state.loading) {
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.props.reloadProperties && !this.state.loading && !prevState.loading) {
             this.setState({
                 loading: true
             });
-            await this.getPropertiesAndSelectProperty(true).then(() => {
+            await this.getPropertiesAndSelectProperty(this.props.selectLast).then(() => {
                 this.props.finishReloadingProperties();
             });
         }
     }
 
     async componentDidMount() {
-        await this.getPropertiesAndSelectProperty();
+        await this.getPropertiesAndSelectProperty().then(
+            () => this.props.loadProperties()
+        );
     }
 
     async getPropertiesAndSelectProperty(selectLast = false) {
@@ -52,15 +54,20 @@ class PropertyComponent extends Component {
                         country: CountryCode[property.countryCode]
                     }))
                 }, () => {
-                    if (this.state.properties.length > 0) {
+                    if (this.state.properties.length > 0 && !this.props.maintainSelection) {
                         selectLast
                             ? this.props.selectProperty(this.state.properties[this.state.properties.length-1])
                             : this.props.selectProperty(this.state.properties[0]);
+                    } else {
+                        this.state.properties.forEach((property) => {
+                            if (this.props.property.id === property.id) {
+                                this.props.selectProperty(property);
+                            }
+                        })
                     }
                     this.setState({
                         loading: false
                     });
-                    this.props.loadProperties(false);
                 });
             }).catch((error) => {
                 alert(error);
@@ -106,7 +113,9 @@ class PropertyComponent extends Component {
 const mapStateToProps = (state) => ({
     property: state.property.property,
     reloadProperties: state.property.reloadProperties,
-    loadingProperties: state.property.loadingProperties
+    loadingProperties: state.property.loadingProperties,
+    selectLast: state.property.selectLast,
+    maintainSelection: state.property.maintainSelection
 });
 
 const mapDispatchToProps = (dispatch) => ({

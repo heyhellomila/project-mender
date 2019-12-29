@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { formStyles } from '../../../stylesheets/PropertyDetailsStyleSheet';
 import Header from './Header';
 import Footer from './Footer';
+import { countries } from 'country-data';
 
 const PropertyDetailsComponent = (props) => {
     return(
@@ -20,7 +21,7 @@ const PropertyDetailsComponent = (props) => {
                             <Text style={formStyles.infoHeader}>Property Type</Text>
                         </View>
                         <View style={formStyles.rowContainer}>
-                            <Text style={formStyles.infoText}>{props.property.propertyType.replace('_', ' ')}</Text>
+                            <Text style={formStyles.infoText}>{props.property.propertyType.replace(/_/g, ' ')}</Text>
                         </View>
                     </View>
                     <View style={formStyles.detailContainer}>
@@ -44,7 +45,7 @@ const PropertyDetailsComponent = (props) => {
                             <Text style={formStyles.infoHeader}>Province</Text>
                         </View>
                         <View style={formStyles.rowContainer}>
-                            <Text style={formStyles.infoText}>{props.property.province}</Text>
+                            <Text style={formStyles.provinceText}>{props.property.province}</Text>
                         </View>
                     </View>
                     <View style={formStyles.detailContainer}>
@@ -60,7 +61,7 @@ const PropertyDetailsComponent = (props) => {
                             <Text style={formStyles.infoHeader}>Country</Text>
                         </View>
                         <View style={formStyles.rowContainer}>
-                            <Text style={formStyles.infoText}>{props.property.country}</Text>
+                            <Text style={formStyles.infoText}>{countries[props.property.country].name}</Text>
                         </View>
                     </View>
                     <View style={formStyles.detailContainer}>

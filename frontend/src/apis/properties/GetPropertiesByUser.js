@@ -18,8 +18,8 @@ api.interceptors.response.use(async (response) => {
         }
 });
 
-export async function getPropertiesByUser(id) {	
-    return await api.get(`/users/${id}/properties`, {	
+export async function getPropertiesByUser(id) {
+    return await api.get(`/users/${id}/properties`, {
         headers: {	
             'Authorization': await AsyncStorage.getItem('Authorization')	
         },

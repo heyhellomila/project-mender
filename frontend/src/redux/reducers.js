@@ -22,7 +22,9 @@ const rootReducer = (state = {
 const propertyReducer = (state = {
     property: null,
     reloadProperties: false,
-    loadingProperties: false
+    loadingProperties: false,
+    selectLast: false,
+    maintainSelection: false,
 }, action) => {
     switch (action.type) {
         case 'LOGIN':
@@ -32,9 +34,10 @@ const propertyReducer = (state = {
         case 'SELECT_PROPERTY':
             return { ...state, property: action.property };
         case 'LOAD_PROPERTIES':
-            return { ...state, loadingProperties: action.loadProperties}
+            return { ...state, loadingProperties: action.loadProperties};
         case 'RELOAD_PROPERTIES':
-            return { ...state, reloadProperties: action.reloadProperties};
+            return { ...state, reloadProperties: action.reloadProperties, selectLast: action.selectLast,
+                maintainSelection: action.maintainSelection };
         default:
             return state;
     }

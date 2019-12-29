@@ -49,6 +49,11 @@ const formStyles = StyleSheet.create({
         fontWeight: '300',
         textTransform: 'capitalize'
     },
+    provinceText: {
+        fontSize: 16,
+        fontWeight: '300',
+        textTransform: 'uppercase'
+    },
     textInput:{
         fontSize: 16,
         textAlign: 'left',

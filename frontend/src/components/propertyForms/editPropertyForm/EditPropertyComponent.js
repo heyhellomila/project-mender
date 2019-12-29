@@ -35,11 +35,9 @@ const EditPropertyComponent = (props) => {
                                     {key: PropertyType.COTTAGE, label: 'Cottage'},
                                     {key: PropertyType.MOBILE_HOME, label: 'Mobile Home'}
                                 ]}
-                                initValue={props.property.propertyType.replace('_', ' ')}
+                                initValue={props.property.propertyType.replace(/_/g, ' ')}
                                 onChange={(option) => props.handlePropertyType(option)}
-                                selectStyle={props.validPropertyType
-                                    ? formStyles.pickerStyle
-                                    : formStyles.invalidPickerStyle}
+                                selectStyle={formStyles.pickerStyle}
                                 initValueTextStyle={{textAlign: 'left', color: 'black', textTransform: 'capitalize'}}
                                 selectTextStyle={{textAlign: 'left'}}
                                 style={{flex: 1}}/>
