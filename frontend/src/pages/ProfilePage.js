@@ -24,7 +24,6 @@ class ProfilePage extends Component {
             password: null,
             confirmPassword: null,
             errorMsg: null,
-            validatePassword: false,
             validFirstName: true,
             validLastName: true,
             validEmail: true,
@@ -60,11 +59,12 @@ class ProfilePage extends Component {
     goToProfilePage = () => {
         this.setState({
             page: "profilePage",
-            validatePassword: false,
             validFirstName: true,
             validLastName: true,
             validEmail: true,
             validPhoneNumber: true,
+            validPasswordMatch: true,
+            validPassword: true,
             firstName: null,
             lastName: null,
             email: null,
@@ -149,6 +149,7 @@ class ProfilePage extends Component {
 
     handlePasswordChange = async () => {
         const {password, confirmPassword} = this.state;
+        this.setState({validPasswordMatch: true, validPassword: true})
         if (password !== confirmPassword) {
             this.setState({validPasswordMatch: false});
         }
