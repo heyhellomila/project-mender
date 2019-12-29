@@ -37,7 +37,7 @@ const ChangePasswordForm = (props) => {
                     {!props.validPasswordMatch &&
                     <Text style={{color: 'red'}}>Passwords must match.</Text>
                     }
-                    {!props.validPassword &&
+                    {props.validPassword &&
                     <Text style={{color: 'red'}}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
                     }
                 </View>

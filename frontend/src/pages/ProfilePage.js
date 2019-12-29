@@ -64,7 +64,13 @@ class ProfilePage extends Component {
             validFirstName: true,
             validLastName: true,
             validEmail: true,
-            validPhoneNumber: true
+            validPhoneNumber: true,
+            firstName: null,
+            lastName: null,
+            email: null,
+            phoneNumber: null,
+            password: null,
+            confirmPassword: null
         })
     };
 

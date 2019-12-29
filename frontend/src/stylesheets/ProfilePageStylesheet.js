@@ -41,7 +41,7 @@ const textInputStyles = StyleSheet.create({
 
 const buttonStyles = StyleSheet.create({
     bottomButtonsRow:{
-        flex: 1.1,
+        flex: 1,
         flexDirection: 'row', 
         justifyContent: 'space-between'
     },

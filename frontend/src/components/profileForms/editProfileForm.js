@@ -23,55 +23,44 @@ const EditProfileForm = (props) => {
             <View style={{flex: 5, width: '50%'}}>
                 <View style={{flex: 0.6}}>
                     <Text>First Name</Text>
-                    {props.validFirstName
-                        ? <TextInput style={textInputStyles.textInput}
-                                     defaultValue={props.user.firstName}
-                                     onChangeText={text => props.handleFirstNameChange(text)}/>
-                        : <TextInput style={textInputStyles.invalidTextInput}
-                                     defaultValue={props.user.firstName}
-                                     onChangeText={text => props.handleFirstNameChange(text)}/>
-                    }
+                    <TextInput style={props.validFirstName
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               defaultValue={props.user.firstName}
+                               onChangeText={text => props.handleFirstNameChange(text)}/>
                 </View>
                 <View style={{flex: 0.6}}>
                     <Text>Last Name</Text>
-                    {props.validLastName
-                        ? < TextInput style={textInputStyles.textInput}
+                    <TextInput style={props.validLastName
+                            ? textInputStyles.textInput
+                            : textInputStyles.invalidTextInput}
                                       defaultValue={props.user.lastName}
                                       onChangeText={text => props.handleLastNameChange(text)}/>
-                        : < TextInput style={textInputStyles.invalidTextInput}
-                                      defaultValue={props.user.lastName}
-                                      onChangeText={text => props.handleLastNameChange(text)}/>
-                    }
                 </View>
                 <View style={{flex: 0.6}}>
                     <Text>Email</Text>
-                    {props.validEmail
-                        ? < TextInput style={textInputStyles.textInput}
-                                      defaultValue={props.user.email}
-                                      onChangeText={text => props.handleEmailChange(text)}/>
-                        : < TextInput style={textInputStyles.invalidTextInput}
-                                      defaultValue={props.user.email}
-                                      onChangeText={text => props.handleEmailChange(text)}/>
-                    }
+                    <TextInput style={props.validEmail
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               defaultValue={props.user.email}
+                               onChangeText={text => props.handleEmailChange(text)}/>
                 </View>
                 <View style={{flex: 0.6}}>
                     <Text>Phone Number</Text>
-                    {props.validPhoneNumber
-                        ? < TextInput style={textInputStyles.textInput}
-                                      defaultValue={props.user.phoneNumber}
-                                      onChangeText={text => props.handlePhoneNumberChange(text)}/>
-                        : < TextInput style={textInputStyles.invalidTextInput}
-                                      defaultValue={props.user.phoneNumber}
-                                      onChangeText={text => props.handlePhoneNumberChange(text)}/>
-                    }
+                    <TextInput style={props.validPhoneNumber
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               defaultValue={props.user.phoneNumber}
+                               onChangeText={text => props.handlePhoneNumberChange(text)}/>
                 </View>
                 <View style={buttonStyles.bottomButtonsRow}>
                     <View>
                         <Button title={'Back'} onPress={() => props.goToProfilePage()}/>
                     </View>
-                    <View><Button disabled={!props.validFirstName || !props.validLastName || !props.validEmail || !props.validPhoneNumber}
-                                  title={'Update'}
-                                  onPress={() => props.handleUpdate()}/></View>
+                    <View><Button
+                        disabled={!props.validFirstName || !props.validLastName || !props.validEmail || !props.validPhoneNumber}
+                        title={'Update'}
+                        onPress={() => props.handleUpdate()}/></View>
                 </View>
             </View>
         </View>
