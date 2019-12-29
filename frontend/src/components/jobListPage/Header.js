@@ -128,11 +128,11 @@ const Header = (props) => {
                 <View style={headerStyles.prioritySection}>
                     <View style={headerStyles.priorities}>
                         <View style={circleStyles.redCircle}/> 
-                        <Text style={jobListStyles.text}>Priority 1</Text>
+                        <Text style={headerStyles.priorityText}>High</Text>
                         <View style={circleStyles.yellowCircle}/> 
-                        <Text style={jobListStyles.text}>Priority 2</Text>
+                        <Text style={headerStyles.priorityText}>Medium</Text>
                         <View style={circleStyles.greenCircle}/> 
-                        <Text style={jobListStyles.text}>Priority 3</Text>
+                        <Text style={headerStyles.priorityText}>Low</Text>
                     </View>
                 </View>
             </View>

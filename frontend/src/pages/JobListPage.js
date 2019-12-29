@@ -81,7 +81,7 @@ class JobListPage extends React.Component {
                 () => this.getListOfWorkOrders()
             );
         }
-        else if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+        else if (this.state.ordering !== prevState.ordering) {
             this.setState({
                 data: []},
                 () => this.getListOfWorkOrders()
@@ -175,7 +175,6 @@ class JobListPage extends React.Component {
             }
         });
         this.setState({
-            data: [], 
             pageNumber: 1, 
             showSortIndicator: true, 
             isSorting: true, 
@@ -185,26 +184,26 @@ class JobListPage extends React.Component {
 
     handleOrdering = () => {
         this.state.ascending === true
-        ? this.setState({
-            data: [], 
-            pageNumber: 1, 
-            ordering: 'DESC', 
-            sortIcon: 'sort-down', 
-            ascending: false, 
-            showSortIndicator: true, 
-            isSorting: true, 
-            lastPage: false
-        })
-        : this.setState({
-            data: [], 
-            pageNumber: 1, 
-            ordering: 'ASC', 
-            sortIcon: 'sort-up', 
-            ascending: true, 
-            showSortIndicator: true, 
-            isSorting: true, 
-            lastPage: false
-        })
+            ? this.setState({
+                data: [], 
+                pageNumber: 1, 
+                ordering: 'DESC', 
+                sortIcon: 'sort-down', 
+                ascending: false, 
+                showSortIndicator: true, 
+                isSorting: true, 
+                lastPage: false
+            })
+            : this.setState({
+                data: [], 
+                pageNumber: 1, 
+                ordering: 'ASC', 
+                sortIcon: 'sort-up', 
+                ascending: true, 
+                showSortIndicator: true, 
+                isSorting: true, 
+                lastPage: false
+            })
     }
 
     render() {

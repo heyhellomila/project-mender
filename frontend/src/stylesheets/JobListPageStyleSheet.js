@@ -59,9 +59,13 @@ const headerStyles = StyleSheet.create({
         marginBottom: 5
     },
     priorities: {
+        flex: 1,
         flexDirection: 'row', 
         justifyContent: 'space-evenly', 
         alignItems: 'center'
+    },
+    priorityText: {
+        fontSize: 13
     },
     loadingContainer: {
         justifyContent: 'center'
