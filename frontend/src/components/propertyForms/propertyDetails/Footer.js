@@ -1,11 +1,11 @@
 import React from 'react';
-import { footerStyles } from '../../../stylesheets/PropertyDetailsStyleSheet';
+import { footerStyles, formStyles } from '../../../stylesheets/PropertyDetailsStyleSheet';
 import { TouchableOpacity, View, Text } from 'react-native';
 
 const Footer = (props) => {
     return(
         <View style={footerStyles.container}>
-            <View style={footerStyles.colContainer}>
+            <View style={formStyles.colContainer}>
                 <TouchableOpacity
                     disabled={props.loading}
                     style={footerStyles.editButton}
@@ -13,7 +13,7 @@ const Footer = (props) => {
                         <Text style={footerStyles.buttonText}>Edit</Text>
                 </TouchableOpacity>
             </View>
-            <View style={footerStyles.colContainer}>
+            <View style={formStyles.colContainer}>
                 <TouchableOpacity
                     disabled={props.loading}
                     style={footerStyles.deleteButton}

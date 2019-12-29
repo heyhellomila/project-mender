@@ -77,28 +77,6 @@ const formStyles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: '#cccccc',
     },
-    invalidPickerStyle: {
-        flex: 1,
-        alignSelf: 'flex-start',
-        width: '100%',
-        alignItems: 'stretch',
-        alignContent: 'flex-start',
-        borderWidth: 1,
-        borderRadius: 4,
-        backgroundColor: 'white',
-        borderColor: 'red'
-    },
-    disabledPickerStyle: {
-        flex: 1,
-        alignSelf: 'flex-start',
-        width: '100%',
-        alignItems: 'stretch',
-        alignContent: 'flex-start',
-        borderWidth: 1,
-        borderRadius: 4,
-        backgroundColor: '#E0E0E0',
-        borderColor: '#cccccc',
-    },
     bodyContainer: {
         flex: 4,
         paddingHorizontal: '7%'

@@ -18,7 +18,7 @@ const EditPropertyComponent = (props) => {
                 <View style={{flex: 1}}>
                     <Header {...props}/>
                 </View>
-                <View style={{flex: 4, paddingHorizontal: '7%'}}>
+                <View style={formStyles.bodyContainer}>
                     <View style={formStyles.inputContainer}>
                         <View style={formStyles.rowContainer}>
                             <Text style={formStyles.infoHeader}>Property Type</Text>

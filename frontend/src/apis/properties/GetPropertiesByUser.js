@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';	
 import { LOCAL_API_KEY } from 'react-native-dotenv';
-import {ActivityStatus} from "../../constants/enums/ActivityStatus";
+import {ActivityStatus} from '../../constants/enums/ActivityStatus';
 
 const api = axios.create({
     baseURL: `http://${LOCAL_API_KEY}/api`,

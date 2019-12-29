@@ -51,6 +51,10 @@ const drawerComponent = StyleSheet.create({
     drawerItems: {
         flex: 2,
         justifyContent: 'flex-end'
+    },
+    buttonGroup: {
+        flex: 1,
+        flexDirection: 'row'
     }
 });
 

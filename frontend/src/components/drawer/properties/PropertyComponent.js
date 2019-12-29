@@ -35,7 +35,7 @@ class PropertyComponent extends Component {
 
     async componentDidMount() {
         await this.getPropertiesAndSelectProperty().then(
-            () => this.props.loadProperties()
+            () => this.props.loadProperties(false)
         );
     }
 
@@ -58,7 +58,7 @@ class PropertyComponent extends Component {
                         selectLast
                             ? this.props.selectProperty(this.state.properties[this.state.properties.length-1])
                             : this.props.selectProperty(this.state.properties[0]);
-                    } else {
+                    } else if (this.state.properties.length > 0) {
                         this.state.properties.forEach((property) => {
                             if (this.props.property.id === property.id) {
                                 this.props.selectProperty(property);
@@ -83,11 +83,11 @@ class PropertyComponent extends Component {
                 <Text style={drawerComponent.propertyHeader}>My Properties</Text>
                     {this.state.loading
                             ?   <View><Text>Loading...</Text></View>
-                            :   <View style={{flex: 2}}>
+                            :   <View style={{flex: 1}}>
                                     <ScrollView>
                                         <PropertyListComponent {...this.state} {...this.props}/>
                                     </ScrollView>
-                                    <View style={{flex: 1, flexDirection: 'row'}}>
+                                    <View style={drawerComponent.buttonGroup}>
                                         <View style={drawerComponent.editPropertyContainer}>
                                             <Button
                                                 title='Details'
