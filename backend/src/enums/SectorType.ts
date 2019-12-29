@@ -5,6 +5,6 @@ export enum SectorType {
     'EXTERIOR' = 'EXTERIOR',
     'UTILITY' = 'UTILITY',
     'HVAC' = 'HVAC',
-    'INTERIOR FINISH' = 'INTERIOR FINISH',
+    'INTERIOR_FINISH' = 'INTERIOR_FINISH',
     'APPLIANCES' = 'APPLIANCES',
 }

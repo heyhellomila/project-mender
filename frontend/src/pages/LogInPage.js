@@ -14,7 +14,8 @@ class LogInPage extends React.Component {
       password: 'blackpink333',
       submitting: false,
       error: false,
-      errorMsg: ''
+      errorMsg: '',
+      navigation: this.props.navigation
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
