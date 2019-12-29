@@ -33,7 +33,9 @@ class ShoppingItemService {
             throw new ResourceNotFoundError(`Work Order with id ${workOrderId} does not exist.`);
         }
         try {
-            return await this.shoppingItemRepository.getShoppingItemsByWorkOrder(workOrder, ShoppingItemFieldsNoWorkOrder);
+            const workOrder_onlyId: WorkOrder = new WorkOrder();
+            workOrder_onlyId.id = workOrder.id;
+            return await this.shoppingItemRepository.getShoppingItemsByWorkOrder(workOrder_onlyId, ShoppingItemFieldsNoWorkOrder);
         } catch (err) {
             throw err;
         }

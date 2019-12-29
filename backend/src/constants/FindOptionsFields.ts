@@ -149,7 +149,6 @@ const ShoppingItemFields : FindOptions<ShoppingItem> = {
 };
 
 const ShoppingItemFieldsNoWorkOrder : FindOptions<ShoppingItem> = {
-    relations: ['workOrder'],
     select:{
         id: true,
         name: true,

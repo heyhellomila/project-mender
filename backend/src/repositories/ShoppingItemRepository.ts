@@ -1,7 +1,7 @@
 import { ShoppingItem } from '../entities/ShoppingItem';
 import { FindOptions } from 'typeorm';
 import { BaseRepository } from './BaseRepository';
-import { WorkOrder } from 'src/entities/WorkOrder';
+import { WorkOrder } from '../entities/WorkOrder';
 
 class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
 
