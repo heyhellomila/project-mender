@@ -29,12 +29,7 @@ const drawerComponent = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: '10%'
     },
-    addPropertyContainer: {
-        width:'50%',
-        flex: 1,
-        height: 500
-    },
-    editPropertyContainer: {
+    buttonContainer: {
         width:'50%',
         flex: 1,
         height: 500
