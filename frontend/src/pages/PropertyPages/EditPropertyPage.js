@@ -19,7 +19,7 @@ class EditPropertyPage extends React.Component {
 
     handlePropertyType = (value) => {
         this.setState({
-            propertyType: value
+            propertyType: value.key
         });
     };
 
@@ -29,6 +29,13 @@ class EditPropertyPage extends React.Component {
         });
     };
 
+    canSubmit = () => {
+      const { name, propertyType, success, submitted } = this.state;
+      const { property } = this.props;
+      return ((propertyType !== property.propertyType) || (name !== property.name))
+          && !success && !submitted;
+    };
+
     getChangedFields = () => {
         const { name, propertyType } = this.state;
         let property = {};
@@ -36,8 +43,8 @@ class EditPropertyPage extends React.Component {
         if (name !== this.props.property.name) {
             property.name = name;
         }
-        if (propertyType.key !== this.props.property.propertyType) {
-            property.propertyType = propertyType.key;
+        if (propertyType !== this.props.property.propertyType) {
+            property.propertyType = propertyType;
         }
         return property;
     };
@@ -89,7 +96,7 @@ class EditPropertyPage extends React.Component {
             <View style={{flex: 1}}>
                 <EditPropertyComponent {...this.state} {...this.props}
                     handleName={this.handleName} handlePropertyType={this.handlePropertyType}
-                    submit={this.updateProperty}/>
+                    submit={this.updateProperty} canSubmit={this.canSubmit}/>
             </View>
         );
     }

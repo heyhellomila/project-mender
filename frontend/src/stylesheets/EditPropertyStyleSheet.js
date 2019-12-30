@@ -94,6 +94,13 @@ const footerStyles = StyleSheet.create({
         alignItems: 'stretch',
         marginBottom: '6%',
         padding: '6%'
+    },
+    disabledButton: {
+        flex: 1,
+        opacity: 0.3
+    },
+    enabledButton: {
+        flex: 1
     }
 });
 
