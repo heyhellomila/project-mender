@@ -22,6 +22,6 @@ export class ShoppingItem {
     @Column()
     price: number;
 
-    @Column({name: 'bought', type: 'bit', transformer:{ from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
+    @Column({name: 'status', type: 'bit', transformer:{ from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
     status: Boolean;
 }
