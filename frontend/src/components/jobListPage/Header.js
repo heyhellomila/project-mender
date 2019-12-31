@@ -103,14 +103,13 @@ const Header = (props) => {
                                 'Sort by Work Order #', 
                                 'Sort by Due Date', 
                                 'Sort by Priority', 
-                                'Sort by Sector Type',
-                                'Sort by Sector Kind', 
+                                'Sort by Sector',
                                 'Sort by Type',
                                 'Sort by Status'
                             ]}
                             style={headerStyles.jobListDropdown}
                             animated={true}
-                            onSelect={props.handleSort}
+                            onSelect={(index, value) => props.handleSort(index, value)}
                         />
                         <Button
                             icon={

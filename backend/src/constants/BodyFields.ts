@@ -14,6 +14,7 @@ const PROPERTY_FIELDS = {
 
 const PROPERTY_SECTOR_FIELDS = {
     createFields : ['sectorKind'],
+    patchFields: ['sectorKind']
 };
 
 export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };

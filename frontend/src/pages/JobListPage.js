@@ -33,19 +33,15 @@ class JobListPage extends React.Component {
                 dropdown: 'Sort by Due Date'
             },
             {
-                sortBy: 'priority',
+                sortBy: 'priorityType',
                 dropdown: 'Sort by Priority'
             },
             {
                 sortBy: 'sectorType',
-                dropdown: 'Sort by Sector Type'
+                dropdown: 'Sort by Sector'
             },
             {
-                sortBy: 'sectorKind',
-                dropdown: 'Sort by Sector Kind'
-            },
-            {
-                sortBy: 'type',
+                sortBy: 'workOrderType',
                 dropdown: 'Sort by Type'
             },
             {
@@ -166,7 +162,7 @@ class JobListPage extends React.Component {
         }
     }
 
-    handleSort = (value) => {
+    handleSort = (index, value) => {
         this.state.sortByFields.map(field => {
             if (value === field.dropdown) {
                 this.setState({
