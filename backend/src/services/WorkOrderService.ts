@@ -90,7 +90,7 @@ class WorkOrderService {
         workOrderSortMapper.set(WorkOrderQuery.PRICEESTIMATE, "work_orders.priceEstimate")
         workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, "work_orders.priorityType")
         workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, "work_orders.workOrderType")
-        workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, "work_orders.sectorType")
+        workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, "sector.type")
 
         if(queryMap.get(WorkOrderQuery.SORTBY) != null && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))){
             throw new BadRequestError(queryMap.get(WorkOrderQuery.SORTBY) + " is an invalid parameter for sorting. Accepted sorting parameters are: [" + Array.from(workOrderSortMapper.keys()) + "]")
