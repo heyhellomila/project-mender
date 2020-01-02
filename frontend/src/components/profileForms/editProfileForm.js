@@ -58,7 +58,7 @@ const EditProfileForm = (props) => {
                         <Button title={'Back'} onPress={() => props.goToProfilePage()}/>
                     </View>
                     <View><Button
-                        disabled={!props.validFirstName || !props.validLastName || !props.validEmail || !props.validPhoneNumber}
+                        disabled={props.disableUpdateButton}
                         title={'Update'}
                         onPress={() => props.handleUpdate()}/></View>
                 </View>

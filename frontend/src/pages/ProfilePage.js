@@ -18,10 +18,10 @@ class ProfilePage extends Component {
         this.state = {
             page: "profilePage",
             user: props.user,
-            firstName: null,
-            lastName: null,
-            email: null,
-            phoneNumber: null,
+            firstName: props.user.firstName,
+            lastName: props.user.lastName,
+            email: props.user.email,
+            phoneNumber: props.user.phoneNumber,
             password: null,
             confirmPassword: null,
             errorMsg: null,
@@ -32,7 +32,8 @@ class ProfilePage extends Component {
             validPasswordMatch: true,
             validPassword: true,
             updated: false,
-            loading: false
+            loading: false,
+            disableUpdateButton: true,
         }
     }
 
@@ -47,7 +48,8 @@ class ProfilePage extends Component {
 
     goToEditProfilePage = () => {
         this.setState({
-            page: "editProfilePage"
+            page: "editProfilePage",
+            disableUpdateButton: true
         })
     };
 
@@ -58,6 +60,7 @@ class ProfilePage extends Component {
     };
 
     goToProfilePage = () => {
+        const {user} = this.state;
         this.setState({
             page: "profilePage",
             validFirstName: true,
@@ -66,28 +69,61 @@ class ProfilePage extends Component {
             validPhoneNumber: true,
             validPasswordMatch: true,
             validPassword: true,
-            firstName: null,
-            lastName: null,
-            email: null,
-            phoneNumber: null,
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            email: this.props.user.email,
+            phoneNumber: this.props.user.phoneNumber,
             password: null,
             confirmPassword: null
         })
     };
 
+    validateFields = () => {
+        const {firstName, lastName, email, phoneNumber, user, validFirstName, validLastName, validEmail, validPhoneNumber,inputsNotChanged, validInputs} = this.state;
+        this.setState({disableUpdateButton: false})
+        if (firstName === this.props.user.firstName && lastName === this.props.user.lastName && email === this.props.user.email && phoneNumber === this.props.user.phoneNumber) {
+            this.setState({disableUpdateButton: true})
+        }
+        if (!validFirstName || !validLastName || !validEmail || !validPhoneNumber) {
+            this.setState({disableUpdateButton: true})
+        }
+    }
+
+    getUpdatedFields = () => {
+        const {firstName, lastName, email, phoneNumber, user, validFirstName, validLastName, validEmail, validPhoneNumber} = this.state;
+        let updatedUser = {};
+        if (firstName !== this.props.user.firstName) {
+            updatedUser.firstName = firstName
+        }
+        if (lastName !== this.props.user.lastName) {
+            updatedUser.lastName = lastName
+        }
+        if (email !== this.props.user.email) {
+            updatedUser.email = email
+        }
+        if (phoneNumber !== this.props.user.phoneNumber) {
+            updatedUser.phoneNumber = phoneNumber
+        }
+        return updatedUser;
+    }
+
     handleFirstNameChange = event => {
-        this.setState({firstName: event}, () => {
-            this.handleNameValidation(this.state.firstName, 'validFirstName');
+        this.setState({firstName: event}, async() => {
+            await this.handleNameValidation(this.state.firstName, 'validFirstName').then(() =>{
+                this.validateFields();
+            });
         })
     };
 
     handleLastNameChange = event => {
-        this.setState({lastName: event}, () => {
-            this.handleNameValidation(this.state.lastName, 'validLastName');
+        this.setState({lastName: event}, async () => {
+            await this.handleNameValidation(this.state.lastName, 'validLastName').then(() => {
+                this.validateFields();
+            });
         })
     };
 
-    handleNameValidation = (input, validField) => {
+    handleNameValidation = async (input, validField) => {
         input.length > 0
             ? this.setState(
             {[validField]: true}
@@ -95,15 +131,18 @@ class ProfilePage extends Component {
             : this.setState({
                 [validField]: false
             })
+
     }
 
     handleEmailChange = event => {
-        this.setState({email: event}, () => {
-            this.handleEmailValidation();
+        this.setState({email: event}, async () => {
+            await this.handleEmailValidation().then(() => {
+                this.validateFields();
+            });
         })
     };
 
-    handleEmailValidation = () => {
+    handleEmailValidation = async () => {
         const {email} = this.state;
         !validator.isEmail(email)
             ? this.setState(
@@ -115,12 +154,14 @@ class ProfilePage extends Component {
     }
 
     handlePhoneNumberChange = event => {
-        this.setState({phoneNumber: event}, () => {
-            this.handlePhoneNumberValidation();
+        this.setState({phoneNumber: event}, async () => {
+           await this.handlePhoneNumberValidation().then(() => {
+               this.validateFields();
+           });
         })
     };
 
-    handlePhoneNumberValidation = () => {
+    handlePhoneNumberValidation = async () => {
         const {phoneNumber} = this.state;
         !validatePhoneNumber(phoneNumber)
             ? this.setState(
@@ -154,10 +195,12 @@ class ProfilePage extends Component {
     };
 
     handleUpdate = async () => {
+        const {firstName, lastName, email, phoneNumber, password, user} = this.state;
+        this.setState({disableUpdateButton: true})
         try {
-            await updateUser(this.state.user.id, this.state.firstName, this.state.lastName, this.state.email, this.state.phoneNumber, this.state.password)
+            await updateUser(user.id, this.getUpdatedFields())
                 .then(() => {
-                    this.props.reloadUserProfile(true, this.state.user);
+                    this.props.reloadUserProfile(true, user);
                 });
         } catch (err) {
             this.setState({errorMsg: err.message})
