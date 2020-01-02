@@ -4,13 +4,10 @@ import {connect} from 'react-redux';
 import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
 import {getUser} from '../../src/apis/users/GetUser';
 import {reloadUserProfile} from '../redux/actions';
-import ProfilePageComponent from '../components/profileForms/profilePageComponent';
-import EditProfileForm from '../components/profileForms/editProfileForm';
-import ChangePasswordForm from '../components/profileForms/changePasswordForm';
-import {titleStyles, containerStyles} from '../stylesheets/ProfilePageStylesheet';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
 import validatePhoneNumber from '../utils/PhoneNumberUtils';
+import ProfilePageForm from '../components/profileForms/ProfilePageForm';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -221,23 +218,20 @@ class ProfilePage extends Component {
 
     render() {
         return (
-            <View style={containerStyles.mainContainer}>
-                {this.state.page === "profilePage" &&
-                <ProfilePageComponent {...this.state} goToEditProfilePage={this.goToEditProfilePage}
-                                      goToPasswordChange={this.goToPasswordChange}/>}
-                {this.state.page === "editProfilePage" &&
-                <EditProfileForm {...this.state} goToProfilePage={this.goToProfilePage}
-                                 handleUpdate={this.handleUpdate}
-                                 handleFirstNameChange={this.handleFirstNameChange}
-                                 handleLastNameChange={this.handleLastNameChange}
-                                 handleEmailChange={this.handleEmailChange}
-                                 handlePhoneNumberChange={this.handlePhoneNumberChange}/>}
-                {this.state.page === "passwordChangePage" &&
-                <ChangePasswordForm {...this.state} goToProfilePage={this.goToProfilePage}
-                                    handleNewPasswordChange={this.handleNewPasswordChange}
-                                    handleConfirmPasswordChange={this.handleConfirmPasswordChange}
-                                    handlePasswordChange={this.handlePasswordChange}/>}
-            </View>
+            <ProfilePageForm
+                {...this.state}
+                handleUpdate={this.handleUpdate}
+                handleFirstNameChange={this.handleFirstNameChange}
+                handleLastNameChange={this.handleLastNameChange}
+                handleEmailChange={this.handleEmailChange}
+                handlePhoneNumberChange={this.handlePhoneNumberChange}
+                handleNewPasswordChange={this.handleNewPasswordChange}
+                handleConfirmPasswordChange={this.handleConfirmPasswordChange}
+                handlePasswordChange={this.handlePasswordChange}
+                goToEditProfilePage={this.goToEditProfilePage}
+                goToPasswordChange={this.goToPasswordChange}
+                goToProfilePage={this.goToProfilePage}
+            />
         );
     }
 }
