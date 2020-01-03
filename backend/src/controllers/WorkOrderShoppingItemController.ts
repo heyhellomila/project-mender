@@ -13,7 +13,7 @@ const shoppingItemMapper = new ShoppingItemMapper();
 
 workOrderShoppingItemController.post('/', auth, validateBody(SHOPPING_ITEM_FIELDS.createFields), async (req: Request, res: Response) => {
     try{
-        req.body.status = Boolean(JSON.parse(req.body.status));
+        req.body.bought = Boolean(JSON.parse(req.body.bought));
         const shoppingItemDTO : ShoppingItemDTO = req.body as ShoppingItemDTO;
         const shoppingItem = await shoppingItemService.createShoppingItem(Number(req.params.workOrderId),
             shoppingItemMapper.fromDTO(shoppingItemDTO));
