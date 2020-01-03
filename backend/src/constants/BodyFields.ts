@@ -9,7 +9,7 @@ const WorkOrderFields = {
 };
 
 const SHOPPING_ITEM_FIELDS = {
-    createFields : ['name', 'quantity', 'price', 'status'],
+    createFields : ['name', 'quantity', 'price', 'bought'],
 };
 
 const PROPERTY_FIELDS = {

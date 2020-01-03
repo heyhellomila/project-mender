@@ -6,5 +6,5 @@ export class ShoppingItemDTO {
     name: string;
     quantity: number;
     price: number;
-    status: Boolean;
+    bought: Boolean;
 }

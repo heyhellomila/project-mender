@@ -15,7 +15,7 @@ class ShoppingItemMapper implements ObjectMapper<ShoppingItem, ShoppingItemDTO> 
         shoppingItemDTO.name = shoppingItem.name;
         shoppingItemDTO.price = shoppingItem.price;
         shoppingItemDTO.quantity = shoppingItem.quantity;
-        shoppingItemDTO.status = shoppingItem.status;
+        shoppingItemDTO.bought = shoppingItem.bought;
         return shoppingItemDTO;
     }
 
@@ -25,7 +25,7 @@ class ShoppingItemMapper implements ObjectMapper<ShoppingItem, ShoppingItemDTO> 
         shoppingItem.name = shoppingItemDTO.name;
         shoppingItem.price = shoppingItemDTO.price;
         shoppingItem.quantity = shoppingItemDTO.quantity;
-        shoppingItem.status = shoppingItemDTO.status;
+        shoppingItem.bought = shoppingItemDTO.bought;
         return shoppingItem;
     }
 }

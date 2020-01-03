@@ -144,7 +144,7 @@ const SHOPPING_ITEM_FIELDS : FindOptions<ShoppingItem> = {
         name: true,
         quantity: true,
         price: true,
-        status: true,
+        bought: true,
     },
 };
 
@@ -154,7 +154,7 @@ const SHOPPING_ITEM_FIELDS_NO_WORK_ORDER : FindOptions<ShoppingItem> = {
         name: true,
         quantity: true,
         price: true,
-        status: true,
+        bought: true,
     },
 };
 

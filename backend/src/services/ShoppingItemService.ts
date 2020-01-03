@@ -85,8 +85,8 @@ class ShoppingItemService {
             shoppingItem.quantity = shoppingItemObj.quantity;
         }
         
-        if(shoppingItemObj.status != null){
-            shoppingItem.status = shoppingItemObj.status;
+        if(shoppingItemObj.bought != null){
+            shoppingItem.bought = shoppingItemObj.bought;
         }
 
         try{
