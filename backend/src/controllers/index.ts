@@ -5,6 +5,8 @@ import { propertyController } from './PropertyController';
 import { propertyWorkOrdersController } from './PropertyWorkOrdersController';
 import { workOrderController } from './WorkOrderController';
 import { propertySectorsController } from './PropertySectorsController';
+import { workOrderShoppingItemController } from './WorkOrderShoppingItemController'
+import { shoppingItemController } from './ShoppingItemController'
 
 class Router {
 
@@ -16,6 +18,9 @@ class Router {
         this.router.use('/api/properties', propertyController);
         this.router.use('/api/workOrders', workOrderController);
         this.router.use('/api/properties/:propertyId/workOrders', propertyWorkOrdersController);
+        this.router.use('/api/propertySectors', propertySectorsController);
+        this.router.use('/api/shoppingItem', shoppingItemController);
+        this.router.use('/api/workOrders/:workOrderId/shoppingItem', workOrderShoppingItemController);
         this.router.use('/api/properties/:propertyId/sectors', propertySectorsController);
     }
 
