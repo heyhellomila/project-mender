@@ -10,6 +10,10 @@ const jobListStyles = StyleSheet.create({
     column: {
         flexDirection: 'column'
     },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     jobListContainer: {
         flex: 5, 
         padding: 10, 
@@ -72,6 +76,16 @@ const headerStyles = StyleSheet.create({
     },
     loadMoreIcon: {
         height: 50
+    },
+    sortIconDown: {
+        height: 15,
+        width: 15,
+        transform: [{rotate: '90deg'}],
+    },
+    sortIconUp: {
+        height: 15,
+        width: 15,
+        transform: [{rotate: '-90deg'}],
     }
 });
 
@@ -114,6 +128,10 @@ const jobListCardStyles = StyleSheet.create({
         flexDirection: 'column', 
         alignItems: 'center',
         paddingRight: 10
+    },
+    arrowIcon: {
+        height: 7,
+        width: 7
     },
     collapseHeaderSection: {
         flexDirection: 'column', 

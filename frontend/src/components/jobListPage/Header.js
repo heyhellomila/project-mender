@@ -1,9 +1,11 @@
 import React from 'react';
-import { ActivityIndicator, Text, View, ScrollView } from 'react-native';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { jobListStyles, headerStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+
+const sort = require('../../../assets/Front_arrow.png');
 
 const Header = (props) => {
     return (
@@ -111,17 +113,23 @@ const Header = (props) => {
                             animated={true}
                             onSelect={(index, value) => props.handleSort(index, value)}
                         />
-                        <Button
-                            icon={
-                                <Icon
-                                    name={props.sortIcon}
-                                    size={20}
-                                    color='black'
-                                />
-                            }
-                            type='clear'
-                            onPress={props.handleOrdering}
-                        /> 
+                        <TouchableOpacity style={jobListStyles.container}>
+                            <Button
+                                icon={
+                                    <Image
+                                        source={sort}
+                                        style={
+                                            props.sortIcon === 'up'
+                                                ? headerStyles.sortIconUp
+                                                : headerStyles.sortIconDown
+                                        }
+                                    />
+                                }
+                                type='clear'
+                                onPress={props.handleOrdering}
+                            /> 
+                        </TouchableOpacity>
+                         
                     </View>
                 </View>
                 <View style={headerStyles.prioritySection}>

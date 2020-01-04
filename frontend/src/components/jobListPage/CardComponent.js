@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import { jobListStyles, jobListCardStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import ToggleSwitch from 'toggle-switch-react-native';
+
+const arrow = require('../../../assets/Front_arrow.png');
 
 const CardComponent = (props) => {
     return (
@@ -16,10 +18,11 @@ const CardComponent = (props) => {
                         <Card containerStyle={jobListCardStyles.jobListCardContainer}>
                             <View style={jobListCardStyles.topDetails}>
                                 <View style={jobListCardStyles.calendar}>
-                                    <Icon name='calendar'
-                                            size={25}
-                                            color='black'>
-                                    </Icon>  
+                                    <Icon 
+                                        name='calendar'
+                                        size={25}
+                                        color='black'
+                                    />  
                                     <Text style={jobListCardStyles.dueDate}>{moment(props.dueDate).format("MMM D")}</Text>
                                 </View>
                                 <View style={jobListCardStyles.collapseHeaderSection}>
@@ -38,7 +41,16 @@ const CardComponent = (props) => {
                                         <Text># {props.id}</Text>
                                     </View>
                                     <View style={jobListCardStyles.collapseHeaderSectionSecondLine}>
-                                        <Text style={jobListStyles.text}>{props.sectorType}->{props.sectorKind}</Text>
+                                        <View style={jobListStyles.row}>
+                                            <Text style={jobListStyles.text}>{props.sectorType}</Text>
+                                            <TouchableOpacity style={jobListStyles.container}>
+                                                <Image
+                                                    style={jobListCardStyles.arrowIcon}
+                                                    source={arrow}
+                                                />
+                                            </TouchableOpacity>
+                                            <Text style={jobListStyles.text}>{props.sectorKind}</Text>
+                                        </View>
                                         <Text style={jobListStyles.text}>Status: Quote accepted</Text>
                                     </View>
                                     </View>
