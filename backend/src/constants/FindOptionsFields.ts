@@ -3,6 +3,7 @@ import { Property } from '../entities/Property';
 import { User } from '../entities/User';
 import { WorkOrder } from '../entities/WorkOrder';
 import { PropertySector } from '../entities/PropertySector';
+import { ShoppingItem } from 'src/entities/ShoppingItem';
 
 const PropertyFields : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
@@ -136,6 +137,31 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
     },
 };
 
+
+const SHOPPING_ITEM_FIELDS : FindOptions<ShoppingItem> = {
+    relations: ['workOrder'],
+    select:{
+        id: true,
+        workOrder: {
+            id: true,
+        },
+        name: true,
+        quantity: true,
+        price: true,
+        bought: true,
+    },
+};
+
+const SHOPPING_ITEM_FIELDS_NO_WORK_ORDER : FindOptions<ShoppingItem> = {
+    select:{
+        id: true,
+        name: true,
+        quantity: true,
+        price: true,
+        bought: true,
+    },
+};
+
 const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     relations: ['sector'],
     select: {
@@ -149,4 +175,4 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
 };
 
 export { PropertyFields, UserFields, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };
+    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS };
