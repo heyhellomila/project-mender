@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import {titleStyles, textInputStyles, buttonStyles, containerStyles} from '../../stylesheets/ProfilePageStylesheet';
 
-const ChangePasswordForm = (props) => {
+const ChangePasswordComponent = (props) => {
     return (
         <View style={containerStyles.container}>
             <View style={titleStyles.title}><Text>Change Password</Text></View>
@@ -49,4 +49,4 @@ const ChangePasswordForm = (props) => {
     );
 }
 
-export default ChangePasswordForm;
+export default ChangePasswordComponent;

@@ -1,24 +1,22 @@
 import React from 'react';
-import { View, Platform, StatusBar } from 'react-native';
+import { View, Platform, StatusBar, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAdjustedScrollView} from 'react-native-keyboard-adjusted-scroll-view'
 import ProfilePageComponent from '../../components/profileForms/ProfilePageComponent';
-import EditProfileForm from '../../components/profileForms/EditProfileForm';
-import ChangePasswordForm from '../../components/profileForms/ChangePasswordForm';
+import EditProfileComponent from '../../components/profileForms/EditProfileComponent';
+import ChangePasswordComponent from '../../components/profileForms/ChangePasswordComponent';
 import {titleStyles, containerStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ProfilePageForm = (props) => {
     return(
-        <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false}
-                                 resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
-                                 contentContainerStyle={[containerStyles.mainContainer, {paddingTop:
-                                         (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0}]}>
+        <KeyboardAdjustedScrollView contentContainerStyle={[containerStyles.mainContainer]}>
             {props.page === "profilePage" &&
             <ProfilePageComponent {...props} />}
             {props.page === "editProfilePage" &&
-            <EditProfileForm {...props}/>}
+            <EditProfileComponent {...props}/>}
             {props.page === "passwordChangePage" &&
-            <ChangePasswordForm {...props} />}
-        </KeyboardAwareScrollView>
+            <ChangePasswordComponent {...props} />}
+        </KeyboardAdjustedScrollView>
     );
 };
 

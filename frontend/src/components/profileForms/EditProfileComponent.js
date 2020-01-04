@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button, S} from 'react-native';
 import {
     titleStyles,
     textInputStyles,
@@ -10,7 +10,7 @@ import {
 
 const profilePicture = require('../../../assets/profileMender.png');
 
-const EditProfileForm = (props) => {
+const EditProfileComponent = (props) => {
     return (
         <View style={containerStyles.container}>
             <View style={titleStyles.title}><Text>Edit Pofile</Text></View>
@@ -36,6 +36,22 @@ const EditProfileForm = (props) => {
                             : textInputStyles.invalidTextInput}
                                       defaultValue={props.user.lastName}
                                       onChangeText={text => props.handleLastNameChange(text)}/>
+                </View>
+                <View style={{flex: 0.6}}>
+                    <Text>Last Name</Text>
+                    <TextInput style={props.validLastName
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               defaultValue={props.user.lastName}
+                               onChangeText={text => props.handleLastNameChange(text)}/>
+                </View>
+                <View style={{flex: 0.6}}>
+                    <Text>Last Name</Text>
+                    <TextInput style={props.validLastName
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               defaultValue={props.user.lastName}
+                               onChangeText={text => props.handleLastNameChange(text)}/>
                 </View>
                 <View style={{flex: 0.6}}>
                     <Text>Email</Text>
@@ -67,4 +83,4 @@ const EditProfileForm = (props) => {
     );
 }
 
-export default EditProfileForm;
+export default EditProfileComponent;
