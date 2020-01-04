@@ -100,7 +100,11 @@ const Header = (props) => {
                 <View style={jobListStyles.column}>
                     <View style={jobListStyles.row}>
                         <ModalDropdown 
-                            defaultValue='Sort by Work Order #'
+                            defaultValue={
+                                props.sortBy === 'id'
+                                    ? props.defaultSortBy
+                                    : null
+                            }
                             options={[
                                 'Sort by Work Order #', 
                                 'Sort by Due Date', 
@@ -111,6 +115,7 @@ const Header = (props) => {
                             ]}
                             style={headerStyles.jobListDropdown}
                             animated={true}
+                            showsVerticalScrollIndicator={false}
                             onSelect={(index, value) => props.handleSort(index, value)}
                         />
                         <TouchableOpacity style={jobListStyles.container}>
