@@ -7,13 +7,14 @@ import { Image } from 'react-native';
 import React from 'react';
 import DrawerComponent from '../components/drawer/DrawerComponent'
 import BottomStackNavigator from './BottomStackNavigator';
-import {createStackNavigator} from "react-navigation-stack";
-import AddPropertyPage from "../pages/AddPropertyPage";
+import {createStackNavigator} from 'react-navigation-stack';
+import AddPropertyPage from '../pages/PropertyPages/AddPropertyPage';
+import PropertyDetailsPage from '../pages/PropertyPages/PropertyDetailsPage';
 
 const homeIcon = require('../../assets/homeIcon.png');
-const settingsIcon = require("../../assets/settingsIcon.png");
-const helpIcon = require("../../assets/helpIcon.png");
-const aboutUsIcon = require("../../assets/aboutUsIcon.png");
+const settingsIcon = require('../../assets/settingsIcon.png');
+const helpIcon = require('../../assets/helpIcon.png');
+const aboutUsIcon = require('../../assets/aboutUsIcon.png');
 
 const DrawerNavigatorStack = createDrawerNavigator({
     BottomStackNavigator: {
@@ -23,7 +24,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
             drawerIcon: ({ tintColor }) => (
                 <Image
                     source={homeIcon}
-                    resizeMode="contain"
+                    resizeMode='contain'
                     style={{ width: 20, height: 20, tintColor: tintColor }} />
             )
         }
@@ -35,7 +36,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
             drawerIcon: ({ tintColor }) => (
                 <Image
                     source={settingsIcon}
-                    resizeMode="contain"
+                    resizeMode='contain'
                     style={{ width: 20, height: 20, tintColor: tintColor }} />
             )
         }
@@ -47,7 +48,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
             drawerIcon: ({ tintColor }) => (
                 <Image
                     source={helpIcon}
-                    resizeMode="contain"
+                    resizeMode='contain'
                     style={{ width: 20, height: 20, tintColor: tintColor }} />
             )
         }
@@ -59,15 +60,15 @@ const DrawerNavigatorStack = createDrawerNavigator({
             drawerIcon: ({ tintColor }) => (
                 <Image
                     source={aboutUsIcon}
-                    resizeMode="contain"
+                    resizeMode='contain'
                     style={{ width: 20, height: 20, tintColor: tintColor }} />
             )
         }
     }
 }, {
-    drawerPosition: "right",
+    drawerPosition: 'right',
     contentComponent: DrawerComponent
-})
+});
 
 const RootNavigator = createStackNavigator({
     MainApp: {
@@ -76,10 +77,13 @@ const RootNavigator = createStackNavigator({
     AddProperty: {
         screen: AddPropertyPage,
     },
+    PropertyDetails: {
+        screen: PropertyDetailsPage
+    }
 },{
     headerMode: 'none',
     mode: 'modal',
-})
+});
 
 const DrawerNavigator = createAppContainer(RootNavigator);
 export default DrawerNavigator;

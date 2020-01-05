@@ -29,10 +29,10 @@ const drawerComponent = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: '10%'
     },
-    addPropertyContainer: {
-        alignContent:'flex-end',
-        alignSelf:'flex-end',
-        width:'50%'
+    buttonContainer: {
+        width:'50%',
+        flex: 1,
+        height: 500
     },
     logoutButton: {
         flex: 0.3,
@@ -46,6 +46,10 @@ const drawerComponent = StyleSheet.create({
     drawerItems: {
         flex: 2,
         justifyContent: 'flex-end'
+    },
+    buttonGroup: {
+        flex: 1,
+        flexDirection: 'row'
     }
 });
 
