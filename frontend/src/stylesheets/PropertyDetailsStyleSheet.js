@@ -63,6 +63,51 @@ const formStyles = StyleSheet.create({
         flex: 1,
         marginVertical: '4%',
         borderBottomWidth: 1
+    },
+    textInput:{
+        fontSize: 16,
+        fontWeight: '300',
+        textAlign: 'left',
+        width: '100%',
+        backgroundColor: '#ffffff',
+        borderColor: '#cccccc',
+        borderWidth: 1,
+        alignSelf: 'flex-start',
+        padding: '2%',
+        borderRadius: 4
+    },
+    invalidTextInput: {
+        fontSize: 16,
+        fontWeight: '300',
+        textAlign: 'left',
+        width: '100%',
+        backgroundColor: '#ffffff',
+        borderColor: 'red',
+        borderWidth: 1,
+        alignSelf: 'flex-start',
+        padding: '2%',
+        borderRadius: 4
+    },
+    pickerStyle: {
+        flex: 1,
+        alignSelf: 'flex-start',
+        width: '100%',
+        alignItems: 'stretch',
+        alignContent: 'flex-start',
+        borderWidth: 1,
+        borderRadius: 4,
+        backgroundColor: 'white',
+        borderColor: '#cccccc',
+    },
+    pickerOverlayStyle : {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: '5%',
+        paddingVertical: '1%'
+    },
+    inputContainer: {
+        flex: 1,
+        marginVertical: '6%'
     }
 });
 
@@ -83,7 +128,7 @@ const footerStyles = StyleSheet.create({
         borderRadius: 4,
         width: '75%'
     },
-    editButton: {
+    toggleEditButton: {
         alignSelf: 'flex-start',
         backgroundColor: 'white',
         borderWidth: 2,
@@ -98,6 +143,15 @@ const footerStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '400',
         padding: '5%'
+    },
+    disabledEditButton: {
+        opacity: 0.3,
+        alignSelf: 'flex-end',
+        paddingHorizontal: '5%'
+    },
+    editButton: {
+        alignSelf: 'flex-end',
+        marginHorizontal: '5%'
     }
 });
 

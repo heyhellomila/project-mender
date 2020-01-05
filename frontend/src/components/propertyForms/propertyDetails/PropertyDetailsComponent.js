@@ -1,10 +1,12 @@
 import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, TextInput, View} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { formStyles } from '../../../stylesheets/PropertyDetailsStyleSheet';
 import Header from './Header';
 import Footer from './Footer';
 import { countries } from 'country-data';
+import {PropertyType} from "../../../constants/enums/PropertyType";
+import ModalSelector from "react-native-modal-selector";
 
 const PropertyDetailsComponent = (props) => {
     return(
@@ -21,7 +23,36 @@ const PropertyDetailsComponent = (props) => {
                             <Text style={formStyles.infoHeader}>Property Type</Text>
                         </View>
                         <View style={formStyles.rowContainer}>
-                            <Text style={formStyles.infoText}>{props.property.propertyType.replace(/_/g, ' ')}</Text>
+                            {props.editing
+                                ?
+                                    <ModalSelector
+                                        data={[
+                                            {key: PropertyType.CONDOMINIUM, label: 'Condominium'},
+                                            {key: PropertyType.SINGLE_FAMILY_HOME, label: 'Single Family Home'},
+                                            {key: PropertyType.TOWNHOUSE, label: 'Townhouse'},
+                                            {key: PropertyType.DUPLEX, label: 'Duplex'},
+                                            {key: PropertyType.TRIPLEX, label: 'Triplex'},
+                                            {key: PropertyType.MULTIPLEX, label: 'Multiplex'},
+                                            {key: PropertyType.COTTAGE, label: 'Cottage'},
+                                            {key: PropertyType.MOBILE_HOME, label: 'Mobile Home'}
+                                        ]}
+                                        initValue={props.property.propertyType.replace(/_/g, ' ')}
+                                        onChange={(option) => props.handlePropertyType(option)}
+                                        selectStyle={formStyles.pickerStyle}
+                                        initValueTextStyle={{
+                                            textAlign: 'left',
+                                            color: 'black',
+                                            textTransform: 'capitalize'
+                                        }}
+                                        selectTextStyle={{textAlign: 'left'}}
+                                        style={{flex: 1}}
+                                        overlayStyle={formStyles.pickerOverlayStyle}
+                                    />
+                                :
+                                    <Text style={formStyles.infoText}>
+                                        {props.property.propertyType.replace(/_/g, ' ')}
+                                    </Text>
+                            }
                         </View>
                     </View>
                     <View style={formStyles.detailContainer}>
@@ -69,7 +100,18 @@ const PropertyDetailsComponent = (props) => {
                             <Text style={formStyles.infoHeader}>Name of Property</Text>
                         </View>
                         <View style={formStyles.rowContainer}>
-                            <Text style={formStyles.infoText}>{props.property.name}</Text>
+                            {props.editing
+                                ?
+                                    <TextInput style = {props.validName
+                                        ? formStyles.textInput
+                                        : formStyles.invalidTextInput}
+                                               defaultValue = {props.name}
+                                               onChangeText = {(value) => props.handleName(value)}/>
+                                :
+                                    <Text style={formStyles.infoText}>
+                                        {props.property.name}
+                                    </Text>
+                            }
                         </View>
                     </View>
                 </View>

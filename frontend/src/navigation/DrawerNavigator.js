@@ -10,7 +10,6 @@ import BottomStackNavigator from './BottomStackNavigator';
 import {createStackNavigator} from 'react-navigation-stack';
 import AddPropertyPage from '../pages/PropertyPages/AddPropertyPage';
 import PropertyDetailsPage from '../pages/PropertyPages/PropertyDetailsPage';
-import EditPropertyPage from '../pages/PropertyPages/EditPropertyPage';
 
 const homeIcon = require('../../assets/homeIcon.png');
 const settingsIcon = require('../../assets/settingsIcon.png');
@@ -77,9 +76,6 @@ const RootNavigator = createStackNavigator({
     },
     AddProperty: {
         screen: AddPropertyPage,
-    },
-    EditProperty: {
-        screen: EditPropertyPage
     },
     PropertyDetails: {
         screen: PropertyDetailsPage
