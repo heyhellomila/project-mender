@@ -42,7 +42,9 @@ class PropertyDetailsPage extends React.Component {
     toggleEdit = () => {
         const { editing } = this.state;
         this.setState({
-            editing: !editing
+            editing: !editing,
+            propertyType: this.props.property.propertyType,
+            name: this.props.property.name
         });
     };
 
