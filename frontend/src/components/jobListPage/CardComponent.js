@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View, PixelRatio } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import { jobListStyles, jobListCardStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
@@ -42,16 +42,16 @@ const CardComponent = (props) => {
                                     </View>
                                     <View style={jobListCardStyles.collapseHeaderSectionSecondLine}>
                                         <View style={jobListStyles.row}>
-                                            <Text style={jobListStyles.text}>{props.sectorType}</Text>
+                                            <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorType}</Text>
                                             <TouchableOpacity style={jobListStyles.container}>
                                                 <Image
                                                     style={jobListCardStyles.arrowIcon}
                                                     source={arrow}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={jobListStyles.text}>{props.sectorKind}</Text>
+                                            <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorKind}</Text>
                                         </View>
-                                        <Text style={jobListStyles.text}>Status: Quote accepted</Text>
+                                        <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>Status: Quote accepted</Text>
                                     </View>
                                     </View>
                             </View>

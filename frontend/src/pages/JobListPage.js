@@ -67,11 +67,10 @@ class JobListPage extends React.Component {
                 error: false,
                 pageNumber: 1,
                 pageSize: 10,
-                sortBy: 'id',
-                defaultSortBy: 'Sort by Work Order #',
-                ordering: 'ASC',
-                sortIcon: 'up',
-                ascending: true,
+                // sortBy: 'id',
+                // ordering: 'ASC',
+                // sortIcon: 'up',
+                // ascending: true,
                 lastPage: false,
                 isEmpty: false,
                 showSortIndicator: false,
@@ -79,7 +78,7 @@ class JobListPage extends React.Component {
                 () => this.getListOfWorkOrders()
             );
         }
-        else if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+        if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
             this.setState({
                 data: []},
                 () => this.getListOfWorkOrders()

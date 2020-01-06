@@ -4,6 +4,9 @@ const jobListStyles = StyleSheet.create({
     text: {
         fontSize: 11
     },
+    textRatio: {
+        fontSize: 9
+    },
     row: {
         flexDirection: 'row'
     },
@@ -54,8 +57,7 @@ const headerStyles = StyleSheet.create({
     },
     jobListDropdown: {
         marginTop: 10,
-        marginLeft: 15,
-        fontSize: 13
+        marginLeft: 15
     },
     prioritySection: {
         flexDirection: 'column',
@@ -69,7 +71,7 @@ const headerStyles = StyleSheet.create({
         alignItems: 'center'
     },
     priorityText: {
-        fontSize: 13
+        fontSize: 11
     },
     loadingContainer: {
         justifyContent: 'center'
@@ -118,11 +120,11 @@ const jobListCardStyles = StyleSheet.create({
         paddingBottom: 10
     },
     dueDate: {
-        fontSize: 13
+        fontSize: 12
     },
     title: {
         fontWeight: 'bold', 
-        width: 100
+        width: 110
     },
     calendar: {
         flexDirection: 'column', 
@@ -153,12 +155,12 @@ const jobListCardStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     dateCreated: {
-        fontSize: 11, 
+        fontSize: 13, 
         marginBottom: 10, 
         width: 75
     },
     date: {
-        fontSize: 11, 
+        fontSize: 13, 
         marginBottom: 10
     },
     collapseBodySectionLeft: {
@@ -223,7 +225,7 @@ const buttonStyles = StyleSheet.create({
     },
     jobListFilterButtonTitle: {
         color: 'black',
-        fontSize: 13,
+        fontSize: 11,
         padding: 5
     },
     viewQuotesButton: {

@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { jobListStyles, headerStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { Dropdown } from 'react-native-material-dropdown';
 
 const sort = require('../../../assets/Front_arrow.png');
 
@@ -100,11 +101,7 @@ const Header = (props) => {
                 <View style={jobListStyles.column}>
                     <View style={jobListStyles.row}>
                         <ModalDropdown 
-                            defaultValue={
-                                props.sortBy === 'id'
-                                    ? props.defaultSortBy
-                                    : null
-                            }
+                            defaultValue={'Sort by Work Order #'}
                             options={[
                                 'Sort by Work Order #', 
                                 'Sort by Due Date', 
@@ -134,7 +131,6 @@ const Header = (props) => {
                                 onPress={props.handleOrdering}
                             /> 
                         </TouchableOpacity>
-                         
                     </View>
                 </View>
                 <View style={headerStyles.prioritySection}>
