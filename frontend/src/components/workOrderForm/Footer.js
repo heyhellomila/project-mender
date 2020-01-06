@@ -3,7 +3,7 @@ import { formStyles, footerStyles } from '../../stylesheets/CreateWorkOrderPageS
 import { TouchableOpacity, View, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const backArrow = require('../../../assets/back_arrow.png');
+const backArrow = require('../../../assets/Back_arrow.png');
 const nextArrow = require('../../../assets/Front_arrow.png');
 const info = require('../../../assets/Information.png');
 

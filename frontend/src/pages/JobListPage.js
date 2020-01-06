@@ -9,7 +9,7 @@ import JobListComponent  from '../components/jobListPage/JobListComponent';
 class JobListPage extends React.Component {
 
     static navigationOptions = {
-        draweLabel: 'Job List Page',
+        title: 'Job List'
     };
 
     constructor(props) {

@@ -6,7 +6,7 @@ import CommonHeader from '../components/CommonHeader';
 
 class HomePage extends React.Component {
     static navigationOptions = {
-        drawerLabel: 'Home'
+        title: 'Home'
     }
     constructor(props) {
         super(props);

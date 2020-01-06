@@ -4,7 +4,6 @@ import { Button } from 'react-native-elements';
 import { jobListStyles, headerStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { Dropdown } from 'react-native-material-dropdown';
 
 const sort = require('../../../assets/Front_arrow.png');
 
