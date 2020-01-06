@@ -42,14 +42,14 @@ const CardComponent = (props) => {
                                     </View>
                                     <View style={jobListCardStyles.collapseHeaderSectionSecondLine}>
                                         <View style={jobListStyles.row}>
-                                            <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorType}</Text>
+                                            <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorType.replace(/_/g, ' ')}</Text>
                                             <TouchableOpacity style={jobListStyles.container}>
                                                 <Image
                                                     style={jobListCardStyles.arrowIcon}
                                                     source={arrow}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorKind}</Text>
+                                            <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorKind.replace(/_/g, ' ')}</Text>
                                         </View>
                                         <Text style={PixelRatio.get() < 2 ? jobListStyles.textRatio : jobListStyles.text}>Status: Quote accepted</Text>
                                     </View>
