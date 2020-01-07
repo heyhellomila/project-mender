@@ -184,4 +184,28 @@ const typeStyles = StyleSheet.create({
     }
 });
 
-export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles };
+const datePickerStyles = StyleSheet.create({
+    style: {
+        width: 200, alignSelf: 'flex-end'
+    },
+    dateIcon: {
+        position: 'absolute',
+        left: 0,
+        top: 4,
+        marginLeft: 0
+    },
+    dateInput: {
+        marginLeft: 36,
+        backgroundColor: 'white',
+        borderRadius: 4,
+        borderColor: '#cccccc',
+    },
+    darkDatePickerCon: {
+        backgroundColor: 'black'
+    },
+    lightDatePickerCon: {
+        backgroundColor: 'white'
+    }
+});
+
+export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles, datePickerStyles };

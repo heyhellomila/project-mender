@@ -19,7 +19,7 @@ class CreateWorkOrderPage extends React.Component {
             cause: 'ds',
             serviceNeeded: false, 
             priority: 'MEDIUM', 
-            description: '', 
+            description: '',
             dueDate: new Date(),
             priceEstimate: 0,
             navigation: props.navigation,
@@ -105,7 +105,7 @@ class CreateWorkOrderPage extends React.Component {
                 this.state.serviceNeeded,
                 this.state.priority,
                 description,
-                this.state.dueDate,
+                Date.parse(this.state.dueDate),
                 this.state.priceEstimate).then(async() => {
                     this.setState({success: true, submitting: false});
                     setTimeout(() => {

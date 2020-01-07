@@ -1,9 +1,12 @@
-import { formStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
+import {datePickerStyles, formStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import { View, Text, TextInput, Switch } from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
-
 import React from 'react';
-import DatePicker from "react-native-datepicker";
+import DatePicker from 'react-native-datepicker';
+import { useColorScheme } from 'react-native-appearance';
+
+const minDate = new Date();
+const maxDate = new Date(minDate.getFullYear() + 5, minDate.getMonth(), minDate.getDay());
 
 const Details = (props) => {
     return (
@@ -40,30 +43,20 @@ const Details = (props) => {
                     <Text style={formStyles.infoHeader}>Due Date</Text>
                     <View style={formStyles.colContainer}>
                         <DatePicker
-                            style={{width: 200, alignSelf: 'flex-end'}}
+                            style={datePickerStyles.style}
                             date={props.dueDate}
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            minDate="2020-01-05"
-                            maxDate="2022-06-01"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
+                            mode='date'
+                            format='YYYY-MM-DD'
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            confirmBtnText='Confirm'
+                            cancelBtnText='Cancel'
                             customStyles={{
-                                dateIcon: {
-                                    position: 'absolute',
-                                    left: 0,
-                                    top: 4,
-                                    marginLeft: 0
-                                },
-                                dateInput: {
-                                    marginLeft: 36,
-                                    backgroundColor: 'white',
-                                    borderRadius: 4,
-                                    borderColor: '#cccccc',
-                                },
-                                datePickerCon: { backgroundColor: 'black'},
-                                // ... You can check the source to find the other keys.
+                                dateIcon: datePickerStyles.dateIcon,
+                                dateInput: datePickerStyles.dateInput,
+                                datePickerCon: useColorScheme() === 'dark'
+                                    ? datePickerStyles.darkDatePickerCon
+                                    : datePickerStyles.lightDatePickerCon
                             }}
                             onDateChange={(date) => {props.handleDueDate(date)}}
                         />
