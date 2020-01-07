@@ -15,12 +15,12 @@ class CreateWorkOrderPage extends React.Component {
             sectorType: '',
             sectorKind: '',
             type: 'CM', 
-            title: '', 
-            cause: '', 
+            title: 'g',
+            cause: 'ds',
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '', 
-            dueDate: new Date().getTime(),
+            dueDate: new Date(),
             priceEstimate: 0,
             navigation: props.navigation,
             today: new Date(),
@@ -151,7 +151,7 @@ class CreateWorkOrderPage extends React.Component {
     };
 
     handleDueDate = (value) => {
-        this.setState({dueDate: Date.parse(value)});
+        this.setState({dueDate: value});
     };
 
     render() {
@@ -167,7 +167,8 @@ class CreateWorkOrderPage extends React.Component {
                         prevStep={this.prevStep} handleType={this.handleType}
                         handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
                         toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
-                        handleDescription={this.handleDescription} submit={this.handleWorkOrder}/>
+                        handleDescription={this.handleDescription} submit={this.handleWorkOrder}
+                        handleDueDate={this.handleDueDate}/>
                 }
             </View>
         );

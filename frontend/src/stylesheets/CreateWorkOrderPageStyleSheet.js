@@ -79,15 +79,19 @@ const formStyles = StyleSheet.create({
     },
     switchStyle: {
         alignSelf: 'flex-end',
-        marginRight: '5%'
     },
     pickerStyle: {
-        width: '75%', 
+        width: '75%',
         alignSelf: 'flex-end',
         borderColor: '#cccccc',
         backgroundColor: 'white',
-        marginRight: '5%'
-    }
+    },
+    pickerOverlayStyle : {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: '5%',
+        paddingVertical: '1%'
+    },
 });
 
 const footerStyles = StyleSheet.create({

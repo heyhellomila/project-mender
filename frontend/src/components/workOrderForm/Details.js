@@ -3,11 +3,12 @@ import { View, Text, TextInput, Switch } from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
 
 import React from 'react';
+import DatePicker from "react-native-datepicker";
 
 const Details = (props) => {
     return (
         <View style={{flex: 1}}>
-            <View style={{flex: 2}}>
+            <View style={{flex: 3}}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>Service Needed?</Text>
                     <View style={formStyles.colContainer}>
@@ -30,7 +31,42 @@ const Details = (props) => {
                             initValue={props.priority}
                             initValueTextStyle={{color: 'black'}}
                             onChange={(option) => props.handlePriority(option.label)}
-                            childrenContainerStyle	={formStyles.pickerStyle}/>
+                            childrenContainerStyle	={formStyles.pickerStyle}
+                            overlayStyle={formStyles.pickerOverlayStyle}
+                        />
+                    </View>
+                </View>
+                <View style={formStyles.rowContainer}>
+                    <Text style={formStyles.infoHeader}>Due Date</Text>
+                    <View style={formStyles.colContainer}>
+                        <DatePicker
+                            style={{width: 200, alignSelf: 'flex-end'}}
+                            date={props.dueDate}
+                            mode="date"
+                            placeholder="select date"
+                            format="YYYY-MM-DD"
+                            minDate="2020-01-05"
+                            maxDate="2022-06-01"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                },
+                                dateInput: {
+                                    marginLeft: 36,
+                                    backgroundColor: 'white',
+                                    borderRadius: 4,
+                                    borderColor: '#cccccc',
+                                },
+                                datePickerCon: { backgroundColor: 'black'},
+                                // ... You can check the source to find the other keys.
+                            }}
+                            onDateChange={(date) => {props.handleDueDate(date)}}
+                        />
                     </View>
                 </View>
             </View>
