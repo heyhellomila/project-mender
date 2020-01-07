@@ -17,10 +17,9 @@ const containerStyles = StyleSheet.create({
 })
 const titleStyles = StyleSheet.create({
     title: {
-        flex: 0.5,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '75%',
         borderBottomColor: 'black',
         borderBottomWidth: 1
     },
@@ -46,7 +45,7 @@ const buttonStyles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     bottomButtonsColumn:{
-        flex: 1, 
+        flex: 3,
         justifyContent: 'space-between', 
         alignItems: 'center'
     }

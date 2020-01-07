@@ -43,14 +43,28 @@ class ProfilePage extends Component {
         }
     }
 
-    goToEditProfilePage = () => {
+    goToChangeNamePage = () => {
         this.setState({
-            page: "editProfilePage",
+            page: "changeNamePage",
             disableUpdateButton: true
         })
     };
 
-    goToPasswordChange = () => {
+    goToUpdateEmailPage = () => {
+        this.setState({
+            page: "updateEmailPage",
+            disableUpdateButton: true
+        })
+    };
+
+    goToUpdatePhoneNumberPage = () => {
+        this.setState({
+            page: "updatePhoneNumberPage",
+            disableUpdateButton: true
+        })
+    };
+
+    goToChangePasswordPage = () => {
         this.setState({
             page: "passwordChangePage"
         })
@@ -200,6 +214,7 @@ class ProfilePage extends Component {
                     this.props.reloadUserProfile(true, user);
                 });
         } catch (err) {
+            alert(err)
             this.setState({errorMsg: err.message})
         }
     };
@@ -228,8 +243,10 @@ class ProfilePage extends Component {
                 handleNewPasswordChange={this.handleNewPasswordChange}
                 handleConfirmPasswordChange={this.handleConfirmPasswordChange}
                 handlePasswordChange={this.handlePasswordChange}
-                goToEditProfilePage={this.goToEditProfilePage}
-                goToPasswordChange={this.goToPasswordChange}
+                goToChangeNamePage={this.goToChangeNamePage}
+                goToUpdateEmailPage={this.goToUpdateEmailPage}
+                goToUpdatePhoneNumberPage={this.goToUpdatePhoneNumberPage}
+                goToChangePasswordPage={this.goToChangePasswordPage}
                 goToProfilePage={this.goToProfilePage}
             />
         );
