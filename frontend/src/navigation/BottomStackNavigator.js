@@ -35,8 +35,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
                 <View style={{ marginRight: 10, width: 50, height: 50 }}>
                     <HeaderButton navigation={navigation}/>
                 </View>
-            ),
-            headerForceInset: { top: 'never', bottom: 'never' }
+            )
         }
     }
 })
