@@ -6,7 +6,7 @@ import DatePicker from 'react-native-datepicker';
 import { useColorScheme } from 'react-native-appearance';
 
 const minDate = new Date();
-const maxDate = new Date(minDate.getFullYear() + 5, minDate.getMonth(), minDate.getDay());
+const maxDate = new Date(minDate.getFullYear() + 5, minDate.getMonth(), minDate.getDate());
 
 const Details = (props) => {
     return (
