@@ -17,4 +17,8 @@ const PROPERTY_SECTOR_FIELDS = {
     patchFields: ['sectorKind']
 };
 
-export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };
+const LICENSE_FIELDS = {
+    createFields : ['licenseNumber', 'licenseType'],
+};
+
+export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS };

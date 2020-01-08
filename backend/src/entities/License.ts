@@ -4,7 +4,7 @@ import { LicenseStatus } from "./LicenseStatus";
 import { User } from "./User";
 
 @Entity({name: 'licenses'})
-@Unique("unique_number_type", ["license_number", "license_type_id"])
+@Unique("unique_number_type", ["licenseNumber", "licenseType"])
 export class License {
     
     @PrimaryGeneratedColumn()
