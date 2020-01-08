@@ -65,7 +65,7 @@ class WorkOrderService {
         if (!queryMap.get(WorkOrderQuery.PAGESIZE) || !queryMap.get(WorkOrderQuery.PAGENUMBER)) {
             throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
         }
-        if(parseInt(queryMap.get(WorkOrderQuery.PAGESIZE)) < 1 || parseInt(queryMap.get(WorkOrderQuery.PAGESIZE))  > 10){
+        if(parseInt(queryMap.get(WorkOrderQuery.PAGESIZE)) < 1 || parseInt(queryMap.get(WorkOrderQuery.PAGESIZE)) > 10){
             throw new BadRequestError("pageSize parameter must be at least 1 and no greater than 10")
         }
         if (queryMap.get(WorkOrderQuery.ORDERING) == "DESC") {
@@ -88,6 +88,9 @@ class WorkOrderService {
         workOrderSortMapper.set(WorkOrderQuery.DUEDATE, "work_orders.dueDate")
         workOrderSortMapper.set(WorkOrderQuery.CREATEDDATE, "work_orders.createdDate")
         workOrderSortMapper.set(WorkOrderQuery.PRICEESTIMATE, "work_orders.priceEstimate")
+        workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, "work_orders.priorityType")
+        workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, "work_orders.workOrderType")
+        workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, "sector.type")
 
         if(queryMap.get(WorkOrderQuery.SORTBY) != null && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))){
             throw new BadRequestError(queryMap.get(WorkOrderQuery.SORTBY) + " is an invalid parameter for sorting. Accepted sorting parameters are: [" + Array.from(workOrderSortMapper.keys()) + "]")
