@@ -78,6 +78,10 @@ export class WorkOrder {
     @Column({ name: 'actual_cost', nullable: true })
     actualCost: number
 
+    @Column({ name: 'bookmarked', type: 'bit', transformer:
+            { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
+    bookmarked: Boolean
+
     @BeforeInsert()
     setCreatedDate() {
         this.createdDate = new Date();

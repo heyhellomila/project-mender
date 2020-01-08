@@ -24,5 +24,5 @@ export class WorkOrderDTO {
     dateCompleted: Date;
     priceEstimate: number;
     actualCost: number;
-
+    bookmarked: Boolean;
 }

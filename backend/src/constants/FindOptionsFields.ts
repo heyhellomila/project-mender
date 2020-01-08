@@ -93,6 +93,7 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
         dateCompleted: true,
         priceEstimate: true,
         actualCost: true,
+        bookmarked: true,
     },
 };
 
@@ -129,6 +130,7 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
         dateCompleted: true,
         priceEstimate: true,
         actualCost: true,
+        bookmarked: true,
     },
 };
 

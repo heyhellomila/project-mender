@@ -18,4 +18,5 @@ export enum WorkOrderQuery {
     'CREATEDDATE' = 'createdDate',
     'SORTBY' = 'sortBy',
     'ORDERING'= 'ordering',
+    'BOOKMARKED' = 'bookmarked',
 }

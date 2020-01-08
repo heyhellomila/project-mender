@@ -123,6 +123,9 @@ class WorkOrderService {
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
             this.createSQLFilterQuery(filterQueries, 'work_orders', 'priceEstimate', '=', queryMap.get(WorkOrderQuery.PRICEESTIMATE));
         }
+        if (queryMap.get(WorkOrderQuery.BOOKMARKED)) {
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'bookmarked', '=', queryMap.get(WorkOrderQuery.BOOKMARKED));
+        }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
             this.createSQLFilterQuery(filterQueries, 'work_orders', queryMap.get(WorkOrderQuery.GREATERTHAN), '>', queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
         }

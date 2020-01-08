@@ -5,7 +5,7 @@ const UserFields = {
 
 const WorkOrderFields = {
     createFields : ['sectorKind', 'workOrderType', 'title', 'cause', 'serviceNeeded',
-        'priorityType', 'description', 'dueDate', 'priceEstimate'],
+        'priorityType', 'description', 'dueDate', 'priceEstimate', 'bookmarked'],
 };
 
 const PROPERTY_FIELDS = {

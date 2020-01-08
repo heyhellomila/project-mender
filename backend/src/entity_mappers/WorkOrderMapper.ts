@@ -49,6 +49,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.dateCompleted = workOrder.dateCompleted;
         workOrderDTO.priceEstimate = workOrder.priceEstimate;
         workOrderDTO.actualCost = workOrder.actualCost;
+        workOrderDTO.bookmarked = workOrder.bookmarked;
         return workOrderDTO;
     }
 
@@ -65,6 +66,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrder.dateCompleted = workOrderDTO.dateCompleted;
         workOrder.priceEstimate = workOrderDTO.priceEstimate;
         workOrder.actualCost = workOrderDTO.actualCost;
+        workOrder.bookmarked = workOrderDTO.bookmarked;
 
         if (workOrderDTO.sectorKind) {
             workOrder.sector = this.sectorMapper.fromDTO(
