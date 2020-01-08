@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import { getPropertiesByUser } from '../../../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
 import {reloadProperties, selectProperty, loadProperties} from '../../../redux/actions';
@@ -101,6 +101,14 @@ class PropertyComponent extends Component {
                                                 type='outline'
                                                 raised={true}
                                                 onPress={() => this.props.navigation.navigate('AddProperty')}/>
+                                        </View>
+                                        <View style={drawerComponent.buttonContainer}>
+                                            <Button
+                                                title='Sectors'
+                                                type='outline'
+                                                raised={true}
+                                                onPress={() => {this.props.navigation.navigate('PropertySectors')}}>
+                                            </Button>
                                         </View>
                                     </View>
                                 </View>

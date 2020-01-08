@@ -54,7 +54,7 @@ propertySectorsController.get(
                 .getSectorsByPropertyId(Number(req.params.propertyId));
             console.log(propertySectors);
             return res.status(200).json(propertySectors.map(
-                propertySector => propertySectorMapper.toDTO(propertySector)));
+                propertySector => propertySectorMapper.toDTO(propertySector).sector));
         } catch (err) {
             return handleError(err, res);
         }
