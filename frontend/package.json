@@ -21,6 +21,7 @@
     "react": "16.9.0",
     "react-dom": "16.8.3",
     "react-native": "^0.59.8",
+    "react-native-appearance": "^0.3.2",
     "react-native-button-group": "^1.0.0",
     "react-native-collapsible": "^1.5.1",
     "react-native-datepicker": "^1.7.2",

@@ -79,15 +79,19 @@ const formStyles = StyleSheet.create({
     },
     switchStyle: {
         alignSelf: 'flex-end',
-        marginRight: '5%'
     },
     pickerStyle: {
-        width: '75%', 
+        width: '75%',
         alignSelf: 'flex-end',
         borderColor: '#cccccc',
         backgroundColor: 'white',
-        marginRight: '5%'
-    }
+    },
+    pickerOverlayStyle : {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: '5%',
+        paddingVertical: '1%'
+    },
 });
 
 const footerStyles = StyleSheet.create({
@@ -180,4 +184,28 @@ const typeStyles = StyleSheet.create({
     }
 });
 
-export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles };
+const datePickerStyles = StyleSheet.create({
+    style: {
+        width: 200, alignSelf: 'flex-end'
+    },
+    dateIcon: {
+        position: 'absolute',
+        left: 0,
+        top: 4,
+        marginLeft: 0
+    },
+    dateInput: {
+        marginLeft: 36,
+        backgroundColor: 'white',
+        borderRadius: 4,
+        borderColor: '#cccccc',
+    },
+    darkDatePickerCon: {
+        backgroundColor: 'black'
+    },
+    lightDatePickerCon: {
+        backgroundColor: 'white'
+    }
+});
+
+export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles, datePickerStyles };
