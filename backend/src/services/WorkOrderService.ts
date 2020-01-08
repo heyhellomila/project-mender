@@ -4,6 +4,7 @@ import { PropertyService } from './PropertyService';
 import { SectorService } from './SectorService';
 import { PriorityTypeService } from './PriorityTypeService';
 import { WorkOrderTypeService } from './WorkOrderTypeService';
+import { WorkOrderStatusService } from './WorkOrderStatusService';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
@@ -18,6 +19,7 @@ class WorkOrderService {
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
+    private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
 
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
@@ -37,6 +39,8 @@ class WorkOrderService {
             .getPriorityType(workOrder.priorityType.type);
         workOrder.workOrderType = await this.workOrderTypeService
             .getWorkOrderType(workOrder.workOrderType.type);
+        workOrder.workOrderStatus = await this.workOrderStatusService
+            .getWorkOrderStatus(workOrder.workOrderStatus.status);
         workOrder.property = property;
         workOrder.createdBy = createdBy;
 
@@ -91,6 +95,7 @@ class WorkOrderService {
         workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, "work_orders.priorityType")
         workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, "work_orders.workOrderType")
         workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, "sector.type")
+        workOrderSortMapper.set(WorkOrderQuery.WORKORDERSTATUS, "work_orders.workOrderStatus")
 
         if(queryMap.get(WorkOrderQuery.SORTBY) != null && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))){
             throw new BadRequestError(queryMap.get(WorkOrderQuery.SORTBY) + " is an invalid parameter for sorting. Accepted sorting parameters are: [" + Array.from(workOrderSortMapper.keys()) + "]")
@@ -125,6 +130,9 @@ class WorkOrderService {
         }
         if (queryMap.get(WorkOrderQuery.BOOKMARKED)) {
             this.createSQLFilterQuery(filterQueries, 'work_orders', 'bookmarked', '=', queryMap.get(WorkOrderQuery.BOOKMARKED));
+        }
+        if (queryMap.get(WorkOrderQuery.WORKORDERSTATUS)) {
+            this.createSQLFilterQuery(filterQueries, 'work_orders', 'workOrderStatus','=', queryMap.get(WorkOrderQuery.WORKORDERSTATUS));
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
             this.createSQLFilterQuery(filterQueries, 'work_orders', queryMap.get(WorkOrderQuery.GREATERTHAN), '>', queryMap.get(WorkOrderQuery.GREATERTHANVALUE));

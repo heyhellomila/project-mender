@@ -58,7 +58,7 @@ const UserFields : FindOptions<User> = {
 
 const WorkOrderFields : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
-        'lastModifiedBy', 'property'],
+        'lastModifiedBy', 'property', 'workOrderStatus'],
     select: {
         id: true,
         property: {
@@ -94,11 +94,15 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
         priceEstimate: true,
         actualCost: true,
         bookmarked: true,
+        workOrderStatus: {
+            id: true,
+            status: true,
+        },
     },
 };
 
 const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
-    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy'],
+    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy', 'workOrderStatus'],
     select: {
         id: true,
         sector: {
@@ -131,6 +135,10 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
         priceEstimate: true,
         actualCost: true,
         bookmarked: true,
+        workOrderStatus: {
+            id: true,
+            status: true,
+        },
     },
 };
 

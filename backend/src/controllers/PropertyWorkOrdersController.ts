@@ -14,6 +14,7 @@ const workOrderMapper = new WorkOrderMapper();
 propertyWorkOrdersController.post('/', auth, validateBody(WorkOrderFields.createFields), async (req: Request, res: Response) => {
     try {
         req.body.serviceNeeded = Boolean(JSON.parse(req.body.serviceNeeded));
+        req.body.bookmarked = Boolean(JSON.parse(req.body.bookmarked));
         const workOrderDTO : WorkOrderDTO = req.body as WorkOrderDTO;
         const { decodedToken } = req.body;
         const workOrder = await workOrderService.createWorkOrder(Number(req.params.propertyId), 

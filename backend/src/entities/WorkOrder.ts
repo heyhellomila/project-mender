@@ -4,6 +4,7 @@ import { Property } from './Property';
 import { Sector } from './Sector';
 import { WorkOrderType } from './WorkOrderType';
 import { PriorityType } from './PriorityType';
+import { WorkOrderStatus } from './WorkOrderStatus';
 import { User } from './User';
 
 @Entity({ name: 'work_orders' })
@@ -81,6 +82,12 @@ export class WorkOrder {
     @Column({ name: 'bookmarked', type: 'bit', transformer:
             { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
     bookmarked: Boolean
+
+    @ManyToOne(type => WorkOrderStatus)
+    @JoinColumn({
+        name: 'work_order_status_id',
+    })
+    workOrderStatus: WorkOrderStatus;
 
     @BeforeInsert()
     setCreatedDate() {
