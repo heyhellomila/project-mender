@@ -2,21 +2,16 @@ import { StyleSheet } from 'react-native';
 
 const containerStyles = StyleSheet.create({
     mainContainer:{
-        flexGrow: 1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        borderColor: 'black',
-        borderWidth: 2,
-        width: '100%'
+        backgroundColor: '#F5FCFF'
     },
     container:{
-        flexGrow: 1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-        borderColor: 'red',
-        borderWidth: 2,
         width: '100%'
     }
 })
