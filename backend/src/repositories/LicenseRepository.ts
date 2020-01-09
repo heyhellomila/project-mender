@@ -20,7 +20,7 @@ class LicenseRepository extends BaseRepository<License> {
     }
 
     async getLicensesByUser(user: User) {
-        const licenses = await this.getRepositoryConnection(License).find({user: user});
+        const licenses = await this.getRepositoryConnection(License).find({where: {user: user}});
         return licenses;
     }
 

@@ -61,6 +61,9 @@ class LicenseService {
         if (!user) {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
         }
+        if (user.userType.type == UserTypeEnum.HOMEOWNER) {
+            throw new BadRequestError("Cannot provide licenses for user of type 'HOMEOWNER'.")
+        }
         try {
             return await this.licenseRepository.getLicensesByUser(user);
         } catch (err) {
@@ -78,6 +81,7 @@ class LicenseService {
         if (!license.licenseNumber) {
             throw new BadRequestError("License number is required.")
         }
+        license.licenseNumber = license.licenseNumber;
 
         if (!license.licenseType) {
             throw new BadRequestError("License type is required.")
