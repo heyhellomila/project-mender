@@ -81,7 +81,6 @@ class LicenseService {
         if (!license.licenseNumber) {
             throw new BadRequestError("License number is required.")
         }
-        license.licenseNumber = license.licenseNumber;
 
         if (!license.licenseType) {
             throw new BadRequestError("License type is required.")
