@@ -1,8 +1,8 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from "react-native";
-import {chunk} from "../../../utils/ArrayUtils";
-import {SectorType} from "../../../constants/enums/SectorType";
-import {formStyles, sectorStyles} from "../../../stylesheets/CreateWorkOrderPageStyleSheet";
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {chunk} from '../../../utils/ArrayUtils';
+import {SectorType} from '../../../constants/enums/SectorType';
+import {formStyles, sectorStyles} from '../../../stylesheets/PropertySectorsStyleSheet';
 
 const PropertySectorTypeComponent = (props) => {
     return(
@@ -19,9 +19,7 @@ export function SectorTypeView(props) {
             { row.map( sectorType =>
                 <TouchableOpacity
                     key={sectorType}
-                    style={[formStyles.colContainer, props.sectorType === sectorType
-                        ? sectorStyles.selectedSectorContainer
-                        : sectorStyles.sectorContainer]}
+                    style={[formStyles.colContainer, sectorStyles.sectorContainer]}
                     onPress={() => props.handleSectorType(sectorType)}>
                     <Image style={sectorStyles.sectorIcon} source={SectorType[sectorType].image}></Image>
                     <Text style={{alignSelf: 'center'}}>{SectorType[sectorType].display}</Text>

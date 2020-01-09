@@ -159,4 +159,44 @@ const footerStyles = StyleSheet.create({
     },
 });
 
-export { headerStyles, formStyles, footerStyles };
+const sectorStyles = StyleSheet.create({
+    sectorContainer: {
+        padding: '1%',
+        borderWidth: 2,
+        width: '25%',
+        height: '80%',
+        maxHeight: 200
+    },
+    activeSectorContainer: {
+        padding: '1%',
+        borderWidth: 2,
+        borderColor: '#00ace6',
+        width: '25%',
+        height: '80%',
+        maxHeight: 200
+    },
+    activateSectorContainer: {
+        padding: '1%',
+        borderWidth: 2,
+        borderColor: '#05cb05',
+        width: '25%',
+        height: '80%',
+        maxHeight: 200
+    },
+    deactivateSectorContainer: {
+        padding: '1%',
+        borderWidth: 2,
+        borderColor: 'red',
+        width: '25%',
+        height: '80%',
+        maxHeight: 200
+    },
+    sectorIcon: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'contain'
+    }
+});
+
+export { headerStyles, formStyles, footerStyles, sectorStyles };

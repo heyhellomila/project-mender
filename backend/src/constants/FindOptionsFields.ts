@@ -171,6 +171,7 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
             type: true,
             kind: true,
         },
+        status: true,
     },
 };
 
