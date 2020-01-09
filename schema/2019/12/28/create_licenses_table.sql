@@ -8,5 +8,5 @@ create table licenses(
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (license_type_id) REFERENCES license_types(id),
     FOREIGN KEY (license_status_id) REFERENCES license_status(id),
-    UNIQUE INDEX unique_number_type (license_number, license_type_id)
+    CONSTRAINT unique_number_type UNIQUE (license_number, license_type_id)
 );
