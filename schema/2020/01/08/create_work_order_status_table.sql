@@ -1,6 +1,6 @@
 create table work_order_status(
     id int AUTO_INCREMENT PRIMARY KEY,
-    status ENUM('ISSUED','CANCELLED', 'COMPLETED', 'OPEN_FOR_QUOTE', 'QUOTE_RECEIVED') NOT NULL UNIQUE
+    status ENUM('CANCELLED','COMPLETED', 'ISSUED', 'OPEN_FOR_QUOTE', 'QUOTE_RECEIVED') NOT NULL UNIQUE
 );
 
 ALTER TABLE work_orders
@@ -12,5 +12,5 @@ ALTER TABLE work_orders
   ADD CONSTRAINT work_orders_ibfk_7
     FOREIGN KEY (work_order_status_id) REFERENCES work_order_status(id);
 
-INSERT INTO work_order_status (status) VALUES ('ISSUED'), ('CANCELLED'), ('COMPLETED'),
+INSERT INTO work_order_status (status) VALUES ('CANCELLED'), ('COMPLETED'), ('ISSUED'),
     ('OPEN_FOR_QUOTE'), ('QUOTE_RECEIVED');
