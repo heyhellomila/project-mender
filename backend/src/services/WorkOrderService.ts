@@ -10,6 +10,7 @@ import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
+import { WorkOrderStatus } from '../entities/WorkOrderStatus';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 
@@ -39,10 +40,19 @@ class WorkOrderService {
             .getPriorityType(workOrder.priorityType.type);
         workOrder.workOrderType = await this.workOrderTypeService
             .getWorkOrderType(workOrder.workOrderType.type);
-        workOrder.workOrderStatus = await this.workOrderStatusService
-            .getWorkOrderStatus(workOrder.workOrderStatus.status);
+         
         workOrder.property = property;
         workOrder.createdBy = createdBy;
+
+        if (!(workOrder.bookmarked)) {
+            workOrder.bookmarked = false;
+        }
+
+        if (!(workOrder.workOrderStatus)) {
+            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus('OPEN_FOR_QUOTE');
+        } else {
+            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(workOrder.workOrderStatus.status);
+        }
 
         try {
             return await this.workOrderRepository.createWorkOrder(workOrder);
