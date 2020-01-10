@@ -1,5 +1,5 @@
 import { WorkOrderStatusRepository } from '../repositories/WorkOrderStatusRepository';
-import { WorkOrderStatus as WorkOrderStatusEnum } from '../enums/WorkOrderStatus';
+import { WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
 import { WorkOrderStatus } from '../entities/WorkOrderStatus';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 

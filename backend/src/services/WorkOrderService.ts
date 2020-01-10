@@ -12,7 +12,7 @@ import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOpt
 import { User }  from '../entities/User';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
-import { WorkOrderStatusEnums } from '../enums/WorkOrderStatusEnums';
+import { WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
 
 class WorkOrderService {
 
@@ -49,7 +49,7 @@ class WorkOrderService {
         }
 
         if (!(workOrder.workOrderStatus)) {
-            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(WorkOrderStatusEnums.OPEN_FOR_QUOTE);
+            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(WorkOrderStatusEnum.OPEN_FOR_QUOTE);
         } else {
             workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(workOrder.workOrderStatus.status);
         }
