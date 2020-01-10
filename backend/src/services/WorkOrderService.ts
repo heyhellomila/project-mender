@@ -10,9 +10,9 @@ import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
-import { WorkOrderStatus } from '../entities/WorkOrderStatus';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
+import { WorkOrderStatusEnums } from '../enums/WorkOrderStatusEnums';
 
 class WorkOrderService {
 
@@ -49,7 +49,7 @@ class WorkOrderService {
         }
 
         if (!(workOrder.workOrderStatus)) {
-            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus('OPEN_FOR_QUOTE');
+            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(WorkOrderStatusEnums.OPEN_FOR_QUOTE);
         } else {
             workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(workOrder.workOrderStatus.status);
         }

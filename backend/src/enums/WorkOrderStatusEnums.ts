@@ -1,4 +1,4 @@
-export enum WorkOrderStatus {
+export enum WorkOrderStatusEnums {
     'ISSUED' = 'ISSUED',
     'CANCELLED' = 'CANCELLED',
     'COMPLETED' = 'COMPLETED',
