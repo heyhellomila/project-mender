@@ -10,16 +10,18 @@ const Footer = (props) => {
         <View style={footerStyles.container}>
             <View style={formStyles.colContainer}>
                 {props.sectorType !== '' &&
-                    <TouchableOpacity onPress={() => props.handleSectorType('')}>
+                    <TouchableOpacity
+                        disabled={props.submitted}
+                        onPress={() => props.handleSectorType('')}>
                         <Image style={footerStyles.imageButton} source={backArrow}></Image>
                     </TouchableOpacity>
                 }
             </View>
             <View style={formStyles.colContainer}>
-                <TouchableOpacity disabled={!props.canSubmit()}
-                                  style={props.canSubmit()
-                                      ? footerStyles.editButton
-                                      : footerStyles.disabledEditButton}
+                <TouchableOpacity disabled={!props.canSubmit() || props.submitting || props.submitted}
+                                  style={props.canSubmit() || props.submitted
+                                      ? footerStyles.submitButton
+                                      : footerStyles.disabledSubmitButton}
                                   onPress={() => props.submit()}>
                     {props.success
                         ?   <Icon name='check-circle' type='font-awesome' color='#1fcf13' size={45}/>

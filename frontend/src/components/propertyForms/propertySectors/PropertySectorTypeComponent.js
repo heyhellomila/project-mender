@@ -19,6 +19,7 @@ export function SectorTypeView(props) {
             { row.map( sectorType =>
                 <TouchableOpacity
                     key={sectorType}
+                    disabled={props.submitted}
                     style={[formStyles.colContainer, sectorStyles.sectorContainer]}
                     onPress={() => props.handleSectorType(sectorType)}>
                     <Image style={sectorStyles.sectorIcon} source={SectorType[sectorType].image}></Image>

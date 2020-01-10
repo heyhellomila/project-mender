@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 import PropertySectorComponent from '../../components/propertyForms/propertySectors/PropertySectorComponent';
 import { getPropertySectorsByPropertyId } from '../../apis/properties/sectors/GetPropertySectors';
+import { updatePropertySectorsByPropertyId } from '../../apis/properties/sectors/UpdatePropertySectors';
+import { createPropertySectorsByPropertyId } from '../../apis/properties/sectors/CreatePropertySectors';
+import { ActivityStatus } from '../../constants/enums/ActivityStatus';
 
 class PropertySectorsPage extends React.Component {
     constructor(props){
@@ -11,7 +14,11 @@ class PropertySectorsPage extends React.Component {
             selectedSectorKinds: [],
             activePropertySectorKinds: [],
             inactivePropertySectorKinds: [],
-            sectorType: ''
+            sectorType: '',
+            loading: true,
+            submitting: false,
+            success: false,
+            submitted: false
         }
     };
 
@@ -46,7 +53,6 @@ class PropertySectorsPage extends React.Component {
                 selectedSectorKinds: [...selectedSectorKinds, value]
             })
         }
-        console.log(this.state.selectedSectorKinds);
     };
 
     isActiveAndSelected = (sectorKind) => {
@@ -56,8 +62,7 @@ class PropertySectorsPage extends React.Component {
     };
 
     isSelected = (sectorKind) => {
-        const { selectedSectorKinds } = this.state;
-        return selectedSectorKinds.indexOf(sectorKind) > -1;
+        return this.state.selectedSectorKinds.indexOf(sectorKind) > -1;
     };
 
     isActive = (sectorKind) => {
@@ -66,7 +71,7 @@ class PropertySectorsPage extends React.Component {
 
     sortPropertySectors = (propertySectors) => {
         propertySectors.forEach((propertySector) => {
-            if (propertySector.status === 'ACTIVE') {
+            if (propertySector.status === ActivityStatus.ACTIVE) {
                 this.setState({
                     activePropertySectorKinds: [...this.state.activePropertySectorKinds, propertySector.sector.kind]
                 })
@@ -76,14 +81,55 @@ class PropertySectorsPage extends React.Component {
                 })
             }
         });
+        this.setState({
+            loading: false
+        });
     };
 
     canSubmit = () => {
-        return true;
+        return this.state.selectedSectorKinds.length > 0;
     };
 
-    submit = () => {
-        console.log('ok');
+    submit = async () => {
+        this.setState({
+            submitting: true
+        });
+        const {selectedSectorKinds, activePropertySectorKinds, inactivePropertySectorKinds} = this.state;
+        const newSectorKinds = [];
+        const updatedSectorKinds = [];
+        selectedSectorKinds.forEach((sectorKind) => {
+            if (activePropertySectorKinds.indexOf(sectorKind) > -1) {
+                updatedSectorKinds.push({sectorKind, status: ActivityStatus.INACTIVE});
+            }
+            else if (inactivePropertySectorKinds.indexOf(sectorKind) > -1) {
+                updatedSectorKinds.push({sectorKind, status: ActivityStatus.ACTIVE});
+            } else {
+                newSectorKinds.push({sectorKind});
+            }
+        });
+        try {
+            if (newSectorKinds.length > 0) {
+                await createPropertySectorsByPropertyId(this.props.property.id, newSectorKinds)
+                    .then(() => {this.setState({success: true})
+                })
+            }
+            if (updatedSectorKinds.length > 0) {
+                await updatePropertySectorsByPropertyId(this.props.property.id, updatedSectorKinds)
+                    .then(() => {this.setState({success: true})
+                })
+            }
+        } catch (err) {
+            this.setState({success: false});
+            alert('One or more sectors were not successfully updated. Please try again later.');
+        } finally {
+            this.setState({
+                submitting: false,
+                submitted: true
+            });
+            setTimeout(() => {
+                this.props.navigation.navigate('HomePage');
+            }, 1500);
+        }
     };
 
     render() {
@@ -103,7 +149,4 @@ const mapStateToProps = (state) => ({
     property: state.property.property
 });
 
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PropertySectorsPage);
+export default connect(mapStateToProps, null)(PropertySectorsPage);

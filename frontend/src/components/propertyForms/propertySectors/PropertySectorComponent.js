@@ -2,10 +2,12 @@ import React from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { formStyles } from '../../../stylesheets/PropertyDetailsStyleSheet';
 import Header from './Header';
-import { View } from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import PropertySectorTypeComponent from './PropertySectorTypeComponent';
 import PropertySectorKindComponent from './PropertySectorKindComponent';
 import Footer from './Footer';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {spinnerStyles} from '../../../stylesheets/PropertySectorsStyleSheet';
 
 const PropertySectorComponent = (props) => {
     return(
@@ -15,10 +17,13 @@ const PropertySectorComponent = (props) => {
             <View style={{flex: 1}}>
                 <Header {...props}/>
             </View>
-            <View style={{flex: 4, paddingHorizontal: '4%'}}>
-                {props.sectorType === ''
-                    ? <PropertySectorTypeComponent {...props}/>
-                    : <PropertySectorKindComponent {...props}/>
+            <View style={formStyles.bodyContainer}>
+                <Spinner visible={props.submitting}/>
+                {props.loading
+                    ? <ActivityIndicator animating size={'large'} style={spinnerStyles.spinnerStyle} />
+                    : props.sectorType === ''
+                        ? <PropertySectorTypeComponent {...props}/>
+                        : <PropertySectorKindComponent {...props}/>
                 }
             </View>
             <View style={{flex: 1}}>

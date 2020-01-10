@@ -20,6 +20,7 @@ export function SectorKindView(props) {
             { row.map( sectorKind =>
                 <TouchableOpacity
                     key={sectorKind}
+                    disabled={props.submitted}
                     style={[formStyles.colContainer,
                         props.isActive(kinds[sectorKind].kind)
                             ? props.isActiveAndSelected(kinds[sectorKind].kind)
