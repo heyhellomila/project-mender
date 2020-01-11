@@ -34,6 +34,7 @@ class ProfilePage extends Component {
             validPhoneNumber: true,
             validPasswordMatch: true,
             validPassword: true,
+            passwordNotAlreadyUsed: true,
             updated: false,
             loading: false,
             disableUpdateButton: true,
@@ -98,7 +99,8 @@ class ProfilePage extends Component {
             phoneNumber: this.props.user.phoneNumber,
             currentPassword: null,
             newPassword: null,
-            confirmPassword: null
+            confirmPassword: null,
+            passwordNotAlreadyUsed: true
         })
     };
 
@@ -232,7 +234,7 @@ class ProfilePage extends Component {
 
     handlePasswordChange = () => {
         const {newPassword, confirmPassword} = this.state;
-        this.setState({validPasswordMatch: true, validPassword: true})
+        this.setState({validPasswordMatch: true, validPassword: true, passwordNotAlreadyUsed: true})
         if (!passwordValidator.validate(newPassword)) {
             this.setState({
                 validPassword: false,
@@ -263,6 +265,7 @@ class ProfilePage extends Component {
             }else if(err.message === "409"){
                 this.setState({
                     emailNotAlreadyUsed: false,
+                    passwordNotAlreadyUsed: false,
                     disableUpdateButton: false
                 })
             }

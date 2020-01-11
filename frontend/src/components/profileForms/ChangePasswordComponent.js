@@ -11,11 +11,13 @@ const ChangePasswordComponent = (props) => {
                     <TextInput style={props.validAuth
                         ? textInputStyles.textInput
                         : textInputStyles.invalidTextInput}
+                               placeholder={'Current Password'}
+                               secureTextEntry={true}
                                onChangeText={text => props.handleCurrentPassword(text)}/>
                 </View>
                 <View style={{flex: 1}}>
                     <Text>New Password</Text>
-                    <TextInput style={props.validPassword
+                    <TextInput style={props.validPassword && props.passwordNotAlreadyUsed
                         ? textInputStyles.textInput
                         : textInputStyles.invalidTextInput}
                                placeholder={'New Password'}
@@ -39,7 +41,10 @@ const ChangePasswordComponent = (props) => {
                     <Text style={{color: 'red'}}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
                     }
                     {!props.validAuth &&
-                    <Text style={{color: 'red'}}>Please enter correct password</Text>
+                    <Text style={{color: 'red'}}>Please enter correct password.</Text>
+                    }
+                    {!props.passwordNotAlreadyUsed &&
+                    <Text style={{color: 'red'}}>Can't use same as previous password.</Text>
                     }
                 </View>
                 <View style={buttonStyles.bottomButtonsRow}>

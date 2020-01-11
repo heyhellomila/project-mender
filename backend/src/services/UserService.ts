@@ -86,6 +86,9 @@ class UserService {
                 throw new BadRequestError('Password must be at least 8 characters' +
                     ' and must include at least one digit.');
             }
+            const samePassword = await compare(userObj.password, existingUser.passwordHash);
+            if(samePassword)
+                throw new ResourceExistsError("Can't use same as previous password.");
             user.passwordHash = await generateHash(userObj.password);
         }
         if (userObj.email != null) {
