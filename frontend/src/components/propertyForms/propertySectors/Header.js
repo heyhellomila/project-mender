@@ -19,7 +19,9 @@ const Header = (props) => {
                     <Text style={headerStyles.subHeaderStyle}>{props.property.name} ({props.property.address})</Text>
                 </View>
                 <View style={headerStyles.closeButton}>
-                    <TouchableOpacity style={headerStyles.closeButton} onPress={() => props.navigation.goBack(null)}>
+                    <TouchableOpacity
+                        style={headerStyles.closeButton}
+                        onPress={() => props.navigation.navigate('HomePage')}>
                         <Image style={headerStyles.closeButtonImage} source={x}></Image>
                     </TouchableOpacity>
                 </View>
