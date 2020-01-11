@@ -56,6 +56,12 @@ const UserFields : FindOptions<User> = {
     },
 };
 
+const UserForUpdateFields : FindOptions<User> = {
+    select: {
+        passwordHash: true
+    },
+}
+
 const WorkOrderFields : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
         'lastModifiedBy', 'property'],
@@ -144,5 +150,5 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
-export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
+export { PropertyFields, UserFields, UserForUpdateFields, WorkOrderFields, PropertyFieldsNoUser,
     WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };

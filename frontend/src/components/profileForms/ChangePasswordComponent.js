@@ -5,7 +5,14 @@ import {titleStyles, textInputStyles, buttonStyles, containerStyles} from '../..
 const ChangePasswordComponent = (props) => {
     return (
         <View style={containerStyles.container}>
-            <View style={{flex: 3, width: '50%'}}>
+            <View style={{flex: 3, width: '75%'}}>
+                <View style={{flex: 1}}>
+                    <Text>Current Password</Text>
+                    <TextInput style={props.validAuth
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               onChangeText={text => props.handleCurrentPassword(text)}/>
+                </View>
                 <View style={{flex: 1}}>
                     <Text>New Password</Text>
                     <TextInput style={props.validPassword
@@ -31,14 +38,18 @@ const ChangePasswordComponent = (props) => {
                     {!props.validPassword &&
                     <Text style={{color: 'red'}}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
                     }
+                    {!props.validAuth &&
+                    <Text style={{color: 'red'}}>Please enter correct password</Text>
+                    }
                 </View>
                 <View style={buttonStyles.bottomButtonsRow}>
                     <View>
                         <Button title={'Back'} onPress={() => props.goToProfilePage()}/>
                     </View>
-                    <View>
-                        <Button title={'Confirm'} onPress={() => props.handlePasswordChange()}/>
-                    </View>
+                    <View><Button
+                        disabled={props.disableUpdateButton}
+                        title={'Confirm'}
+                        onPress={() => props.handlePasswordChange()}/></View>
                 </View>
                 <View style={{flex: 0.5}}></View>
             </View>

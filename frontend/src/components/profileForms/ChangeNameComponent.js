@@ -27,14 +27,13 @@ const ChangeNameComponent = (props) => {
                                       defaultValue={props.user.lastName}
                                       onChangeText={text => props.handleLastNameChange(text)}/>
                 </View>
-               
                 <View style={buttonStyles.bottomButtonsRow}>
                     <View>
                         <Button title={'Back'} onPress={() => props.goToProfilePage()}/>
                     </View>
                     <View><Button
                         disabled={props.disableUpdateButton}
-                        title={'Update'}
+                        title={'Confirm'}
                         onPress={() => props.handleUpdate()}/></View>
                 </View>
             </View>

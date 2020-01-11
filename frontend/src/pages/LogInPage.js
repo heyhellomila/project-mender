@@ -10,8 +10,8 @@ class LogInPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'jisooFan33@gmail.com',
-      password: 'blackpink333',
+      email: '',
+      password: '',
       submitting: false,
       error: false,
       errorMsg: '',

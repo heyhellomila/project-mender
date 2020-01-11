@@ -13,7 +13,7 @@ api.interceptors.response.use(async (response) => {
     if (error.code == 'ECONNABORTED' || error.response.data.statusCode == '500') {
         throw new Error('Internal server error. Please try again later.')
     } else if (error.response && error.response.data.statusCode > 400) {
-        throw new Error('Error in getting the data.')
+        throw new Error(error.response.data.statusCode)
     } else {
         throw error;
     }
@@ -25,7 +25,8 @@ export async function updateUser(id, updatedUser) {
         lastName: updatedUser.lastName,
         email: updatedUser.email,
         phoneNumber: updatedUser.phoneNumber,
-        password: updatedUser.password
+        password: updatedUser.password,
+        confirmPassword: updatedUser.currentPassword
     },{
         headers: {'Authorization': await AsyncStorage.getItem('Authorization')}});
 }

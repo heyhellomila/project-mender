@@ -5,15 +5,41 @@ import {titleStyles, textInputStyles, buttonStyles, containerStyles} from '../..
 const ChangeEmailComponent = (props) => {
     return (
         <View style={containerStyles.container}>
-            <View style={{flex: 3, width: '50%'}}>
-                <View style={{flex: 1}}>
-                    <View style={{flex: 0.6}}>
-                        <Text>Email</Text>
-                        <TextInput style={props.validEmail
-                            ? textInputStyles.textInput
-                            : textInputStyles.invalidTextInput}
-                                   onChangeText={text => props.handleEmailChange(text)}/>
-                    </View>
+            <View style={{flex: 4, width: '75%', paddingTop: 2}}>
+                <View style={{flex: 0.5}}>
+                    <Text>New Email</Text>
+                    <TextInput style={props.validEmail && props.emailNotAlreadyUsed
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               onChangeText={text => props.handleNewEmail(text)}/>
+                </View>
+                <View style={{flex: 0.5}}>
+                    <Text>Re-Enter new e-mail</Text>
+                    <TextInput style={props.validEmailMatch
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               onChangeText={text => props.handleConfirmEmail(text)}/>
+                </View>
+                <View style={{flex: 0.5}}>
+                    <Text>Password</Text>
+                    <TextInput style={props.validAuth
+                        ? textInputStyles.textInput
+                        : textInputStyles.invalidTextInput}
+                               onChangeText={text => props.handleCurrentPassword(text)}/>
+                </View>
+                <View style={{flex: 0.5}}>
+                    {!props.validEmailMatch &&
+                    <Text style={{color: 'red'}}>Emails must match.</Text>
+                    }
+                    {!props.validEmail &&
+                    <Text style={{color: 'red'}}>Please enter a valid email</Text>
+                    }
+                    {!props.validAuth &&
+                    <Text style={{color: 'red'}}>Please enter correct password</Text>
+                    }
+                    {!props.emailNotAlreadyUsed &&
+                    <Text style={{color: 'red'}}>Email Already in Use</Text>
+                    }
                 </View>
                 <View style={buttonStyles.bottomButtonsRow}>
                     <View>
@@ -21,10 +47,9 @@ const ChangeEmailComponent = (props) => {
                     </View>
                     <View><Button
                         disabled={props.disableUpdateButton}
-                        title={'Update'}
-                        onPress={() => props.handleUpdate()}/></View>
+                        title={'Confirm'}
+                        onPress={() => props.handleEmailChange()}/></View>
                 </View>
-                <View style={{flex: 0.5}}></View>
             </View>
         </View>
     );

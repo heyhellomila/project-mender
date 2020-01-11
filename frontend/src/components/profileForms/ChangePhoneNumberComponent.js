@@ -12,6 +12,7 @@ const ChangePhoneNumberComponent = (props) => {
                         <TextInput style={props.validPhoneNumber
                             ? textInputStyles.textInput
                             : textInputStyles.invalidTextInput}
+                                   defaultValue={props.user.phoneNumber}
                                    onChangeText={text => props.handlePhoneNumberChange(text)}/>
                     </View>
                 </View>
@@ -21,7 +22,7 @@ const ChangePhoneNumberComponent = (props) => {
                     </View>
                     <View><Button
                         disabled={props.disableUpdateButton}
-                        title={'Update'}
+                        title={'Confirm'}
                         onPress={() => props.handleUpdate()}/></View>
                 </View>
                 <View style={{flex: 0.5}}></View>
