@@ -46,7 +46,7 @@ class JobListPage extends React.Component {
                 dropdown: 'Sort by Type'
             },
             {
-                sortBy: 'status',
+                sortBy: 'workOrderStatus',
                 dropdown: 'Sort by Status'
             }],
             ordering: 'ASC',
@@ -55,7 +55,13 @@ class JobListPage extends React.Component {
             lastPage: false,
             isEmpty: false,
             showSortIndicator: false,
-            isSorting: false
+            isSorting: false,
+            filterBookmarked: '',
+            filterDueDate: '',
+            filterPriority: '',
+            filterSector: '',
+            filterType: '',
+            filterStatus: ''
         };
     }
   
@@ -67,10 +73,6 @@ class JobListPage extends React.Component {
                 error: false,
                 pageNumber: 1,
                 pageSize: 10,
-                // sortBy: 'id',
-                // ordering: 'ASC',
-                // sortIcon: 'up',
-                // ascending: true,
                 lastPage: false,
                 isEmpty: false,
                 showSortIndicator: false,
@@ -109,7 +111,8 @@ class JobListPage extends React.Component {
                     sectorKind: workOrder.sector.kind,
                     dueDate: workOrder.dueDate,
                     createdDate: workOrder.createdDate,
-                    serviceNeeded: workOrder.serviceNeeded
+                    serviceNeeded: workOrder.serviceNeeded,
+                    status: workOrder.workOrderStatus.status
                     }))
             });
         })
