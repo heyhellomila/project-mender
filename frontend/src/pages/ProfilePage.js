@@ -24,7 +24,6 @@ class ProfilePage extends Component {
             currentPassword: null,
             newPassword: null,
             confirmPassword: null,
-            errorMsg: null,
             validFirstName: true,
             validLastName: true,
             emailNotAlreadyUsed: true,
@@ -105,7 +104,7 @@ class ProfilePage extends Component {
     };
 
     getUpdatedFields = () => {
-        const {firstName, lastName, newEmail, phoneNumber, user, currentPassword, newPassword} = this.state;
+        const {firstName, lastName, newEmail, phoneNumber, currentPassword, newPassword} = this.state;
         let updatedUser = {};
         if (firstName !== this.props.user.firstName) {
             updatedUser.firstName = firstName
@@ -173,8 +172,14 @@ class ProfilePage extends Component {
     };
 
     handleEmailChange = async () => {
-        const {newEmail, confirmEmail } = this.state;
-        this.setState({disableUpdateButton: true,validEmailMatch: true, validEmail: true, validAuth: true, emailNotAlreadyUsed: true})
+        const {newEmail, confirmEmail} = this.state;
+        this.setState({
+            disableUpdateButton: true,
+            validEmailMatch: true,
+            validEmail: true,
+            validAuth: true,
+            emailNotAlreadyUsed: true
+        })
         if (!validator.isEmail(newEmail) || newEmail === null) {
             this.setState({
                 validEmail: false,
@@ -238,12 +243,14 @@ class ProfilePage extends Component {
         if (!passwordValidator.validate(newPassword)) {
             this.setState({
                 validPassword: false,
-                disableUpdateButton: false});
-        }else if (newPassword !== confirmPassword) {
+                disableUpdateButton: false
+            });
+        } else if (newPassword !== confirmPassword) {
             this.setState({
                 validPasswordMatch: false,
-                disableUpdateButton: false});
-        }else{
+                disableUpdateButton: false
+            });
+        } else {
             this.handleUpdate();
         }
     };
@@ -257,19 +264,19 @@ class ProfilePage extends Component {
                     this.props.reloadUserProfile(true, user);
                 });
         } catch (err) {
-            if(err.message === "401"){
+            if (err.message === "401") {
                 this.setState({
                     validAuth: false,
                     disableUpdateButton: false
                 })
-            }else if(err.message === "409"){
+            } else if (err.message === "409") {
                 this.setState({
                     emailNotAlreadyUsed: false,
                     passwordNotAlreadyUsed: false,
                     disableUpdateButton: false
                 })
             }
-            
+
         }
     };
 
