@@ -7,6 +7,9 @@ import PropertyListComponent from './PropertyListComponent';
 import {drawerComponent} from '../../../stylesheets/DrawerStyleSheet';
 import {Button} from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {PropertyType} from '../../../constants/enums/PropertyType';
+import {Province} from '../../../constants/enums/Province';
+import {CountryCode} from '../../../constants/enums/CountryCode';
 
 class PropertyComponent extends Component {
     constructor(props) {
@@ -19,19 +22,21 @@ class PropertyComponent extends Component {
         };
     }
 
-    async componentDidUpdate() {
-        if (this.props.reloadProperties && !this.state.loading) {
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.props.reloadProperties && !this.state.loading && !prevState.loading) {
             this.setState({
                 loading: true
             });
-            await this.getPropertiesAndSelectProperty(true).then(() => {
+            await this.getPropertiesAndSelectProperty(this.props.selectLast).then(() => {
                 this.props.finishReloadingProperties();
             });
         }
     }
 
     async componentDidMount() {
-        await this.getPropertiesAndSelectProperty();
+        await this.getPropertiesAndSelectProperty().then(
+            () => this.props.loadProperties(false)
+        );
     }
 
     async getPropertiesAndSelectProperty(selectLast = false) {
@@ -41,18 +46,28 @@ class PropertyComponent extends Component {
                     properties: res.data.map((property) => ({
                         id: property.id,
                         name: property.name,
-                        address: property.address
+                        address: property.address,
+                        propertyType: PropertyType[property.propertyType.type],
+                        city: property.city,
+                        province: Province[property.province],
+                        postalCode: property.postalCode,
+                        country: CountryCode[property.countryCode]
                     }))
                 }, () => {
-                    if (this.state.properties.length > 0) {
+                    if (this.state.properties.length > 0 && !this.props.maintainSelection) {
                         selectLast
                             ? this.props.selectProperty(this.state.properties[this.state.properties.length-1])
                             : this.props.selectProperty(this.state.properties[0]);
+                    } else if (this.state.properties.length > 0) {
+                        this.state.properties.forEach((property) => {
+                            if (this.props.property.id === property.id) {
+                                this.props.selectProperty(property);
+                            }
+                        })
                     }
                     this.setState({
                         loading: false
                     });
-                    this.props.loadProperties(false);
                 });
             }).catch((error) => {
                 alert(error);
@@ -63,7 +78,7 @@ class PropertyComponent extends Component {
         return (
             <View style={drawerComponent.properties}>
                 <Spinner
-                    visible={this.props.loadingProperties}
+                    visible={this.props.loadingProperties || this.props.reloadProperties || this.state.loading}
                 />
                 <Text style={drawerComponent.propertyHeader}>My Properties</Text>
                     {this.state.loading
@@ -72,12 +87,21 @@ class PropertyComponent extends Component {
                                     <ScrollView>
                                         <PropertyListComponent {...this.state} {...this.props}/>
                                     </ScrollView>
-                                    <View style={drawerComponent.addPropertyContainer}>
-                                        <Button
-                                            title='Add Property'
-                                            type='outline'
-                                            raised={true}
-                                            onPress={() => this.props.navigation.navigate('AddProperty')}/>
+                                    <View style={drawerComponent.buttonGroup}>
+                                        <View style={drawerComponent.buttonContainer}>
+                                            <Button
+                                                title='Details'
+                                                type='outline'
+                                                raised={true}
+                                                onPress={() => this.props.navigation.navigate('PropertyDetails')}/>
+                                        </View>
+                                        <View style={drawerComponent.buttonContainer}>
+                                            <Button
+                                                title='Add Property'
+                                                type='outline'
+                                                raised={true}
+                                                onPress={() => this.props.navigation.navigate('AddProperty')}/>
+                                        </View>
                                     </View>
                                 </View>
                     }
@@ -87,8 +111,11 @@ class PropertyComponent extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    property: state.property.property,
     reloadProperties: state.property.reloadProperties,
-    loadingProperties: state.property.loadingProperties
+    loadingProperties: state.property.loadingProperties,
+    selectLast: state.property.selectLast,
+    maintainSelection: state.property.maintainSelection
 });
 
 const mapDispatchToProps = (dispatch) => ({

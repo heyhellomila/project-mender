@@ -8,8 +8,9 @@ import { Property } from '../entities/Property';
 import { ActivityStatusService } from './ActivityStatusService';
 import { PropertyTypeService } from './PropertyTypeService';
 import { User } from '../entities/User';
-import { PropertyFields, PropertyFieldsNoUser } from '../constants/FindOptionsFields';
+import { PropertyFields, PROPERTY_FIELDS_NO_USER } from '../constants/FindOptionsFields';
 import { postcodeValidator } from 'postcode-validator';
+import {ActivityStatus} from "../entities/ActivityStatus";
 
 class PropertyService {
 
@@ -53,13 +54,19 @@ class PropertyService {
         }
     }
 
-    async getPropertiesByUser(userId: number) {
+    async getProperties(userId: number, status?: string) {
         const user: User = await this.userService.getUser(userId);
         if (!user) {
-            throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
+            throw new ResourceNotFoundError(`User with id ${userId} does not exist.`);
         }
         try {
-            return await this.propertyRepository.getPropertiesByUser(user, PropertyFieldsNoUser);
+            if (status) {
+                return await this.propertyRepository.getPropertiesByUserAndActivityStatus(
+                    user, await this.activityStatusService.getActivityStatus(status),
+                    PROPERTY_FIELDS_NO_USER);
+            }
+            return await this.propertyRepository.getPropertiesByUser(
+                user, PROPERTY_FIELDS_NO_USER);
         } catch (err) {
             throw err;
         }

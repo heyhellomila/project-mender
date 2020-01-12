@@ -6,10 +6,12 @@ import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
 import { PROPERTY_FIELDS } from '../constants/BodyFields';
+import { ActivityStatusMapper } from '../entity_mappers/ActivityStatusMapper';
 
-const userPropertiesController = express.Router({mergeParams: true});
+const userPropertiesController = express.Router({ mergeParams: true });
 const propertyService = new PropertyService();
 const propertyMapper = new PropertyMapper();
+const activityStatusMapper = new ActivityStatusMapper();
 
 userPropertiesController.post(
     '/', auth, validateBody(PROPERTY_FIELDS.createFields), async (req: Request, res: Response) => {
@@ -25,7 +27,9 @@ userPropertiesController.post(
 
 userPropertiesController.get('/', auth, async(req: Request, res: Response) => {
     try {
-        const properties = await propertyService.getPropertiesByUser(Number(req.params.userId));
+        const { activityStatus } = req.query;
+        const properties = await propertyService.getProperties(
+            Number(req.params.userId), activityStatus);
         const propertiesDTO : PropertyDTO[] = [];
         properties.map((property) => {
             propertiesDTO.push(propertyMapper.toDTO(property));

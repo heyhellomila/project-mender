@@ -19,8 +19,8 @@ api.interceptors.response.use(async (response) => {
         }
 });
 
-export async function getWorkOrdersByPropertyId(propertyId) {	
-    return await api.get(`/properties/${propertyId}/workorders/`, {	
+export async function getWorkOrderById(workOrderId) {	
+    return await api.get(`/workorders/${workOrderId}`, {	
         headers: {	
             'Authorization': await AsyncStorage.getItem('Authorization')	
         }	
