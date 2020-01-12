@@ -6,6 +6,9 @@ const ChangeEmailComponent = (props) => {
     return (
         <View style={containerStyles.container}>
             <View style={{flex: 4, width: '75%', paddingTop: 2}}>
+                <View style={{flex: 0.3}}>
+                    <Text>Current Email: {props.user.email}</Text>
+                </View>
                 <View style={{flex: 0.5}}>
                     <Text>New Email</Text>
                     <TextInput style={props.validEmail && props.emailNotAlreadyUsed

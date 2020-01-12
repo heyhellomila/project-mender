@@ -180,7 +180,12 @@ class ProfilePage extends Component {
             validAuth: true,
             emailNotAlreadyUsed: true
         })
-        if (!validator.isEmail(newEmail) || newEmail === null) {
+        if (newEmail === null) {
+            this.setState({
+                validEmail: false,
+                disableUpdateButton: false
+            });
+        } else if (!validator.isEmail(newEmail)) {
             this.setState({
                 validEmail: false,
                 disableUpdateButton: false
