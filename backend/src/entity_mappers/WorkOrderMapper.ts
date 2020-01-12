@@ -6,9 +6,11 @@ import { UserMapper } from './UserMapper';
 import { SectorMapper } from './SectorTypeMapper';
 import { WorkOrderTypeMapper } from './WorkOrderTypeMapper';
 import { PriorityTypeMapper } from './PriorityTypeMapper';
+import { WorkOrderStatusMapper } from './WorkOrderStatusMapper';
 import { SectorDTO } from '../dtos/SectorDTO';
 import { WorkOrderTypeDTO } from '../dtos/WorkOrderTypeDTO';
 import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
+import { WorkOrderStatusDTO } from '../dtos/WorkOrderStatusDTO';
 
 class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
@@ -16,6 +18,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
     private sectorMapper : SectorMapper = new SectorMapper();
     private workOrderTypeMapper : WorkOrderTypeMapper = new WorkOrderTypeMapper();
     private priorityTypeMapper : PriorityTypeMapper = new PriorityTypeMapper();
+    private workOrderStatusMapper : WorkOrderStatusMapper = new WorkOrderStatusMapper();
     private userMapper : UserMapper = new UserMapper();
 
     toDTO(workOrder: WorkOrder) : WorkOrderDTO {
@@ -49,6 +52,10 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.dateCompleted = workOrder.dateCompleted;
         workOrderDTO.priceEstimate = workOrder.priceEstimate;
         workOrderDTO.actualCost = workOrder.actualCost;
+        workOrderDTO.bookmarked = workOrder.bookmarked;
+        if (workOrder.workOrderStatus) {
+            workOrderDTO.workOrderStatus = this.workOrderStatusMapper.toDTO(workOrder.workOrderStatus);
+        }
         return workOrderDTO;
     }
 
@@ -65,6 +72,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrder.dateCompleted = workOrderDTO.dateCompleted;
         workOrder.priceEstimate = workOrderDTO.priceEstimate;
         workOrder.actualCost = workOrderDTO.actualCost;
+        workOrder.bookmarked = workOrderDTO.bookmarked;
 
         if (workOrderDTO.sectorKind) {
             workOrder.sector = this.sectorMapper.fromDTO(
@@ -77,6 +85,10 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         if (workOrderDTO.priorityType) {
             workOrder.priorityType = this.priorityTypeMapper.fromDTO(
                 new PriorityTypeDTO(workOrderDTO.priorityType as string));
+        }
+        if (workOrderDTO.workOrderStatus) {
+            workOrder.workOrderStatus = this.workOrderStatusMapper.fromDTO(
+                new WorkOrderStatusDTO(workOrderDTO.workOrderStatus as string));
         }
 
         return workOrder;
