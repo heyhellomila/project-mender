@@ -96,7 +96,7 @@ class AddPropertyPage extends React.Component {
                         this.setState({success: true});
                         this.props.reloadProperties();
                         setTimeout(() => {
-                            this.props.navigation.navigate('HomePage');
+                            this.props.navigation.navigate('PropertySectors');
                         }, 1500);
                 });
             } catch (err) {

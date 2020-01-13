@@ -3,7 +3,7 @@
         "module": "commonjs",
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "target": "es2017",
+        "target": "es2019",
         "noImplicitAny": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
