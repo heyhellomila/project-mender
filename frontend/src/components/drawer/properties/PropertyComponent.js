@@ -90,25 +90,10 @@ class PropertyComponent extends Component {
                                     <View style={drawerComponent.buttonGroup}>
                                         <View style={drawerComponent.buttonContainer}>
                                             <Button
-                                                title='Add'
+                                                title='Add Property'
                                                 type='outline'
                                                 raised={true}
                                                 onPress={() => this.props.navigation.navigate('AddProperty')}/>
-                                        </View>
-                                        <View style={drawerComponent.buttonContainer}>
-                                            <Button
-                                                title='Details'
-                                                type='outline'
-                                                raised={true}
-                                                onPress={() => this.props.navigation.navigate('PropertyDetails')}/>
-                                        </View>
-                                        <View style={drawerComponent.buttonContainer}>
-                                            <Button
-                                                title='Sectors'
-                                                type='outline'
-                                                raised={true}
-                                                onPress={() => {this.props.navigation.navigate('PropertySectors')}}>
-                                            </Button>
                                         </View>
                                     </View>
                                 </View>
