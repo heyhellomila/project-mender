@@ -88,6 +88,9 @@ const changeProfileComponentStyles = StyleSheet.create({
     changeProfileBackButton:{
         alignSelf: 'center', 
         paddingTop: '10%'
+    },
+    changeProfileBottomNormalRow:{
+        flex: 2
     }
 })
 

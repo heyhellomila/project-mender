@@ -51,7 +51,7 @@ const ChangeNameComponent = (props) => {
                     </View>
                 </View>
             </View>
-            <View style={{flex: 2}}>
+            <View style={changeProfileComponentStyles.changeProfileBottomNormalRow}>
             </View>
         </View>
     );

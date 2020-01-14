@@ -63,7 +63,7 @@ const ChangeEmailComponent = (props) => {
                     </View>
                 </View>
             </View>
-            <View style={{flex: 1}}>
+            <View style={changeProfileComponentStyles.changeProfileBottomNormalRow}>
             </View>
         </View>
     );
