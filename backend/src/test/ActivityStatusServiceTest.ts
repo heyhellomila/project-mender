@@ -31,9 +31,9 @@ describe('Activity Status Service Test', () => {
         when(activityStatusRepositoryMock.getActivityStatus(anyString()))
             .thenResolve(activityStatus);
         const fetchedActivityStatus : ActivityStatus =
-            await activityStatusService.getActivityStatus(ActivityStatusEnum.ACTIVE);
+            await activityStatusService.getActivityStatus(activityStatus.status);
 
-        verify(activityStatusRepositoryMock.getActivityStatus(ActivityStatusEnum.ACTIVE))
+        verify(activityStatusRepositoryMock.getActivityStatus(activityStatus.status))
             .called();
 
         equal(fetchedActivityStatus, activityStatus);
@@ -42,7 +42,7 @@ describe('Activity Status Service Test', () => {
     it('Expect resource not found error from invalid string', async () => {
         when(activityStatusRepositoryMock.getActivityStatus(anyString()))
             .thenResolve(null);
-        await expect(activityStatusService.getActivityStatus('lol')).to.be
+        await expect(activityStatusService.getActivityStatus(anyString())).to.be
             .rejectedWith(ResourceNotFoundError);
     });
 });
