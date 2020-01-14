@@ -1,62 +1,68 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TextInput} from 'react-native';
-import {titleStyles, textInputStyles, buttonStyles, containerStyles} from '../../stylesheets/ProfilePageStylesheet';
+import {Platform, StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import {titleStyles, textInputStyles, buttonStyles, containerStyles, changeProfileComponentStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ChangePasswordComponent = (props) => {
     return (
         <View style={containerStyles.container}>
-            <View style={{flex: 3, width: '75%'}}>
-                <View style={{flex: 1}}>
-                    <Text>Current Password</Text>
-                    <TextInput style={props.validAuth
-                        ? textInputStyles.textInput
-                        : textInputStyles.invalidTextInput}
-                               placeholder={'Current Password'}
-                               secureTextEntry={true}
-                               onChangeText={text => props.handleCurrentPassword(text)}/>
-                </View>
-                <View style={{flex: 1}}>
-                    <Text>New Password</Text>
-                    <TextInput style={props.validPassword && props.passwordNotAlreadyUsed
-                        ? textInputStyles.textInput
-                        : textInputStyles.invalidTextInput}
-                               placeholder={'New Password'}
-                               secureTextEntry={true}
-                               onChangeText={text => props.handleNewPasswordChange(text)}/>
-                </View>
-                <View style={{flex: 1}}>
-                    <Text>Confirm Password</Text>
-                    <TextInput style={props.validPasswordMatch
-                        ? textInputStyles.textInput
-                        : textInputStyles.invalidTextInput}
-                               placeholder={'Confirm Password'}
-                               secureTextEntry={true}
-                               onChangeText={text => props.handleConfirmPasswordChange(text)}/>
-                </View>
-                <View style={{flex: 1}}>
-                    {!props.validPasswordMatch &&
-                    <Text style={{color: 'red'}}>Passwords must match.</Text>
-                    }
-                    {!props.validPassword &&
-                    <Text style={{color: 'red'}}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
-                    }
-                    {!props.validAuth &&
-                    <Text style={{color: 'red'}}>Please enter correct password.</Text>
-                    }
-                    {!props.passwordNotAlreadyUsed &&
-                    <Text style={{color: 'red'}}>Can't use same as previous password.</Text>
-                    }
-                </View>
-                <View style={buttonStyles.bottomButtonsRow}>
-                    <View>
-                        <Button title={'Back'} onPress={() => props.goToProfilePage()}/>
+            <View style={containerStyles.changeComponentContainer}>
+                <View style={changeProfileComponentStyles.changeProfileInsideComponent}>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
+                        <View style={changeProfileComponentStyles.changeProfileInputComponent}>
+                            <Text style={changeProfileComponentStyles.changeProfileTextAlignSelf}>Current Password</Text>
+                            <TextInput style={props.validAuth
+                                ? textInputStyles.textInput
+                                : textInputStyles.invalidTextInput}
+                                       secureTextEntry={true}
+                                       onChangeText={text => props.handleCurrentPassword(text)}/>
+                        </View>
                     </View>
-                    <View><Button
-                        disabled={props.disableUpdateButton}
-                        title={'Confirm'}
-                        onPress={() => props.handlePasswordChange()}/></View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
+                        <View style={changeProfileComponentStyles.changeProfileInputComponent}>
+                            <Text style={changeProfileComponentStyles.changeProfileTextAlignSelf}>New Password</Text>
+                            <TextInput style={props.validPassword && props.passwordNotAlreadyUsed
+                                ? textInputStyles.textInput
+                                : textInputStyles.invalidTextInput}
+                                       secureTextEntry={true}
+                                       onChangeText={text => props.handleNewPasswordChange(text)}/>
+                        </View>
+                    </View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
+                        <View style={changeProfileComponentStyles.changeProfileInputComponent}>
+                            <Text style={changeProfileComponentStyles.changeProfileTextAlignSelf}>Re-Enter New Password</Text>
+                            <TextInput style={props.validEmailMatch
+                                ? textInputStyles.textInput
+                                : textInputStyles.invalidTextInput}
+                                       onChangeText={text => props.handleConfirmEmail(text)}/>
+                        </View>
+                    </View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
+                        {!props.validPasswordMatch &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Passwords must match.</Text>
+                        }
+                        {!props.validPassword &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
+                        }
+                        {!props.validAuth &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Please enter correct password.</Text>
+                        }
+                        {!props.passwordNotAlreadyUsed &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Can't use same as previous password.</Text>
+                        }
+                    </View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
+                        <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
+                            <TouchableOpacity style={props.disableUpdateButton ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
+                                              disabled={props.disableUpdateButton}
+                                              onPress={() => props.handlePasswordChange()}><Text>Confirm</Text></TouchableOpacity>
+                        </View>
+                        <View style={changeProfileComponentStyles.changeProfileBackButton}>
+                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text style={{textDecorationLine:'underline'}}>Back</Text></TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
-                <View style={{flex: 0.5}}></View>
+            </View>
+            <View style={{flex: 1}}>
             </View>
         </View>
     );

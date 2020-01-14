@@ -12,15 +12,12 @@ import {titleStyles, containerStyles} from '../../stylesheets/ProfilePageStylesh
 const ProfilePageForm = (props) => {
     return (
         <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false}
-                                 resetScrollToCoords={{x: 0, y: 0}} automaticallyAdjustContentInsets={false}
-                                 contentContainerStyle={[containerStyles.mainContainer, {
-                                     paddingTop:
-                                         (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0
-                                 }]}>
+                                 resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
+                                 contentContainerStyle={containerStyles.mainContainer}>
             <View style={{flex: 0.5, width: '50%', justifyContent: 'center', borderBottomColor: 'black', borderBottomWidth: 2,}}>
                 <Header style page={props.page}/>
             </View>
-            <View style={{flex: 5}}>
+            <View style={{flex: 5, width: '100%'}}>
                 {props.page === "profilePage" &&
                 <ProfilePageComponent {...props} />}
                 {props.page === "changeNamePage" &&

@@ -88,7 +88,7 @@ class UserService {
             }
             const samePassword = await compare(userObj.password, existingUser.passwordHash);
             if(samePassword)
-                throw new ResourceExistsError("Can't use same as previous password.");
+                throw new ResourceExistsError("Can't use previous password.");
             user.passwordHash = await generateHash(userObj.password);
         }
         if (userObj.email != null) {
@@ -124,8 +124,6 @@ class UserService {
             }
             user.phoneNumber = userObj.phoneNumber;
         }
-        console.log(user)
-
         try {
             return await this.userRepository.updateUserById(id, user);
         } catch (err) {

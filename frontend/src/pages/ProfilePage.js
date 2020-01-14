@@ -37,6 +37,7 @@ class ProfilePage extends Component {
             updated: false,
             loading: false,
             disableUpdateButton: true,
+            navigation: this.props.navigation
         }
     }
 
@@ -48,6 +49,10 @@ class ProfilePage extends Component {
             });
         }
     }
+
+    goToHomePage = () => {
+        this.props.navigation.navigate('HomePage');
+    };
 
     goToChangeNamePage = () => {
         this.setState({
@@ -317,6 +322,7 @@ class ProfilePage extends Component {
                 goToUpdatePhoneNumberPage={this.goToUpdatePhoneNumberPage}
                 goToChangePasswordPage={this.goToChangePasswordPage}
                 goToProfilePage={this.goToProfilePage}
+                goToHomePage={this.goToHomePage}
             />
         );
     }
