@@ -1,4 +1,4 @@
-import { Router } from './controllers/index';
+import { Router } from './controllers';
 import { createConnection } from 'typeorm';
 import express from 'express';
 import * as config from './config.json';
@@ -13,11 +13,11 @@ createConnection({
     password: process.env.RDS_PASSWORD,
     database: process.env.RDS_DATABASE,
     entities : [
-        'src/entities/*.ts'
-        ],
+        'src/entities/*.ts',
+    ],
     synchronize : false,
-    timezone: 'Z'
-}).then(connection => {
+    timezone: 'Z',
+}).then(() => {
     console.log('Connected to database');
 
     const app = express();
@@ -27,6 +27,6 @@ createConnection({
     app.use(router.getRouter());
 
     app.listen(config.SERVER_PORT, () => {
-        console.log(`Running server on port ${config.SERVER_PORT}`)});
-    
+        console.log(`Running server on port ${config.SERVER_PORT}`);
+    });
 });
