@@ -8,7 +8,7 @@ const drawerComponent = StyleSheet.create({
             : 0
     },
     header: {
-        flex: 0.3,
+        flex: 0.5,
         alignItems: 'center',
         marginTop: '3%'
     },

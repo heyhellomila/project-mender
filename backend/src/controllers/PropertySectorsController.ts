@@ -52,7 +52,6 @@ propertySectorsController.get(
         try {
             const propertySectors : PropertySector[] = await propertySectorService
                 .getSectorsByPropertyId(Number(req.params.propertyId));
-            console.log(propertySectors);
             return res.status(200).json(propertySectors.map(
                 propertySector => propertySectorMapper.toDTO(propertySector)));
         } catch (err) {

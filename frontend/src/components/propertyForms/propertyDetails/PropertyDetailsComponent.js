@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, TextInput, View} from 'react-native';
+import {ScrollView, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { formStyles } from '../../../stylesheets/PropertyDetailsStyleSheet';
 import Header from './Header';
