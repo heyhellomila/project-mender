@@ -7,7 +7,7 @@ import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
 import { LICENSE_FIELDS } from '../constants/BodyFields';
 
-const userLicenseController = express.Router();
+const userLicenseController = express.Router({ mergeParams: true });
 const licenseService : LicenseService = new LicenseService();
 const licenseMapper : LicenseMapper = new LicenseMapper();
 

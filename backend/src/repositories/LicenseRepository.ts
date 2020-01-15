@@ -10,12 +10,12 @@ class LicenseRepository extends BaseRepository<License> {
     }
 
     async getLicenseByLicenseNumberAndType(licenseNumber: number, licenseType: LicenseType) {
-        const license = await this.getRepositoryConnection(License).findOne({licenseNumber: licenseNumber, licenseType: licenseType});
+        const license = await this.getRepositoryConnection(License).findOne({where: {licenseNumber: licenseNumber, licenseType: licenseType}});
         return license;
     }
 
     async getLicenseByUserAndLicenseType(user: User, licenseType: LicenseType) {
-        const license = await this.getRepositoryConnection(License).findOne({user: user, licenseType: licenseType});
+        const license = await this.getRepositoryConnection(License).findOne({where: {user: user, licenseType: licenseType}});
         return license;
     }
 

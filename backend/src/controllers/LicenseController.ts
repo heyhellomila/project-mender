@@ -7,4 +7,5 @@ const licenseController = express.Router();
 const licenseService : LicenseService = new LicenseService();
 const licenseMapper : LicenseMapper = new LicenseMapper();
 
+
 export { licenseController };
