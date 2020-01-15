@@ -1,10 +1,10 @@
+import 'mocha';
+import { equal } from 'assert';
 import { PriorityTypeRepository } from '../repositories/PriorityTypeRepository';
 import { anyString, instance, mock, verify, when } from 'ts-mockito';
 import { PriorityTypeService } from '../services/PriorityTypeService';
 import { PriorityType } from '../entities/PriorityType';
 import { PriorityType as PriorityTypeEnum } from '../enums/PriorityType';
-import { equal } from 'assert';
-import 'mocha';
 import { PriorityTypeDataProvider } from './data_providers/PriorityTypeDataProvider';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 

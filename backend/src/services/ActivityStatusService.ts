@@ -8,11 +8,8 @@ class ActivityStatusService {
     private activityStatusRepository : ActivityStatusRepository;
 
     constructor(activityStatusRepository?: ActivityStatusRepository) {
-        if (activityStatusRepository) {
-            this.activityStatusRepository = activityStatusRepository;
-        } else {
-            this.activityStatusRepository = new ActivityStatusRepository();
-        }
+        this.activityStatusRepository = activityStatusRepository
+            ? activityStatusRepository : new ActivityStatusRepository();
     }
 
     async getActivityStatus(status: string) {

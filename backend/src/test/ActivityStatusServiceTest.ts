@@ -1,10 +1,10 @@
+import 'mocha';
+import { equal } from 'assert';
 import { ActivityStatusRepository } from '../repositories/ActivityStatusRepository';
 import { anyString, instance, mock, verify, when } from 'ts-mockito';
 import { ActivityStatusService } from '../services/ActivityStatusService';
 import { ActivityStatus } from '../entities/ActivityStatus';
 import { ActivityStatus as ActivityStatusEnum } from '../enums/ActivityStatus';
-import { equal } from 'assert';
-import 'mocha';
 import { ActivityStatusDataProvider } from './data_providers/ActivityStatusDataProvider';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 
