@@ -44,6 +44,10 @@ describe('Property Service Test', () => {
     const propertyType : PropertyType =
         PropertyTypeDataProvider.getPropertyType(1, PropertyTypeEnum.CONDOMINIUM);
     const user : User = UserDataProvider.getUser(1);
+    const userDoesNotExistString : string = 'User does not exist';
+    const activityStatusDoesNotExistString : string = 'Activity status does not exist';
+    const propertyTypeDoesNotExistString : string = 'Property type does not exist';
+    const propertyDoesNotExistString : string = 'Property does not exist';
 
     beforeEach(() => {
         userServiceMock = mock(UserService);
@@ -106,7 +110,6 @@ describe('Property Service Test', () => {
     });
 
     it(('getProperties user does not exist expect ResourceNotFoundError'), async() => {
-        const userDoesNotExistString : string = 'User does not exist';
         when(userServiceMock.getUser(anyNumber())).thenThrow(
             new ResourceNotFoundError(userDoesNotExistString));
 
@@ -122,7 +125,6 @@ describe('Property Service Test', () => {
     });
 
     it(('getProperties activity Status does not exist expect ResourceNotFoundError'), async() => {
-        const activityStatusDoesNotExistString : string = 'Activity status does not exist';
         when(userServiceMock.getUser(anyNumber())).thenResolve(user);
         when(activityStatusServiceMock.getActivityStatus(anyString()))
             .thenThrow(new ResourceNotFoundError(activityStatusDoesNotExistString));
@@ -170,7 +172,6 @@ describe('Property Service Test', () => {
     });
 
     it(('createProperty user does not exist expect ResourceNotFoundError'), async() => {
-        const userDoesNotExistString : string = 'User does not exist';
         const propertyToCreate = PropertyDataProvider.getProperty(
             1, 'A1A 1A1', CountryCode.CA, user, propertyType);
         when(userServiceMock.getUser(anyNumber()))
@@ -183,7 +184,6 @@ describe('Property Service Test', () => {
     });
 
     it(('createProperty property type does not exist expect ResourceNotFoundError'), async() => {
-        const propertyTypeDoesNotExistString : string = 'Property type does not exist';
         const propertyToCreate = PropertyDataProvider.getProperty(
             1, 'A1A 1A1', CountryCode.CA, user, propertyType);
         when(userServiceMock.getUser(anyNumber())).thenResolve(user);
@@ -220,7 +220,6 @@ describe('Property Service Test', () => {
     });
 
     it(('updatePropertyById property does not exist expect ResourceNotFoundError'), async() => {
-        const propertyDoesNotExistString : string = 'Property does not exist';
         const savedProperty = PropertyDataProvider.getProperty(1);
         const propertyToUpdate = PropertyDataProvider.getPropertyForUpdate(
             'A1A 1A1', CountryCode.CA, propertyType, activityStatus);
@@ -244,7 +243,6 @@ describe('Property Service Test', () => {
     it(
         ('updatePropertyById activity status does not exist expect ResourceNotFoundError'),
         async() => {
-            const activityStatusDoesNotExistString : string = 'Activity status does not exist';
             const savedProperty = PropertyDataProvider.getProperty(1);
             const propertyToUpdate = PropertyDataProvider.getPropertyForUpdate(
                 'A1A 1A1', CountryCode.CA, propertyType, activityStatus);
@@ -271,7 +269,6 @@ describe('Property Service Test', () => {
     it(
         ('updatePropertyById property type does not exist expect ResourceNotFoundError'),
         async() => {
-            const propertyTypeDoesNotExistString : string = 'Property type does not exist';
             const savedProperty = PropertyDataProvider.getProperty(1);
             const propertyToUpdate = PropertyDataProvider.getPropertyForUpdate(
                 'A1A 1A1', CountryCode.CA, propertyType, activityStatus);
