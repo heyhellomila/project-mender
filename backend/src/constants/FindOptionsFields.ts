@@ -53,13 +53,19 @@ const UserFields : FindOptions<User> = {
         firstName: true,
         lastName: true,
         email: true,
+        phoneNumber: true,
         userType: {
             id: true,
             type: true,
         },
-        phoneNumber: true,
     },
 };
+
+const USER_FOR_UPDATE_FIELDS : FindOptions<User> = {
+    select: {
+        passwordHash: true
+    },
+}
 
 const WorkOrderFields : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
@@ -185,6 +191,7 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
+<<<<<<< HEAD
 export { PROPERTY_FIELDS, UserFields, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
     WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
     PROPERTY_SECTOR_FIELDS };
