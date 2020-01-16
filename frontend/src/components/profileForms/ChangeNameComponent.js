@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity} from 'react-native';
 import {
     textInputStyles,
