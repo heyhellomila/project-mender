@@ -3,12 +3,13 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { BadRequestError } from '../errors/BadRequestError';
+import { ConflictError } from '../errors/ConflictError';
 import { UserType as UserTypeEnum } from '../enums/UserType';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserType } from '../entities/UserType';
 import { UserTypeService } from './UserTypeService';
 import { User } from '../entities/User';
-import { UserFields } from '../constants/FindOptionsFields';
+import { UserFields, USER_FOR_UPDATE_FIELDS } from '../constants/FindOptionsFields';
 
 const { generateHash, compare } = require('../utils/HashUtils');
 const generateAuthToken = require('../utils/AuthUtils');
@@ -69,28 +70,38 @@ class UserService {
         return user;
     }
 
+    private async confirmPassword(confirmPassword: string, passwordHash: string) {
+        if(!await compare(confirmPassword, passwordHash))
+        {
+            throw new UnauthorizedError('Incorrect password.')
+        }
+    }
+
     async updateUserById(id: number, userObj: any) {
         var user: User = new User();
-        
-        if (!await this.getUser(id))
+        const existingUser: User = await this.userRepository.getUserById(id, USER_FOR_UPDATE_FIELDS);
+        if (!existingUser) {
             throw new ResourceNotFoundError('User with id ' + id + ' does not exist.');
+        }
 
         if (userObj.password != null) {
+            await this.confirmPassword(userObj.confirmPassword, existingUser.passwordHash);
             if (!passwordValidator.validate(userObj.password)) {
                 throw new BadRequestError('Password must be at least 8 characters' +
                     ' and must include at least one digit.');
             }
+            if(await compare(userObj.password, existingUser.passwordHash)) {
+                throw new ConflictError('Can\'t use previous password.');
+            }
             user.passwordHash = await generateHash(userObj.password);
         }
-
         if (userObj.email != null) {
-            const user = await this.userRepository.getUserByEmail(userObj.email);
-            if (user) {
+            await this.confirmPassword(userObj.confirmPassword, existingUser.passwordHash);
+            if (await this.userRepository.getUserByEmail(userObj.email)) {
                 throw new ResourceExistsError("Email " + userObj.email + " already in use.");
             }
             user.email = userObj.email;
         }
-
         if (userObj.userType != null) {
             if (!(userObj.userType in UserTypeEnum)) {
                 throw new BadRequestError('Invalid User Type. Allowed Types: [' 
@@ -98,7 +109,6 @@ class UserService {
             }
             user.userType = await this.userTypeService.getUserType(userObj.userType);
         }
-
         if (userObj.firstName != null) {
             user.firstName = userObj.firstName;
         }
@@ -113,7 +123,6 @@ class UserService {
             }
             user.phoneNumber = userObj.phoneNumber;
         }
-
         try {
             return await this.userRepository.updateUserById(id, user);
         } catch (err) {

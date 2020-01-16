@@ -4,6 +4,10 @@ import { Image, View, Text } from 'react-native';
 import React from 'react';
 import BottomNavigator from './BottomNavigator';
 import CreateWorkOrderPage from '../pages/CreateWorkOrderPage';
+import SettingsPage from '../pages/SettingsPage';
+import HelpPage from '../pages/HelpPage';
+import AboutUsPage from '../pages/AboutUsPage';
+import ProfilePage from '../pages/ProfilePage';
 import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
 
@@ -11,7 +15,11 @@ const menderLogo = require('../../assets/menderlogo.png')
 
 //Navigator for top header
 const BottomStackNavigatorRoot = createStackNavigator({
-    BottomNavigator: BottomNavigator
+    BottomNavigator: BottomNavigator,
+    SettingsPage: SettingsPage,
+    HelpPage: HelpPage,
+    AboutUsPage: AboutUsPage,
+    ProfilePage: ProfilePage
 }, {
     defaultNavigationOptions: ({ navigation }) => {
         return {
