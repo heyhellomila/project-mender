@@ -3,12 +3,13 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { BadRequestError } from '../errors/BadRequestError';
+import { ConflictError } from '../errors/ConflictError';
 import { UserType as UserTypeEnum } from '../enums/UserType';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserType } from '../entities/UserType';
 import { UserTypeService } from './UserTypeService';
 import { User } from '../entities/User';
-import { UserFields, UserForUpdateFields } from '../constants/FindOptionsFields';
+import { UserFields, USER_FOR_UPDATE_FIELDS } from '../constants/FindOptionsFields';
 
 const { generateHash, compare } = require('../utils/HashUtils');
 const generateAuthToken = require('../utils/AuthUtils');
@@ -71,32 +72,23 @@ class UserService {
 
     async updateUserById(id: number, userObj: any) {
         var user: User = new User();
-        const existingUser: User = await this.userRepository.getUserById(id, UserForUpdateFields);
+        const existingUser: User = await this.userRepository.getUserById(id, USER_FOR_UPDATE_FIELDS);
         if (!existingUser)
             throw new ResourceNotFoundError('User with id ' + id + ' does not exist.');
 
         if (userObj.password != null) {
-            if(userObj.confirmPassword == null){
-                throw new UnauthorizedError('Unable to authenticate you. Please enter the correct password.')
-            }
-            const match = await compare(userObj.confirmPassword, existingUser.passwordHash);
-            if(!match)
-                throw new UnauthorizedError('Unable to authenticate you. Please enter the correct password.')
+            if(!await compare(userObj.confirmPassword, existingUser.passwordHash))
+                throw new UnauthorizedError('Incorrect password.')
             if (!passwordValidator.validate(userObj.password)) {
                 throw new BadRequestError('Password must be at least 8 characters' +
                     ' and must include at least one digit.');
             }
-            const samePassword = await compare(userObj.password, existingUser.passwordHash);
-            if(samePassword)
-                throw new ResourceExistsError("Can't use previous password.");
+            if(await compare(userObj.password, existingUser.passwordHash))
+                throw new ConflictError('Can\'t use previous password.');
             user.passwordHash = await generateHash(userObj.password);
         }
         if (userObj.email != null) {
-            if(userObj.confirmPassword == null){
-                throw new UnauthorizedError('Unable to authenticate you. Please enter the correct password.')
-            }
-            const match = await compare(userObj.confirmPassword, existingUser.passwordHash);
-            if(!match)
+            if(!await compare(userObj.confirmPassword, existingUser.passwordHash))
                 throw new UnauthorizedError('Unable to authenticate you. Please enter the correct password.')
             if (await this.userRepository.getUserByEmail(userObj.email)) {
                 throw new ResourceExistsError("Email " + userObj.email + " already in use.");

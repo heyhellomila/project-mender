@@ -13,17 +13,19 @@ class ProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: "profilePage",
+            page: 'profilePage',
             user: props.user,
             firstName: props.user.firstName,
             lastName: props.user.lastName,
             email: props.user.email,
-            newEmail: null,
-            confirmEmail: null,
+            newEmail: '',
+            confirmEmail: '',
             phoneNumber: props.user.phoneNumber,
+            newPhoneNumber: '',
             currentPassword: null,
             newPassword: null,
             confirmPassword: null,
+            validConfirmPassword: true,
             validFirstName: true,
             validLastName: true,
             emailNotAlreadyUsed: true,
@@ -31,12 +33,14 @@ class ProfilePage extends Component {
             validEmailMatch: true,
             validAuth: true,
             validPhoneNumber: true,
+            phoneNumberNotAlreadyUsed: true,
             validPasswordMatch: true,
             validPassword: true,
             passwordNotAlreadyUsed: true,
             updated: false,
             loading: false,
             disableUpdateButton: true,
+            emptyField: false,
             navigation: this.props.navigation
         }
     }
@@ -56,28 +60,28 @@ class ProfilePage extends Component {
 
     goToChangeNamePage = () => {
         this.setState({
-            page: "changeNamePage",
+            page: 'changeNamePage',
             disableUpdateButton: true
         })
     };
 
     goToUpdateEmailPage = () => {
         this.setState({
-            page: "updateEmailPage",
+            page: 'updateEmailPage',
             disableUpdateButton: false
         })
     };
 
     goToUpdatePhoneNumberPage = () => {
         this.setState({
-            page: "updatePhoneNumberPage",
-            disableUpdateButton: true
+            page: 'updatePhoneNumberPage',
+            disableUpdateButton: false
         })
     };
 
     goToChangePasswordPage = () => {
         this.setState({
-            page: "passwordChangePage",
+            page: 'passwordChangePage',
             disableUpdateButton: false
         })
     };
@@ -85,7 +89,7 @@ class ProfilePage extends Component {
     goToProfilePage = () => {
         const {user} = this.state;
         this.setState({
-            page: "profilePage",
+            page: 'profilePage',
             validFirstName: true,
             validLastName: true,
             validEmail: true,
@@ -97,19 +101,23 @@ class ProfilePage extends Component {
             firstName: this.props.user.firstName,
             lastName: this.props.user.lastName,
             email: this.props.user.email,
-            newEmail: null,
-            confirmEmail: null,
+            newEmail: '',
+            confirmEmail: '',
             emailNotAlreadyUsed: true,
             phoneNumber: this.props.user.phoneNumber,
+            newPhoneNumber: '',
+            phoneNumberNotAlreadyUsed: true,
             currentPassword: null,
             newPassword: null,
             confirmPassword: null,
-            passwordNotAlreadyUsed: true
+            passwordNotAlreadyUsed: true,
+            validConfirmPassword: true,
+            emptyField: false
         })
     };
 
     getUpdatedFields = () => {
-        const {firstName, lastName, newEmail, phoneNumber, currentPassword, newPassword} = this.state;
+        const {firstName, lastName, newEmail, currentPassword, newPassword, newPhoneNumber} = this.state;
         let updatedUser = {};
         if (firstName !== this.props.user.firstName) {
             updatedUser.firstName = firstName
@@ -117,12 +125,12 @@ class ProfilePage extends Component {
         if (lastName !== this.props.user.lastName) {
             updatedUser.lastName = lastName
         }
-        if (newEmail !== null) {
+        if (newEmail !== '') {
             updatedUser.email = newEmail
             updatedUser.currentPassword = currentPassword
         }
-        if (phoneNumber !== this.props.user.phoneNumber) {
-            updatedUser.phoneNumber = phoneNumber
+        if (newPhoneNumber !== '') {
+            updatedUser.phoneNumber = newPhoneNumber
         }
         if (newPassword !== null) {
             updatedUser.password = newPassword
@@ -176,62 +184,64 @@ class ProfilePage extends Component {
         this.setState({confirmEmail: event})
     };
 
-    handleEmailChange = async () => {
-        const {newEmail, confirmEmail} = this.state;
+    handleEmailChange = () => {
+        const {newEmail, confirmEmail, currentPassword} = this.state;
         this.setState({
             disableUpdateButton: true,
             validEmailMatch: true,
             validEmail: true,
             validAuth: true,
+            validConfirmPassword: true,
             emailNotAlreadyUsed: true
         })
-        if (newEmail === null) {
+        if ( newEmail === '' || !validator.isEmail(newEmail)) {
             this.setState({
-                validEmail: false,
-                disableUpdateButton: false
+                validEmail: false
             });
-        } else if (!validator.isEmail(newEmail)) {
+        }if (newEmail !== confirmEmail || confirmEmail === '') {
             this.setState({
-                validEmail: false,
-                disableUpdateButton: false
+                validEmailMatch: false
             });
-        } else if (newEmail !== confirmEmail) {
+        }if(currentPassword === null || currentPassword === ''){
             this.setState({
-                validEmailMatch: false,
-                disableUpdateButton: false
+                validConfirmPassword: false
             });
-        } else {
+        }
+        if (newEmail !== '' && validator.isEmail(newEmail) && newEmail === confirmEmail && currentPassword !== null && currentPassword !== ''){
             this.handleUpdate();
+        }else{
+            this.setState({
+                disableUpdateButton: false
+            })
         }
     }
 
-    handlePhoneNumberChange = event => {
-        this.setState({phoneNumber: event}, async () => {
-            await this.handlePhoneNumberValidation().then(() => {
-                this.validatePhoneNumberFields();
-            });
-        })
+    handlePhoneNumber = event => {
+        this.setState({newPhoneNumber: event})
     };
 
-    handlePhoneNumberValidation = async () => {
-        const {phoneNumber} = this.state;
-        !validatePhoneNumber(phoneNumber)
-            ? this.setState(
-            {validPhoneNumber: false}
-            )
-            : this.setState({
-                validPhoneNumber: true
-            })
-    }
-
-    validatePhoneNumberFields = () => {
-        const {phoneNumber, validPhoneNumber} = this.state;
-        this.setState({disableUpdateButton: false})
-        if (phoneNumber === this.props.user.phoneNumber) {
-            this.setState({disableUpdateButton: true})
+    handlePhoneNumberChange = () => {
+        const {newPhoneNumber, validPhoneNumber} = this.state;
+        this.setState({
+            disableUpdateButton: true,
+            validPhoneNumber: true,
+            phoneNumberNotAlreadyUsed: true,
+            emptyField: false
+        })
+        if (newPhoneNumber === this.props.user.phoneNumber) {
+            this.setState({phoneNumberNotAlreadyUsed: false})
         }
-        if (!validPhoneNumber) {
-            this.setState({disableUpdateButton: true})
+        if(newPhoneNumber === ''){
+            this.setState({emptyField: true})
+        }else if(!validatePhoneNumber(newPhoneNumber)){
+            this.setState({validPhoneNumber: false})
+        }
+        if(newPhoneNumber !== this.props.user.phoneNumber && newPhoneNumber !== '' && validatePhoneNumber(newPhoneNumber)){
+            this.handleUpdate();
+        }else{
+            this.setState({
+                disableUpdateButton: false
+            })
         }
     }
 
@@ -248,20 +258,29 @@ class ProfilePage extends Component {
     };
 
     handlePasswordChange = () => {
-        const {newPassword, confirmPassword} = this.state;
-        this.setState({validPasswordMatch: true, validPassword: true, passwordNotAlreadyUsed: true})
+        const {newPassword, confirmPassword, currentPassword} = this.state;
+        this.setState({validConfirmPassword: true, validPasswordMatch: true, validPassword: true, passwordNotAlreadyUsed: true, validAuth: true})
         if (!passwordValidator.validate(newPassword)) {
             this.setState({
-                validPassword: false,
-                disableUpdateButton: false
+                validPassword: false
             });
-        } else if (newPassword !== confirmPassword) {
+        }
+        if (newPassword !== confirmPassword || confirmPassword === null) {
             this.setState({
-                validPasswordMatch: false,
-                disableUpdateButton: false
+                validPasswordMatch: false
             });
-        } else {
+        }
+        if(currentPassword === null || currentPassword === ''){
+            this.setState({
+                validConfirmPassword: false
+            });
+        }
+        if (passwordValidator.validate(newPassword) && newPassword === confirmPassword && currentPassword !== null && currentPassword !== ''){
             this.handleUpdate();
+        }else{
+            this.setState({
+                disableUpdateButton: false
+            })
         }
     };
 
@@ -274,19 +293,19 @@ class ProfilePage extends Component {
                     this.props.reloadUserProfile(true, user);
                 });
         } catch (err) {
-            if (err.message === "401") {
+            alert(err.message)
+            if (err.message === '401') {
                 this.setState({
                     validAuth: false,
                     disableUpdateButton: false
                 })
-            } else if (err.message === "409") {
+            } else if (err.message === '409') {
                 this.setState({
                     emailNotAlreadyUsed: false,
                     passwordNotAlreadyUsed: false,
                     disableUpdateButton: false
                 })
             }
-
         }
     };
 
@@ -312,6 +331,7 @@ class ProfilePage extends Component {
                 handleNewEmail={this.handleNewEmail}
                 handleConfirmEmail={this.handleConfirmEmail}
                 handleEmailChange={this.handleEmailChange}
+                handlePhoneNumber={this.handlePhoneNumber}
                 handlePhoneNumberChange={this.handlePhoneNumberChange}
                 handleCurrentPassword={this.handleCurrentPassword}
                 handleNewPasswordChange={this.handleNewPasswordChange}

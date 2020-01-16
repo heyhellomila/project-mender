@@ -61,7 +61,7 @@ const UserFields : FindOptions<User> = {
     },
 };
 
-const UserForUpdateFields : FindOptions<User> = {
+const USER_FOR_UPDATE_FIELDS : FindOptions<User> = {
     select: {
         passwordHash: true
     },
@@ -180,5 +180,5 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
-export { PropertyFields, UserFields, UserForUpdateFields, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
+export { PropertyFields, UserFields, USER_FOR_UPDATE_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
     WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS };

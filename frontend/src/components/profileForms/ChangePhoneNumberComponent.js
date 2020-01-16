@@ -13,22 +13,31 @@ const ChangePhoneNumberComponent = (props) => {
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
                         <View style={changeProfileComponentStyles.changeProfileInputComponent}>
                             <Text style={changeProfileComponentStyles.changeProfileTextAlignSelf}>Phone Number</Text>
-                            <TextInput style={props.validPhoneNumber
+                            <TextInput style={props.validPhoneNumber && props.phoneNumberNotAlreadyUsed && !props.emptyField
                                 ? textInputStyles.textInput
                                 : textInputStyles.invalidTextInput}
-                                       onChangeText={text => props.handlePhoneNumberChange(text)}/>
+                                       onChangeText={text => props.handlePhoneNumber(text)}/>
                         </View>
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
+                        {!props.validPhoneNumber &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Invalid phone number.</Text>
+                        }
+                        {!props.phoneNumberNotAlreadyUsed &&
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Phone numer already in use.</Text>
+                        }
+                        {props.emptyField &&
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Field can't be empty.</Text>
+                        }
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
                             <TouchableOpacity style={props.disableUpdateButton ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
                                               disabled={props.disableUpdateButton}
-                                              onPress={() => props.handleUpdate()}><Text>Confirm</Text></TouchableOpacity>
+                                              onPress={() => props.handlePhoneNumberChange()}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
-                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text style={changeProfileComponentStyles.changeProfileUnderLineText}>Back</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>
                     </View>
                 </View>

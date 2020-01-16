@@ -5,13 +5,13 @@ const containerStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF'
+        backgroundColor: 'white'
     },
     container:{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'white',
         width: '100%'
     },
     profilePageContainer:{
@@ -29,9 +29,8 @@ const containerStyles = StyleSheet.create({
 const profilePageStyles = StyleSheet.create({
     profilePageRows:{
         flex: 0.3,
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: 1,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
         justifyContent: 'center'
     },
     profilePageInsideRows:{
@@ -39,6 +38,20 @@ const profilePageStyles = StyleSheet.create({
         justifyContent:'space-between',
         paddingLeft: '3%',
         paddingRight: '3%'
+    },
+    profilePageHeader:{
+        flex: 0.5, 
+        width: '75%', 
+        justifyContent: 'center', 
+        borderBottomColor: 'black', 
+        borderBottomWidth: 2
+    },
+    profilePageMainViews:{
+        flex: 5, 
+        width: '100%'
+    },
+    profilePageBoldText:{
+      fontWeight: 'bold'
     },
     profilePageJustifyContentStart:{
         justifyContent: 'flex-start'
@@ -48,6 +61,10 @@ const profilePageStyles = StyleSheet.create({
     },
     profilePageUnderlineText:{
         textDecorationLine: 'underline'
+    },
+    profilePageButtonText:{
+        textDecorationLine: 'underline',
+        fontWeight: 'bold'
     },
     profilePageBackHome:{
         flex: 2, 
@@ -91,6 +108,10 @@ const changeProfileComponentStyles = StyleSheet.create({
     },
     changeProfileBottomNormalRow:{
         flex: 2
+    },
+    changeProfileButtonText:{
+        textDecorationLine: 'underline',
+        fontWeight: 'bold'
     }
 })
 
@@ -171,9 +192,11 @@ const buttonStyles = StyleSheet.create({
 const imageStyles = StyleSheet.create({
     imageView:{
         flex: 1.5,
-        width: '100%', 
+        width: '90%',
         justifyContent: 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1
     },
     profileImage:{
         width: 75, 

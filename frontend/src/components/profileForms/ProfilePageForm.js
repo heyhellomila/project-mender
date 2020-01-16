@@ -7,17 +7,17 @@ import ChangePasswordComponent from '../../components/profileForms/ChangePasswor
 import ChangeEmailComponent from '../../components/profileForms/ChangeEmailComponent';
 import ChangePhoneNumberComponent from '../../components/profileForms/ChangePhoneNumberComponent';
 import Header from '../../components/profileForms/Header';
-import {titleStyles, containerStyles} from '../../stylesheets/ProfilePageStylesheet';
+import {titleStyles, containerStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ProfilePageForm = (props) => {
     return (
         <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false}
                                  resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
                                  contentContainerStyle={containerStyles.mainContainer}>
-            <View style={{flex: 0.5, width: '50%', justifyContent: 'center', borderBottomColor: 'black', borderBottomWidth: 2,}}>
+            <View style={profilePageStyles.profilePageHeader}>
                 <Header style page={props.page}/>
             </View>
-            <View style={{flex: 5, width: '100%'}}>
+            <View style={profilePageStyles.profilePageMainViews}>
                 {props.page === "profilePage" &&
                 <ProfilePageComponent {...props} />}
                 {props.page === "changeNamePage" &&

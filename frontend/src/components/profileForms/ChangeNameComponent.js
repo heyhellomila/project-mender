@@ -36,6 +36,9 @@ const ChangeNameComponent = (props) => {
                         </View>
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
+                        {(!props.validFirstName || !props.validLastName) &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Field can't be empty</Text>
+                        }
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
@@ -46,7 +49,7 @@ const ChangeNameComponent = (props) => {
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
                             <TouchableOpacity onPress={() => props.goToProfilePage()}><Text
-                                style={changeProfileComponentStyles.changeProfileUnderLineText}>Back</Text></TouchableOpacity>
+                                style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>
                     </View>
                 </View>

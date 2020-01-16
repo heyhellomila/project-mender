@@ -8,9 +8,11 @@ const ChangePasswordComponent = (props) => {
             <View style={containerStyles.changeComponentContainer}>
                 <View style={changeProfileComponentStyles.changeProfileInsideComponent}>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
+                    </View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
                         <View style={changeProfileComponentStyles.changeProfileInputComponent}>
                             <Text style={changeProfileComponentStyles.changeProfileTextAlignSelf}>Current Password</Text>
-                            <TextInput style={props.validAuth
+                            <TextInput style={props.validAuth && props.validConfirmPassword
                                 ? textInputStyles.textInput
                                 : textInputStyles.invalidTextInput}
                                        secureTextEntry={true}
@@ -30,26 +32,31 @@ const ChangePasswordComponent = (props) => {
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
                         <View style={changeProfileComponentStyles.changeProfileInputComponent}>
                             <Text style={changeProfileComponentStyles.changeProfileTextAlignSelf}>Re-Enter New Password</Text>
-                            <TextInput style={props.validEmailMatch
+                            <TextInput style={props.validPasswordMatch
                                 ? textInputStyles.textInput
                                 : textInputStyles.invalidTextInput}
-                                       onChangeText={text => props.handleConfirmEmail(text)}/>
+                                       secureTextEntry={true}
+                                       onChangeText={text => props.handleConfirmPasswordChange(text)}/>
                         </View>
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
+                        {!props.validAuth &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Incorrect password.</Text>
+                        }
+                        {!props.validConfirmPassword &&
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Current password can't be empty.</Text>
+                        }
                         {!props.validPasswordMatch &&
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Passwords must match.</Text>
                         }
                         {!props.validPassword &&
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
                         }
-                        {!props.validAuth &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Please enter correct password.</Text>
-                        }
                         {!props.passwordNotAlreadyUsed &&
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Can't use same as previous password.</Text>
                         }
                     </View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}></View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
                             <TouchableOpacity style={props.disableUpdateButton ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
@@ -57,7 +64,7 @@ const ChangePasswordComponent = (props) => {
                                               onPress={() => props.handlePasswordChange()}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
-                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text style={{textDecorationLine:'underline'}}>Back</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>
                     </View>
                 </View>
