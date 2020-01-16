@@ -19,15 +19,6 @@ class UserService {
     private userRepository: UserRepository = new UserRepository();
     private userTypeService: UserTypeService = new UserTypeService();
 
-    async userExists(id: number) {
-        const user: User = await this.userRepository.getUserById(id);
-        if (!user) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     async register(user: User, password: string) {
 
         if (!passwordValidator.validate(password)) {

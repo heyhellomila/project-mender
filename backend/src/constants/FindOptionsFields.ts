@@ -5,7 +5,7 @@ import { WorkOrder } from '../entities/WorkOrder';
 import { PropertySector } from '../entities/PropertySector';
 import { ShoppingItem } from 'src/entities/ShoppingItem';
 
-const PropertyFields : FindOptions<Property> = {
+const PROPERTY_FIELDS : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
     select: {
         id: true,
@@ -185,5 +185,6 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
-export { PropertyFields, UserFields, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS };
+export { PROPERTY_FIELDS, UserFields, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
+    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
+    PROPERTY_SECTOR_FIELDS };
