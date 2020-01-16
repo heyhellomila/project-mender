@@ -42,13 +42,13 @@ const ChangeNameComponent = (props) => {
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
                             <TouchableOpacity
-                                style={props.disableUpdateButton ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
-                                disabled={props.disableUpdateButton}
+                                style={((props.submitting && props.validateNameFields()) || !props.validateNameFields()) ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
+                                disabled={props.submitting || !props.validateNameFields()}
                                 onPress={() => props.handleUpdate()}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
                             <TouchableOpacity
-                                disabled={props.disableBackButton}
+                                disabled={props.submitting}
                                 onPress={() => props.goToProfilePage()}><Text
                                 style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>

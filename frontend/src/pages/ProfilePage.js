@@ -39,10 +39,9 @@ class ProfilePage extends Component {
             passwordNotAlreadyUsed: true,
             updated: false,
             loading: false,
-            disableUpdateButton: true,
+            submitting: false,
             emptyField: false,
-            navigation: this.props.navigation,
-            disableBackButton: false
+            navigation: this.props.navigation
         }
     }
 
@@ -60,34 +59,31 @@ class ProfilePage extends Component {
     };
 
     goToChangeNamePage = () => {
+        this.validateNameFields();
         this.setState({
             page: 'changeNamePage',
-            disableUpdateButton: true,
-            disableBackButton: false
+            submitting: false
         })
     };
 
     goToUpdateEmailPage = () => {
         this.setState({
             page: 'updateEmailPage',
-            disableUpdateButton: false,
-            disableBackButton: false
+            submitting: false
         })
     };
 
     goToUpdatePhoneNumberPage = () => {
         this.setState({
             page: 'updatePhoneNumberPage',
-            disableUpdateButton: false,
-            disableBackButton: false
+            submitting: false
         })
     };
 
     goToChangePasswordPage = () => {
         this.setState({
             page: 'passwordChangePage',
-            disableUpdateButton: false,
-            disableBackButton: false
+            submitting: false
         })
     };
 
@@ -117,8 +113,7 @@ class ProfilePage extends Component {
             confirmPassword: null,
             passwordNotAlreadyUsed: true,
             validConfirmPassword: true,
-            emptyField: false,
-            disableBackButton: false
+            emptyField: false
         })
     };
 
@@ -173,12 +168,12 @@ class ProfilePage extends Component {
 
     validateNameFields = () => {
         const {firstName, lastName, validFirstName, validLastName} = this.state;
-        this.setState({disableUpdateButton: false})
         if (firstName === this.props.user.firstName && lastName === this.props.user.lastName) {
-            this.setState({disableUpdateButton: true})
-        }
-        if (!validFirstName || !validLastName) {
-            this.setState({disableUpdateButton: true})
+            return false
+        }else if (!validFirstName || !validLastName) {
+            return false
+        }else{
+            return true
         }
     }
 
@@ -193,7 +188,7 @@ class ProfilePage extends Component {
     handleEmailChange = () => {
         const {newEmail, confirmEmail, currentPassword} = this.state;
         this.setState({
-            disableUpdateButton: true,
+            submitting: true,
             validEmailMatch: true,
             validEmail: true,
             validAuth: true,
@@ -217,7 +212,7 @@ class ProfilePage extends Component {
             this.handleUpdate();
         }else{
             this.setState({
-                disableUpdateButton: false
+                submitting: false
             })
         }
     }
@@ -229,7 +224,7 @@ class ProfilePage extends Component {
     handlePhoneNumberChange = () => {
         const {newPhoneNumber, validPhoneNumber} = this.state;
         this.setState({
-            disableUpdateButton: true,
+            submitting: true,
             validPhoneNumber: true,
             phoneNumberNotAlreadyUsed: true,
             emptyField: false
@@ -246,7 +241,7 @@ class ProfilePage extends Component {
             this.handleUpdate();
         }else{
             this.setState({
-                disableUpdateButton: false
+                submitting: false
             })
         }
     }
@@ -285,15 +280,14 @@ class ProfilePage extends Component {
             this.handleUpdate();
         }else{
             this.setState({
-                disableUpdateButton: false
+                submitting: false
             })
         }
     };
 
     handleUpdate = async () => {
         const {user} = this.state;
-        this.setState({disableUpdateButton: true,
-            disableBackButton: true})
+        this.setState({submitting: true})
         try {
             await updateUser(user.id, this.getUpdatedFields())
                 .then(() => {
@@ -303,15 +297,13 @@ class ProfilePage extends Component {
             if (err.message === '401') {
                 this.setState({
                     validAuth: false,
-                    disableUpdateButton: false,
-                    disableBackButton: false
+                    submitting: false
                 })
             } else if (err.message === '409') {
                 this.setState({
                     emailNotAlreadyUsed: false,
                     passwordNotAlreadyUsed: false,
-                    disableUpdateButton: false,
-                    disableBackButton: false
+                    submitting: false
                 })
             }
         }
@@ -351,6 +343,7 @@ class ProfilePage extends Component {
                 goToChangePasswordPage={this.goToChangePasswordPage}
                 goToProfilePage={this.goToProfilePage}
                 goToHomePage={this.goToHomePage}
+                validateNameFields={this.validateNameFields}
             />
         );
     }

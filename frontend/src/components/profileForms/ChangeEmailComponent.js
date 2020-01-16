@@ -58,13 +58,13 @@ const ChangeEmailComponent = (props) => {
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}></View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
-                            <TouchableOpacity style={props.disableUpdateButton ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
-                                              disabled={props.disableUpdateButton}
+                            <TouchableOpacity style={props.submitting ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
+                                              disabled={props.submitting}
                                               onPress={() => props.handleEmailChange()}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
                             <TouchableOpacity
-                                disabled={props.disableBackButton}
+                                disabled={props.submitting}
                                 onPress={() => props.goToProfilePage()}><Text style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>
                     </View>
