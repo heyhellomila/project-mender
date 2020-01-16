@@ -6,6 +6,6 @@ export class BusinessUserRole {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({name: 'type'})
     role: string
 }
