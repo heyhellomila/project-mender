@@ -36,7 +36,7 @@ const ChangeNameComponent = (props) => {
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
                         {(!props.validFirstName || !props.validLastName) &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Field can't be empty</Text>
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Field can't be empty.</Text>
                         }
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>

@@ -24,7 +24,7 @@ const ChangePhoneNumberComponent = (props) => {
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Invalid phone number.</Text>
                         }
                         {!props.phoneNumberNotAlreadyUsed &&
-                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Phone numer already in use.</Text>
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Phone number already in use.</Text>
                         }
                         {props.emptyField &&
                             <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Field can't be empty.</Text>

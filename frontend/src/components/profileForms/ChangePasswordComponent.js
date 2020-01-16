@@ -53,7 +53,7 @@ const ChangePasswordComponent = (props) => {
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Password must be at least 8 characters, and must include at least one number and at least one letter.</Text>
                         }
                         {!props.passwordNotAlreadyUsed &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Can't use same as previous password.</Text>
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Can't use previous password as the new password.</Text>
                         }
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}></View>

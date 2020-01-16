@@ -43,16 +43,16 @@ const ChangeEmailComponent = (props) => {
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Emails must match.</Text>
                         }
                         {!props.validEmail &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Please enter a valid email</Text>
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Please enter a valid email.</Text>
                         }
                         {!props.validAuth &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Incorrect password</Text>
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Incorrect password.</Text>
                         }
                         {!props.validConfirmPassword &&
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Password can't be empty.</Text>
                         }
                         {!props.emailNotAlreadyUsed &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Email already in use</Text>
+                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Email already in use.</Text>
                         }
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}></View>
