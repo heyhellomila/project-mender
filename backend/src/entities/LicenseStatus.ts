@@ -6,6 +6,6 @@ export class LicenseStatus {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({name: 'type'})
     status: string;
 }

@@ -113,8 +113,6 @@ class LicenseService {
         //     throw new BadRequestError("License status cannot be found.")
         // }
 
-        //Some error occurs here: 500 Internal Server Error but no error message shows in postman nor does backend show any error in terminal
-        license.licenseStatus.status = LicenseStatusEnum.ACTIVE;
         license.licenseStatus = await this.licenseStatusService.getLicenseStatus(LicenseStatusEnum.ACTIVE as string);
 
         try {
