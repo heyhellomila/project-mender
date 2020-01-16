@@ -7,6 +7,11 @@ class SectorService {
 
     private sectorRepository : SectorRepository = new SectorRepository();
 
+    constructor(sectorRepository?: SectorRepository) {
+        this.sectorRepository = sectorRepository
+            ? sectorRepository : new SectorRepository();
+    }
+
     async getSectorByKind(kind: string) {
         const sector: Sector = await this.sectorRepository.getSectorByKind(kind);
         if (!sector) {
