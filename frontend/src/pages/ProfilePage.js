@@ -41,7 +41,8 @@ class ProfilePage extends Component {
             loading: false,
             disableUpdateButton: true,
             emptyField: false,
-            navigation: this.props.navigation
+            navigation: this.props.navigation,
+            disableBackButton: false
         }
     }
 
@@ -61,28 +62,32 @@ class ProfilePage extends Component {
     goToChangeNamePage = () => {
         this.setState({
             page: 'changeNamePage',
-            disableUpdateButton: true
+            disableUpdateButton: true,
+            disableBackButton: false
         })
     };
 
     goToUpdateEmailPage = () => {
         this.setState({
             page: 'updateEmailPage',
-            disableUpdateButton: false
+            disableUpdateButton: false,
+            disableBackButton: false
         })
     };
 
     goToUpdatePhoneNumberPage = () => {
         this.setState({
             page: 'updatePhoneNumberPage',
-            disableUpdateButton: false
+            disableUpdateButton: false,
+            disableBackButton: false
         })
     };
 
     goToChangePasswordPage = () => {
         this.setState({
             page: 'passwordChangePage',
-            disableUpdateButton: false
+            disableUpdateButton: false,
+            disableBackButton: false
         })
     };
 
@@ -112,7 +117,8 @@ class ProfilePage extends Component {
             confirmPassword: null,
             passwordNotAlreadyUsed: true,
             validConfirmPassword: true,
-            emptyField: false
+            emptyField: false,
+            disableBackButton: false
         })
     };
 
@@ -286,24 +292,26 @@ class ProfilePage extends Component {
 
     handleUpdate = async () => {
         const {user} = this.state;
-        this.setState({disableUpdateButton: true})
+        this.setState({disableUpdateButton: true,
+            disableBackButton: true})
         try {
             await updateUser(user.id, this.getUpdatedFields())
                 .then(() => {
                     this.props.reloadUserProfile(true, user);
                 });
         } catch (err) {
-            alert(err.message)
             if (err.message === '401') {
                 this.setState({
                     validAuth: false,
-                    disableUpdateButton: false
+                    disableUpdateButton: false,
+                    disableBackButton: false
                 })
             } else if (err.message === '409') {
                 this.setState({
                     emailNotAlreadyUsed: false,
                     passwordNotAlreadyUsed: false,
-                    disableUpdateButton: false
+                    disableUpdateButton: false,
+                    disableBackButton: false
                 })
             }
         }

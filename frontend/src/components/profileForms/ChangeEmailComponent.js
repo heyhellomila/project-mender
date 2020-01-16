@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
-import {titleStyles, textInputStyles, buttonStyles, containerStyles, changeProfileComponentStyles} from '../../stylesheets/ProfilePageStylesheet';
+import {StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import { textInputStyles, buttonStyles, containerStyles, changeProfileComponentStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ChangeEmailComponent = (props) => {
     return (
@@ -63,7 +63,9 @@ const ChangeEmailComponent = (props) => {
                                               onPress={() => props.handleEmailChange()}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
-                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
+                            <TouchableOpacity
+                                disabled={props.disableBackButton}
+                                onPress={() => props.goToProfilePage()}><Text style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>
                     </View>
                 </View>

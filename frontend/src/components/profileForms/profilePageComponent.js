@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Platform, StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button} from 'react-native';
 import {buttonStyles, containerStyles, imageStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const profilePicture = require('../../../assets/profileMender.png');

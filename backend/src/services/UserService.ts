@@ -70,26 +70,33 @@ class UserService {
         return user;
     }
 
+    private async confirmPassword(confirmPassword: string, passwordHash: string) {
+        if(!await compare(confirmPassword, passwordHash))
+        {
+            throw new UnauthorizedError('Incorrect password.')
+        }
+    }
+
     async updateUserById(id: number, userObj: any) {
         var user: User = new User();
         const existingUser: User = await this.userRepository.getUserById(id, USER_FOR_UPDATE_FIELDS);
-        if (!existingUser)
+        if (!existingUser) {
             throw new ResourceNotFoundError('User with id ' + id + ' does not exist.');
+        }
 
         if (userObj.password != null) {
-            if(!await compare(userObj.confirmPassword, existingUser.passwordHash))
-                throw new UnauthorizedError('Incorrect password.')
+            await this.confirmPassword(userObj.confirmPassword, existingUser.passwordHash);
             if (!passwordValidator.validate(userObj.password)) {
                 throw new BadRequestError('Password must be at least 8 characters' +
                     ' and must include at least one digit.');
             }
-            if(await compare(userObj.password, existingUser.passwordHash))
+            if(await compare(userObj.password, existingUser.passwordHash)) {
                 throw new ConflictError('Can\'t use previous password.');
+            }
             user.passwordHash = await generateHash(userObj.password);
         }
         if (userObj.email != null) {
-            if(!await compare(userObj.confirmPassword, existingUser.passwordHash))
-                throw new UnauthorizedError('Unable to authenticate you. Please enter the correct password.')
+            await this.confirmPassword(userObj.confirmPassword, existingUser.passwordHash);
             if (await this.userRepository.getUserByEmail(userObj.email)) {
                 throw new ResourceExistsError("Email " + userObj.email + " already in use.");
             }

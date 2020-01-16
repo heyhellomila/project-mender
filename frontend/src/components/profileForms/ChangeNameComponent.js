@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity} from 'react-native';
 import {
-    titleStyles,
     textInputStyles,
     buttonStyles,
     containerStyles,
@@ -48,7 +47,9 @@ const ChangeNameComponent = (props) => {
                                 onPress={() => props.handleUpdate()}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
-                            <TouchableOpacity onPress={() => props.goToProfilePage()}><Text
+                            <TouchableOpacity
+                                disabled={props.disableBackButton}
+                                onPress={() => props.goToProfilePage()}><Text
                                 style={changeProfileComponentStyles.changeProfileButtonText}>BACK</Text></TouchableOpacity>
                         </View>
                     </View>

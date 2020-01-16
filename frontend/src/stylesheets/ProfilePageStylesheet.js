@@ -74,7 +74,7 @@ const profilePageStyles = StyleSheet.create({
 
 const changeProfileComponentStyles = StyleSheet.create({
     changeProfileInsideComponent:{
-        flex: 3, 
+        flex: 4,
         width: '90%'  
     },
     changeProfileInsideComponentRows:{
@@ -107,7 +107,7 @@ const changeProfileComponentStyles = StyleSheet.create({
         paddingTop: '10%'
     },
     changeProfileBottomNormalRow:{
-        flex: 2
+        flex: 1
     },
     changeProfileButtonText:{
         textDecorationLine: 'underline',
