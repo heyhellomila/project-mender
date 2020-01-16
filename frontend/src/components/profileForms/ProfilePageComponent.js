@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button} from 'react-native';
 import {buttonStyles, containerStyles, imageStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
 
