@@ -1,7 +1,7 @@
-import { UserTypeDTO } from "./UserTypeDTO";
+import { UserTypeDTO } from './UserTypeDTO';
 
 export class UserDTO {
-    
+
     id: number;
     email: string;
     password: string;
