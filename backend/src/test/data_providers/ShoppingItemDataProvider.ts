@@ -1,0 +1,18 @@
+import { WorkOrder } from '../../entities/WorkOrder';
+import { ShoppingItem } from '../../entities/ShoppingItem';
+
+class ShoppingItemDataProvider {
+
+    static getShoppingItem(id: number, name: string) : ShoppingItem {
+        const shoppingItem : ShoppingItem = new ShoppingItem();
+        shoppingItem.id = id;
+        shoppingItem.name = name;
+        shoppingItem.bought = false;
+        shoppingItem.price = 999;
+        shoppingItem.quantity = 1;
+        shoppingItem.workOrder = null;
+        return shoppingItem;
+    }
+}
+
+export { ShoppingItemDataProvider };

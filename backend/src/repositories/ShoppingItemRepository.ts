@@ -6,22 +6,26 @@ import { WorkOrder } from '../entities/WorkOrder';
 class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
 
     async getShoppingItemById(id: number, fieldOptions?: FindOptions<ShoppingItem>) {
-        const shoppingItem = await this.getRepositoryConnection(ShoppingItem).findOne(id, fieldOptions);
+        const shoppingItem = await this.getRepositoryConnection(ShoppingItem)
+            .findOne(id, fieldOptions);
         return shoppingItem;
     }
 
-    async getShoppingItemsByWorkOrder(workOrder: WorkOrder,fieldOptions?: FindOptions<ShoppingItem> ){
-        fieldOptions
-            ? fieldOptions.where = {workOrder: workOrder}
-            : fieldOptions = { where: {workOrder: workOrder} };
-        const shoppingItems = await this.getRepositoryConnection(ShoppingItem).find(fieldOptions);
+    async getShoppingItemsByWorkOrder(workOrder: WorkOrder,
+                                      fieldOptions?: FindOptions<ShoppingItem>) {
+        let fieldOptionsR = fieldOptions;
+        fieldOptionsR
+            ? fieldOptionsR.where = { workOrder }
+            : fieldOptionsR = { where: { workOrder } };
+        const shoppingItems = await this.getRepositoryConnection(ShoppingItem)
+            .find(fieldOptionsR);
         return shoppingItems;
     }
 
-    async createShoppingItem(shoppingItem: ShoppingItem){
-            const savedShoppingItem : ShoppingItem = await this.getRepositoryConnection(
+    async createShoppingItem(shoppingItem: ShoppingItem) {
+        const savedShoppingItem : ShoppingItem = await this.getRepositoryConnection(
                 ShoppingItem).save(shoppingItem);
-            return savedShoppingItem;
+        return savedShoppingItem;
     }
 
     async deleteShoppingItem(id: number) {
@@ -29,7 +33,7 @@ class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
     }
 
     async updateShoppingItemById(id:number, shoppingItem:ShoppingItem) {
-        await this.getRepositoryConnection(ShoppingItem).update({id: id}, shoppingItem);
+        await this.getRepositoryConnection(ShoppingItem).update({ id }, shoppingItem);
     }
 }
 
