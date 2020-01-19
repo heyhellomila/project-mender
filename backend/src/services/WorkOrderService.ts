@@ -22,6 +22,7 @@ class WorkOrderService {
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
+    private radix = 10;
 
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
 
@@ -40,7 +41,7 @@ class WorkOrderService {
             .getPriorityType(workOrder.priorityType.type);
         workOrder.workOrderType = await this.workOrderTypeService
             .getWorkOrderType(workOrder.workOrderType.type);
-         
+
         workOrder.property = property;
         workOrder.createdBy = createdBy;
 
@@ -49,9 +50,11 @@ class WorkOrderService {
         }
 
         if (!(workOrder.workOrderStatus)) {
-            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(WorkOrderStatus.OPEN_FOR_QUOTE);
+            workOrder.workOrderStatus = await this.workOrderStatusService.
+                getWorkOrderStatus(WorkOrderStatus.OPEN_FOR_QUOTE);
         } else {
-            workOrder.workOrderStatus = await this.workOrderStatusService.getWorkOrderStatus(workOrder.workOrderStatus.status);
+            workOrder.workOrderStatus = await this.workOrderStatusService.
+                getWorkOrderStatus(workOrder.workOrderStatus.status);
         }
 
         try {
@@ -77,98 +80,135 @@ class WorkOrderService {
     async getWorkOrders(queryMap: Map<string, string>) {
         let ordering = OrderingByType.ASC;
         if (!queryMap.get(WorkOrderQuery.PAGESIZE) || !queryMap.get(WorkOrderQuery.PAGENUMBER)) {
-            throw new BadRequestError("Missing required parameter. Required parameters: [pageSize, pageNumber]");
+            throw new BadRequestError('Missing required parameter. Required parameters: [pageSize, pageNumber]');
         }
-        if(parseInt(queryMap.get(WorkOrderQuery.PAGESIZE)) < 1 || parseInt(queryMap.get(WorkOrderQuery.PAGESIZE)) > 10){
-            throw new BadRequestError("pageSize parameter must be at least 1 and no greater than 10")
+        if (parseInt(queryMap.get(WorkOrderQuery.PAGESIZE), this.radix) < 1
+            || parseInt(queryMap.get(WorkOrderQuery.PAGESIZE), this.radix) > 10) {
+            // tslint:disable-next-line:max-line-length
+            throw new BadRequestError('pageSize parameter must be at least 1 and no greater than 10');
         }
-        if (queryMap.get(WorkOrderQuery.ORDERING) == "DESC") {
-            ordering = OrderingByType.DESC
+        if (queryMap.get(WorkOrderQuery.ORDERING) === 'DESC') {
+            ordering = OrderingByType.DESC;
         }
 
-        let pageNumber = parseInt(queryMap.get(WorkOrderQuery.PAGENUMBER))
-        let pageSize = parseInt(queryMap.get(WorkOrderQuery.PAGESIZE))
-        let searchTerm = queryMap.get(WorkOrderQuery.SEARCHTERM)
-        let workOrderSort = this.getWorkOrderSort(queryMap);
-        let filterQueries = this.getFilterQueries(queryMap);
+        const pageNumber = parseInt(queryMap.get(WorkOrderQuery.PAGENUMBER), this.radix);
+        const pageSize = parseInt(queryMap.get(WorkOrderQuery.PAGESIZE), this.radix);
+        const searchTerm = queryMap.get(WorkOrderQuery.SEARCHTERM);
+        const workOrderSort = this.getWorkOrderSort(queryMap);
+        const filterQueries = this.getFilterQueries(queryMap);
 
-       
-        return await this.workOrderRepository.getWorkOrders(filterQueries, pageNumber, pageSize, searchTerm, workOrderSort, ordering);
+        return await this.workOrderRepository.
+            getWorkOrders(filterQueries, pageNumber, pageSize, searchTerm, workOrderSort, ordering);
     }
 
-    private getWorkOrderSort(queryMap: Map<string, string>){
-        let workOrderSortMapper = new Map();
-        workOrderSortMapper.set(WorkOrderQuery.ID, "work_orders.id")
-        workOrderSortMapper.set(WorkOrderQuery.DUEDATE, "work_orders.dueDate")
-        workOrderSortMapper.set(WorkOrderQuery.CREATEDDATE, "work_orders.createdDate")
-        workOrderSortMapper.set(WorkOrderQuery.PRICEESTIMATE, "work_orders.priceEstimate")
-        workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, "work_orders.priorityType")
-        workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, "work_orders.workOrderType")
-        workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, "sector.type")
-        workOrderSortMapper.set(WorkOrderQuery.WORKORDERSTATUS, "work_orders.workOrderStatus")
+    private getWorkOrderSort(queryMap: Map<string, string>) {
+        const workOrderSortMapper = new Map();
+        workOrderSortMapper.set(WorkOrderQuery.ID, 'work_orders.id');
+        workOrderSortMapper.set(WorkOrderQuery.DUEDATE, 'work_orders.dueDate');
+        workOrderSortMapper.set(WorkOrderQuery.CREATEDDATE, 'work_orders.createdDate');
+        workOrderSortMapper.set(WorkOrderQuery.PRICEESTIMATE, 'work_orders.priceEstimate');
+        workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, 'work_orders.priorityType');
+        workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, 'work_orders.workOrderType');
+        workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, 'sector.type');
+        workOrderSortMapper.set(WorkOrderQuery.WORKORDERSTATUS, 'work_orders.workOrderStatus');
 
-        if(queryMap.get(WorkOrderQuery.SORTBY) != null && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))){
-            throw new BadRequestError(queryMap.get(WorkOrderQuery.SORTBY) + " is an invalid parameter for sorting. Accepted sorting parameters are: [" + Array.from(workOrderSortMapper.keys()) + "]")
+        if (queryMap.get(WorkOrderQuery.SORTBY) != null
+            && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))) {
+            throw new BadRequestError(`${queryMap.get(WorkOrderQuery.SORTBY)} is an invalid parameter for sorting. Accepted sorting parameters are: [' ${Array.from(workOrderSortMapper.keys())}]`);
         }
 
-        return workOrderSortMapper.get(queryMap.get(WorkOrderQuery.SORTBY))
+        return workOrderSortMapper.get(queryMap.get(WorkOrderQuery.SORTBY));
     }
 
     private getFilterQueries(queryMap: Map<string, string>) {
         let filterQueries = '';
-        
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'property', '=', queryMap.get(WorkOrderQuery.PROPERTYID));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'property', '=',
+                                     queryMap.get(WorkOrderQuery.PROPERTYID));
         }
         if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
-            this.createSQLFilterQuery(filterQueries, 'sector','type', '=', `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'sector',
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
-            this.createSQLFilterQuery(filterQueries, 'sector', 'kind', '=', `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'sector',
+                                     'kind', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'workOrderType','=', queryMap.get(WorkOrderQuery.WORKORDERTYPE));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'workOrderType', '=',
+                                     queryMap.get(WorkOrderQuery.WORKORDERTYPE));
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'serviceNeeded', '=', queryMap.get(WorkOrderQuery.SERVICENEEDED));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'serviceNeeded', '=',
+                                     queryMap.get(WorkOrderQuery.SERVICENEEDED));
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'priorityType', '=', queryMap.get(WorkOrderQuery.PRIORITYTYPE));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'priorityType', '=',
+                                     queryMap.get(WorkOrderQuery.PRIORITYTYPE));
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'priceEstimate', '=', queryMap.get(WorkOrderQuery.PRICEESTIMATE));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'priceEstimate', '=',
+                                     queryMap.get(WorkOrderQuery.PRICEESTIMATE));
         }
         if (queryMap.get(WorkOrderQuery.BOOKMARKED)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'bookmarked', '=', queryMap.get(WorkOrderQuery.BOOKMARKED));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'bookmarked', '=',
+                                     queryMap.get(WorkOrderQuery.BOOKMARKED));
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERSTATUS)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', 'workOrderStatus', '=', queryMap.get(WorkOrderQuery.WORKORDERSTATUS));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     'workOrderStatus', '=',
+                                     queryMap.get(WorkOrderQuery.WORKORDERSTATUS));
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', queryMap.get(WorkOrderQuery.GREATERTHAN), '>', queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
+                                     queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
-            this.createSQLFilterQuery(filterQueries, 'work_orders', queryMap.get(WorkOrderQuery.LOWERTHAN), '<', queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
+            filterQueries += this.
+                createSQLFilterQuery(filterQueries, 'work_orders',
+                                     queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
+                                     queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
         }
         return filterQueries;
     }
 
-    private createSQLFilterQuery(filterQueries: string, table: string, column:string, operator: string , queryMapString: string){
+    private createSQLFilterQuery(filterQueries: string, table: string, column:string,
+                                 operator: string , queryMapString: string) {
+        let querySegment = '';
         if (filterQueries !== '') {
-            filterQueries += `&& `;
+            querySegment += ' && ';
         }
-        filterQueries += `${table}.${column} ${operator} ${queryMapString}`;
-        return filterQueries;
+        querySegment += `${table}.${column} ${operator} ${queryMapString}`;
+        return querySegment;
     }
 
     async getWorkOrder(id: number) {
-        const workOrder: WorkOrder = await this.workOrderRepository.getWorkOrderById(id,
-            WorkOrderFields);
+        const workOrder: WorkOrder = await this.workOrderRepository.
+                                                    getWorkOrderById(id, WorkOrderFields);
         if (!workOrder) {
-            throw new ResourceNotFoundError("Work Order with id " + id + " does not exist.")
+            throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }
         return workOrder;
     }
 }
 
-export {WorkOrderService};
+export { WorkOrderService };
