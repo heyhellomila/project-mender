@@ -1,5 +1,6 @@
 import { WorkOrder } from '../../entities/WorkOrder';
 import { ShoppingItem } from '../../entities/ShoppingItem';
+import { WorkOrderDataProvider } from './WorkOrderDataProvider';
 
 class ShoppingItemDataProvider {
 
@@ -10,7 +11,7 @@ class ShoppingItemDataProvider {
         shoppingItem.bought = false;
         shoppingItem.price = 999;
         shoppingItem.quantity = 1;
-        shoppingItem.workOrder = null;
+        shoppingItem.workOrder = WorkOrderDataProvider.getWorkOrder();
         return shoppingItem;
     }
 }
