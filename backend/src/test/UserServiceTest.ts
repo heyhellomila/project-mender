@@ -16,7 +16,7 @@ import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { HashUtils } from '../utils/HashUtils';
 import { AuthUtils } from '../utils/AuthUtils';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
-import {ConflictError} from "../errors/ConflictError";
+import { ConflictError } from '../errors/ConflictError';
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
