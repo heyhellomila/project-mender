@@ -25,45 +25,43 @@ import {WorkOrderStatusService} from "../services/WorkOrderStatusService";
 import {WorkOrderStatusEnum} from "../enums/WorkOrderStatusEnum";
 import {WorkOrderStatus} from "../entities/WorkOrderStatus";
 import {WorkOrderStatusDataProvider} from "./data_providers/WorkOrderStatusDataProvider";
+import {WorkOrderTypeService} from "../services/WorkOrderTypeService";
+import {WorkOrderTypeRepository} from "../repositories/WorkOrderTypeRepository";
+import {WorkOrderTypeDataProvider} from "./data_providers/WorkOrderTypeDataProvider";
+import {WorkOrderType} from "../enums/WorkOrderType";
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
-describe('Work Order Status Service Test', () => {
-    let workOrderStatusService : WorkOrderStatusService;
+describe('Work Order Type Service Test', () => {
+    let workOrderTypeService : WorkOrderTypeService;
 
-    let workOrderStatusRepositoryMock : WorkOrderStatusRepository;
-    let workOrderStatusRepository : WorkOrderStatusRepository;
-    const workOrderStatus = WorkOrderStatusDataProvider.getWorkOrderStatus();
+    let workOrderTypeRepositoryMock : WorkOrderTypeRepository;
+    let workOrderTypeRepository : WorkOrderTypeRepository;
+
+    const workOrderType = WorkOrderTypeDataProvider.getWorkOrderType();
 
     beforeEach(() => {
-        workOrderStatusRepositoryMock = mock(WorkOrderStatusRepository);
-        workOrderStatusRepository = instance(workOrderStatusRepositoryMock);
-        workOrderStatusService = new WorkOrderStatusService(workOrderStatusRepository);
+        workOrderTypeRepositoryMock = mock(WorkOrderTypeRepository);
+        workOrderTypeRepository = instance(workOrderTypeRepositoryMock);
+        workOrderTypeService = new WorkOrderTypeService(workOrderTypeRepository);
     });
 
-    it(('getWorkOrderStatus happy path'), async() => {
-        when(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
-            thenResolve(workOrderStatus);
-
-        const fetchedWorkOrderStatus = await workOrderStatusService.
-            getWorkOrderStatus(WorkOrderStatusEnum.ISSUED);
-
-        verify(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
-            called();
-        equal(fetchedWorkOrderStatus, workOrderStatus);
+    it(('getWorkOrderType happy path'), async() => {
+        when(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).
+        thenResolve(workOrderType);
+        const fetchedWorkOrderType = await workOrderTypeService.getWorkOrderType(WorkOrderType.CM);
+        verify(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).called();
+        equal(fetchedWorkOrderType, workOrderType);
     });
 
-    it(('getWorkOrderStatus repository error ResourceNotFoundError'), async() => {
-        when(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
+    it(('getWorkOrderType repository error ResourceNotFoundError'), async() => {
+        when(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).
         thenResolve(null);
-
-        await expect(workOrderStatusService.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).to.be.
+        await expect(workOrderTypeService.getWorkOrderType(WorkOrderType.CM)).to.be.
             rejectedWith(ResourceNotFoundError);
-
-        verify(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
-        called();
+        verify(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).called();
     });
 });
