@@ -1,7 +1,7 @@
 import { ObjectMapper } from './ObjectMapper';
 import { WorkOrderStatus } from '../entities/WorkOrderStatus';
 import { WorkOrderStatusDTO } from '../dtos/WorkOrderStatusDTO';
-import { WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
+import { WorkOrderStatus as WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
 import { BadRequestError } from '../errors/BadRequestError';
 
 class WorkOrderStatusMapper implements ObjectMapper<WorkOrderStatus, WorkOrderStatusDTO> {
