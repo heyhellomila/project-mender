@@ -1,5 +1,4 @@
 import { Property } from '../entities/Property';
-import { PropertyType } from '../entities/PropertyType';
 import { ActivityStatus } from '../entities/ActivityStatus';
 import { User } from '../entities/User';
 import { BaseRepository } from './BaseRepository';
@@ -8,8 +7,7 @@ import { FindOptions } from 'typeorm';
 class PropertyRepository extends BaseRepository<Property> {
 
     async getPropertyById(id: number, fieldOptions?: FindOptions<Property>) {
-        return await this.getRepositoryConnection(Property).findOne(id,
-            fieldOptions);
+        return await this.getRepositoryConnection(Property).findOne(id, fieldOptions);
     }
 
     async getPropertiesByUser(user: User, fieldOptions?: FindOptions<Property>) {
@@ -30,16 +28,11 @@ class PropertyRepository extends BaseRepository<Property> {
     }
 
     async createProperty(property : Property) {
-        try {
-            const savedProperty : Property = await this.getRepositoryConnection(Property).save(property);
-            return savedProperty;
-        } catch (err) {
-            throw new Error(err);
-        }
+        return await this.getRepositoryConnection(Property).save(property);
     }
 
     async updatePropertyById(id: number, property: Property) {
-        await this.getRepositoryConnection(Property).update({id: id}, property);
+        await this.getRepositoryConnection(Property).update({ id }, property);
     }
 }
 

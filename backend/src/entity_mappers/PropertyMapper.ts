@@ -44,7 +44,10 @@ class PropertyMapper implements ObjectMapper<Property, PropertyDTO> {
         property.name = propertyDTO.name;
         property.address = propertyDTO.address;
         property.city = propertyDTO.city;
-        property.postalCode = propertyDTO.postalCode.replace(/\s/g, '');
+
+        if (propertyDTO.postalCode) {
+            property.postalCode = propertyDTO.postalCode.replace(/\s/g, '');
+        }
 
         if (propertyDTO.province) {
             if (!(propertyDTO.province in ProvinceEnum)) {

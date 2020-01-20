@@ -4,6 +4,7 @@ import SignUpForm  from '../components/signUpForm/SignUpForm';
 import { register } from '../apis/users/Register';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
+import validatePhoneNumber from '../utils/PhoneNumberUtils';
 
 export default class SignUpPage extends React.Component {
   constructor(props) {
@@ -152,15 +153,10 @@ export default class SignUpPage extends React.Component {
       this.setState({ validFormInputs: false, validEmail: false, 
         errorMsg: 'Invalid email address.'});
     }
-    if (!this.validatePhoneNumber(phoneNumber)) {
+    if (!validatePhoneNumber(phoneNumber)) {
       this.setState({ validFormInputs: false, validPhoneNumber: false,
         errorMsg: 'Invalid phone number.'});
     }
-  };
-
-  validatePhoneNumber = (phoneNumber) => {
-    phoneNumber = phoneNumber.replace(/\D/g,'');
-    return phoneNumber.length === 10;
   };
 
   registerUser = async() => {

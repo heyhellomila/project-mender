@@ -4,6 +4,7 @@ const rootReducer = (state = {
     user: null,
     loading: false,
     error: null,
+    reloadingUserProfile: false
 }, action) => {
     switch (action.type) {
         case 'LOGIN':
@@ -14,6 +15,8 @@ const rootReducer = (state = {
             return { ...state, loading: action.isLoading };
         case 'ERROR':
             return { ...state, error: action.error };
+        case 'RELOAD_PROFILE':
+            return { ...state, reloadingUserProfile: action.reloadingUserProfile, user: action.user };
         default:
             return state;
     }
