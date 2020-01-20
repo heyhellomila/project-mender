@@ -15,7 +15,7 @@ const JobListComponent = (props) => {
                         <CardComponent {...item} />
                     )}
                     keyExtractor={(item, index) => index.toString()}
-                    ListHeaderComponent={<Header {...props} />}
+                    ListHeaderComponent={<Header {...props} />} 
                 />
                 {
                     props.isEmpty === true

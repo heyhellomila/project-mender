@@ -61,7 +61,13 @@ class JobListPage extends React.Component {
             filterPriority: '',
             filterSector: '',
             filterType: '',
-            filterStatus: ''
+            filterStatus: '',
+            isBookmarkedModalVisible: false,
+            isDueDateModalVisible: false,
+            isPriorityModalVisible: false,
+            isSectorModalVisible: false,
+            isTypeModalVisible: false,
+            isStatusModalVisible: false
         };
     }
   
@@ -166,6 +172,42 @@ class JobListPage extends React.Component {
         }
     }
 
+    toggleBookmarkedModal = () => {
+        this.setState({
+            isBookmarkedModalVisible: !this.state.isBookmarkedModalVisible
+        });
+    }
+
+    toggleDueDateModal = () => {
+        this.setState({
+            isDueDateModalVisible: !this.state.isDueDateModalVisible
+        });
+    }
+
+    togglePriorityModal = () => {
+        this.setState({
+            isPriorityModalVisible: !this.state.isPriorityModalVisible
+        });
+    }
+
+    toggleSectorModal = () => {
+        this.setState({
+            isSectorModalVisible: !this.state.isSectorModalVisible
+        });
+    }
+
+    toggleTypeModal = () => {
+        this.setState({
+            isTypeModalVisible: !this.state.isTypeModalVisible
+        });
+    }
+
+    toggleStatusModal = () => {
+        this.setState({
+            isStatusModalVisible: !this.state.isStatusModalVisible
+        });
+    }
+
     handleSort = (index, value) => {
         this.state.sortByFields.map(field => {
             if (value === field.dropdown) {
@@ -215,6 +257,12 @@ class JobListPage extends React.Component {
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}
                     handleSort={this.handleSort}
+                    toggleBookmarkedModal={this.toggleBookmarkedModal}
+                    toggleDueDateModal={this.toggleDueDateModal}
+                    togglePriorityModal={this.togglePriorityModal}
+                    toggleSectorModal={this.toggleSectorModal}
+                    toggleTypeModal={this.toggleTypeModal}
+                    toggleStatusModal={this.toggleStatusModal}
                 />
             </ScrollView>
         );
