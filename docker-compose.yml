@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    environment:
+      NODE_ENV : development
+    ports:
+      - "3000:3000"
+    restart: always
+    volumes:
+      - ./backend/src:/backend/src/
