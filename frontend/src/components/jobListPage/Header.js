@@ -10,7 +10,7 @@ const sort = require('../../../assets/Front_arrow.png');
 const Header = (props) => {
     return (
         <View>
-            <ScrollView style={headerStyles.jobListHeader} horizontal={true}>
+            <ScrollView style={headerStyles.jobListHeader} horizontal={true} showsHorizontalScrollIndicator={false}>
                 <Button
                     icon={
                         <Icon
