@@ -106,10 +106,10 @@ class WorkOrderService {
         workOrderSortMapper.set(WorkOrderQuery.DUEDATE, 'work_orders.dueDate');
         workOrderSortMapper.set(WorkOrderQuery.CREATEDDATE, 'work_orders.createdDate');
         workOrderSortMapper.set(WorkOrderQuery.PRICEESTIMATE, 'work_orders.priceEstimate');
-        workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, 'work_orders.priorityType');
-        workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, 'work_orders.workOrderType');
+        workOrderSortMapper.set(WorkOrderQuery.PRIORITYTYPE, 'priorityType.type');
+        workOrderSortMapper.set(WorkOrderQuery.WORKORDERTYPE, 'workOrderType.type');
         workOrderSortMapper.set(WorkOrderQuery.SECTORTYPE, 'sector.type');
-        workOrderSortMapper.set(WorkOrderQuery.WORKORDERSTATUS, 'work_orders.workOrderStatus');
+        workOrderSortMapper.set(WorkOrderQuery.WORKORDERSTATUS, 'workOrderStatus.status');
 
         if (queryMap.get(WorkOrderQuery.SORTBY) != null
             && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))) {
@@ -125,68 +125,68 @@ class WorkOrderService {
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'property', '=',
-                                     queryMap.get(WorkOrderQuery.PROPERTYID));
+                                    'property', '=',
+                                    queryMap.get(WorkOrderQuery.PROPERTYID));
         }
         if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'sector',
-                                     'type', '=',
-                                     `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
+                                    'type', '=',
+                                    `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'sector',
-                                     'kind', '=',
-                                     `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
+                                    'kind', '=',
+                                    `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
             filterQueries += this.
-                createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'workOrderType', '=',
-                                     queryMap.get(WorkOrderQuery.WORKORDERTYPE));
+                createSQLFilterQuery(filterQueries, 'workOrderType',
+                                    'type', '=',
+                                    `\'${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'serviceNeeded', '=',
-                                     queryMap.get(WorkOrderQuery.SERVICENEEDED));
+                                    'serviceNeeded', '=',
+                                    queryMap.get(WorkOrderQuery.SERVICENEEDED));
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
             filterQueries += this.
-                createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'priorityType', '=',
-                                     queryMap.get(WorkOrderQuery.PRIORITYTYPE));
+                createSQLFilterQuery(filterQueries, 'priorityType',
+                                    'type', '=',
+                                    `\'${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'priceEstimate', '=',
-                                     queryMap.get(WorkOrderQuery.PRICEESTIMATE));
+                                    'priceEstimate', '=',
+                                    queryMap.get(WorkOrderQuery.PRICEESTIMATE));
         }
         if (queryMap.get(WorkOrderQuery.BOOKMARKED)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'bookmarked', '=',
-                                     queryMap.get(WorkOrderQuery.BOOKMARKED));
+                                    'bookmarked', '=',
+                                    queryMap.get(WorkOrderQuery.BOOKMARKED));
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERSTATUS)) {
             filterQueries += this.
-                createSQLFilterQuery(filterQueries, 'work_orders',
-                                     'workOrderStatus', '=',
-                                     queryMap.get(WorkOrderQuery.WORKORDERSTATUS));
+                createSQLFilterQuery(filterQueries, 'workOrderStatus',
+                                    'status', '=',
+                                    `\'${queryMap.get(WorkOrderQuery.WORKORDERSTATUS)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                     queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
-                                     queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
+                                    queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
+                                    queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                     queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
-                                     queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
+                                    queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
+                                    queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
         }
         return filterQueries;
     }
