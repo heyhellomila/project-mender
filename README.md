@@ -17,9 +17,10 @@ This web application uses the following technologies:
 
 ## Installing Dependencies
 
-Before starting, make sure you have working versions of npm (6.12+) and mySQL (5.7.22+).
+Before starting, make sure you have working versions of npm (6.12+), node (12.9.0+) and mySQL (5.7.22+).
 
 ```shell
+npm --version
 node --version
 mysql --version
 ```
@@ -41,6 +42,26 @@ For the front-end, execute:
 cd frontend/
 npm install
 ```
+
+### Environment Variables
+
+The /backend will require the following environment variables:
+
+```shell
+JWT_KEY=
+RDS_HOSTNAME=
+RDS_PORT=
+RDS_USERNAME=
+RDS_PASSWORD=
+RDS_DATABASE=
+```
+
+The /frontend will require the following environment variables:
+
+```shell
+LOCAL_API_KEY=<ip-address>:3000
+```
+
 
 ### Running the Back-end Server
 
@@ -71,3 +92,21 @@ npm start
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
 Note that both servers must be running as separate processes for the application to function.
+
+
+### Running Application with Docker
+
+Before beginning, run the following command: `frontend/npm install`. The node_modules generated from this installation will be used to run the frontend service within the container. (For more information, see https://github.com/milaroisin/project-mender/issues/195) 
+
+To create and start the container, use the following command from the project root:
+
+``` shell
+docker-compose up --build
+```
+
+Ensure that port forwarding is enabled with the Docker technology installed, specifically for the following host and guest ports: 3000:3000, 19000:19000, 19001:19001 and 19002:19002.
+Additionally, add the following environment variable to /frontend:
+
+`REACT_NATIVE_PACKAGER_HOSTNAME=<ip-address>`
+
+Finally, once the application has been built, scan the QR displayed in the terminal.

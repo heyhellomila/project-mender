@@ -13,3 +13,19 @@ services:
     restart: always
     volumes:
       - ./backend/src:/backend/src/
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    env_file:
+      - ./frontend/.env
+    environment:
+      NODE_ENV : development
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - ./frontend/src:/frontend/src/
+      - ./frontend/assets:/frontend/assets/
+      - ./frontend/node_modules:/frontend/node_modules/
