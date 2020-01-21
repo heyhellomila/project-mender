@@ -7,7 +7,7 @@ services:
     env_file:
       - ./backend/.env
     environment:
-      NODE_ENV : development
+      - NODE_ENV=development
     ports:
       - "3000:3000"
     restart: always
@@ -20,7 +20,8 @@ services:
     env_file:
       - ./frontend/.env
     environment:
-      NODE_ENV : development
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "19000:19000"
       - "19001:19001"
