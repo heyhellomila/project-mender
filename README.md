@@ -110,3 +110,5 @@ Additionally, add the following environment variable to /frontend:
 `REACT_NATIVE_PACKAGER_HOSTNAME=<ip-address>`
 
 Finally, once the application has been built, scan the QR displayed in the terminal.
+
+Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend. 
