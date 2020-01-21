@@ -51,7 +51,7 @@ const CardComponent = (props) => {
                                             </TouchableOpacity>
                                             <Text style={PixelRatio.get() < 3 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorKind.replace(/_/g, ' ')}</Text>
                                         </View>
-                                        <Text style={PixelRatio.get() < 3 ? jobListStyles.textRatio : jobListStyles.text}>Status: Quote accepted</Text>
+                                        <Text style={PixelRatio.get() < 3 ? jobListStyles.textRatio : jobListStyles.text}>Status: {props.status.replace(/_/g, ' ')}</Text>
                                     </View>
                                     </View>
                             </View>
