@@ -21,6 +21,7 @@ services:
       - ./frontend/.env
     environment:
       NODE_ENV : development
+      CHOKIDAR_USEPOLLING : 'true'
     ports:
       - "19000:19000"
       - "19001:19001"
@@ -28,4 +29,3 @@ services:
     volumes:
       - ./frontend/src:/frontend/src/
       - ./frontend/assets:/frontend/assets/
-      - ./frontend/node_modules:/frontend/node_modules/

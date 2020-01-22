@@ -96,8 +96,6 @@ Note that both servers must be running as separate processes for the application
 
 ### Running Application with Docker
 
-Before beginning, run the following command: `frontend/npm install`. The node_modules generated from this installation will be used to run the frontend service within the container. (For more information, see https://github.com/milaroisin/project-mender/issues/195) 
-
 To create and start the container, use the following command from the project root:
 
 ``` shell
@@ -111,4 +109,4 @@ Additionally, add the following environment variable to /frontend:
 
 Finally, once the application has been built, scan the QR displayed in the terminal.
 
-Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend. 
+Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend (see https://github.com/milaroisin/project-mender/issues/195).
