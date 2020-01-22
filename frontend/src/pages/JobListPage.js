@@ -190,7 +190,7 @@ class JobListPage extends React.Component {
         });
     }
 
-    toggleSectorModal = () => {
+    toggleSectorModal = () => {         
         this.setState({
             isSectorModalVisible: !this.state.isSectorModalVisible
         });

@@ -4,7 +4,12 @@ import { Button } from 'react-native-elements';
 import { jobListStyles, headerStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
-import FilterModalComponent from './FilterModalComponent';
+import BookmarkedFilterComponent from './filterModals/BookmarkedFilterComponent'
+import DueDateFilterComponent from './filterModals/DueDateFilterComponent'
+import PriorityFilterComponent from './filterModals/PriorityFilterComponent'
+import SectorFilterComponent from './filterModals/SectorFilterComponent'
+import TypeFilterComponent from './filterModals/TypeFilterComponent'
+import StatusFilterComponent from './filterModals/StatusFilterComponent';
 
 const sort = require('../../../assets/Front_arrow.png');
 
@@ -27,7 +32,7 @@ const Header = (props) => {
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleBookmarkedModal}
                 />
-                <FilterModalComponent {...props} />
+                <BookmarkedFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -43,7 +48,7 @@ const Header = (props) => {
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleDueDateModal}
                 /> 
-                <FilterModalComponent {...props} />
+                <DueDateFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -59,7 +64,7 @@ const Header = (props) => {
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.togglePriorityModal}
                 />
-                <FilterModalComponent {...props} />
+                <PriorityFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -75,7 +80,7 @@ const Header = (props) => {
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleSectorModal}
                 />
-                <FilterModalComponent {...props} />
+                <SectorFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -91,7 +96,7 @@ const Header = (props) => {
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleTypeModal}
                 />  
-                <FilterModalComponent {...props} />
+                <TypeFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -107,7 +112,7 @@ const Header = (props) => {
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleStatusModal}
                 />  
-                <FilterModalComponent {...props} />
+                <StatusFilterComponent {...props} />
             </ScrollView>
             <View style={headerStyles.jobListSort}>
                 <View style={jobListStyles.column}>
