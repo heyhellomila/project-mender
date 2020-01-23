@@ -14,6 +14,16 @@ class PropertySectorService {
     private sectorService : SectorService = new SectorService();
     private propertyService : PropertyService = new PropertyService();
 
+    constructor(propertySectorRepository?: PropertySectorRepository, sectorService?: SectorService,
+                propertyService?: PropertyService) {
+        this.propertySectorRepository = propertySectorRepository
+            ? propertySectorRepository : new PropertySectorRepository();
+        this.sectorService = sectorService
+            ? sectorService : new SectorService();
+        this.propertyService = propertyService
+            ? propertyService : new PropertyService();
+    }
+
     async createPropertySectors(propertyId: number, propertySectors: PropertySector[]) {
         const property : Property = await this.propertyService.getPropertyById(propertyId);
         const sectors : Sector[] = [];
@@ -90,7 +100,7 @@ class PropertySectorService {
     }
 
     private merge(savedPropertySector: PropertySector, updatedPropertySector : PropertySector) {
-        return { ...savedPropertySector, ...updatedPropertySector };
+        return Object.assign(savedPropertySector, updatedPropertySector);
     }
 }
 

@@ -10,8 +10,8 @@ class UserTypeService {
     async getUserType(type: string) {
         const userType: UserType = await this.userTypeRepository.getUserType(type);
         if (!userType) {
-            throw new ResourceNotFoundError('Invalid User Type. Allowed Types: [' 
-                + Object.keys(UserTypeEnum) +']');
+            throw new ResourceNotFoundError('Invalid User Type. Allowed Types: [' +
+                ` ${Object.keys(UserTypeEnum)}]`);
         }
         return userType;
     }

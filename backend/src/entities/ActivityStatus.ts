@@ -1,11 +1,11 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name: 'activity_status'})
+@Entity({ name: 'activity_status' })
 export class ActivityStatus {
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    status: string
+    status: string;
 }
