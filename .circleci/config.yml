@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:12.9.0
-      - image: mongo:4.2.0
+      - image: circleci/mysql:latest
       - image: debian:stretch
     working_directory: ~/project-mender
 
@@ -21,17 +21,18 @@ jobs:
           name: install-npm-wee
           command: npm install
     # run lint before tests
-    #   - run: # run tests
-    #       name: test
-    #       command: npm test
-    #   - run: # run coverage report
-    #       name: code-coverage
-    #       command: 'npm run coverage'
-    #   - store_test_results: # for storing unit test results
-    #       path: test/mochawesome-report
-    #   - store_artifacts:
-    #       path: test/mochawesome-report/mochawesome.json
-    #   - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-    #       path: coverage
-    #   - codecov/upload:
-    #       file: coverage/index.html
+      - run: # run tests
+         name: test
+         path: backend/
+         command: npm install && npm test
+#      - run: # run coverage report
+#         name: code-coverage
+#         command: 'npm run coverage'
+      - store_test_results: # for storing unit test results
+         path: test/mochawesome-report
+      - store_artifacts:
+         path: test/mochawesome-report/mochawesome.json
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+         path: coverage
+      - codecov/upload:
+         file: coverage/index.html
