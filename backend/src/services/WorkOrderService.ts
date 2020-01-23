@@ -26,14 +26,10 @@ class WorkOrderService {
 
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
 
-        if (!(await this.propertyService.propertyExists(propertyId))) {
-            throw new ResourceNotFoundError(`Property ${propertyId} does not exist.`);
-        }
+        const property: Property = await this.propertyService.getPropertyById(propertyId);
 
         const createdBy: User = new User();
         createdBy.id = createdByUserId;
-        const property: Property = new Property();
-        property.id = propertyId;
 
         workOrder.sector = await this.sectorService
             .getSectorByKind(workOrder.sector.kind);

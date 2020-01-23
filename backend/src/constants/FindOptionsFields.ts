@@ -5,7 +5,7 @@ import { WorkOrder } from '../entities/WorkOrder';
 import { PropertySector } from '../entities/PropertySector';
 import { ShoppingItem } from 'src/entities/ShoppingItem';
 
-const PropertyFields : FindOptions<Property> = {
+const PROPERTY_FIELDS : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
     select: {
         id: true,
@@ -46,7 +46,7 @@ const PROPERTY_FIELDS_NO_USER : FindOptions<Property> = {
     },
 };
 
-const UserFields : FindOptions<User> = {
+const USER_FIELDS : FindOptions<User> = {
     relations: ['userType'],
     select: {
         id: true,
@@ -63,9 +63,9 @@ const UserFields : FindOptions<User> = {
 
 const USER_FOR_UPDATE_FIELDS : FindOptions<User> = {
     select: {
-        passwordHash: true
+        passwordHash: true,
     },
-}
+};
 
 const WorkOrderFields : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
@@ -191,5 +191,6 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
-export { PropertyFields, UserFields, USER_FOR_UPDATE_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS };
+export { PROPERTY_FIELDS, USER_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
+    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
+    PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS };

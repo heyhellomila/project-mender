@@ -1,10 +1,10 @@
-import { getConnection, Connection } from "typeorm";
+import { getConnection, Connection } from 'typeorm';
 
 class BaseRepository<Model> {
 
-    getRepositoryConnection(Model: new () => Model) {
+    getRepositoryConnection(MODEL: new () => Model) {
         const connection : Connection = getConnection();
-        return connection.getRepository(Model);
+        return connection.getRepository(MODEL);
     }
 }
 

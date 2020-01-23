@@ -3,6 +3,7 @@ import { PropertyService } from '../services/PropertyService';
 import { PropertyMapper } from '../entity_mappers/PropertyMapper';
 import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
+import { PropertyDTO } from '../dtos/PropertyDTO';
 
 const propertyService = new PropertyService();
 const propertyMapper = new PropertyMapper();
@@ -20,7 +21,9 @@ propertyController.get('/:id', auth, async(req: Request, res: Response) => {
 
 propertyController.patch('/:id', auth, async(req: Request, res: Response) => {
     try {
-        await propertyService.updatePropertyById(Number(req.params.id), req.body);
+        const propertyDTO : PropertyDTO = req.body as PropertyDTO;
+        await propertyService.updatePropertyById(
+            Number(req.params.id), propertyMapper.fromDTO(propertyDTO));
         return res.status(204).end();
     } catch (err) {
         return handleError(err, res);
