@@ -180,6 +180,9 @@ describe('Property Service Test', () => {
         await expect(propertyService.createProperty(user.id, propertyToCreate)).to.be
             .rejectedWith(ResourceNotFoundError, userDoesNotExistString);
 
+        verify(userServiceMock.getUser(user.id)).called();
+        verify(propertyTypeServiceMock.getPropertyType(anyString())).never();
+        verify(activityStatusServiceMock.getActivityStatus(anyString())).never();
         verify(propertyRepositoryMock.createProperty(anything())).never();
     });
 
@@ -193,6 +196,29 @@ describe('Property Service Test', () => {
         await expect(propertyService.createProperty(user.id, propertyToCreate)).to.be
             .rejectedWith(ResourceNotFoundError, propertyTypeDoesNotExistString);
 
+        verify(userServiceMock.getUser(user.id)).called();
+        verify(propertyTypeServiceMock.getPropertyType(propertyToCreate.propertyType.type))
+            .called();
+        verify(activityStatusServiceMock.getActivityStatus(anyString())).never();
+        verify(propertyRepositoryMock.createProperty(anything())).never();
+    });
+
+    it(('createProperty activity status does not exist expect ResourceNotFoundError'), async() => {
+        const propertyToCreate = PropertyDataProvider.getProperty(
+            1, 'A1A 1A1', CountryCode.CA, user, propertyType);
+        when(userServiceMock.getUser(anyNumber())).thenResolve(user);
+        when(propertyTypeServiceMock.getPropertyType(anyString())).thenResolve(propertyType);
+        when(activityStatusServiceMock.getActivityStatus(anyString()))
+            .thenThrow(new ResourceNotFoundError(activityStatusDoesNotExistString));
+
+        await expect(propertyService.createProperty(user.id, propertyToCreate)).to.be
+            .rejectedWith(ResourceNotFoundError, activityStatusDoesNotExistString);
+
+        verify(userServiceMock.getUser(user.id)).called();
+        verify(propertyTypeServiceMock.getPropertyType(propertyToCreate.propertyType.type))
+            .called();
+        verify(activityStatusServiceMock.getActivityStatus(anyString()))
+            .called();
         verify(propertyRepositoryMock.createProperty(anything())).never();
     });
 
