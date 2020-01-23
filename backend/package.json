@@ -8,7 +8,8 @@
     "build": "tsc",
     "serve": "node dist/index.js",
     "dev": "ts-node-dev --respawn --no-notify src/app.ts",
-    "test": "mocha -r ts-node/register src/test/*.ts"
+    "test": "mocha -r ts-node/register src/test/*.ts",
+    "coverage": "nyc --reporter html --reporter text npm test"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^7.0.0",
     "mysql": "^2.17.1",
+    "nyc": "^15.0.0",
     "password-validator": "^5.0.2",
     "postcode-validator": "^3.0.0",
     "reflect-metadata": "^0.1.13",
