@@ -21,14 +21,10 @@ jobs:
           name: install-npm-wee
           command: npm install
     # run lint before tests
-      - run: # run tests
-         name: test
+      - run: # run backend tests with coverage
+         name: backend-test with coverage
          path: backend/
-         command: npm install && npm test
-      - run: # run coverage report
-         name: code-coverage
-         path: backend/
-         command: 'npm run coverage'
+         command: npm install && npm run coverage
       - store_test_results: # for storing unit test results
          path: test/mochawesome-report
       - store_artifacts:
