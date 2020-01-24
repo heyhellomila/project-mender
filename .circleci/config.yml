@@ -21,6 +21,6 @@ jobs:
          path: backend/
          command: npm install && npm run coverage
       - store_test_results: # for storing unit test results
-         path: backend/coverage/index.html
+         path: backend/test-results.xml
       - store_artifacts:
          path: backend/coverage
