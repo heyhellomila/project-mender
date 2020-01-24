@@ -7,7 +7,7 @@
     "start": "npm run serve",
     "build": "tsc",
     "serve": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --no-notify src/app.ts",
+    "dev": "ts-node-dev --poll --respawn --no-notify src/app.ts",
     "test": "mocha -r ts-node/register src/test/*.ts"
   },
   "author": "",
