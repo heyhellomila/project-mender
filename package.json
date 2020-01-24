@@ -21,5 +21,11 @@
     },
     "dependencies": {
         "react-native-scrolling-button-menu": "0.0.4"
+    },
+    "nyc": {
+        "all": true,
+        "extension": [
+            ".ts"
+        ]
     }
 }
