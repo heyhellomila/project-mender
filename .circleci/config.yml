@@ -6,8 +6,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:12.9.0
-      - image: circleci/mysql:latest
-      - image: debian:stretch
     working_directory: ~/project-mender
 
     steps:
@@ -17,10 +15,7 @@ jobs:
           command: 'sudo npm install -g npm@6.12'
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: install-npm-wee
-          command: npm install
-    # run lint before tests
+      # run lint before tests
       - run: # run backend tests with coverage
          name: backend-test with coverage
          path: backend/
@@ -28,8 +23,4 @@ jobs:
       - store_test_results: # for storing unit test results
          path: backend/coverage/index.html
       - store_artifacts:
-         path: backend/coverage/index.html
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
          path: backend/coverage
-      - codecov/upload:
-         file: backend/coverage/index.html
