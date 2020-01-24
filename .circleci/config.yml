@@ -22,5 +22,7 @@ jobs:
          command: npm install && npm run coverage
       - store_test_results: # for storing unit test results
          path: backend/test-results.xml
+      - store_artifacts: # archiving unit test results as store_test_results does not seem to be functioning
+         path: backend/test-results.xml
       - store_artifacts:
          path: backend/coverage
