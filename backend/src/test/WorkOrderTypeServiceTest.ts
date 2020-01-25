@@ -1,6 +1,6 @@
 import 'mocha';
 import { equal } from 'assert';
-import { instance, mock, verify, when } from 'ts-mockito';
+import {anything, instance, mock, verify, when} from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { WorkOrderTypeService } from '../services/WorkOrderTypeService';
 import { WorkOrderTypeRepository } from '../repositories/WorkOrderTypeRepository';
@@ -27,7 +27,7 @@ describe('Work Order Type Service Test', () => {
     });
 
     it(('getWorkOrderType happy path'), async() => {
-        when(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).
+        when(workOrderTypeRepositoryMock.getWorkOrderType(anything())).
         thenResolve(workOrderType);
         const fetchedWorkOrderType = await workOrderTypeService.getWorkOrderType(WorkOrderType.CM);
         verify(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).called();
@@ -35,7 +35,7 @@ describe('Work Order Type Service Test', () => {
     });
 
     it(('getWorkOrderType repository error ResourceNotFoundError'), async() => {
-        when(workOrderTypeRepositoryMock.getWorkOrderType(WorkOrderType.CM)).
+        when(workOrderTypeRepositoryMock.getWorkOrderType(anything())).
         thenResolve(null);
         await expect(workOrderTypeService.getWorkOrderType(WorkOrderType.CM)).to.be.
             rejectedWith(ResourceNotFoundError);

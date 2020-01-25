@@ -1,6 +1,6 @@
 import 'mocha';
 import { equal } from 'assert';
-import { anyOfClass, anything, instance, mock, verify, when } from 'ts-mockito';
+import {anyNumber, anyOfClass, anything, instance, mock, verify, when} from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { ShoppingItemService } from '../services/ShoppingItemService';
 import { WorkOrderService } from '../services/WorkOrderService';
@@ -40,8 +40,8 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('createShoppingItem happy path'), async() => {
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
-        when(shoppingItemRepositoryMock.createShoppingItem(shoppingItem1))
+        when(workOrderServiceMock.getWorkOrder(anyNumber())).thenResolve(workOrder);
+        when(shoppingItemRepositoryMock.createShoppingItem(anyOfClass(ShoppingItem)))
             .thenResolve(shoppingItem1);
 
         const fetchedShoppingItem = await shoppingItemService.createShoppingItem(1, shoppingItem1);
@@ -53,14 +53,14 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('createShoppingItem invalid workorderId should return ResourceNotFoundError'), async() => {
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(null);
+        when(workOrderServiceMock.getWorkOrder(anyNumber())).thenResolve(null);
 
         await expect(shoppingItemService.createShoppingItem(1, shoppingItem1)).to.be
             .rejectedWith(ResourceNotFoundError);
     });
 
     it(('shoppingItemRepository problems should return BadRequestError'), async() => {
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
+        when(workOrderServiceMock.getWorkOrder(anyNumber())).thenResolve(workOrder);
         when(shoppingItemRepositoryMock.createShoppingItem(shoppingItem1))
             .thenThrow(new Error);
 
@@ -69,7 +69,7 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('getShoppingItemByWorkOrderId happy path'), async() => {
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
+        when(workOrderServiceMock.getWorkOrder(anyNumber())).thenResolve(workOrder);
         when(shoppingItemRepositoryMock
             .getShoppingItemsByWorkOrder(anyOfClass(WorkOrder), anything()))
             .thenResolve(shoppingItems);
@@ -84,14 +84,14 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('getShoppingItemByWorkOrderId workorder does not exist ResourceNotFoundError'), async() => {
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(null);
+        when(workOrderServiceMock.getWorkOrder(anyNumber())).thenResolve(null);
 
         await expect(shoppingItemService.getShoppingItemByWorkOrderId(1)).to.be
             .rejectedWith(ResourceNotFoundError);
     });
 
     it(('getShoppingItemByWorkOrderId does not fetch from repository throw error'), async() => {
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
+        when(workOrderServiceMock.getWorkOrder(anyNumber())).thenResolve(workOrder);
         when(shoppingItemRepositoryMock
             .getShoppingItemsByWorkOrder(anyOfClass(WorkOrder), anything()))
             .thenThrow(new Error);
@@ -101,7 +101,7 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('getShoppingItem happy path'), async() => {
-        when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+        when(shoppingItemRepositoryMock.getShoppingItemById(anyNumber(), anything()))
             .thenResolve(shoppingItem1);
 
         const fetchedShoppingItem = await shoppingItemService.getShoppingItem(1);
@@ -111,14 +111,14 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('getShoppingItem broken item repository throws ResourceNotFoundError'), async() => {
-        when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+        when(shoppingItemRepositoryMock.getShoppingItemById(anyNumber(), anything()))
             .thenResolve(null);
         await expect(shoppingItemService.getShoppingItem(1)).to.be.
             rejectedWith(ResourceNotFoundError);
     });
 
     it(('deleteShoppingItem happy path'), async() => {
-        when(shoppingItemRepositoryMock.deleteShoppingItem(1))
+        when(shoppingItemRepositoryMock.deleteShoppingItem(anyNumber()))
             .thenResolve();
 
         await expect(shoppingItemService.deleteShoppingItem(1)).to.not.be.
@@ -128,7 +128,7 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('deleteShoppingItem repository error causes ResourceNotFoundError'), async() => {
-        when(shoppingItemRepositoryMock.deleteShoppingItem(1))
+        when(shoppingItemRepositoryMock.deleteShoppingItem(anyNumber()))
             .thenThrow(new Error);
 
         await expect(shoppingItemService.deleteShoppingItem(1)).to.be.
@@ -138,10 +138,10 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('updateShoppingItem happy path'), async() => {
-        when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+        when(shoppingItemRepositoryMock.getShoppingItemById(anyNumber(), anything()))
             .thenResolve(shoppingItem1);
         when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
-        when(shoppingItemRepositoryMock.updateShoppingItemById(1, anything())).
+        when(shoppingItemRepositoryMock.updateShoppingItemById(anyNumber(), anything())).
             thenResolve();
         await expect(shoppingItemService.updateShoppingItem(1, shoppingItem1)).to.not.be.
             rejectedWith(BadRequestError);
@@ -151,7 +151,7 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('updateShoppingItem shopping Item does not exist'), async() => {
-        when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+        when(shoppingItemRepositoryMock.getShoppingItemById(anyNumber(), anything()))
             .thenResolve(null);
         await expect(shoppingItemService.updateShoppingItem(1, shoppingItem1)).to.be.
         rejectedWith(ResourceNotFoundError);
@@ -159,7 +159,7 @@ describe('Shopping Item Service Test', () => {
     });
 
     it(('updateShoppingItem work order id does not exist'), async() => {
-        when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+        when(shoppingItemRepositoryMock.getShoppingItemById(anyNumber(), anything()))
             .thenResolve(null);
         when(workOrderServiceMock.getWorkOrder(1)).thenThrow(new Error);
         await expect(shoppingItemService.updateShoppingItem(1, shoppingItem1)).to.be.
@@ -169,10 +169,10 @@ describe('Shopping Item Service Test', () => {
 
     // Test not needed since updateShoppingItem no longer throws BadRequestError
     // it(('updateShoppingItem repository BadRequestError '), async() => {
-    //     when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+    //     when(shoppingItemRepositoryMock.getShoppingItemById(anyNumber(), anything()))
     //         .thenResolve(shoppingItem1);
     //     when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
-    //     when(shoppingItemRepositoryMock.updateShoppingItemById(1, anything())).
+    //     when(shoppingItemRepositoryMock.updateShoppingItemById(anyNumber(), anything())).
     //     thenThrow(new Error);
     //     await expect(shoppingItemService.updateShoppingItem(1, shoppingItem1)).to.be.
     //     rejectedWith(BadRequestError);

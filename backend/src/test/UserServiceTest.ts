@@ -79,7 +79,7 @@ describe('User Service Test', () => {
     });
 
     it('register(user, password) successfully', async () => {
-        const validUser : User = UserDataProvider.getUser(1, email, userType.type);
+        const validUser : User = UserDataProvider.getUser(anyNumber(), email, userType.type);
         const expectedUser : User = UserDataProvider
             .getUser(1, email, userType, hashedPassword);
 

@@ -1,6 +1,6 @@
 import 'mocha';
 import { equal } from 'assert';
-import { instance, mock, verify, when } from 'ts-mockito';
+import {anything, instance, mock, verify, when} from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { UserTypeService } from '../services/UserTypeService';
 import { UserTypeRepository } from '../repositories/UserTypeRepository';
@@ -26,14 +26,14 @@ describe('User Type Service Test', () => {
     });
 
     it(('getUserType happy path'), async() => {
-        when(userTypeRepositoryMock.getUserType(UserType.HOMEOWNER)).thenResolve(usertype);
+        when(userTypeRepositoryMock.getUserType(anything())).thenResolve(usertype);
         const fetchedUserType = await userTypeService.getUserType('HOMEOWNER');
         verify(userTypeRepositoryMock.getUserType(UserType.HOMEOWNER)).called();
         equal(fetchedUserType, usertype);
     });
 
     it(('getUserType repository error'), async() => {
-        when(userTypeRepositoryMock.getUserType(UserType.HOMEOWNER)).thenResolve(null);
+        when(userTypeRepositoryMock.getUserType(anything())).thenResolve(null);
         await expect(userTypeService.getUserType('HOMEOWNER')).to.be.
             rejectedWith(ResourceNotFoundError);
         verify(userTypeRepositoryMock.getUserType(UserType.HOMEOWNER)).called();
