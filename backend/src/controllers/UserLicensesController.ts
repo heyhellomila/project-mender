@@ -34,6 +34,6 @@ userLicenseController.get('/', auth, async(req: Request, res: Response) => {
     } catch (err) {
         return handleError(err, res);
     }
-});
+}); 
 
 export { userLicenseController };

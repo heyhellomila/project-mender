@@ -2,6 +2,7 @@ import { FindOptions } from 'typeorm';
 import { Property } from '../entities/Property';
 import { User } from '../entities/User';
 import { WorkOrder } from '../entities/WorkOrder';
+import { License } from '../entities/License';
 import { PropertySector } from '../entities/PropertySector';
 
 const PropertyFields : FindOptions<Property> = {
@@ -144,5 +145,42 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
     },
 };
 
+const LICENSE_FIELDS : FindOptions<License> = {
+    relations: ['licenseStatus', 'licenseType', 'user'],
+    select: {
+        id: true,
+        user: {
+            id: true,
+        },
+        licenseNumber: true,
+        licenseType: {
+            id: true,
+            type: true,
+        },
+        licenseStatus: {
+            id: true,
+            status: true,
+        },
+        expiryDate: true
+    },
+};
+
+const LICENSE_FIELDS_NO_USER : FindOptions<License> = {
+    relations: ['licenseStatus', 'licenseType'],
+    select: {
+        id: true,
+        licenseNumber: true,
+        licenseType: {
+            id: true,
+            type: true,
+        },
+        licenseStatus: {
+            id: true,
+            status: true,
+        },
+        expiryDate: true
+    },
+};
+
 export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
-    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS };
+    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER };

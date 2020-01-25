@@ -16,6 +16,7 @@ import { LicenseTypeCategories } from '../constants/LicenseTypeCategories'
 import { UserType } from 'src/entities/UserType';
 import { IsNull } from 'typeorm';
 import { isUndefined } from 'util';
+import { LICENSE_FIELDS, LICENSE_FIELDS_NO_USER } from '../constants/FindOptionsFields';
 
 class LicenseService {
 
@@ -44,7 +45,7 @@ class LicenseService {
     }
 
     async getLicenseById(id: number) {
-        const license: License = await this.licenseRepository.getLicenseById(id);
+        const license: License = await this.licenseRepository.getLicenseById(id, LICENSE_FIELDS);
         if (!license) {
             throw new ResourceNotFoundError("License with id " + id + " does not exist");
         } 
@@ -52,7 +53,7 @@ class LicenseService {
     }
 
     async getLicenseByLicenseNumberAndType(licenseNumber: number, licenseType: LicenseType) {
-        const license: License = await this.licenseRepository.getLicenseByLicenseNumberAndType(licenseNumber, licenseType);
+        const license: License = await this.licenseRepository.getLicenseByLicenseNumberAndType(licenseNumber, licenseType, LICENSE_FIELDS_NO_USER);
         if (!license) {
             throw new ResourceNotFoundError("License with number " + licenseNumber + " and type " + licenseType.type + " does not exist");
         } 
@@ -68,7 +69,7 @@ class LicenseService {
             throw new BadRequestError("Cannot provide licenses for user of type 'HOMEOWNER'.")
         }
         try {
-            return await this.licenseRepository.getLicensesByUser(user);
+            return await this.licenseRepository.getLicensesByUser(user, LICENSE_FIELDS_NO_USER);
         } catch (err) {
             throw err;
         }
