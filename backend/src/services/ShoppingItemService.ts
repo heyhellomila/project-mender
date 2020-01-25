@@ -79,12 +79,7 @@ class ShoppingItemService {
 
         if (shoppingItemObj.workOrder != null) {
             const workOrderId = shoppingItemObj.workOrder.id;
-            try {
-                await this.workOrderService.getWorkOrder(workOrderId);
-            } catch (err) {
-                throw new
-                ResourceNotFoundError(`Work Order with id  ${workOrderId} does not exist.`);
-            }
+            await this.workOrderService.getWorkOrder(workOrderId);
             shoppingItem.workOrder = shoppingItemObj.workOrder;
         }
 
@@ -99,12 +94,7 @@ class ShoppingItemService {
         if (shoppingItemObj.bought != null) {
             shoppingItem.bought = shoppingItemObj.bought;
         }
-
-        try {
-            return await this.shoppingItemRepository.updateShoppingItemById(id, shoppingItem);
-        } catch (err) {
-            throw new BadRequestError(err.message);
-        }
+        return await this.shoppingItemRepository.updateShoppingItemById(id, shoppingItem);
     }
 }
 

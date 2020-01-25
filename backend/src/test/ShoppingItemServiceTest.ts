@@ -167,16 +167,17 @@ describe('Shopping Item Service Test', () => {
         verify(shoppingItemRepositoryMock.getShoppingItemById(1, SHOPPING_ITEM_FIELDS)).called();
     });
 
-    it(('updateShoppingItem repository BadRequestError '), async() => {
-        when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
-            .thenResolve(shoppingItem1);
-        when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
-        when(shoppingItemRepositoryMock.updateShoppingItemById(1, anything())).
-        thenThrow(new Error);
-        await expect(shoppingItemService.updateShoppingItem(1, shoppingItem1)).to.be.
-        rejectedWith(BadRequestError);
-        verify(shoppingItemRepositoryMock.getShoppingItemById(1, SHOPPING_ITEM_FIELDS)).called();
-        verify(workOrderServiceMock.getWorkOrder(1)).called();
-        verify(shoppingItemRepositoryMock.updateShoppingItemById(1, anything())).called();
-    });
+    // Test not needed since updateShoppingItem no longer throws BadRequestError
+    // it(('updateShoppingItem repository BadRequestError '), async() => {
+    //     when(shoppingItemRepositoryMock.getShoppingItemById(1, anything()))
+    //         .thenResolve(shoppingItem1);
+    //     when(workOrderServiceMock.getWorkOrder(1)).thenResolve(workOrder);
+    //     when(shoppingItemRepositoryMock.updateShoppingItemById(1, anything())).
+    //     thenThrow(new Error);
+    //     await expect(shoppingItemService.updateShoppingItem(1, shoppingItem1)).to.be.
+    //     rejectedWith(BadRequestError);
+    //     verify(shoppingItemRepositoryMock.getShoppingItemById(1, SHOPPING_ITEM_FIELDS)).called();
+    //     verify(workOrderServiceMock.getWorkOrder(1)).called();
+    //     verify(shoppingItemRepositoryMock.updateShoppingItemById(1, anything())).called();
+    // });
 });

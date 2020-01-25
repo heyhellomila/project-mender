@@ -6,9 +6,8 @@ import { WorkOrder } from '../entities/WorkOrder';
 class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
 
     async getShoppingItemById(id: number, fieldOptions?: FindOptions<ShoppingItem>) {
-        const shoppingItem = await this.getRepositoryConnection(ShoppingItem)
+        return await this.getRepositoryConnection(ShoppingItem)
             .findOne(id, fieldOptions);
-        return shoppingItem;
     }
 
     async getShoppingItemsByWorkOrder(workOrder: WorkOrder,
@@ -17,15 +16,13 @@ class ShoppingItemRepository extends BaseRepository<ShoppingItem> {
         fieldOptionsR
             ? fieldOptionsR.where = { workOrder }
             : fieldOptionsR = { where: { workOrder } };
-        const shoppingItems = await this.getRepositoryConnection(ShoppingItem)
+        return await this.getRepositoryConnection(ShoppingItem)
             .find(fieldOptionsR);
-        return shoppingItems;
     }
 
     async createShoppingItem(shoppingItem: ShoppingItem) {
-        const savedShoppingItem : ShoppingItem = await this.getRepositoryConnection(
+        return await this.getRepositoryConnection(
                 ShoppingItem).save(shoppingItem);
-        return savedShoppingItem;
     }
 
     async deleteShoppingItem(id: number) {
