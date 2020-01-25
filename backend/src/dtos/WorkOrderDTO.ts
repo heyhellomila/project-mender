@@ -3,6 +3,7 @@ import { SectorDTO } from './SectorDTO';
 import { WorkOrderTypeDTO } from './WorkOrderTypeDTO';
 import { PriorityTypeDTO } from './PriorityTypeDTO';
 import { UserDTO } from './UserDTO';
+import { BusinessUserDTO } from './BusinessUserDTO';
 
 export class WorkOrderDTO {
     id: number;
@@ -19,6 +20,7 @@ export class WorkOrderDTO {
     dueDate: Date;
     createdDate: Date;
     createdBy: UserDTO;
+    contractedBy: BusinessUserDTO;
     lastModifiedDate: Date
     lastModifiedBy: UserDTO;
     dateCompleted: Date;

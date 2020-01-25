@@ -7,8 +7,10 @@ import { WorkOrderTypeService } from './WorkOrderTypeService';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
+import { WorkOrderFields, WorkOrderFieldsNoProperty, WorkOrderFieldsNoBusinessUser } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
+import { BusinessUser }  from '../entities/BusinessUser';
+import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 
@@ -17,6 +19,7 @@ class WorkOrderService {
     private propertyService: PropertyService = new PropertyService();
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
+    private businessUserService: BusinessUserService = new BusinessUserService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
 
@@ -55,6 +58,19 @@ class WorkOrderService {
         try {
             return await this.workOrderRepository.getWorkOrdersByProperty(
                 property, WorkOrderFieldsNoProperty);
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async getWorkOrdersByBusinessUser(businessUserId: number) {
+        const businessUser: BusinessUser = await this.businessUserService.getBusinessUser(businessUserId);
+        if (!businessUser) {
+            throw new ResourceNotFoundError(`Business User with id ${businessUserId} does not exist.`);
+        }
+        try {
+            return await this.workOrderRepository.getWorkOrdersByBusinessUser(
+                businessUser, WorkOrderFieldsNoBusinessUser);
         } catch (err) {
             throw err;
         }

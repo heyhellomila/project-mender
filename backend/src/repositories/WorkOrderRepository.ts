@@ -7,6 +7,7 @@ import { BaseRepository } from './BaseRepository';
 import { WorkOrderFields } from '../constants/FindOptionsFields';
 import { FindOptions } from 'typeorm';
 import { User } from '../entities/User';
+import { BusinessUser } from '../entities/BusinessUser';
 import {OrderingByType} from '../enums/OrderingByType';
 
 import enumerate = Reflect.enumerate;
@@ -46,6 +47,13 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         return workOrders;
     }
 
+    async getWorkOrdersByBusinessUser(businessUser: BusinessUser, fieldOptions?: FindOptions<WorkOrder>) {
+        fieldOptions
+            ? fieldOptions.where = { contractedBy: businessUser }
+            : fieldOptions = { where: {contractedBy: businessUser} };
+        const workOrders = await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
+        return workOrders;
+    }
 
     async createWorkOrder(workOrder: WorkOrder) {
         try {

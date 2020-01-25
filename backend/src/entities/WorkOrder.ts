@@ -5,6 +5,7 @@ import { Sector } from './Sector';
 import { WorkOrderType } from './WorkOrderType';
 import { PriorityType } from './PriorityType';
 import { User } from './User';
+import { BusinessUser } from './BusinessUser'
 
 @Entity({ name: 'work_orders' })
 export class WorkOrder {
@@ -59,6 +60,12 @@ export class WorkOrder {
         name: 'created_by',
     })
     createdBy: User;
+
+    @ManyToOne(type => BusinessUser, { nullable: true })
+    @JoinColumn({
+        name: 'contracted_by',
+    })
+    contractedBy: BusinessUser;
 
     @Column({ name: 'last_modified_date', nullable: true })
     lastModifiedDate: Date;

@@ -61,7 +61,7 @@ const UserFields : FindOptions<User> = {
 
 const WorkOrderFields : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
-        'lastModifiedBy', 'property'],
+        'lastModifiedBy', 'property', 'contractedBy'],
     select: {
         id: true,
         property: {
@@ -89,6 +89,9 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
         createdBy: {
             id: true,
         },
+        contractedBy: {
+            id: true,
+        },
         lastModifiedDate: true,
         lastModifiedBy: {
             id: true,
@@ -103,6 +106,49 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy'],
     select: {
         id: true,
+        sector: {
+            id: true,
+            type: true,
+            kind: true,
+        },
+        workOrderType: {
+            id: true,
+            type: true,
+        },
+        title: true,
+        cause: true,
+        serviceNeeded: true,
+        priorityType: {
+            id: true,
+            type: true,
+        },
+        description: true,
+        dueDate: true,
+        createdDate: true,
+        createdBy: {
+            id: true,
+        },
+        contractedBy: {
+            id: true,
+        },
+        lastModifiedDate: true,
+        lastModifiedBy: {
+            id: true,
+        },
+        dateCompleted: true,
+        priceEstimate: true,
+        actualCost: true,
+    },
+};
+
+const WorkOrderFieldsNoBusinessUser : FindOptions<WorkOrder> = {
+    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
+        'lastModifiedBy', 'property'],
+    select: {
+        id: true,
+        property: {
+            id: true,
+        },
         sector: {
             id: true,
             type: true,
@@ -233,6 +279,6 @@ const BUSINESS_FIELDS : FindOptions<Business> = {
 
 
 
-export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
+export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser, WorkOrderFieldsNoBusinessUser,
     WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
     BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_FIELDS };

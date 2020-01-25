@@ -9,6 +9,7 @@ import { PriorityTypeMapper } from './PriorityTypeMapper';
 import { SectorDTO } from '../dtos/SectorDTO';
 import { WorkOrderTypeDTO } from '../dtos/WorkOrderTypeDTO';
 import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
+import { BusinessUserMapper } from './BusinessUserMapper';
 
 class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
@@ -17,6 +18,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
     private workOrderTypeMapper : WorkOrderTypeMapper = new WorkOrderTypeMapper();
     private priorityTypeMapper : PriorityTypeMapper = new PriorityTypeMapper();
     private userMapper : UserMapper = new UserMapper();
+    private businessUserMapper : BusinessUserMapper = new BusinessUserMapper();
 
     toDTO(workOrder: WorkOrder) : WorkOrderDTO {
         const workOrderDTO : WorkOrderDTO = new WorkOrderDTO();
@@ -41,6 +43,9 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.createdDate = workOrder.createdDate;
         if (workOrder.createdBy) {
             workOrderDTO.createdBy = this.userMapper.toDTO(workOrder.createdBy);
+        }
+        if (workOrder.contractedBy) {
+            workOrderDTO.contractedBy = this.businessUserMapper.toDTO(workOrder.contractedBy);
         }
         workOrderDTO.lastModifiedDate = workOrder.lastModifiedDate;
         if (workOrder.lastModifiedBy) {
