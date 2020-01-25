@@ -6,6 +6,6 @@ export class BusinessType {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({name: 'type'})
     type: string
 }

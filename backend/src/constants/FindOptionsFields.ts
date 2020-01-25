@@ -4,6 +4,8 @@ import { User } from '../entities/User';
 import { WorkOrder } from '../entities/WorkOrder';
 import { License } from '../entities/License';
 import { PropertySector } from '../entities/PropertySector';
+import { BusinessUser } from '../entities/BusinessUser';
+import { Business } from '../entities/Business';
 
 const PropertyFields : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
@@ -182,5 +184,55 @@ const LICENSE_FIELDS_NO_USER : FindOptions<License> = {
     },
 };
 
+const BUSINESS_USER_FIELDS : FindOptions<BusinessUser> = {
+    relations: ['businessUserRole', 'business', 'user'],
+    select: {
+        id: true,
+        user: {
+            id: true,
+        },
+        businessUserRole: {
+            id: true,
+            role: true,
+        },
+        business: {
+            id: true,
+            NEQ: true,
+        }
+    },
+};
+
+const BUSINESS_USER_FIELDS_NO_USER : FindOptions<BusinessUser> = {
+    relations: ['businessUserRole', 'business'],
+    select: {
+        id: true,
+        businessUserRole: {
+            id: true,
+            role: true,
+        },
+        business: {
+            id: true,
+            NEQ: true,
+            name: true,
+        }
+    },
+};
+
+const BUSINESS_FIELDS : FindOptions<Business> = {
+    relations: ['businessType'],
+    select: {
+        id: true,
+        NEQ: true,
+        name: true,
+        businessType: {
+            id: true,
+            type: true,
+        }
+    },
+};
+
+
+
 export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser,
-    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER };
+    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
+    BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_FIELDS };

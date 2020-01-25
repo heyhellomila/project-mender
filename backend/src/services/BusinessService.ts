@@ -41,7 +41,7 @@ class BusinessService {
         if (!business.NEQ && (business.name || business.businessType.type == BusinessTypeEnum.BUSINESS)) {
             throw new BadRequestError("Cannot provide business name or type 'BUSINESS' without an NEQ.")
         }
-        if (this.businessExists(business.NEQ)) {
+        if (business.NEQ && await this.businessExists(business.NEQ)) {
             throw new ResourceExistsError("A business with the NEQ " + business.NEQ + " aready exists.")
         }
         business.businessType = await this.businessTypeService.getBusinessType(business.businessType.type);

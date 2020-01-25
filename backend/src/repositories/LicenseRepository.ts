@@ -31,7 +31,6 @@ class LicenseRepository extends BaseRepository<License> {
             ? fieldOptions.where = { user: user }
             : fieldOptions = { where: {user: user} };
         const licenses = await this.getRepositoryConnection(License).find(fieldOptions);
-        console.log(licenses);
         return licenses;
     }
 
