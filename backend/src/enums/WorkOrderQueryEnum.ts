@@ -19,5 +19,5 @@ export enum WorkOrderQuery {
     'SORTBY' = 'sortBy',
     'ORDERING'= 'ordering',
     'BOOKMARKED' = 'bookmarked',
-    'WORKORDERSTATUS' = 'workOrderStatus'
+    'WORKORDERSTATUS' = 'workOrderStatus',
 }

@@ -1,5 +1,5 @@
 import 'mocha';
-import { anyNumber, anyOfClass, anyString, anything, instance, mock, verify, when } from 'ts-mockito';
+import { anything, instance, mock, verify, when } from 'ts-mockito';
 import { WorkOrderTypeService } from '../services/WorkOrderTypeService';
 import { PropertyService } from '../services/PropertyService';
 import { SectorService } from '../services/SectorService';
@@ -14,8 +14,9 @@ import { WorkOrderDataProvider } from './data_providers/WorkOrderDataProvider';
 import { equal } from 'assert';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { BadRequestError } from '../errors/BadRequestError';
-import { WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
+import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
 import { WorkOrderQueryDataProvider } from './data_providers/WorkOrderQueryDataProvider';
+import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -236,4 +237,24 @@ describe('Work Order Service Test', () => {
         rejectedWith(BadRequestError);
     });
 
+    it(('getWorkOrders pagesize is out of range '), async() => {
+        workOrdersQuery.set(WorkOrderQuery.SORTBY, 'haha look at me, invalidString');
+        await expect(workOrderService.getWorkOrders(workOrdersQueryUnderflow)).to.be.
+        rejectedWith(BadRequestError);
+    });
+
+    it(('getWorkOrder happy path'), async() => {
+        when(workOrderRepositoryMock.getWorkOrderById(1, anything())).
+            thenResolve(workOrder);
+        const fetchedWorkOrder = await workOrderService.getWorkOrder(1);
+        verify(workOrderRepositoryMock.getWorkOrderById(1, WorkOrderFields)).called();
+        equal(fetchedWorkOrder, workOrder);
+    });
+
+    it(('getWorkOrder null workOrder expect ResourceNotFoundError'), async() => {
+        when(workOrderRepositoryMock.getWorkOrderById(1, anything())).
+            thenResolve(null);
+        await expect(workOrderService.getWorkOrder(1)).to.be.
+            rejectedWith(ResourceNotFoundError);
+    });
 });

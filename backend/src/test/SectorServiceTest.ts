@@ -1,17 +1,7 @@
 import 'mocha';
 import { equal } from 'assert';
-import { PropertyTypeRepository } from '../repositories/PropertyTypeRepository';
-import { anyNumber, anyString, anything, instance, mock, verify, when } from 'ts-mockito';
-import { PropertyTypeService } from '../services/PropertyTypeService';
-import { PropertyType } from '../entities/PropertyType';
-import { PropertyType as PropertyTypeEnum } from '../enums/PropertyType';
-import { PropertyTypeDataProvider } from './data_providers/PropertyTypeDataProvider';
+import { anyString, instance, mock, verify, when } from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
-import { PropertySector } from '../entities/PropertySector';
-import { PropertySectorDataProvider } from './data_providers/PropertySectorDataProvider';
-import { ActivityStatus } from '../enums/ActivityStatus';
-import { PriorityTypeRepository } from '../repositories/PriorityTypeRepository';
-import { PriorityTypeService } from '../services/PriorityTypeService';
 import { SectorRepository } from '../repositories/SectorTypeRepository';
 import { SectorService } from '../services/SectorService';
 import { Sector } from '../entities/Sector';

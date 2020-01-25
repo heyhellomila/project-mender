@@ -4,7 +4,7 @@ import { instance, mock, verify, when } from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { WorkOrderStatusRepository } from '../repositories/WorkOrderStatusRepository';
 import { WorkOrderStatusService } from '../services/WorkOrderStatusService';
-import { WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
+import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
 import { WorkOrderStatusDataProvider } from './data_providers/WorkOrderStatusDataProvider';
 
 const chai = require('chai');
@@ -26,25 +26,25 @@ describe('Work Order Status Service Test', () => {
     });
 
     it(('getWorkOrderStatus happy path'), async() => {
-        when(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
+        when(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatus.ISSUED)).
             thenResolve(workOrderStatus);
 
         const fetchedWorkOrderStatus = await workOrderStatusService.
-            getWorkOrderStatus(WorkOrderStatusEnum.ISSUED);
+            getWorkOrderStatus(WorkOrderStatus.ISSUED);
 
-        verify(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
+        verify(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatus.ISSUED)).
             called();
         equal(fetchedWorkOrderStatus, workOrderStatus);
     });
 
     it(('getWorkOrderStatus repository error ResourceNotFoundError'), async() => {
-        when(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
+        when(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatus.ISSUED)).
         thenResolve(null);
 
-        await expect(workOrderStatusService.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).to.be.
+        await expect(workOrderStatusService.getWorkOrderStatus(WorkOrderStatus.ISSUED)).to.be.
             rejectedWith(ResourceNotFoundError);
 
-        verify(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatusEnum.ISSUED)).
+        verify(workOrderStatusRepositoryMock.getWorkOrderStatus(WorkOrderStatus.ISSUED)).
         called();
     });
 });

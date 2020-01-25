@@ -13,8 +13,6 @@ import { User }  from '../entities/User';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
-import {Sector} from "../entities/Sector";
-import {WorkOrderStatusRepository} from "../repositories/WorkOrderStatusRepository";
 
 class WorkOrderService {
 
