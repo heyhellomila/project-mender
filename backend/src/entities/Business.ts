@@ -8,7 +8,7 @@ export class Business {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({nullable: true})
+    @Column()
     NEQ: number
 
     @Column({nullable: true})

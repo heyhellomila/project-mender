@@ -26,7 +26,7 @@ const LICENSE_FIELDS = {
 };
 
 const BUSINESS_FIELDS = {
-    createFields : ['businessType'],
+    createFields : ['NEQ', 'businessType'],
 };
 
 export { UserFields, WorkOrderFields, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS, 
