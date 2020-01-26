@@ -76,19 +76,8 @@ class LicenseService {
     }
 
     async createLicense(userId: number, license: License) {
-        if (!(await this.userService.getUser(userId))) {
-            throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
-        }
         const user: User = await this.userService.getUser(userId);
         license.user = user;
-
-        if (!license.licenseNumber) {
-            throw new BadRequestError("License number is required.")
-        }
-
-        if (!license.licenseType) {
-            throw new BadRequestError("License type is required.")
-        }
         license.licenseType = await this.licenseTypeService.getLicenseType(license.licenseType.type);
 
         if (user.userType.type == UserTypeEnum.INSPECTOR && !Object.values(LicenseTypeCategories.InspectorTypes).includes(license.licenseType.type as LicenseTypeEnum)) {
@@ -98,8 +87,6 @@ class LicenseService {
         } else if (user.userType.type == UserTypeEnum.HOMEOWNER) {
             throw new BadRequestError("A Homeowner cannot add a license.")
         }
-
-        
 
         if (await this.licenseTypeExists(user, license.licenseType)) {
             throw new ResourceExistsError("License of type " + license.licenseType.type + " for user " + userId + " already exists")
@@ -116,11 +103,7 @@ class LicenseService {
 
         license.licenseStatus = await this.licenseStatusService.getLicenseStatus(LicenseStatusEnum.ACTIVE as string);
 
-        try {
-            return await this.licenseRepository.createLicense(license);
-        } catch (err) {
-            throw new BadRequestError(err.message);
-        }
+        return await this.licenseRepository.createLicense(license);
     }
 }
 

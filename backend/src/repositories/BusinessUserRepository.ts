@@ -32,15 +32,11 @@ class BusinessUserRepository extends BaseRepository<BusinessUser> {
     }
 
     async businessUsersExist(business: Business) {
-        return await this.getRepositoryConnection(BusinessUser).findOne({business: business});
+        return await this.getRepositoryConnection(BusinessUser).findOne({business});
     }
 
     async createBusinessUser(businessUser: BusinessUser) {
-        try {
-            return await this.getRepositoryConnection(BusinessUser).save(businessUser);
-        } catch (err) {
-            throw new Error(err);
-        }
+        return await this.getRepositoryConnection(BusinessUser).save(businessUser);
     }
 
 

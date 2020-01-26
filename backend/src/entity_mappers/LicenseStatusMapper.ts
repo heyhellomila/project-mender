@@ -7,13 +7,13 @@ import { BadRequestError } from '../errors/BadRequestError';
 class LicenseStatusMapper implements ObjectMapper<LicenseStatus, LicenseStatusDTO> {
 
     toDTO(licenseStatus: LicenseStatus) : LicenseStatusDTO {
-        var licenseStatusDTO : LicenseStatusDTO = new LicenseStatusDTO();
+        const licenseStatusDTO : LicenseStatusDTO = new LicenseStatusDTO();
         licenseStatusDTO.status = licenseStatus.status;
         return licenseStatusDTO;
     }
 
     fromDTO(licenseStatusDTO: LicenseStatusDTO) : LicenseStatus {
-        var licenseStatus : LicenseStatus = new LicenseStatus();
+        const licenseStatus : LicenseStatus = new LicenseStatus();
         if (!(licenseStatusDTO.status in LicenseStatusEnum)) {
             throw new BadRequestError('Invalid License Status. Allowed Types: [' 
                 + Object.keys(LicenseStatusEnum) +']');

@@ -14,32 +14,25 @@ class LicenseRepository extends BaseRepository<License> {
         fieldOptions 
             ? fieldOptions.where = { licenseNumber: licenseNumber, licenseType: licenseType }
             : fieldOptions = { where: {licenseNumber: licenseNumber, licenseType: licenseType} };
-        const license = await this.getRepositoryConnection(License).findOne(fieldOptions);
-        return license;
+        return await this.getRepositoryConnection(License).findOne(fieldOptions);
     }
 
     async getLicenseByUserAndLicenseType(user: User, licenseType: LicenseType, fieldOptions?: FindOptions<License>) {
         fieldOptions 
             ? fieldOptions.where = { user: user, licenseType: licenseType }
             : fieldOptions = { where: {user: user, licenseType: licenseType} };
-        const license = await this.getRepositoryConnection(License).findOne(fieldOptions);
-        return license;
+        return await this.getRepositoryConnection(License).findOne(fieldOptions);
     }
 
     async getLicensesByUser(user: User, fieldOptions?: FindOptions<License>) {
         fieldOptions 
             ? fieldOptions.where = { user: user }
             : fieldOptions = { where: {user: user} };
-        const licenses = await this.getRepositoryConnection(License).find(fieldOptions);
-        return licenses;
+        return await this.getRepositoryConnection(License).find(fieldOptions);
     }
 
     async createLicense(license: License) {
-        try {
-            return await this.getRepositoryConnection(License).save(license);
-        } catch (err) {
-            throw new Error(err);
-        }
+        return await this.getRepositoryConnection(License).save(license);
     }
 }
 

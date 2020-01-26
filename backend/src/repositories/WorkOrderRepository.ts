@@ -52,8 +52,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         fieldOptions
             ? fieldOptions.where = { contractedBy: businessUser }
             : fieldOptions = { where: {contractedBy: businessUser} };
-        const workOrders = await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
-        return workOrders;
+        return await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
     }
 
     async createWorkOrder(workOrder: WorkOrder) {

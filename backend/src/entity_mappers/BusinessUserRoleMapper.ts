@@ -7,13 +7,13 @@ import { BadRequestError } from '../errors/BadRequestError';
 class UserRoleMapper implements ObjectMapper<BusinessUserRole, BusinessUserRoleDTO> {
 
     toDTO(userRole: BusinessUserRole) : BusinessUserRoleDTO {
-        var userRoleDTO : BusinessUserRoleDTO = new BusinessUserRoleDTO();
+        const userRoleDTO : BusinessUserRoleDTO = new BusinessUserRoleDTO();
         userRoleDTO.role = userRole.role;
         return userRoleDTO;
     }
 
     fromDTO(userRoleDTO: BusinessUserRoleDTO) : BusinessUserRole {
-        var userRole : BusinessUserRole = new BusinessUserRole();
+        const userRole : BusinessUserRole = new BusinessUserRole();
         if (!(userRoleDTO.role in BusinessUserRoleEnum)) {
             throw new BadRequestError('Invalid User Role. Allowed Types: [' 
                 + Object.keys(BusinessUserRoleEnum) +']');

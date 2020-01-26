@@ -14,7 +14,7 @@ class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> 
     private businessMapper : BusinessMapper = new BusinessMapper();
 
     toDTO(businessUser: BusinessUser) : BusinessUserDTO {
-        var businessUserDTO : BusinessUserDTO = new BusinessUserDTO();
+        const businessUserDTO : BusinessUserDTO = new BusinessUserDTO();
         businessUserDTO.id = businessUser.id;
         if (businessUser.businessUserRole) {
             businessUserDTO.businessUserRole = this.businessUserRoleMapper.toDTO(businessUser.businessUserRole);
@@ -30,7 +30,7 @@ class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> 
     }
 
     fromDTO(businessUserDTO: BusinessUserDTO) : BusinessUser {
-        var businessUser : BusinessUser = new BusinessUser();
+        const businessUser : BusinessUser = new BusinessUser();
         businessUser.id = businessUserDTO.id;
         if (businessUserDTO.businessUserRole) {
             businessUser.businessUserRole = this.businessUserRoleMapper.fromDTO(new BusinessUserRoleDTO(businessUserDTO.businessUserRole as string));

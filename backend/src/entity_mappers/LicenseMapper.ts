@@ -15,7 +15,7 @@ class LicenseMapper implements ObjectMapper<License, LicenseDTO> {
     private licenseStatusMapper : LicenseStatusMapper = new LicenseStatusMapper();
 
     toDTO(license: License) : LicenseDTO {
-        var licenseDTO : LicenseDTO = new LicenseDTO();
+        const licenseDTO : LicenseDTO = new LicenseDTO();
         licenseDTO.id = license.id;
         if (license.user) {
             licenseDTO.user = this.userMapper.toDTO(license.user);
@@ -32,8 +32,7 @@ class LicenseMapper implements ObjectMapper<License, LicenseDTO> {
     }
 
     fromDTO(licenseDTO: LicenseDTO) : License {
-        var license : License = new License();
-
+        const license : License = new License();
         license.id = licenseDTO.id;
         license.licenseNumber = licenseDTO.licenseNumber;
         if (licenseDTO.licenseType) {
@@ -43,8 +42,6 @@ class LicenseMapper implements ObjectMapper<License, LicenseDTO> {
             license.licenseStatus = this.licenseStatusMapper.fromDTO(new LicenseStatusDTO(licenseDTO.licenseStatus as string));
         }
         license.expiryDate = licenseDTO.expiryDate;
-        
-
         return license;
     }
 }

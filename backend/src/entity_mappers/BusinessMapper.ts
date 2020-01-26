@@ -10,7 +10,7 @@ class BusinessMapper implements ObjectMapper<Business, BusinessDTO> {
     private businessTypeMapper : BusinessTypeMapper = new BusinessTypeMapper();
 
     toDTO(business: Business) : BusinessDTO {
-        var businessDTO : BusinessDTO = new BusinessDTO();
+        const businessDTO : BusinessDTO = new BusinessDTO();
         businessDTO.id = business.id;
         businessDTO.NEQ = business.NEQ;
         businessDTO.name = business.name;
@@ -21,7 +21,7 @@ class BusinessMapper implements ObjectMapper<Business, BusinessDTO> {
     }
 
     fromDTO(businessDTO: BusinessDTO) : Business {
-        var business : Business = new Business();
+        const business : Business = new Business();
         business.id = businessDTO.id;
         business.NEQ = businessDTO.NEQ;
         business.name = businessDTO.name;

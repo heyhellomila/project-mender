@@ -8,7 +8,7 @@ import { WorkOrderStatusService } from './WorkOrderStatusService';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderFields, WorkOrderFieldsNoProperty, WorkOrderFieldsNoBusinessUser } from '../constants/FindOptionsFields';
+import { WorkOrderFields, WorkOrderFieldsNoProperty, WORK_ORDER_FIELDS_NO_BUSINESS_USER } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
 import { BusinessUser }  from '../entities/BusinessUser';
 import { BusinessUserService }  from '../services/BusinessUserService';
@@ -83,7 +83,7 @@ class WorkOrderService {
         }
         try {
             return await this.workOrderRepository.getWorkOrdersByBusinessUser(
-                businessUser, WorkOrderFieldsNoBusinessUser);
+                businessUser, WORK_ORDER_FIELDS_NO_BUSINESS_USER);
         } catch (err) {
             throw err;
         }

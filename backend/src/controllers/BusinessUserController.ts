@@ -18,7 +18,7 @@ businessUserController.get('/', auth, async(req: Request, res: Response) => {
     try {
         const businessUsers = await businessUserService.getBusinessUsersByBusiness(Number(req.params.businessId));
         const usersDTO : UserDTO[] = [];
-        businessUsers.map(async (businessUser) => {
+        businessUsers.map((businessUser) => {
             usersDTO.push(userMapper.toDTO(businessUser.user))
         });
         return res.status(200).json(usersDTO);

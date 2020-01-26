@@ -46,11 +46,7 @@ class BusinessService {
         }
         business.businessType = await this.businessTypeService.getBusinessType(business.businessType.type);
 
-        try {
-            return await this.businessRepository.createBusiness(business);
-        } catch (err) {
-            throw new BadRequestError(err.message);
-        }
+        return await this.businessRepository.createBusiness(business);
     }
 }
 

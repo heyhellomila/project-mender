@@ -157,7 +157,7 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
     },
 };
 
-const WorkOrderFieldsNoBusinessUser : FindOptions<WorkOrder> = {
+const WORK_ORDER_FIELDS_NO_BUSINESS_USER : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
         'lastModifiedBy', 'property'],
     select: {
@@ -343,7 +343,7 @@ const BUSINESS_FIELDS : FindOptions<Business> = {
 };
 
 export { PROPERTY_FIELDS, USER_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, WorkOrderFieldsNoBusinessUser, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
+    WorkOrderFieldsNoProperty, WORK_ORDER_FIELDS_NO_BUSINESS_USER, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
     PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
     BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_USER_FIELDS_NO_BUSINESS, BUSINESS_FIELDS };
 

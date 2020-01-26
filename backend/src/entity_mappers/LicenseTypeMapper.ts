@@ -7,13 +7,13 @@ import { BadRequestError } from '../errors/BadRequestError';
 class LicenseTypeMapper implements ObjectMapper<LicenseType, LicenseTypeDTO> {
 
     toDTO(licenseType: LicenseType) : LicenseTypeDTO {
-        var licenseTypeDTO : LicenseTypeDTO = new LicenseTypeDTO();
+        const licenseTypeDTO : LicenseTypeDTO = new LicenseTypeDTO();
         licenseTypeDTO.type = licenseType.type;
         return licenseTypeDTO;
     }
 
     fromDTO(licenseTypeDTO: LicenseTypeDTO) : LicenseType {
-        var licenseType : LicenseType = new LicenseType();
+        const licenseType : LicenseType = new LicenseType();
         if (!(licenseTypeDTO.type in LicenseTypeEnum)) {
             throw new BadRequestError('Invalid License Type. Allowed Types: [' 
                 + Object.keys(LicenseTypeEnum) +']');

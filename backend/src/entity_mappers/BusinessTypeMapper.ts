@@ -7,13 +7,13 @@ import { BadRequestError } from '../errors/BadRequestError';
 class BusinessTypeMapper implements ObjectMapper<BusinessType, BusinessTypeDTO> {
 
     toDTO(businessType: BusinessType) : BusinessTypeDTO {
-        var businessTypeDTO : BusinessTypeDTO = new BusinessTypeDTO();
+        const businessTypeDTO : BusinessTypeDTO = new BusinessTypeDTO();
         businessTypeDTO.type = businessType.type;
         return businessTypeDTO;
     }
 
     fromDTO(businessTypeDTO: BusinessTypeDTO) : BusinessType {
-        var businessType : BusinessType = new BusinessType();
+        const businessType : BusinessType = new BusinessType();
         if (!(businessTypeDTO.type in BusinessTypeEnum)) {
             throw new BadRequestError('Invalid Business Type. Allowed Types: [' 
                 + Object.keys(BusinessTypeEnum) +']');
