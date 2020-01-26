@@ -1,5 +1,5 @@
 export class LicenseTypeDTO {
-    
+
     id: number;
     type: string;
 

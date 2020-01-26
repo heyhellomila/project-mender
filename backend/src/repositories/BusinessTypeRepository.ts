@@ -4,7 +4,7 @@ import { BaseRepository } from './BaseRepository';
 class BusinessTypeRepository extends BaseRepository<BusinessType> {
 
     async getBusinessType(type: string) {
-        return await this.getRepositoryConnection(BusinessType).findOne({type});
+        return await this.getRepositoryConnection(BusinessType).findOne({ type });
     }
 }
 

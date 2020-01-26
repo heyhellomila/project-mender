@@ -8,7 +8,7 @@ class BusinessRepository extends BaseRepository<Business> {
     }
 
     async getBusinessByNEQ(neq: number) {
-        return await this.getRepositoryConnection(Business).findOne({NEQ: neq});
+        return await this.getRepositoryConnection(Business).findOne({ NEQ: neq });
     }
 
     async createBusiness(business: Business) {

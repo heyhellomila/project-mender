@@ -5,17 +5,13 @@ import { LicenseType as LicenseTypeEnum } from '../enums/LicenseType';
 import { LicenseType } from '../entities/LicenseType';
 import { LicenseTypeService } from './LicenseTypeService';
 import { LicenseStatus as LicenseStatusEnum } from '../enums/LicenseStatus';
-import { LicenseStatus } from '../entities/LicenseStatus';
 import { LicenseStatusService } from './LicenseStatusService';
 import { User } from '../entities/User';
 import { UserType as UserTypeEnum } from '../enums/UserType';
 import { UserService } from './UserService';
 import { LicenseRepository } from '../repositories/LicenseRepository';
 import { License } from '../entities/License';
-import { LicenseTypeCategories } from '../constants/LicenseTypeCategories'
-import { UserType } from 'src/entities/UserType';
-import { IsNull } from 'typeorm';
-import { isUndefined } from 'util';
+import { LICENSE_TYPE_CATEGORIES } from '../constants/LicenseTypeCategories';
 import { LICENSE_FIELDS, LICENSE_FIELDS_NO_USER } from '../constants/FindOptionsFields';
 
 class LicenseService {
@@ -26,37 +22,17 @@ class LicenseService {
     private userService: UserService = new UserService();
 
     async licenseExists(licenseNumber: number, licenseType: LicenseType) {
-        const license: License = await this.licenseRepository.getLicenseByLicenseNumberAndType(licenseNumber, licenseType);
-        if (!license) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    async getLicenseById(id: number) {
-        const license: License = await this.licenseRepository.getLicenseById(id, LICENSE_FIELDS);
-        if (!license) {
-            throw new ResourceNotFoundError("License with id " + id + " does not exist");
-        } 
-        return license;
-    }
-
-    async getLicenseByLicenseNumberAndType(licenseNumber: number, licenseType: LicenseType) {
-        const license: License = await this.licenseRepository.getLicenseByLicenseNumberAndType(licenseNumber, licenseType, LICENSE_FIELDS_NO_USER);
-        if (!license) {
-            throw new ResourceNotFoundError("License with number " + licenseNumber + " and type " + licenseType.type + " does not exist");
-        } 
-        return license;
+        return await this.licenseRepository
+            .getLicenseByLicenseNumberAndType(licenseNumber, licenseType);
     }
 
     async getLicensesByUser(userId: number) {
         const user: User = await this.userService.getUser(userId);
         if (!user) {
-            throw new ResourceNotFoundError("User with id " + userId + " does not exist.")
+            throw new ResourceNotFoundError(`User with id ${userId} does not exist.`);
         }
-        if (user.userType.type == UserTypeEnum.HOMEOWNER) {
-            throw new BadRequestError("Cannot provide licenses for user of type 'HOMEOWNER'.")
+        if (user.userType.type === UserTypeEnum.HOMEOWNER) {
+            throw new BadRequestError('Cannot provide licenses for user of type \'HOMEOWNER\'.');
         }
         try {
             return await this.licenseRepository.getLicensesByUser(user, LICENSE_FIELDS_NO_USER);
@@ -68,22 +44,30 @@ class LicenseService {
     async createLicense(userId: number, license: License) {
         const user: User = await this.userService.getUser(userId);
         license.user = user;
-        license.licenseType = await this.licenseTypeService.getLicenseType(license.licenseType.type);
+        license.licenseType = await this.licenseTypeService
+            .getLicenseType(license.licenseType.type);
 
-        if (user.userType.type == UserTypeEnum.INSPECTOR && !Object.values(LicenseTypeCategories.InspectorTypes).includes(license.licenseType.type as LicenseTypeEnum)) {
-            throw new BadRequestError("License type is required to be an Inspector type.")
-        } else if (user.userType.type == UserTypeEnum.CONTRACTOR && !Object.values(LicenseTypeCategories.ContractorTypes).includes(license.licenseType.type as LicenseTypeEnum)) {
-            throw new BadRequestError("License type is required to be a Contractor type.")
-        } else if (user.userType.type == UserTypeEnum.HOMEOWNER) {
-            throw new BadRequestError("A Homeowner cannot add a license.")
+        if (user.userType.type === UserTypeEnum.INSPECTOR
+            && !Object.values(LICENSE_TYPE_CATEGORIES.InspectorTypes)
+                .includes(license.licenseType.type as LicenseTypeEnum)) {
+            throw new BadRequestError('License type is required to be an Inspector type.');
+        } else if (user.userType.type === UserTypeEnum.CONTRACTOR
+            && !Object.values(LICENSE_TYPE_CATEGORIES.ContractorTypes)
+                .includes(license.licenseType.type as LicenseTypeEnum)) {
+            throw new BadRequestError('License type is required to be a Contractor type.');
+        } else if (user.userType.type === UserTypeEnum.HOMEOWNER) {
+            throw new BadRequestError('A Homeowner cannot add a license.');
         }
 
-        if (await this.licenseRepository.getLicenseByUserAndLicenseType(user, license.licenseType)) {
-            throw new ResourceExistsError("License of type " + license.licenseType.type + " for user " + userId + " already exists")
+        if (await this.licenseRepository
+            .getLicenseByUserAndLicenseType(user, license.licenseType)) {
+            throw new ResourceExistsError(`License of type ${license.licenseType.type} ` +
+                `for user ${userId} already exists`);
         }
- 
+
         if (await this.licenseExists(license.licenseNumber, license.licenseType)) {
-            throw new ResourceExistsError("License of type " + license.licenseType.type + " with number " + license.licenseNumber + " already exists.")
+            throw new ResourceExistsError(`License of type ${license.licenseType.type} ` +
+                `with number ${license.licenseNumber} already exists.`);
         }
 
         // LicenseStatus will have to be obtained via webscraper. For now, by default it is active
@@ -91,7 +75,8 @@ class LicenseService {
         //     throw new BadRequestError("License status cannot be found.")
         // }
 
-        license.licenseStatus = await this.licenseStatusService.getLicenseStatus(LicenseStatusEnum.ACTIVE as string);
+        license.licenseStatus = await this.licenseStatusService
+            .getLicenseStatus(LicenseStatusEnum.ACTIVE as string);
 
         return await this.licenseRepository.createLicense(license);
     }

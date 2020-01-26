@@ -22,7 +22,7 @@ export class WorkOrderDTO {
     createdDate: Date;
     createdBy: UserDTO;
     contractedBy: BusinessUserDTO;
-    lastModifiedDate: Date
+    lastModifiedDate: Date;
     lastModifiedBy: UserDTO;
     dateCompleted: Date;
     priceEstimate: number;

@@ -15,8 +15,8 @@ class UserRoleMapper implements ObjectMapper<BusinessUserRole, BusinessUserRoleD
     fromDTO(userRoleDTO: BusinessUserRoleDTO) : BusinessUserRole {
         const userRole : BusinessUserRole = new BusinessUserRole();
         if (!(userRoleDTO.role in BusinessUserRoleEnum)) {
-            throw new BadRequestError('Invalid User Role. Allowed Types: [' 
-                + Object.keys(BusinessUserRoleEnum) +']');
+            throw new BadRequestError('Invalid User Role. Allowed Types: [' +
+                `${Object.keys(BusinessUserRoleEnum)}]`);
         }
         userRole.role = userRoleDTO.role;
         return userRole;

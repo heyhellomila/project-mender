@@ -1,17 +1,8 @@
 import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderType } from '../entities/WorkOrderType';
-import { Sector } from '../entities/Sector';
-import { PriorityType } from '../entities/PriorityType';
 import { Property } from '../entities/Property';
 import { BaseRepository } from './BaseRepository';
-import { WorkOrderFields } from '../constants/FindOptionsFields';
 import { FindOptions } from 'typeorm';
-import { User } from '../entities/User';
-import { BusinessUser } from '../entities/BusinessUser';
-import {OrderingByType} from '../enums/OrderingByType';
-
-import enumerate = Reflect.enumerate;
-import set = Reflect.set;
+import { OrderingByType } from '../enums/OrderingByType';
 
 class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
@@ -20,7 +11,8 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         return workorder;
     }
 
-    async getWorkOrders(filterQueries: string, pageNumber: number, pageSize: number, searchTerm: string, workOrderSort: string, ordering: OrderingByType) {
+    async getWorkOrders(filterQueries: string, pageNumber: number, pageSize: number,
+                        searchTerm: string, workOrderSort: string, ordering: OrderingByType) {
         const workorders = await this.getRepositoryConnection(WorkOrder)
             .createQueryBuilder('work_orders')
             .addSelect(['properties.id', 'createdBy.id', 'lastModifiedBy.id'])
@@ -42,8 +34,8 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrdersByProperty(property: Property, fieldOptions?: FindOptions<WorkOrder>) {
         fieldOptions
-            ? fieldOptions.where = { property: property }
-            : fieldOptions = { where: {property: property} };
+            ? fieldOptions.where = { property }
+            : fieldOptions = { where: { property } };
         const workOrders = await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
         return workOrders;
     }

@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import { LicenseService } from '../services/LicenseService';
 import { LicenseDTO } from '../dtos/LicenseDTO';
 import { LicenseMapper } from '../entity_mappers/LicenseMapper';
@@ -34,6 +34,6 @@ userLicenseController.get('/', auth, async(req: Request, res: Response) => {
     } catch (err) {
         return handleError(err, res);
     }
-}); 
+});
 
 export { userLicenseController };

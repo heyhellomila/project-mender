@@ -6,7 +6,7 @@ import { WorkOrderType } from './WorkOrderType';
 import { PriorityType } from './PriorityType';
 import { WorkOrderStatus } from './WorkOrderStatus';
 import { User } from './User';
-import { BusinessUser } from './BusinessUser'
+import { BusinessUser } from './BusinessUser';
 
 @Entity({ name: 'work_orders' })
 export class WorkOrder {
@@ -32,14 +32,14 @@ export class WorkOrder {
     workOrderType: WorkOrderType;
 
     @Column()
-    title: string
+    title: string;
 
     @Column()
-    cause: string
+    cause: string;
 
     @Column({ name: 'service_needed', type: 'bit', transformer:
             { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
-    serviceNeeded: Boolean
+    serviceNeeded: Boolean;
 
     @ManyToOne(type => PriorityType)
     @JoinColumn({
@@ -48,13 +48,13 @@ export class WorkOrder {
     priorityType: PriorityType;
 
     @Column({ nullable: true })
-    description: string
+    description: string;
 
     @Column({ name: 'due_date' })
-    dueDate: Date
+    dueDate: Date;
 
     @Column({ name: 'created_date' })
-    createdDate: Date
+    createdDate: Date;
 
     @ManyToOne(type => User)
     @JoinColumn({
@@ -78,17 +78,17 @@ export class WorkOrder {
     lastModifiedBy: User;
 
     @Column({ name: 'date_completed', nullable: true })
-    dateCompleted: Date
+    dateCompleted: Date;
 
     @Column({ name: 'price_estimate' })
-    priceEstimate: number
+    priceEstimate: number;
 
     @Column({ name: 'actual_cost', nullable: true })
-    actualCost: number
+    actualCost: number;
 
     @Column({ name: 'bookmarked', type: 'bit', transformer:
             { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
-    bookmarked: Boolean
+    bookmarked: Boolean;
 
     @ManyToOne(type => WorkOrderStatus)
     @JoinColumn({

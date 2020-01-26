@@ -6,39 +6,30 @@ import { FindOptions } from 'typeorm';
 
 class BusinessUserRepository extends BaseRepository<BusinessUser> {
 
-    async getBusinessUserById(id: number, fieldOptions?: FindOptions<BusinessUser>) {
-        return await this.getRepositoryConnection(BusinessUser).findOne(id, fieldOptions);
-    }
-
-    async getBusinessUserByData(business: Business, user: User, fieldOptions?: FindOptions<BusinessUser>) {
-        fieldOptions 
-            ? fieldOptions.where = { business: business, user: user }
-            : fieldOptions = { where: {business: business, user: user} };
+    async getBusinessUserByData(business: Business, user: User,
+                                fieldOptions?: FindOptions<BusinessUser>) {
+        fieldOptions
+            ? fieldOptions.where = { business, user }
+            : fieldOptions = { where: { business, user } };
         return await this.getRepositoryConnection(BusinessUser).findOne(fieldOptions);
     }
 
     async getBusinessUsersByUser(user: User, fieldOptions?: FindOptions<BusinessUser>) {
-        fieldOptions 
-            ? fieldOptions.where = { user: user }
-            : fieldOptions = { where: {user: user} };
+        fieldOptions
+            ? fieldOptions.where = { user }
+            : fieldOptions = { where: { user } };
         return await this.getRepositoryConnection(BusinessUser).find(fieldOptions);
     }
 
     async getBusinessUsersByBusiness(business: Business, fieldOptions?: FindOptions<BusinessUser>) {
-        fieldOptions 
-            ? fieldOptions.where = { business: business }
-            : fieldOptions = { where: {business: business} };
+        fieldOptions
+            ? fieldOptions.where = { business }
+            : fieldOptions = { where: { business } };
         return await this.getRepositoryConnection(BusinessUser).find(fieldOptions);
-    }
-
-    async businessUsersExist(business: Business) {
-        return await this.getRepositoryConnection(BusinessUser).findOne({business});
     }
 
     async createBusinessUser(businessUser: BusinessUser) {
         return await this.getRepositoryConnection(BusinessUser).save(businessUser);
     }
-
-
 }
 export { BusinessUserRepository };

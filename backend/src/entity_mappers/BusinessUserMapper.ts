@@ -5,7 +5,6 @@ import { UserRoleMapper } from './BusinessUserRoleMapper';
 import { BusinessUserRoleDTO } from '../dtos/BusinessUserRoleDTO';
 import { UserMapper } from './UserMapper';
 import { BusinessMapper } from './BusinessMapper';
-import { BadRequestError } from '../errors/BadRequestError';
 
 class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> {
 
@@ -17,7 +16,8 @@ class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> 
         const businessUserDTO : BusinessUserDTO = new BusinessUserDTO();
         businessUserDTO.id = businessUser.id;
         if (businessUser.businessUserRole) {
-            businessUserDTO.businessUserRole = this.businessUserRoleMapper.toDTO(businessUser.businessUserRole);
+            businessUserDTO.businessUserRole = this.businessUserRoleMapper.toDTO(
+                businessUser.businessUserRole);
         }
         if (businessUser.user) {
             businessUserDTO.user = this.userMapper.toDTO(businessUser.user);
@@ -33,7 +33,8 @@ class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> 
         const businessUser : BusinessUser = new BusinessUser();
         businessUser.id = businessUserDTO.id;
         if (businessUserDTO.businessUserRole) {
-            businessUser.businessUserRole = this.businessUserRoleMapper.fromDTO(new BusinessUserRoleDTO(businessUserDTO.businessUserRole as string));
+            businessUser.businessUserRole = this.businessUserRoleMapper.fromDTO(
+                new BusinessUserRoleDTO(businessUserDTO.businessUserRole as string));
         }
         return businessUser;
     }

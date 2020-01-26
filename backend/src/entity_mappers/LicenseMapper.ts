@@ -4,7 +4,6 @@ import { ObjectMapper } from './ObjectMapper';
 import { UserMapper } from './UserMapper';
 import { LicenseTypeMapper } from './LicenseTypeMapper';
 import { LicenseStatusMapper } from './LicenseStatusMapper';
-import { BadRequestError } from '../errors/BadRequestError';
 import { LicenseTypeDTO } from '../dtos/LicenseTypeDTO';
 import { LicenseStatusDTO } from '../dtos/LicenseStatusDTO';
 
@@ -36,10 +35,12 @@ class LicenseMapper implements ObjectMapper<License, LicenseDTO> {
         license.id = licenseDTO.id;
         license.licenseNumber = licenseDTO.licenseNumber;
         if (licenseDTO.licenseType) {
-            license.licenseType = this.licenseTypeMapper.fromDTO(new LicenseTypeDTO(licenseDTO.licenseType as string));
+            license.licenseType = this.licenseTypeMapper.fromDTO(
+                new LicenseTypeDTO(licenseDTO.licenseType as string));
         }
         if (licenseDTO.licenseStatus) {
-            license.licenseStatus = this.licenseStatusMapper.fromDTO(new LicenseStatusDTO(licenseDTO.licenseStatus as string));
+            license.licenseStatus = this.licenseStatusMapper.fromDTO(
+                new LicenseStatusDTO(licenseDTO.licenseStatus as string));
         }
         license.expiryDate = licenseDTO.expiryDate;
         return license;

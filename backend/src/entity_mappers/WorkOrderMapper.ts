@@ -13,7 +13,6 @@ import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
 import { BusinessUserMapper } from './BusinessUserMapper';
 import { WorkOrderStatusDTO } from '../dtos/WorkOrderStatusDTO';
 
-
 class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
     private propertyMapper : PropertyMapper = new PropertyMapper();
@@ -60,7 +59,8 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.actualCost = workOrder.actualCost;
         workOrderDTO.bookmarked = workOrder.bookmarked;
         if (workOrder.workOrderStatus) {
-            workOrderDTO.workOrderStatus = this.workOrderStatusMapper.toDTO(workOrder.workOrderStatus);
+            workOrderDTO.workOrderStatus = this.workOrderStatusMapper.toDTO(
+                workOrder.workOrderStatus);
         }
         return workOrderDTO;
     }

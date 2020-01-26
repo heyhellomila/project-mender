@@ -1,5 +1,5 @@
 export class LicenseStatusDTO {
-    
+
     id: number;
     status: string;
 

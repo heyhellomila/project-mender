@@ -1,5 +1,5 @@
 export class BusinessUserRoleDTO {
-    
+
     id: number;
     role: string;
 

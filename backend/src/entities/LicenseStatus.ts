@@ -1,11 +1,11 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name: 'license_status'})
+@Entity({ name: 'license_status' })
 export class LicenseStatus {
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({name: 'type'})
+    @Column({ name: 'type' })
     status: string;
 }

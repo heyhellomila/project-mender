@@ -1,4 +1,4 @@
 export enum BusinessType {
     'INDEPENDENT' = 'INDEPENDENT',
-    'BUSINESS' = 'BUSINESS'
+    'BUSINESS' = 'BUSINESS',
 }

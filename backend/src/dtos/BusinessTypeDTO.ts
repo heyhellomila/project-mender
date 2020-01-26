@@ -1,5 +1,5 @@
 export class BusinessTypeDTO {
-    
+
     id: number;
     type: string;
 

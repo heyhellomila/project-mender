@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import { BusinessService } from '../services/BusinessService';
 import { BusinessMapper } from '../entity_mappers/BusinessMapper';
 import { BusinessDTO } from 'src/dtos/BusinessDTO';
@@ -9,7 +9,6 @@ import { BUSINESS_FIELDS } from '../constants/BodyFields';
 import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
-
 
 const businessController = express.Router({ mergeParams: true });
 const businessService : BusinessService = new BusinessService();
@@ -43,7 +42,7 @@ businessController.get('/:businessId/users', auth, async(req: Request, res: Resp
         const users = await businessUserService.getUsersByBusiness(Number(req.params.businessId));
         const usersDTO : UserDTO[] = [];
         users.map((user) => {
-            usersDTO.push(userMapper.toDTO(user))
+            usersDTO.push(userMapper.toDTO(user));
         });
         return res.status(200).json(usersDTO);
     } catch (err) {

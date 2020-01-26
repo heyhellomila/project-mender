@@ -4,7 +4,7 @@ import { BaseRepository } from './BaseRepository';
 class LicenseTypeRepository extends BaseRepository<LicenseType> {
 
     async getLicenseType(type: string) {
-        return await this.getRepositoryConnection(LicenseType).findOne({type: type});
+        return await this.getRepositoryConnection(LicenseType).findOne({ type });
     }
 }
 

@@ -10,8 +10,8 @@ class LicenseTypeService {
     async getLicenseType(type: string) {
         const licenseTypeObj: LicenseType = await this.licenseTypeRepository.getLicenseType(type);
         if (!licenseTypeObj) {
-            throw new ResourceNotFoundError('Invalid Type. Allowed Types: [' 
-                + Object.keys(LicenseTypeEnum) +']');
+            throw new ResourceNotFoundError('Invalid Type. Allowed Types: [' +
+                `${Object.keys(LicenseTypeEnum)}]`);
         }
         return licenseTypeObj;
     }

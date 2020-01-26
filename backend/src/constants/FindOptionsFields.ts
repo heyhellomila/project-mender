@@ -202,7 +202,6 @@ const WORK_ORDER_FIELDS_NO_BUSINESS_USER : FindOptions<WorkOrder> = {
     },
 };
 
-
 const SHOPPING_ITEM_FIELDS : FindOptions<ShoppingItem> = {
     relations: ['workOrder'],
     select:{
@@ -256,7 +255,7 @@ const LICENSE_FIELDS : FindOptions<License> = {
             id: true,
             status: true,
         },
-        expiryDate: true
+        expiryDate: true,
     },
 };
 
@@ -273,7 +272,7 @@ const LICENSE_FIELDS_NO_USER : FindOptions<License> = {
             id: true,
             status: true,
         },
-        expiryDate: true
+        expiryDate: true,
     },
 };
 
@@ -291,7 +290,7 @@ const BUSINESS_USER_FIELDS : FindOptions<BusinessUser> = {
         business: {
             id: true,
             NEQ: true,
-        }
+        },
     },
 };
 
@@ -307,7 +306,7 @@ const BUSINESS_USER_FIELDS_NO_USER : FindOptions<BusinessUser> = {
             id: true,
             NEQ: true,
             name: true,
-        }
+        },
     },
 };
 
@@ -325,25 +324,12 @@ const BUSINESS_USER_FIELDS_NO_BUSINESS : FindOptions<BusinessUser> = {
         businessUserRole: {
             id: true,
             role: true,
-        }
-    },
-};
-
-const BUSINESS_FIELDS : FindOptions<Business> = {
-    relations: ['businessType'],
-    select: {
-        id: true,
-        NEQ: true,
-        name: true,
-        businessType: {
-            id: true,
-            type: true,
-        }
+        },
     },
 };
 
 export { PROPERTY_FIELDS, USER_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, WORK_ORDER_FIELDS_NO_BUSINESS_USER, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
-    PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
-    BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_USER_FIELDS_NO_BUSINESS, BUSINESS_FIELDS };
-
+    WorkOrderFieldsNoProperty, WORK_ORDER_FIELDS_NO_BUSINESS_USER, SHOPPING_ITEM_FIELDS,
+    SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS,
+    LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, BUSINESS_USER_FIELDS,
+    BUSINESS_USER_FIELDS_NO_USER, BUSINESS_USER_FIELDS_NO_BUSINESS };

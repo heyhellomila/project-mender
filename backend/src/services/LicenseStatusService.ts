@@ -8,10 +8,11 @@ class LicenseStatusService {
     private licenseStatusRepository : LicenseStatusRepository = new LicenseStatusRepository();
 
     async getLicenseStatus(status: string) {
-        const licenseStatusObj: LicenseStatus = await this.licenseStatusRepository.getLicenseStatus(status);
+        const licenseStatusObj: LicenseStatus = await this
+            .licenseStatusRepository.getLicenseStatus(status);
         if (!licenseStatusObj) {
-            throw new ResourceNotFoundError('Invalid Status. Allowed Types: [' 
-                + Object.keys(LicenseStatusEnum) +']');
+            throw new ResourceNotFoundError('Invalid Status. Allowed Types: [' +
+                `${Object.keys(LicenseStatusEnum)}]`);
         }
         return licenseStatusObj;
     }

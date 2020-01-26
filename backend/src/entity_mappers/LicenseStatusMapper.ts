@@ -15,8 +15,8 @@ class LicenseStatusMapper implements ObjectMapper<LicenseStatus, LicenseStatusDT
     fromDTO(licenseStatusDTO: LicenseStatusDTO) : LicenseStatus {
         const licenseStatus : LicenseStatus = new LicenseStatus();
         if (!(licenseStatusDTO.status in LicenseStatusEnum)) {
-            throw new BadRequestError('Invalid License Status. Allowed Types: [' 
-                + Object.keys(LicenseStatusEnum) +']');
+            throw new BadRequestError('Invalid License Status. Allowed Types: [' +
+                `${Object.keys(LicenseStatusEnum)}]`);
         }
         licenseStatus.status = licenseStatusDTO.status;
         return licenseStatus;

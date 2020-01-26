@@ -1,4 +1,4 @@
 export enum LicenseType {
     'RBQ' = 'RBQ',
-    'IBQ' = 'IBQ'
+    'IBQ' = 'IBQ',
 }

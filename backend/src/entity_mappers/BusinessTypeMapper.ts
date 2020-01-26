@@ -15,8 +15,8 @@ class BusinessTypeMapper implements ObjectMapper<BusinessType, BusinessTypeDTO> 
     fromDTO(businessTypeDTO: BusinessTypeDTO) : BusinessType {
         const businessType : BusinessType = new BusinessType();
         if (!(businessTypeDTO.type in BusinessTypeEnum)) {
-            throw new BadRequestError('Invalid Business Type. Allowed Types: [' 
-                + Object.keys(BusinessTypeEnum) +']');
+            throw new BadRequestError('Invalid Business Type. Allowed Types: [' +
+                `${Object.keys(BusinessTypeEnum)}]`);
         }
         businessType.type = businessTypeDTO.type;
         return businessType;

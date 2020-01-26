@@ -10,24 +10,26 @@ class LicenseRepository extends BaseRepository<License> {
         return await this.getRepositoryConnection(License).findOne(id, fieldOptions);
     }
 
-    async getLicenseByLicenseNumberAndType(licenseNumber: number, licenseType: LicenseType, fieldOptions?: FindOptions<License>) {
-        fieldOptions 
-            ? fieldOptions.where = { licenseNumber: licenseNumber, licenseType: licenseType }
-            : fieldOptions = { where: {licenseNumber: licenseNumber, licenseType: licenseType} };
+    async getLicenseByLicenseNumberAndType(licenseNumber: number, licenseType: LicenseType,
+                                           fieldOptions?: FindOptions<License>) {
+        fieldOptions
+            ? fieldOptions.where = { licenseNumber, licenseType }
+            : fieldOptions = { where: { licenseNumber, licenseType } };
         return await this.getRepositoryConnection(License).findOne(fieldOptions);
     }
 
-    async getLicenseByUserAndLicenseType(user: User, licenseType: LicenseType, fieldOptions?: FindOptions<License>) {
-        fieldOptions 
-            ? fieldOptions.where = { user: user, licenseType: licenseType }
-            : fieldOptions = { where: {user: user, licenseType: licenseType} };
+    async getLicenseByUserAndLicenseType(user: User, licenseType: LicenseType,
+                                         fieldOptions?: FindOptions<License>) {
+        fieldOptions
+            ? fieldOptions.where = { user, licenseType }
+            : fieldOptions = { where: { user, licenseType } };
         return await this.getRepositoryConnection(License).findOne(fieldOptions);
     }
 
     async getLicensesByUser(user: User, fieldOptions?: FindOptions<License>) {
-        fieldOptions 
-            ? fieldOptions.where = { user: user }
-            : fieldOptions = { where: {user: user} };
+        fieldOptions
+            ? fieldOptions.where = { user }
+            : fieldOptions = { where: { user } };
         return await this.getRepositoryConnection(License).find(fieldOptions);
     }
 

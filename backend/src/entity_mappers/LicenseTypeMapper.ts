@@ -15,8 +15,8 @@ class LicenseTypeMapper implements ObjectMapper<LicenseType, LicenseTypeDTO> {
     fromDTO(licenseTypeDTO: LicenseTypeDTO) : LicenseType {
         const licenseType : LicenseType = new LicenseType();
         if (!(licenseTypeDTO.type in LicenseTypeEnum)) {
-            throw new BadRequestError('Invalid License Type. Allowed Types: [' 
-                + Object.keys(LicenseTypeEnum) +']');
+            throw new BadRequestError('Invalid License Type. Allowed Types: [' +
+                `${Object.keys(LicenseTypeEnum)}]`);
         }
         licenseType.type = licenseTypeDTO.type;
         return licenseType;
