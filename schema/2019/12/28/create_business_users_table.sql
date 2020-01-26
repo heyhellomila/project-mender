@@ -5,5 +5,6 @@ create table business_users(
     business_id bigint NOT NULL,
     FOREIGN KEY (business_user_role_id) REFERENCES business_user_roles(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (business_id) REFERENCES businesses(id)
+    FOREIGN KEY (business_id) REFERENCES businesses(id),
+    CONSTRAINT unique_user_business UNIQUE (user_id, business_id)
 )
