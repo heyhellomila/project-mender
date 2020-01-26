@@ -1,5 +1,5 @@
 import 'mocha';
-import {anyNumber, anything, instance, mock, verify, when} from 'ts-mockito';
+import { anyNumber, anyOfClass, anyString, anything, instance, mock, verify, when } from 'ts-mockito';
 import { WorkOrderTypeService } from '../services/WorkOrderTypeService';
 import { PropertyService } from '../services/PropertyService';
 import { SectorService } from '../services/SectorService';
@@ -45,6 +45,7 @@ describe('Work Order Service Test', () => {
     let workOrderRepositoryMock: WorkOrderRepository;
     let workOrderRepository: WorkOrderRepository;
 
+    const testUserId = 1;
     const workOrder: WorkOrder = WorkOrderDataProvider.getWorkOrderPopulated(1);
     const workOrder2: WorkOrder = WorkOrderDataProvider.getWorkOrderPopulated(2);
     const workOrders : WorkOrder[] = [workOrder, workOrder2];
@@ -86,17 +87,18 @@ describe('Work Order Service Test', () => {
 
     it(('createWorkOrder happy path'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).
+        when(sectorServiceMock.getSectorByKind(anyString())).
             thenResolve(workOrder.sector);
-        when(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
             thenResolve(workOrder.priorityType);
-        when(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
             thenResolve(workOrder.workOrderType);
         when(workOrderStatusServiceMock.getWorkOrderStatus(anything())).
             thenResolve(workOrder.workOrderStatus);
         when(workOrderRepositoryMock.createWorkOrder(workOrder)).thenResolve(workOrder);
-        const fetchedWorkOrder = await workOrderService.createWorkOrder(1, workOrder, 1);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        const fetchedWorkOrder = await workOrderService.
+            createWorkOrder(property.id, workOrder, testUserId);
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
         verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
         verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
@@ -108,79 +110,100 @@ describe('Work Order Service Test', () => {
     it(('createWorkOrder propertyService fails throws ResourceNotFoundError '), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).
             thenThrow(new ResourceNotFoundError(propertyDoesNotExistString));
-        await expect(workOrderService.createWorkOrder(1, workOrder, 1)).to.be.
+        await expect(workOrderService.createWorkOrder(property.id, workOrder, testUserId)).to.be.
             rejectedWith(ResourceNotFoundError, propertyDoesNotExistString);
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
+        verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).never();
+        verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).never();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).never();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).never();
+        verify(workOrderRepositoryMock.createWorkOrder(workOrder)).never();
+
     });
 
     it(('createWorkOrder sectorService throws ResourceNotFound'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).
+        when(sectorServiceMock.getSectorByKind(anyString())).
             thenThrow(new ResourceNotFoundError(invalidSectorString));
 
-        await expect(workOrderService.createWorkOrder(1, workOrder, 1)).to.be.
+        await expect(workOrderService.createWorkOrder(property.id, workOrder, testUserId)).to.be.
             rejectedWith(ResourceNotFoundError, invalidSectorString);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
+        verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
+        verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).never();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).never();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).never();
+        verify(workOrderRepositoryMock.createWorkOrder(workOrder)).never();
     });
 
     it(('createWorkOrder sectorService throws ResourceNotFound'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).
+        when(sectorServiceMock.getSectorByKind(anyString())).
             thenResolve(workOrder.sector);
-        when(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
             thenThrow(new ResourceNotFoundError(invalidPriorityTypeString));
-        await expect(workOrderService.createWorkOrder(1, workOrder, 1)).to.be.
+        await expect(workOrderService.createWorkOrder(property.id, workOrder, testUserId)).to.be.
             rejectedWith(ResourceNotFoundError, invalidPriorityTypeString);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
+        verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).never();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).never();
+        verify(workOrderRepositoryMock.createWorkOrder(workOrder)).never();
     });
 
     it(('createWorkOrder workOrderTypeServiceMock throws ResourceNotFoundError'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).
+        when(sectorServiceMock.getSectorByKind(anyString())).
             thenResolve(workOrder.sector);
-        when(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
             thenResolve(workOrder.priorityType);
-        when(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
             thenThrow(new ResourceNotFoundError(invalidWorkOrderTypeString));
-        await expect(workOrderService.createWorkOrder(1, workOrder, 1)).to.be.
+        await expect(workOrderService.createWorkOrder(property.id, workOrder, testUserId)).to.be.
             rejectedWith(ResourceNotFoundError, invalidWorkOrderTypeString);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
         verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).never();
+        verify(workOrderRepositoryMock.createWorkOrder(workOrder)).never();
     });
 
     it(('createWorkOrder workOrderStatusService throws ResourceNotFound'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).
+        when(sectorServiceMock.getSectorByKind(anyString())).
             thenResolve(workOrder.sector);
-        when(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
             thenResolve(workOrder.priorityType);
-        when(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
             thenResolve(workOrder.workOrderType);
         when(workOrderStatusServiceMock.getWorkOrderStatus(anything())).
             thenThrow(new ResourceNotFoundError(invalidWorkOrderStatusString));
-        await expect(workOrderService.createWorkOrder(1, workOrder, 1)).to.be.
+        await expect(workOrderService.createWorkOrder(property.id, workOrder, testUserId)).to.be.
             rejectedWith(ResourceNotFoundError, invalidWorkOrderStatusString);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
         verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
         verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).called();
+        verify(workOrderRepositoryMock.createWorkOrder(workOrder)).never();
     });
 
     it(('createWorkOrder workOrderRepository returns null expect Error'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).
+        when(sectorServiceMock.getSectorByKind(anyString())).
             thenResolve(workOrder.sector);
-        when(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
             thenResolve(workOrder.priorityType);
-        when(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
             thenResolve(workOrder.workOrderType);
         when(workOrderStatusServiceMock.getWorkOrderStatus(anything())).
             thenResolve(workOrder.workOrderStatus);
         when(workOrderRepositoryMock.createWorkOrder(workOrder)).thenThrow(new Error());
-        await expect(workOrderService.createWorkOrder(1, workOrder, 1)).to.be.
+        await expect(workOrderService.createWorkOrder(property.id, workOrder, testUserId)).to.be.
             rejectedWith(BadRequestError);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
         verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
         verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
@@ -190,10 +213,10 @@ describe('Work Order Service Test', () => {
 
     it(('getWorkOrdersByPropertyId happy path'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
-        when(workOrderRepositoryMock.getWorkOrdersByProperty(property, anything())).
+        when(workOrderRepositoryMock.getWorkOrdersByProperty(anyOfClass(Property), anything())).
             thenResolve(workOrders);
-        const fetchedWorkOrders = await workOrderService.getWorkOrdersByPropertyId(1);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        const fetchedWorkOrders = await workOrderService.getWorkOrdersByPropertyId(property.id);
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(workOrderRepositoryMock.
             getWorkOrdersByProperty(property, WorkOrderFieldsNoProperty)).called();
         equal(fetchedWorkOrders, workOrders);
@@ -201,17 +224,22 @@ describe('Work Order Service Test', () => {
 
     it(('getWorkOrdersByPropertyId propertyService throws ResourceNotFoundError'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(null);
-        await expect(workOrderService.getWorkOrdersByPropertyId(1)).to.be.
+        await expect(workOrderService.getWorkOrdersByPropertyId(property.id)).to.be.
             rejectedWith(ResourceNotFoundError);
+        verify(propertyServiceMock.getPropertyById(anyNumber())).called();
+        verify(workOrderRepositoryMock.getWorkOrdersByProperty(anyOfClass(Property), anything())).
+            never();
     });
 
     it(('getWorkOrdersByPropertyId workOrderRepository throws an error'), async() => {
         when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
         when(workOrderRepositoryMock.getWorkOrdersByProperty(property, anything())).
             thenThrow(new Error);
-        await expect(workOrderService.getWorkOrdersByPropertyId(1)).to.be.
+        await expect(workOrderService.getWorkOrdersByPropertyId(property.id)).to.be.
             rejectedWith(Error);
-        verify(propertyServiceMock.getPropertyById(1)).called();
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
+        verify(workOrderRepositoryMock.getWorkOrdersByProperty(anyOfClass(Property), anything())).
+            called();
     });
 
     it(('getWorkOrders happy path'), async() => {
@@ -231,30 +259,43 @@ describe('Work Order Service Test', () => {
     it(('getWorkOrders missing pagesize parameter'), async() => {
         await expect(workOrderService.getWorkOrders(workOrdersQueryNullPages)).to.be.
             rejectedWith(BadRequestError);
+        verify(workOrderRepositoryMock.getWorkOrders(anything(), anything(),
+                                                     anything(), anything(),
+                                                     anything(), anything())).
+        never();
     });
     it(('getWorkOrders pagesize is out of range '), async() => {
         await expect(workOrderService.getWorkOrders(workOrdersQueryUnderflow)).to.be.
         rejectedWith(BadRequestError);
+        verify(workOrderRepositoryMock.getWorkOrders(anything(), anything(),
+                                                     anything(), anything(),
+                                                     anything(), anything())).
+        never();
     });
 
     it(('getWorkOrders pagesize is out of range '), async() => {
         workOrdersQuery.set(WorkOrderQuery.SORTBY, 'haha look at me, invalidString');
         await expect(workOrderService.getWorkOrders(workOrdersQueryUnderflow)).to.be.
         rejectedWith(BadRequestError);
+        verify(workOrderRepositoryMock.getWorkOrders(anything(), anything(),
+                                                     anything(), anything(),
+                                                     anything(), anything())).
+        never();
     });
 
     it(('getWorkOrder happy path'), async() => {
-        when(workOrderRepositoryMock.getWorkOrderById(1, anything())).
+        when(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).
             thenResolve(workOrder);
-        const fetchedWorkOrder = await workOrderService.getWorkOrder(1);
-        verify(workOrderRepositoryMock.getWorkOrderById(1, WorkOrderFields)).called();
+        const fetchedWorkOrder = await workOrderService.getWorkOrder(workOrder.id);
+        verify(workOrderRepositoryMock.getWorkOrderById(workOrder.id, WorkOrderFields)).called();
         equal(fetchedWorkOrder, workOrder);
     });
 
     it(('getWorkOrder null workOrder expect ResourceNotFoundError'), async() => {
-        when(workOrderRepositoryMock.getWorkOrderById(1, anything())).
+        when(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).
             thenResolve(null);
-        await expect(workOrderService.getWorkOrder(1)).to.be.
+        await expect(workOrderService.getWorkOrder(workOrder.id)).to.be.
             rejectedWith(ResourceNotFoundError);
+        verify(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).called();
     });
 });

@@ -6,6 +6,7 @@ import { SectorRepository } from '../repositories/SectorTypeRepository';
 import { SectorService } from '../services/SectorService';
 import { Sector } from '../entities/Sector';
 import { SectorDataProvider } from './data_providers/SectorDataProvider';
+import {SectorKind} from "../enums/SectorKind";
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -34,7 +35,8 @@ describe('Sector Service Test', () => {
 
     it(('sector retrieved with invalid string expect ResourceNotFoundError'), async() => {
         when(sectorRepositoryMock.getSectorByKind(anyString())).thenResolve(null);
-        await expect(sectorService.getSectorByKind(anyString())).to.be
+        await expect(sectorService.getSectorByKind(sector.kind)).to.be
             .rejectedWith(ResourceNotFoundError);
+        verify(sectorRepositoryMock.getSectorByKind(sector.kind)).called();
     });
 });
