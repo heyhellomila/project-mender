@@ -7,9 +7,7 @@ import { workOrderController } from './WorkOrderController';
 import { propertySectorsController } from './PropertySectorsController';
 import { businessController } from './BusinessController';
 import { userBusinessUsersController } from './UserBusinessUsersController';
-import { businessUserController } from './BusinessUserController';
-import { userBusinessController } from './UserBusinessController';
-import { licenseController } from './LicenseController';
+// import { userBusinessController } from './UserBusinessController';
 import { userLicenseController } from './UserLicensesController';
 import { workOrderShoppingItemController } from './WorkOrderShoppingItemController'
 import { shoppingItemController } from './ShoppingItemController'
@@ -29,10 +27,9 @@ class Router {
         this.router.use('/api/workOrders/:workOrderId/shoppingItem', workOrderShoppingItemController);
         this.router.use('/api/properties/:propertyId/sectors', propertySectorsController);
         this.router.use('/api/businesses', businessController);
-        this.router.use('/api/businesses/:businessId/users', businessUserController);
-        this.router.use('/api/users/:userId/businessUsers/:businessId', userBusinessUsersController);
-        this.router.use('/api/users/:userId/businesses', userBusinessController);
-        this.router.use('/api/licenses', licenseController);
+        this.router.use('/api/users/:userId/businesses', userBusinessUsersController);
+        // this.router.use('/api/users/:userId/businessUsers/:businessId', userBusinessUsersController);
+        // this.router.use('/api/users/:userId/businesses', userBusinessController);
         this.router.use('/api/users/:userId/licenses', userLicenseController);
     }
 
