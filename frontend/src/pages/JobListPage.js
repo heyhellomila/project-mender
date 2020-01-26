@@ -5,6 +5,7 @@ import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
+import moment from 'moment';
 
 class JobListPage extends React.Component {
 
@@ -41,6 +42,15 @@ class JobListPage extends React.Component {
             isSorting: false,
             isFiltering: false,
             filterSwitch: false,
+            today: new Date(),
+            dueDateOptions: [
+                {label: 'All', value: 0},
+                {label: 'Past Due', value: 1},
+                {label: 'Today', value: 2},
+                {label: 'This Week', value: 3},
+                {label: 'This Month', value: 4},
+                {label: 'This Year', value: 5}
+            ],
             priorityOptions: [
                 {label: 'All', value: 0},
                 {label: 'Low', value: 1},
@@ -55,7 +65,7 @@ class JobListPage extends React.Component {
                 {label: 'Exterior', value: 4},
                 {label: 'Utility', value: 5},
                 {label: 'HVAC', value: 6},
-                {label: 'Interor finish', value: 7},
+                {label: 'Interor Finish', value: 7},
                 {label: 'Appliances', value: 8}
             ],
             typeOptions: [
@@ -68,9 +78,10 @@ class JobListPage extends React.Component {
                 {label: 'Cancelled', value: 1},
                 {label: 'Completed', value: 2},
                 {label: 'Issued', value: 3},
-                {label: 'Open for quote', value: 4},
-                {label: 'Quote received', value: 5}
+                {label: 'Open for Quote', value: 4},
+                {label: 'Quote Received', value: 5}
             ],
+            filterDueDateOptionValue: 0,
             filterPriorityOptionValue: 0,
             filterSectorOptionValue: 0,
             filterTypeOptionValue: 0,
@@ -86,7 +97,11 @@ class JobListPage extends React.Component {
             isPriorityModalVisible: false,
             isSectorModalVisible: false,
             isTypeModalVisible: false,
-            isStatusModalVisible: false
+            isStatusModalVisible: false,
+            greaterThan: '',
+            greaterThanValue: '',
+            lowerThan: '',
+            lowerThanValue: ''
         };
     }
   
@@ -140,8 +155,8 @@ class JobListPage extends React.Component {
     async getListOfWorkOrders() {
         this.setState({loading: true});
         await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering, 
-            this.state.filterBookmarked, '', this.state.filterPriority, this.state.filterSector, this.state.filterType,
-            this.state.filterStatus)
+            this.state.filterBookmarked, this.state.filterPriority, this.state.filterSector, this.state.filterType,
+            this.state.filterStatus, this.state.greaterThan, this.state.greaterThanValue, this.state.lowerThan, this.state.lowerThanValue)
         .then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
@@ -253,6 +268,12 @@ class JobListPage extends React.Component {
         })
     }
 
+    toggleDueDateOption = (value) => {
+        this.setState({
+            filterDueDateOptionValue: value
+        });
+    }
+
     togglePriorityOption = (value) => {
         this.setState({
             filterPriorityOptionValue: value
@@ -288,6 +309,17 @@ class JobListPage extends React.Component {
             });
         }
         this.toggleBookmarkedModal()
+    }
+
+    handleCancelDueDateFilter = () => {
+        this.state.dueDateOptions.map(option => {
+            if (this.state.filterDueDate === option.label) {
+                this.setState({
+                    filterDueDateOptionValue: option.value
+                });
+            }
+        });
+        this.toggleDueDateModal()
     }
 
     handleCancelPriorityFilter = () => {
@@ -367,6 +399,64 @@ class JobListPage extends React.Component {
         this.setState({
             isFiltering: !this.state.isFiltering},
             () => this.toggleBookmarkedModal()
+        );
+    }
+
+    handleApplyDueDateFilter = () => {
+        this.state.dueDateOptions.map(option => {
+            if (this.state.filterDueDateOptionValue === 0) {
+                this.setState({
+                    greaterThan: '',
+                    greaterThanValue: '',
+                    lowerThan: '',
+                    lowerThanValue: '',
+                    filterDueDate: 'All'
+                });
+            } else if (this.state.filterDueDateOptionValue === 1) {
+                this.setState({
+                    greaterThan: '',
+                    greaterThanValue: '',
+                    lowerThan: 'dueDate',
+                    lowerThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
+                    filterDueDate: 'Past Due'
+                });
+            } else if (this.state.filterDueDateOptionValue === 2) {
+                this.setState({
+                    greaterThan: 'dueDate',
+                    greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThan: 'dueDate',
+                    lowerThanValue: "'" + moment(this.state.today).add(1, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    filterDueDate: 'Today'
+                });
+            } else if (this.state.filterDueDateOptionValue === 3) {
+                this.setState({
+                    greaterThan: 'dueDate',
+                    greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThan: 'dueDate',
+                    lowerThanValue: "'" + moment(this.state.today).add(7, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    filterDueDate: 'This Week'
+                });
+            } else if (this.state.filterDueDateOptionValue === 4) {
+                this.setState({
+                    greaterThan: 'dueDate',
+                    greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThan: 'dueDate',
+                    lowerThanValue: "'" + moment(this.state.today).add(31, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    filterDueDate: 'This Month'
+                });
+            } else if (this.state.filterDueDateOptionValue === 5) {
+                this.setState({
+                    greaterThan: 'dueDate',
+                    greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThan: 'dueDate',
+                    lowerThanValue: "'" + moment(this.state.today).add(365, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    filterDueDate: 'This Year'
+                });
+            }
+        });
+        this.setState({
+            isFiltering: !this.state.isFiltering},
+            () => this.toggleDueDateModal()
         );
     }
 
@@ -502,15 +592,18 @@ class JobListPage extends React.Component {
                     toggleTypeModal={this.toggleTypeModal}
                     toggleStatusModal={this.toggleStatusModal}
                     toggleBookmarkedSwitch={this.toggleBookmarkedSwitch}
+                    toggleDueDateOption={this.toggleDueDateOption}
                     togglePriorityOption={this.togglePriorityOption}
                     toggleSectorOption={this.toggleSectorOption}
                     toggleTypeOption={this.toggleTypeOption}
                     toggleStatusOption={this.toggleStatusOption}
                     handleCancelBookmarkedFilter={this.handleCancelBookmarkedFilter}
+                    handleCancelDueDateFilter={this.handleCancelDueDateFilter}
                     handleCancelPriorityFilter={this.handleCancelPriorityFilter}
                     handleCancelSectorFilter={this.handleCancelSectorFilter}
                     handleCancelTypeFilter={this.handleCancelTypeFilter}
                     handleApplyBookmarkedFilter={this.handleApplyBookmarkedFilter}
+                    handleApplyDueDateFilter={this.handleApplyDueDateFilter}
                     handleApplyPriorityFilter={this.handleApplyPriorityFilter}
                     handleApplySectorFilter={this.handleApplySectorFilter}
                     handleApplyTypeFilter={this.handleApplyTypeFilter}

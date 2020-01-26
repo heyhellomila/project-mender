@@ -1,29 +1,50 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
-
-const BookmarkedFilterComponent = (props) => {
+import RadioForm from 'react-native-simple-radio-button';
+ 
+const DueDateFilterComponent = (props) => {
     return (
         <Modal 
             isVisible={props.isDueDateModalVisible}
             backdropColor={'white'}
             animationInTiming={0}
-            animationOutTiming={0}
+            animationOutTiming={100}
             backdropTransitionInTiming={0}
             backdropTransitionOutTiming={0}
             backdropOpacity={1}
             style={{justifyContent: 'flex-end', margin: 0}}
         >
-            <View style={{flex: 1, alignContent: 'center', justifyContent: 'center'}}>
-                <Text>NEW DUEDATE</Text>
+            <StatusBar hidden={true} />
+            <View style={{flex: 1, flexDirection: 'column', marginTop: 25}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
+                    <Button
+                        title='Cancel'
+                        onPress={props.handleCancelDueDateFilter}
+                    />
+                    <Text>Filter</Text>
+                </View>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
+                    <View style={{aligntItems: 'center', justifyContent: 'center'}}>
+                        <Text>Status</Text>
+                        <RadioForm
+                            radio_props={props.dueDateOptions}
+                            initial={props.filterDueDateOptionValue}
+                            onPress={(value) => props.toggleDueDateOption(value)}
+                        />
+                    </View> 
+                </View>
+            </View>
+            <View style={{justifyContent: 'flex-end'}}>
                 <Button 
-                    title='Save' 
-                    onPress={props.toggleDueDateModal}
+                    title='Apply' 
+                    onPress={props.handleApplyDueDateFilter}
+                    style={{borderRadius: 0, height: 100}}
                 />
-            </View> 
+            </View>
         </Modal>
     );
 };
 
-export default BookmarkedFilterComponent;
+export default DueDateFilterComponent;
