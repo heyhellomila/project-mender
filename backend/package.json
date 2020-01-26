@@ -7,8 +7,9 @@
     "start": "npm run serve",
     "build": "tsc",
     "serve": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --no-notify src/app.ts",
-    "test": "mocha -r ts-node/register src/test/*.ts"
+    "dev": "ts-node-dev --poll --respawn --no-notify src/app.ts",
+    "test": "mocha -r ts-node/register src/test/*.ts --reporter mocha-circleci-reporter",
+    "coverage": "nyc --reporter html --reporter text npm test"
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +25,9 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^7.0.0",
+    "mocha-circleci-reporter": "0.0.3",
     "mysql": "^2.17.1",
+    "nyc": "^15.0.0",
     "password-validator": "^5.0.2",
     "postcode-validator": "^3.0.0",
     "reflect-metadata": "^0.1.13",

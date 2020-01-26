@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    environment:
+      NODE_ENV : development
+    ports:
+      - "3000:3000"
+    restart: always
+    volumes:
+      - ./backend/src:/backend/src/
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    env_file:
+      - ./frontend/.env
+    environment:
+      NODE_ENV : development
+      CHOKIDAR_USEPOLLING : 'true'
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - ./frontend/src:/frontend/src/
+      - ./frontend/assets:/frontend/assets/
