@@ -119,7 +119,11 @@ class JobListPage extends React.Component {
                 isSorting: false,
                 isFiltering: false,
                 filterSwitch: false,
+                filterDueDateOptionValue: 0,
                 filterPriorityOptionValue: 0,
+                filterSectorOptionValue: 0,
+                filterTypeOptionValue: 0,
+                filterStatusOptionValue: 0,
                 filterBookmarked: '',
                 filterDueDate: 'All',
                 filterPriority: '',
@@ -607,6 +611,7 @@ class JobListPage extends React.Component {
                     handleCancelPriorityFilter={this.handleCancelPriorityFilter}
                     handleCancelSectorFilter={this.handleCancelSectorFilter}
                     handleCancelTypeFilter={this.handleCancelTypeFilter}
+                    handleCancelStatusFilter={this.handleCancelStatusFilter}
                     handleApplyBookmarkedFilter={this.handleApplyBookmarkedFilter}
                     handleApplyDueDateFilter={this.handleApplyDueDateFilter}
                     handleApplyPriorityFilter={this.handleApplyPriorityFilter}
