@@ -76,19 +76,6 @@ class WorkOrderService {
         }
     }
 
-    async getWorkOrdersByBusinessUser(businessUserId: number) {
-        const businessUser: BusinessUser = await this.businessUserService.getBusinessUser(businessUserId);
-        if (!businessUser) {
-            throw new ResourceNotFoundError(`Business User with id ${businessUserId} does not exist.`);
-        }
-        try {
-            return await this.workOrderRepository.getWorkOrdersByBusinessUser(
-                businessUser, WORK_ORDER_FIELDS_NO_BUSINESS_USER);
-        } catch (err) {
-            throw err;
-        }
-    }
-
     async getWorkOrders(queryMap: Map<string, string>) {
         let ordering = OrderingByType.ASC;
         if (!queryMap.get(WorkOrderQuery.PAGESIZE) || !queryMap.get(WorkOrderQuery.PAGENUMBER)) {

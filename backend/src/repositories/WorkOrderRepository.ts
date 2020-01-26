@@ -48,13 +48,6 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
         return workOrders;
     }
 
-    async getWorkOrdersByBusinessUser(businessUser: BusinessUser, fieldOptions?: FindOptions<WorkOrder>) {
-        fieldOptions
-            ? fieldOptions.where = { contractedBy: businessUser }
-            : fieldOptions = { where: {contractedBy: businessUser} };
-        return await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
-    }
-
     async createWorkOrder(workOrder: WorkOrder) {
         try {
             const savedWorkOrder : WorkOrder = await this.getRepositoryConnection(

@@ -34,10 +34,10 @@ userBusinessController.get('/:businessId', auth, async(req: Request, res: Respon
 
 userBusinessController.get('/', auth, async(req: Request, res: Response) => {
         try {
-            const businessUsers = await businessUserService.getBusinessUsersByUser(Number(req.params.userId));
+            const businesses = await businessUserService.getBusinessesByUser(Number(req.params.userId));
             const businessesDTO : BusinessDTO[] = [];
-            businessUsers.map((businessUser) => {
-                businessesDTO.push(businessMapper.toDTO(businessUser.business));
+            businesses.map((business) => {
+                businessesDTO.push(businessMapper.toDTO(business));
             });
             return res.status(200).json(businessesDTO);
         } catch (err) {

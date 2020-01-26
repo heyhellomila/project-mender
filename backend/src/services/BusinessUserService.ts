@@ -38,28 +38,30 @@ class BusinessUserService {
         return businessUser;
     }
 
-    async getBusinessUser(id: number) {
-        const businessUser: BusinessUser = await this.businessUserRepository.getBusinessUserById(id, BUSINESS_USER_FIELDS);
-        if (!businessUser) {
-            throw new ResourceNotFoundError("Business User with id " + id + " does not exist.");
-        }
-        return businessUser;
-    }
-
-    async getBusinessUsersByUser(userId: number) {
+    async getBusinessesByUser(userId: number) {
         if (!(await this.userService.getUser(userId))) {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
         }
         const user = await this.userService.getUser(userId);
-        return await this.businessUserRepository.getBusinessUsersByUser(user, BUSINESS_USER_FIELDS_NO_USER);    
+        const businessUsers = await this.businessUserRepository.getBusinessUsersByUser(user, BUSINESS_USER_FIELDS_NO_USER);    
+        const businesses : Business[] = [];
+        businessUsers.map((businessUser) => {
+            businesses.push(businessUser.business);
+        });
+        return businesses;
     }
 
-    async getBusinessUsersByBusiness(businessId: number) {
+    async getUsersByBusiness(businessId: number) {
         if (!(await this.businessService.getBusinessById(businessId))) {
             throw new ResourceExistsError("Business with id " + businessId + " does not exist.")
         }
         const business = await this.businessService.getBusinessById(businessId);
-        return await this.businessUserRepository.getBusinessUsersByBusiness(business, BUSINESS_USER_FIELDS_NO_BUSINESS);
+        const businessUsers =  await this.businessUserRepository.getBusinessUsersByBusiness(business, BUSINESS_USER_FIELDS_NO_BUSINESS);
+        const users : User[] = [];
+        businessUsers.map((businessUser) => {
+            users.push(businessUser.user);
+        });
+        return users;
     }
 
     async createBusinessUser(businessId: number, userId: number) {
