@@ -33,8 +33,7 @@ const jobListStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        alignContent: 'center',
-        marginTop: '50%%',
+        marginTop: '5%'
     },
     emptyText: {
         fontSize: 15,

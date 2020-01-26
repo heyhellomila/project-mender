@@ -65,7 +65,7 @@ class JobListPage extends React.Component {
                 {label: 'Exterior', value: 4},
                 {label: 'Utility', value: 5},
                 {label: 'HVAC', value: 6},
-                {label: 'Interor Finish', value: 7},
+                {label: 'Interior Finish', value: 7},
                 {label: 'Appliances', value: 8}
             ],
             typeOptions: [
