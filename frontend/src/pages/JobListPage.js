@@ -432,7 +432,7 @@ class JobListPage extends React.Component {
             } else if (this.state.filterDueDateOptionValue === 2) {
                 this.setState({
                     greaterThan: 'dueDate',
-                    greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
+                    greaterThanValue: "'" + moment(this.state.today).startOf('day').format("YYYY-MM-DD hh:mm") + "'",
                     lowerThan: 'dueDate',
                     lowerThanValue: "'" + moment(this.state.today).add(1, 'days').format("YYYY-MM-DD hh:mm") + "'",
                     filterDueDate: 'Today'
@@ -442,7 +442,7 @@ class JobListPage extends React.Component {
                     greaterThan: 'dueDate',
                     greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
                     lowerThan: 'dueDate',
-                    lowerThanValue: "'" + moment(this.state.today).add(7, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThanValue: "'" + moment(this.state.today).endOf('week').format("YYYY-MM-DD hh:mm") + "'",
                     filterDueDate: 'This Week'
                 });
             } else if (this.state.filterDueDateOptionValue === 4) {
@@ -450,7 +450,7 @@ class JobListPage extends React.Component {
                     greaterThan: 'dueDate',
                     greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
                     lowerThan: 'dueDate',
-                    lowerThanValue: "'" + moment(this.state.today).add(31, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThanValue: "'" + moment(this.state.today).endOf('month').format("YYYY-MM-DD hh:mm") + "'",
                     filterDueDate: 'This Month'
                 });
             } else if (this.state.filterDueDateOptionValue === 5) {
@@ -458,7 +458,7 @@ class JobListPage extends React.Component {
                     greaterThan: 'dueDate',
                     greaterThanValue: "'" + moment(this.state.today).format("YYYY-MM-DD hh:mm") + "'",
                     lowerThan: 'dueDate',
-                    lowerThanValue: "'" + moment(this.state.today).add(365, 'days').format("YYYY-MM-DD hh:mm") + "'",
+                    lowerThanValue: "'" + moment(this.state.today).endOf('year').format("YYYY-MM-DD hh:mm") + "'",
                     filterDueDate: 'This Year'
                 });
             }
