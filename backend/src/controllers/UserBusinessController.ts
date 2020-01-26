@@ -6,12 +6,12 @@ import { BusinessDTO } from '../dtos/BusinessDTO';
 import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 
-const userBusinessUsersController = express.Router({ mergeParams: true });
+const userBusinessController = express.Router({ mergeParams: true });
 const businessUserService : BusinessUserService = new BusinessUserService();
 const businessUserMapper : BusinessUserMapper = new BusinessUserMapper();
 const businessMapper : BusinessMapper = new BusinessMapper();
 
-userBusinessUsersController.post(
+userBusinessController.post(
     '/:businessId', auth, async (req: Request, res: Response) => {
         try {
             const businessUser = await businessUserService.createBusinessUser(
@@ -22,7 +22,7 @@ userBusinessUsersController.post(
         }
     });
 
-userBusinessUsersController.get('/:businessId', auth, async(req: Request, res: Response) => {
+userBusinessController.get('/:businessId', auth, async(req: Request, res: Response) => {
         try {
             const businessUser = await businessUserService.getBusinessUserByData(
                 Number(req.params.businessId), Number(req.params.userId));
@@ -32,7 +32,7 @@ userBusinessUsersController.get('/:businessId', auth, async(req: Request, res: R
         }
     });
 
-userBusinessUsersController.get('/', auth, async(req: Request, res: Response) => {
+userBusinessController.get('/', auth, async(req: Request, res: Response) => {
         try {
             const businessUsers = await businessUserService.getBusinessUsersByUser(Number(req.params.userId));
             const businessesDTO : BusinessDTO[] = [];
@@ -45,4 +45,4 @@ userBusinessUsersController.get('/', auth, async(req: Request, res: Response) =>
         }
     });
 
-export { userBusinessUsersController };
+export { userBusinessController };
