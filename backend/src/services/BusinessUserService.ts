@@ -39,9 +39,6 @@ class BusinessUserService {
     }
 
     async getBusinessesByUser(userId: number) {
-        if (!(await this.userService.getUser(userId))) {
-            throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
-        }
         const user = await this.userService.getUser(userId);
         const businessUsers = await this.businessUserRepository.getBusinessUsersByUser(user, BUSINESS_USER_FIELDS_NO_USER);    
         const businesses : Business[] = [];
@@ -52,9 +49,6 @@ class BusinessUserService {
     }
 
     async getUsersByBusiness(businessId: number) {
-        if (!(await this.businessService.getBusinessById(businessId))) {
-            throw new ResourceExistsError("Business with id " + businessId + " does not exist.")
-        }
         const business = await this.businessService.getBusinessById(businessId);
         const businessUsers =  await this.businessUserRepository.getBusinessUsersByBusiness(business, BUSINESS_USER_FIELDS_NO_BUSINESS);
         const users : User[] = [];
