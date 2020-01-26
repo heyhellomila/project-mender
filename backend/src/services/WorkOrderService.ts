@@ -10,6 +10,7 @@ import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
+import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
@@ -19,6 +20,7 @@ class WorkOrderService {
     private propertyService: PropertyService = new PropertyService();
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
+    private businessUserService: BusinessUserService = new BusinessUserService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();

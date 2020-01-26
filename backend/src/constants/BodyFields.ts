@@ -21,4 +21,14 @@ const PROPERTY_SECTOR_FIELDS = {
     patchFields: ['sectorKind']
 };
 
-export { UserFields, WorkOrderFields, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS };
+const LICENSE_FIELDS = {
+    createFields : ['licenseNumber', 'licenseType'],
+};
+
+const BUSINESS_FIELDS = {
+    createFields : ['NEQ', 'businessType'],
+};
+
+export { UserFields, WorkOrderFields, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS, 
+    PROPERTY_SECTOR_FIELDS,LICENSE_FIELDS, BUSINESS_FIELDS };
+
