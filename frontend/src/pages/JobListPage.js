@@ -58,8 +58,23 @@ class JobListPage extends React.Component {
                 {label: 'Interor finish', value: 7},
                 {label: 'Appliances', value: 8}
             ],
+            typeOptions: [
+                {label: 'All', value: 0},
+                {label: 'Corrective', value: 1},
+                {label: 'Preventive', value: 2}
+            ],
+            statusOptions: [
+                {label: 'All', value: 0},
+                {label: 'Cancelled', value: 1},
+                {label: 'Completed', value: 2},
+                {label: 'Issued', value: 3},
+                {label: 'Open for quote', value: 4},
+                {label: 'Quote received', value: 5}
+            ],
             filterPriorityOptionValue: 0,
             filterSectorOptionValue: 0,
+            filterTypeOptionValue: 0,
+            filterStatusOptionValue: 0,
             filterBookmarked: '',
             filterDueDate: '',
             filterPriority: '',
@@ -92,16 +107,24 @@ class JobListPage extends React.Component {
                 filterPriorityOptionValue: 0,
                 filterBookmarked: '',
                 filterPriority: '',
-                filterSector: ''},
+                filterSector: '',
+                filterType: '',
+                filterStatus: ''},
                 () => this.getListOfWorkOrders()
             );
         }
-        if (this.state.sortBy !== prevState.sortBy || 
-            this.state.ordering !== prevState.ordering || 
-            this.state.isFiltering !== prevState.isFiltering) {
+        if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+            this.setState({
+                data: []},
+                () => this.getListOfWorkOrders()
+            );
+        }
+        if (this.state.isFiltering !== prevState.isFiltering) {
             this.setState({
                 data: [],
-                isEmpty: false},
+                pageNumber: 1,
+                isEmpty: false,
+                lastPage: false},
                 () => this.getListOfWorkOrders()
             );
         }
@@ -117,7 +140,8 @@ class JobListPage extends React.Component {
     async getListOfWorkOrders() {
         this.setState({loading: true});
         await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering, 
-            this.state.filterBookmarked, '', this.state.filterPriority, this.state.filterSector)
+            this.state.filterBookmarked, '', this.state.filterPriority, this.state.filterSector, this.state.filterType,
+            this.state.filterStatus)
         .then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
@@ -241,6 +265,18 @@ class JobListPage extends React.Component {
         });
     }
 
+    toggleTypeOption = (value) => {
+        this.setState({
+            filterTypeOptionValue: value
+        });
+    }
+
+    toggleStatusOption = (value) => {
+        this.setState({
+            filterStatusOptionValue: value
+        });
+    }
+
     handleCancelBookmarkedFilter = () => {
         if (this.state.filterBookmarked === 'true') {
             this.setState({
@@ -259,7 +295,7 @@ class JobListPage extends React.Component {
             if (this.state.filterPriority === '') {
                 this.setState({
                     filterPriorityOptionValue: 0
-                })
+                });
             } else if (this.state.filterPriority === option.label) {
                 this.setState({
                     filterPriorityOptionValue: option.value
@@ -274,7 +310,7 @@ class JobListPage extends React.Component {
             if (this.state.filterSector === '') {
                 this.setState({
                     filterSectorOptionValue: 0
-                })
+                });
             } else if (this.state.filterSector.replace(/_/g, ' ') === option.label) {
                 this.setState({
                     filterSectorOptionValue: option.value
@@ -282,6 +318,40 @@ class JobListPage extends React.Component {
             }
         });
         this.toggleSectorModal()
+    }
+
+    handleCancelTypeFilter = () => {
+        this.state.typeOptions.map(option => {
+            if (this.state.filterType === '') {
+                this.setState({
+                    filterTypeOptionValue: 0
+                });
+            } else if (this.state.filterType === 'cm') {
+                this.setState({
+                    filterTypeOptionValue: 1
+                });
+            } else if (this.state.filterType === 'pm') {
+                this.setState({
+                    filterTypeOptionValue: 2
+                });
+            }
+        });
+        this.toggleTypeModal()
+    }
+
+    handleCancelStatusFilter = () => {
+        this.state.statusOptions.map(option => {
+            if (this.state.filterSector === '') {
+                this.setState({
+                    filterStatusOptionValue: 0
+                });
+            } else if (this.state.filterStatus.replace(/_/g, ' ') === option.label) {
+                this.setState({
+                    filterSectorOptionValue: option.value
+                });
+            }
+        });
+        this.toggleStatusModal()
     }
 
     handleApplyBookmarkedFilter = () => {
@@ -305,7 +375,7 @@ class JobListPage extends React.Component {
             if (this.state.filterPriorityOptionValue === 0) {
                 this.setState({
                     filterPriority: ''
-                })
+                });
             } else if (this.state.filterPriorityOptionValue === option.value) {
                 this.setState({
                     filterPriority: option.label
@@ -333,6 +403,46 @@ class JobListPage extends React.Component {
         this.setState({
             isFiltering: !this.state.isFiltering},
             () => this.toggleSectorModal()
+        );
+    }
+
+    handleApplyTypeFilter = () => {
+        this.state.typeOptions.map(option => {
+            if (this.state.filterTypeOptionValue === 0) {
+                this.setState({
+                    filterType: ''
+                });
+            } else if (this.state.filterTypeOptionValue === 1) {
+                this.setState({
+                    filterType: 'cm'
+                });
+            } else if (this.state.filterTypeOptionValue === 2) {
+                this.setState({
+                    filterType: 'pm'
+                });
+            }
+        });
+        this.setState({
+            isFiltering: !this.state.isFiltering},
+            () => this.toggleTypeModal()
+        );
+    }
+
+    handleApplyStatusFilter = () => {
+        this.state.statusOptions.map(option => {
+            if (this.state.filterStatusOptionValue === 0) {
+                this.setState({
+                    filterStatus: ''
+                })
+            } else if (this.state.filterStatusOptionValue === option.value) {
+                this.setState({
+                    filterStatus: option.label.replace(/ /g, '_')
+                });
+            }
+        });
+        this.setState({
+            isFiltering: !this.state.isFiltering},
+            () => this.toggleStatusModal()
         );
     }
 
@@ -394,12 +504,17 @@ class JobListPage extends React.Component {
                     toggleBookmarkedSwitch={this.toggleBookmarkedSwitch}
                     togglePriorityOption={this.togglePriorityOption}
                     toggleSectorOption={this.toggleSectorOption}
+                    toggleTypeOption={this.toggleTypeOption}
+                    toggleStatusOption={this.toggleStatusOption}
                     handleCancelBookmarkedFilter={this.handleCancelBookmarkedFilter}
                     handleCancelPriorityFilter={this.handleCancelPriorityFilter}
                     handleCancelSectorFilter={this.handleCancelSectorFilter}
+                    handleCancelTypeFilter={this.handleCancelTypeFilter}
                     handleApplyBookmarkedFilter={this.handleApplyBookmarkedFilter}
                     handleApplyPriorityFilter={this.handleApplyPriorityFilter}
                     handleApplySectorFilter={this.handleApplySectorFilter}
+                    handleApplyTypeFilter={this.handleApplyTypeFilter}
+                    handleApplyStatusFilter={this.handleApplyStatusFilter}
                 />
             </ScrollView>
         );
