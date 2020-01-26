@@ -87,7 +87,7 @@ class JobListPage extends React.Component {
             filterTypeOptionValue: 0,
             filterStatusOptionValue: 0,
             filterBookmarked: '',
-            filterDueDate: '',
+            filterDueDate: 'All',
             filterPriority: '',
             filterSector: '',
             filterType: '',
@@ -121,10 +121,15 @@ class JobListPage extends React.Component {
                 filterSwitch: false,
                 filterPriorityOptionValue: 0,
                 filterBookmarked: '',
+                filterDueDate: 'All',
                 filterPriority: '',
                 filterSector: '',
                 filterType: '',
-                filterStatus: ''},
+                filterStatus: '',
+                greaterThan: '',
+                greaterThanValue: '',
+                lowerThan: '',
+                lowerThanValue: ''},
                 () => this.getListOfWorkOrders()
             );
         }
@@ -155,8 +160,8 @@ class JobListPage extends React.Component {
     async getListOfWorkOrders() {
         this.setState({loading: true});
         await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering, 
-            this.state.filterBookmarked, this.state.filterPriority, this.state.filterSector, this.state.filterType,
-            this.state.filterStatus, this.state.greaterThan, this.state.greaterThanValue, this.state.lowerThan, this.state.lowerThanValue)
+            this.state.filterBookmarked, this.state.filterPriority, this.state.filterSector, this.state.filterType, this.state.filterStatus, 
+            this.state.greaterThan, this.state.greaterThanValue, this.state.lowerThan, this.state.lowerThanValue)
         .then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({

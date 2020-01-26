@@ -3,7 +3,8 @@ import { Text, View, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import RadioForm from 'react-native-simple-radio-button';
-
+import { filterStyles } from '../../../stylesheets/JobListPageStyleSheet';
+ 
 const PriorityFilterComponent = (props) => {
     return (
         <Modal 
@@ -14,33 +15,43 @@ const PriorityFilterComponent = (props) => {
             backdropTransitionInTiming={0}
             backdropTransitionOutTiming={0}
             backdropOpacity={1}
-            style={{justifyContent: 'flex-end', margin: 0}}
+            style={filterStyles.modal}
         >
             <StatusBar hidden={true} />
-            <View style={{flex: 1, flexDirection: 'column', marginTop: 25}}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
-                    <Button
-                        title='Cancel'
-                        onPress={props.handleCancelPriorityFilter}
-                    />
-                    <Text>Filter</Text>
+            <View style={filterStyles.filterView}>
+                <View style={filterStyles.header}>
+                    <View style={filterStyles.column}>
+                        <Text style={filterStyles.filterTitle}>Filter</Text>
+                    </View>
+                    <View style={filterStyles.column}>
+                        <Button
+                            title='Cancel'
+                            onPress={props.handleCancelPriorityFilter}
+                            buttonStyle={filterStyles.cancelButton}
+                            titleStyle={filterStyles.cancelButtonTitle}
+                        />
+                    </View>
                 </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
-                    <View style={{aligntItems: 'center', justifyContent: 'center'}}>
-                        <Text>Priority</Text>
+                <View style={filterStyles.separator} />
+                <View style={filterStyles.filterContainer}>
+                    <View style={filterStyles.row}>
+                        <Text style={filterStyles.filterText}>Priority</Text>
+                    </View>
+                    <View style={filterStyles.row}>
                         <RadioForm
                             radio_props={props.priorityOptions}
                             initial={props.filterPriorityOptionValue}
                             onPress={(value) => props.togglePriorityOption(value)}
                         />
-                    </View> 
+                    </View>
                 </View>
             </View>
-            <View style={{justifyContent: 'flex-end'}}>
+            <View style={filterStyles.applyContainer}>
                 <Button 
                     title='Apply' 
                     onPress={props.handleApplyPriorityFilter}
-                    style={{borderRadius: 0, height: 100}}
+                    buttonStyle={filterStyles.applyButton}
+                    raised={true}
                 />
             </View>
         </Modal>

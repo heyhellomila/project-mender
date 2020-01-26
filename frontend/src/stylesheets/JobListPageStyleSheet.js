@@ -222,8 +222,14 @@ const buttonStyles = StyleSheet.create({
     },
     jobListFilterButton: {
         borderRadius: 20,
-        borderColor: 'gray',
+        borderColor: 'black',
         marginLeft: 15
+    },
+    jobListFilterButtonSelected: {
+        borderRadius: 20,
+        borderColor: '#b8daff',
+        marginLeft: 15,
+        backgroundColor: '#b8daff'
     },
     jobListFilterButtonTitle: {
         color: 'black',
@@ -287,6 +293,71 @@ const circleStyles = StyleSheet.create({
     }
 });
 
-export { jobListStyles, headerStyles, jobListCardStyles, buttonStyles, circleStyles };
+const filterStyles = StyleSheet.create({
+    column: {
+        flexDirection: 'column'
+    },
+    row: {
+        flexDirection: 'row'
+    },
+    modal: {
+        justifyContent: 'flex-end', 
+        margin: 0, 
+        marginLeft: 25, 
+        marginRight: 25
+    },
+    filterView: {
+        flex: 1, 
+        flexDirection: 'column', 
+        marginTop: 50
+    },
+    header: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'baseline', 
+        alignContent: 'space-between'
+    },
+    filterTitle: {
+        fontSize: 25, 
+        fontWeight: 'bold'
+    },
+    cancelButton: {
+        borderRadius: 0, 
+        borderColor: 'white', 
+        backgroundColor: 'white'
+    },
+    cancelButtonTitle: {
+        color: '#1a6efe'
+    },
+    separator: {
+        borderBottomColor: '#f0f0f3',
+        borderBottomWidth: 1,
+        marginBottom: 10
+    },
+    filterContainerBookmarked: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'baseline', 
+        marginTop: 50
+    },
+    filterContainer: {
+        flexDirection: 'column',
+        marginTop: 50
+    },
+    filterText: {
+        fontSize: 20,
+        marginBottom: 20
+    },
+    applyContainer: {
+        justifyContent: 'flex-end', 
+        marginBottom: 100
+    },
+    applyButton: {
+        borderRadius: 0, 
+        height: 50
+    }
+});
+
+export { jobListStyles, headerStyles, jobListCardStyles, buttonStyles, circleStyles, filterStyles };
 
 

@@ -28,7 +28,7 @@ const Header = (props) => {
                     title='Bookmarked'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterBookmarked === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleBookmarkedModal}
                 />
@@ -44,7 +44,7 @@ const Header = (props) => {
                     title='Due Date'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterDueDate === 'All' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleDueDateModal}
                 /> 
@@ -60,7 +60,7 @@ const Header = (props) => {
                     title='Priority'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterPriority === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.togglePriorityModal}
                 />
@@ -76,7 +76,7 @@ const Header = (props) => {
                     title='Sector'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterSector === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleSectorModal}
                 />
@@ -92,7 +92,7 @@ const Header = (props) => {
                     title='Type'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterType === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleTypeModal}
                 />  
@@ -108,7 +108,7 @@ const Header = (props) => {
                     title='Status'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterStatus === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
                     onPress={props.toggleStatusModal}
                 />  
