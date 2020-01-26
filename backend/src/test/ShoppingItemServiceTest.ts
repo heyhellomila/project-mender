@@ -1,6 +1,6 @@
 import 'mocha';
 import { equal } from 'assert';
-import { anyNumber, anyOfClass, anything, instance, mock, verify, when } from 'ts-mockito';
+import { anyNumber, anyOfClass, anything, deepEqual, instance, mock, verify, when } from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { ShoppingItemService } from '../services/ShoppingItemService';
 import { WorkOrderService } from '../services/WorkOrderService';
@@ -11,7 +11,6 @@ import { BadRequestError } from '../errors/BadRequestError';
 import { ShoppingItem } from '../entities/ShoppingItem';
 import { SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER } from '../constants/FindOptionsFields';
 import { WorkOrder } from '../entities/WorkOrder';
-import {FindOptions} from "typeorm/find-options/FindOptions";
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -85,8 +84,10 @@ describe('Shopping Item Service Test', () => {
         const fetchedShoppingItems = await shoppingItemService.
             getShoppingItemByWorkOrderId(workOrder.id);
         verify(workOrderServiceMock.getWorkOrder(workOrder.id)).called();
+        const expectedWorkOrder = WorkOrderDataProvider.getWorkOrder(workOrder.id);
         verify(shoppingItemRepositoryMock
-            .getShoppingItemsByWorkOrder(anyOfClass(WorkOrder), SHOPPING_ITEM_FIELDS_NO_WORK_ORDER))
+            .getShoppingItemsByWorkOrder(deepEqual(expectedWorkOrder),
+                                         SHOPPING_ITEM_FIELDS_NO_WORK_ORDER))
             .called();
 
         equal(fetchedShoppingItems, shoppingItems);
@@ -113,8 +114,10 @@ describe('Shopping Item Service Test', () => {
             .rejectedWith(Error);
 
         verify(workOrderServiceMock.getWorkOrder(workOrder.id)).called();
+        const expectedWorkOrder = WorkOrderDataProvider.getWorkOrder(workOrder.id);
         verify(shoppingItemRepositoryMock.
-            getShoppingItemsByWorkOrder(anyOfClass(WorkOrder), SHOPPING_ITEM_FIELDS_NO_WORK_ORDER)).
+            getShoppingItemsByWorkOrder(deepEqual(expectedWorkOrder),
+                                        SHOPPING_ITEM_FIELDS_NO_WORK_ORDER)).
             called();
     });
 
