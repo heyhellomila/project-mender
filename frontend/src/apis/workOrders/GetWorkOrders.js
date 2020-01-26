@@ -19,14 +19,24 @@ api.interceptors.response.use(async (response) => {
         }
 });
 
-export async function getWorkOrders(propertyId, pageSize, pageNumber, sortBy, ordering) {
+export async function getWorkOrders(propertyId, pageSize, pageNumber, sortBy, ordering, bookmarked, priorityType, sectorType, workOrderType, workOrderStatus, 
+    greaterThan, greaterThanValue, lowerThan, lowerThanValue) {
     return await api.get(`/workorders/`, {
         params: {
             propertyId: propertyId,
             pageSize: pageSize,
             pageNumber: pageNumber,
             sortBy: sortBy,
-            ordering: ordering
+            ordering: ordering,
+            bookmarked: bookmarked,
+            priorityType: priorityType,
+            sectorType: sectorType,
+            workOrderType: workOrderType,
+            workOrderStatus: workOrderStatus,
+            greaterThan: greaterThan,
+            greaterThanValue: greaterThanValue,
+            lowerThan: lowerThan,
+            lowerThanValue: lowerThanValue
         },
         headers: {
             'Authorization': await AsyncStorage.getItem('Authorization')

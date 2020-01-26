@@ -4,6 +4,12 @@ import { Button } from 'react-native-elements';
 import { jobListStyles, headerStyles, buttonStyles, circleStyles } from '../../stylesheets/JobListPageStyleSheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+import BookmarkedFilterComponent from './filterModals/BookmarkedFilterComponent'
+import DueDateFilterComponent from './filterModals/DueDateFilterComponent'
+import PriorityFilterComponent from './filterModals/PriorityFilterComponent'
+import SectorFilterComponent from './filterModals/SectorFilterComponent'
+import TypeFilterComponent from './filterModals/TypeFilterComponent'
+import StatusFilterComponent from './filterModals/StatusFilterComponent';
 
 const sort = require('../../../assets/Front_arrow.png');
 
@@ -22,9 +28,11 @@ const Header = (props) => {
                     title='Bookmarked'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterBookmarked === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
+                    onPress={props.toggleBookmarkedModal}
                 />
+                <BookmarkedFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -36,9 +44,11 @@ const Header = (props) => {
                     title='Due Date'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterDueDate === 'All' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
+                    onPress={props.toggleDueDateModal}
                 /> 
+                <DueDateFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -50,9 +60,11 @@ const Header = (props) => {
                     title='Priority'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterPriority === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
+                    onPress={props.togglePriorityModal}
                 />
+                <PriorityFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -64,9 +76,11 @@ const Header = (props) => {
                     title='Sector'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterSector === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
+                    onPress={props.toggleSectorModal}
                 />
+                <SectorFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -78,9 +92,11 @@ const Header = (props) => {
                     title='Type'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterType === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
+                    onPress={props.toggleTypeModal}
                 />  
+                <TypeFilterComponent {...props} />
                 <Button
                     icon={
                         <Icon
@@ -92,9 +108,11 @@ const Header = (props) => {
                     title='Status'
                     type='outline'
                     containerStyle={buttonStyles.jobListFilterButtonContainer}
-                    buttonStyle={buttonStyles.jobListFilterButton}
+                    buttonStyle={props.filterStatus === '' ? buttonStyles.jobListFilterButton : buttonStyles.jobListFilterButtonSelected}
                     titleStyle={buttonStyles.jobListFilterButtonTitle}
+                    onPress={props.toggleStatusModal}
                 />  
+                <StatusFilterComponent {...props} />
             </ScrollView>
             <View style={headerStyles.jobListSort}>
                 <View style={jobListStyles.column}>

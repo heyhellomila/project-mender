@@ -20,6 +20,7 @@
         "nyc": "^14.1.1"
     },
     "dependencies": {
+        "react-native-modal": "^11.5.3",
         "react-native-scrolling-button-menu": "0.0.4"
     }
 }
