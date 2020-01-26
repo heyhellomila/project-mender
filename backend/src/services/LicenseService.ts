@@ -34,16 +34,6 @@ class LicenseService {
         }
     }
 
-    async licenseTypeExists(user: User, licenseType: LicenseType) {
-        const license: License = await this.licenseRepository.getLicenseByUserAndLicenseType(user, licenseType);
-        if (!license) {
-            return false;
-        } else {
-            return true;
-        }
-        
-    }
-
     async getLicenseById(id: number) {
         const license: License = await this.licenseRepository.getLicenseById(id, LICENSE_FIELDS);
         if (!license) {
@@ -88,7 +78,7 @@ class LicenseService {
             throw new BadRequestError("A Homeowner cannot add a license.")
         }
 
-        if (await this.licenseTypeExists(user, license.licenseType)) {
+        if (await this.licenseRepository.getLicenseByUserAndLicenseType(user, license.licenseType)) {
             throw new ResourceExistsError("License of type " + license.licenseType.type + " for user " + userId + " already exists")
         }
  
