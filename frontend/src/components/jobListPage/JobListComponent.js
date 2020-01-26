@@ -18,9 +18,10 @@ const JobListComponent = (props) => {
                     ListHeaderComponent={<Header {...props} />} 
                 />
                 {
-                    props.isEmpty === true
+                    props.isEmpty
                         ?   <View style={jobListStyles.emptyWorkOrders}>
-                                <Text style={jobListStyles.emptyText}>You don't have any work orders!</Text>
+                                <Text style={jobListStyles.emptyText}>No work orders found!</Text>
+                                <Text style={jobListStyles.emptyText}>Create work orders or try adjusting your filters to display better results.</Text>
                             </View>
                         : null
                 }

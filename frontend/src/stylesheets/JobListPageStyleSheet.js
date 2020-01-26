@@ -33,11 +33,13 @@ const jobListStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '25%',
+        alignContent: 'center',
+        marginTop: '50%%',
     },
     emptyText: {
-        fontSize: 20,
-        color: '#ababab'
+        fontSize: 15,
+        color: '#ababab',
+        textAlign: 'center'
     }
 });
 

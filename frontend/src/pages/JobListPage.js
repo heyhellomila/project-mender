@@ -25,30 +25,13 @@ class JobListPage extends React.Component {
             sortBy: 'id',
             defaultSortBy: 'Sort by Work Order #',
             sortByFields: [
-            {
-                sortBy: 'id',
-                dropdown: 'Sort by Work Order #'
-            },
-            {
-                sortBy: 'dueDate',
-                dropdown: 'Sort by Due Date'
-            },
-            {
-                sortBy: 'priorityType',
-                dropdown: 'Sort by Priority'
-            },
-            {
-                sortBy: 'sectorType',
-                dropdown: 'Sort by Sector'
-            },
-            {
-                sortBy: 'workOrderType',
-                dropdown: 'Sort by Type'
-            },
-            {
-                sortBy: 'workOrderStatus',
-                dropdown: 'Sort by Status'
-            }],
+                {sortBy: 'id', dropdown: 'Sort by Work Order #'},
+                {sortBy: 'dueDate', dropdown: 'Sort by Due Date'},
+                {sortBy: 'priorityType',dropdown: 'Sort by Priority'},
+                {sortBy: 'sectorType', dropdown: 'Sort by Sector'},
+                {sortBy: 'workOrderType', dropdown: 'Sort by Type'},
+                {sortBy: 'workOrderStatus', dropdown: 'Sort by Status'}
+            ],
             ordering: 'ASC',
             sortIcon: 'up',
             ascending: true,
@@ -56,6 +39,27 @@ class JobListPage extends React.Component {
             isEmpty: false,
             showSortIndicator: false,
             isSorting: false,
+            isFiltering: false,
+            filterSwitch: false,
+            priorityOptions: [
+                {label: 'All', value: 0},
+                {label: 'Low', value: 1},
+                {label: 'Medium', value: 2},
+                {label: 'High', value: 3}
+            ],
+            sectorOptions: [
+                {label: 'All', value: 0},
+                {label: 'Building', value: 1},
+                {label: 'Electricity', value: 2},
+                {label: 'Structure', value: 3},
+                {label: 'Exterior', value: 4},
+                {label: 'Utility', value: 5},
+                {label: 'HVAC', value: 6},
+                {label: 'Interor finish', value: 7},
+                {label: 'Appliances', value: 8}
+            ],
+            filterPriorityOptionValue: 0,
+            filterSectorOptionValue: 0,
             filterBookmarked: '',
             filterDueDate: '',
             filterPriority: '',
@@ -82,13 +86,22 @@ class JobListPage extends React.Component {
                 lastPage: false,
                 isEmpty: false,
                 showSortIndicator: false,
-                isSorting: false},
+                isSorting: false,
+                isFiltering: false,
+                filterSwitch: false,
+                filterPriorityOptionValue: 0,
+                filterBookmarked: '',
+                filterPriority: '',
+                filterSector: ''},
                 () => this.getListOfWorkOrders()
             );
         }
-        if (this.state.sortBy !== prevState.sortBy || this.state.ordering !== prevState.ordering) {
+        if (this.state.sortBy !== prevState.sortBy || 
+            this.state.ordering !== prevState.ordering || 
+            this.state.isFiltering !== prevState.isFiltering) {
             this.setState({
-                data: []},
+                data: [],
+                isEmpty: false},
                 () => this.getListOfWorkOrders()
             );
         }
@@ -103,7 +116,8 @@ class JobListPage extends React.Component {
 
     async getListOfWorkOrders() {
         this.setState({loading: true});
-        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering)
+        await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering, 
+            this.state.filterBookmarked, '', this.state.filterPriority, this.state.filterSector)
         .then((response) => {
             this.setState({
                 workOrders: response.data.map((workOrder) => ({
@@ -148,7 +162,8 @@ class JobListPage extends React.Component {
             this.setState({
                 loading: false,
                 showSortIndicator: false,
-                isSorting: false
+                isSorting: false,
+                isFiltering: false
             });
         })
         .catch((err) => {
@@ -208,6 +223,119 @@ class JobListPage extends React.Component {
         });
     }
 
+    toggleBookmarkedSwitch = (value) => {
+        this.setState({
+            filterSwitch: value
+        })
+    }
+
+    togglePriorityOption = (value) => {
+        this.setState({
+            filterPriorityOptionValue: value
+        });
+    }
+
+    toggleSectorOption = (value) => {
+        this.setState({
+            filterSectorOptionValue: value
+        });
+    }
+
+    handleCancelBookmarkedFilter = () => {
+        if (this.state.filterBookmarked === 'true') {
+            this.setState({
+                filterSwitch: true
+            });
+        } else {
+            this.setState({
+                filterSwitch: false
+            });
+        }
+        this.toggleBookmarkedModal()
+    }
+
+    handleCancelPriorityFilter = () => {
+        this.state.priorityOptions.map(option => {
+            if (this.state.filterPriority === '') {
+                this.setState({
+                    filterPriorityOptionValue: 0
+                })
+            } else if (this.state.filterPriority === option.label) {
+                this.setState({
+                    filterPriorityOptionValue: option.value
+                });
+            }
+        });
+        this.togglePriorityModal()
+    }
+
+    handleCancelSectorFilter = () => {
+        this.state.sectorOptions.map(option => {
+            if (this.state.filterSector === '') {
+                this.setState({
+                    filterSectorOptionValue: 0
+                })
+            } else if (this.state.filterSector.replace(/_/g, ' ') === option.label) {
+                this.setState({
+                    filterSectorOptionValue: option.value
+                });
+            }
+        });
+        this.toggleSectorModal()
+    }
+
+    handleApplyBookmarkedFilter = () => {
+        if (this.state.filterSwitch) {
+            this.setState({
+                filterBookmarked: 'true'
+            });
+        } else {
+            this.setState({
+                filterBookmarked: ''
+            });
+        }
+        this.setState({
+            isFiltering: !this.state.isFiltering},
+            () => this.toggleBookmarkedModal()
+        );
+    }
+
+    handleApplyPriorityFilter = () => {
+        this.state.priorityOptions.map(option => {
+            if (this.state.filterPriorityOptionValue === 0) {
+                this.setState({
+                    filterPriority: ''
+                })
+            } else if (this.state.filterPriorityOptionValue === option.value) {
+                this.setState({
+                    filterPriority: option.label
+                });
+            }
+        });
+        this.setState({
+            isFiltering: !this.state.isFiltering},
+            () => this.togglePriorityModal()
+        );
+    }
+
+    handleApplySectorFilter = () => {
+        this.state.sectorOptions.map(option => {
+            if (this.state.filterSectorOptionValue === 0) {
+                this.setState({
+                    filterSector: ''
+                })
+            } else if (this.state.filterSectorOptionValue === option.value) {
+                this.setState({
+                    filterSector: option.label.replace(/ /g, '_')
+                });
+            }
+        });
+        this.setState({
+            isFiltering: !this.state.isFiltering},
+            () => this.toggleSectorModal()
+        );
+    }
+
     handleSort = (index, value) => {
         this.state.sortByFields.map(field => {
             if (value === field.dropdown) {
@@ -263,6 +391,15 @@ class JobListPage extends React.Component {
                     toggleSectorModal={this.toggleSectorModal}
                     toggleTypeModal={this.toggleTypeModal}
                     toggleStatusModal={this.toggleStatusModal}
+                    toggleBookmarkedSwitch={this.toggleBookmarkedSwitch}
+                    togglePriorityOption={this.togglePriorityOption}
+                    toggleSectorOption={this.toggleSectorOption}
+                    handleCancelBookmarkedFilter={this.handleCancelBookmarkedFilter}
+                    handleCancelPriorityFilter={this.handleCancelPriorityFilter}
+                    handleCancelSectorFilter={this.handleCancelSectorFilter}
+                    handleApplyBookmarkedFilter={this.handleApplyBookmarkedFilter}
+                    handleApplyPriorityFilter={this.handleApplyPriorityFilter}
+                    handleApplySectorFilter={this.handleApplySectorFilter}
                 />
             </ScrollView>
         );
