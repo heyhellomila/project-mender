@@ -21,13 +21,9 @@ const LICENSE_FIELDS = {
     createFields : ['licenseNumber', 'licenseType'],
 };
 
-const BUSINESS_USER_FIELDS = {
-    createFields : ['businessId'],
-};
-
 const BUSINESS_FIELDS = {
     createFields : ['businessType'],
 };
 
 export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS, 
-        LICENSE_FIELDS, BUSINESS_USER_FIELDS, BUSINESS_FIELDS };
+        LICENSE_FIELDS, BUSINESS_FIELDS };

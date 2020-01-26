@@ -264,6 +264,24 @@ const BUSINESS_USER_FIELDS_NO_USER : FindOptions<BusinessUser> = {
     },
 };
 
+const BUSINESS_USER_FIELDS_NO_BUSINESS : FindOptions<BusinessUser> = {
+    relations: ['businessUserRole', 'user'],
+    select: {
+        id: true,
+        user: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            phoneNumber: true,
+        },
+        businessUserRole: {
+            id: true,
+            role: true,
+        }
+    },
+};
+
 const BUSINESS_FIELDS : FindOptions<Business> = {
     relations: ['businessType'],
     select: {
@@ -281,4 +299,4 @@ const BUSINESS_FIELDS : FindOptions<Business> = {
 
 export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser, WorkOrderFieldsNoBusinessUser,
     WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
-    BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_FIELDS };
+    BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_USER_FIELDS_NO_BUSINESS, BUSINESS_FIELDS };

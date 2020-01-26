@@ -24,6 +24,12 @@ class BusinessUserRepository extends BaseRepository<BusinessUser> {
         return await this.getRepositoryConnection(BusinessUser).find(fieldOptions);
     }
 
+    async getBusinessUsersByBusiness(business: Business, fieldOptions?: FindOptions<BusinessUser>) {
+        fieldOptions 
+            ? fieldOptions.where = { business: business }
+            : fieldOptions = { where: {business: business} };
+        return await this.getRepositoryConnection(BusinessUser).find(fieldOptions);
+    }
 
     async businessUsersExist(business: Business) {
         return await this.getRepositoryConnection(BusinessUser).findOne({business: business});

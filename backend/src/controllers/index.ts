@@ -6,8 +6,9 @@ import { propertyWorkOrdersController } from './PropertyWorkOrdersController';
 import { workOrderController } from './WorkOrderController';
 import { propertySectorsController } from './PropertySectorsController';
 import { businessController } from './BusinessController';
-import { businessUserController } from './BusinessUserController';
 import { userBusinessUsersController } from './UserBusinessUsersController';
+import { businessUserController } from './BusinessUserController';
+import { userBusinessController } from './UserBusinessController';
 import { licenseController } from './LicenseController';
 import { userLicenseController } from './UserLicensesController';
 
@@ -23,8 +24,9 @@ class Router {
         this.router.use('/api/properties/:propertyId/workOrders', propertyWorkOrdersController);
         this.router.use('/api/properties/:propertyId/sectors', propertySectorsController);
         this.router.use('/api/businesses', businessController);
-        this.router.use('/api/businessUsers', businessUserController);
-        this.router.use('/api/users/:userId/businessUsers', userBusinessUsersController);
+        this.router.use('/api/businesses/:businessId/users', businessUserController);
+        this.router.use('/api/users/:userId/businessUsers/:businessId', userBusinessUsersController);
+        this.router.use('/api/users/:userId/businesses', userBusinessController);
         this.router.use('/api/licenses', licenseController);
         this.router.use('/api/users/:userId/licenses', userLicenseController);
     }
