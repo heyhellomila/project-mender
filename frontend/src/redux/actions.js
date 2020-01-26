@@ -22,7 +22,7 @@ export const authenticate = (token) => async dispatch => {
         dispatch(error(err.message || 'ERROR'));
         dispatch(loading(false));
     });
-}
+};
 
 export const userLogout = () => async dispatch => {
     dispatch(loading(true));
@@ -33,11 +33,11 @@ export const userLogout = () => async dispatch => {
             dispatch(error(err.message || 'ERROR'));
             dispatch(loading(false));
     })
-}
+};
 
 export const selectProperty = (property) => (dispatch) => {
     dispatch(propertySelection(property));
-}
+};
 
 export const login = user => ({
     type: 'LOGIN',
@@ -58,12 +58,25 @@ export const error = error => ({
     error,
 });
 
+export const reloadUserProfile = (bool, user) => ({
+    type: 'RELOAD_PROFILE',
+    reloadingUserProfile: bool,
+    user
+});
+
 export const propertySelection = (property) => ({
     type: 'SELECT_PROPERTY',
     property
 });
 
-export const reloadProperties = bool => ({
+export const reloadProperties = (bool, options = {}) => ({
     type: 'RELOAD_PROPERTIES',
-    reloadProperties: bool
+    reloadProperties: bool,
+    selectLast: options.selectLast,
+    maintainSelection: options.maintainSelection
+});
+
+export const loadProperties = bool => ({
+    type: 'LOAD_PROPERTIES',
+    loadingProperties: bool
 });

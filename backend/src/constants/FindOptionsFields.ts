@@ -6,8 +6,9 @@ import { License } from '../entities/License';
 import { PropertySector } from '../entities/PropertySector';
 import { BusinessUser } from '../entities/BusinessUser';
 import { Business } from '../entities/Business';
+import { ShoppingItem } from 'src/entities/ShoppingItem';
 
-const PropertyFields : FindOptions<Property> = {
+const PROPERTY_FIELDS : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType', 'user'],
     select: {
         id: true,
@@ -27,7 +28,7 @@ const PropertyFields : FindOptions<Property> = {
     },
 };
 
-const PropertyFieldsNoUser : FindOptions<Property> = {
+const PROPERTY_FIELDS_NO_USER : FindOptions<Property> = {
     relations: ['activityStatus', 'propertyType'],
     select: {
         id: true,
@@ -41,27 +42,37 @@ const PropertyFieldsNoUser : FindOptions<Property> = {
             id: true,
             type: true,
         },
+        city: true,
+        province: true,
+        postalCode: true,
+        countryCode: true,
     },
 };
 
-const UserFields : FindOptions<User> = {
+const USER_FIELDS : FindOptions<User> = {
     relations: ['userType'],
     select: {
         id: true,
         firstName: true,
         lastName: true,
         email: true,
+        phoneNumber: true,
         userType: {
             id: true,
             type: true,
         },
-        phoneNumber: true,
+    },
+};
+
+const USER_FOR_UPDATE_FIELDS : FindOptions<User> = {
+    select: {
+        passwordHash: true,
     },
 };
 
 const WorkOrderFields : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
-        'lastModifiedBy', 'property', 'contractedBy'],
+        'lastModifiedBy', 'property', 'workOrderStatus', 'contractedBy'],
     select: {
         id: true,
         property: {
@@ -99,11 +110,16 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
         dateCompleted: true,
         priceEstimate: true,
         actualCost: true,
+        bookmarked: true,
+        workOrderStatus: {
+            id: true,
+            status: true,
+        },
     },
 };
 
 const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
-    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy'],
+    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy', 'workOrderStatus'],
     select: {
         id: true,
         sector: {
@@ -178,6 +194,36 @@ const WorkOrderFieldsNoBusinessUser : FindOptions<WorkOrder> = {
         dateCompleted: true,
         priceEstimate: true,
         actualCost: true,
+        bookmarked: true,
+        workOrderStatus: {
+            id: true,
+            status: true,
+        },
+    },
+};
+
+
+const SHOPPING_ITEM_FIELDS : FindOptions<ShoppingItem> = {
+    relations: ['workOrder'],
+    select:{
+        id: true,
+        workOrder: {
+            id: true,
+        },
+        name: true,
+        quantity: true,
+        price: true,
+        bought: true,
+    },
+};
+
+const SHOPPING_ITEM_FIELDS_NO_WORK_ORDER : FindOptions<ShoppingItem> = {
+    select:{
+        id: true,
+        name: true,
+        quantity: true,
+        price: true,
+        bought: true,
     },
 };
 
@@ -190,6 +236,7 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
             type: true,
             kind: true,
         },
+        status: true,
     },
 };
 
@@ -295,8 +342,8 @@ const BUSINESS_FIELDS : FindOptions<Business> = {
     },
 };
 
-
-
-export { PropertyFields, UserFields, WorkOrderFields, PropertyFieldsNoUser, WorkOrderFieldsNoBusinessUser,
-    WorkOrderFieldsNoProperty, PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
+export { PROPERTY_FIELDS, USER_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
+    WorkOrderFieldsNoProperty, WorkOrderFieldsNoBusinessUser, SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER,
+    PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS, LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, 
     BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER, BUSINESS_USER_FIELDS_NO_BUSINESS, BUSINESS_FIELDS };
+

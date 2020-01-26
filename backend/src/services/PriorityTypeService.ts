@@ -5,13 +5,21 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 
 class PriorityTypeService {
 
-    private priorityTypeRepository : PriorityTypeRepository = new PriorityTypeRepository();
+    private priorityTypeRepository : PriorityTypeRepository;
+
+    constructor(priorityTypeRepository?: PriorityTypeRepository) {
+        if (priorityTypeRepository) {
+            this.priorityTypeRepository = priorityTypeRepository;
+        } else {
+            this.priorityTypeRepository = new PriorityTypeRepository();
+        }
+    }
 
     async getPriorityType(type: string) {
         const priorityType: PriorityType = await this.priorityTypeRepository.getPriorityType(type);
         if (!priorityType) {
-            throw new ResourceNotFoundError('Invalid Priority type. Allowed Types: [' 
-                + Object.keys(PriorityTypeEnum) +']');
+            throw new ResourceNotFoundError('Invalid Priority type. Allowed Types: [ ' +
+                `${Object.keys(PriorityTypeEnum)} ]`);
         }
         return priorityType;
     }

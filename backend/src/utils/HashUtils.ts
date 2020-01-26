@@ -1,26 +1,25 @@
 import * as bcrypt from 'bcryptjs';
-const saltRounds = 10;
 
-async function generateHash(password: string) {
-    const hashedPassword = await new Promise((resolve, reject) => {
-        bcrypt.hash(password, saltRounds, function(err, hash) {
-            if (err) reject(err)
-            resolve(hash)
+class HashUtils {
+    private saltRounds : number = 10;
+
+    async generateHash(password: string) {
+        return await new Promise((resolve, reject) => {
+            bcrypt.hash(password, this.saltRounds, (err, hash) => {
+                if (err) reject(err);
+                resolve(hash);
+            });
         });
-    })
-    
-    return hashedPassword
+    }
+
+    async compare(unHashed: string, hashed: string) {
+        return await new Promise((resolve, reject) => {
+            bcrypt.compare(unHashed, hashed, (err, res) => {
+                if (err) reject(err);
+                resolve(res);
+            });
+        });
+    }
 }
 
-async function compare(unhashed: string, hashed: string) {
-    const match = await new Promise((resolve, reject) => {
-        bcrypt.compare(unhashed, hashed, function(err, res) {
-            if (err) reject(err)
-            resolve(res)
-        });
-    });
-    
-    return match;
-}
-
-module.exports = {generateHash, compare};
+export { HashUtils };

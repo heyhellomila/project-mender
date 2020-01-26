@@ -12,7 +12,7 @@ class UserMapper implements ObjectMapper<User, UserDTO> {
     private userTypeMapper : UserTypeMapper = new UserTypeMapper();
 
     toDTO(user: User) : UserDTO {
-        var userDTO : UserDTO = new UserDTO();
+        const userDTO : UserDTO = new UserDTO();
         userDTO.id = user.id;
         userDTO.email = user.email;
         userDTO.firstName = user.firstName;
@@ -25,12 +25,14 @@ class UserMapper implements ObjectMapper<User, UserDTO> {
     }
 
     fromDTO(userDTO: UserDTO) : User {
-        var user : User = new User();
+        const user : User = new User();
 
         user.id = userDTO.id;
         user.firstName = userDTO.firstName;
         user.lastName = userDTO.lastName;
-        
+        user.password = userDTO.password;
+        user.confirmPassword = userDTO.confirmPassword;
+
         if (userDTO.email) {
             if (!validator.isEmail(userDTO.email)) {
                 throw new BadRequestError('Invalid Email address');
@@ -44,7 +46,8 @@ class UserMapper implements ObjectMapper<User, UserDTO> {
             user.phoneNumber = userDTO.phoneNumber;
         }
         if (userDTO.userType) {
-            user.userType = this.userTypeMapper.fromDTO(new UserTypeDTO(userDTO.userType as string));
+            user.userType = this.userTypeMapper
+                .fromDTO(new UserTypeDTO(userDTO.userType as string));
         }
 
         return user;

@@ -8,6 +8,10 @@ const WorkOrderFields = {
         'priorityType', 'description', 'dueDate', 'priceEstimate'],
 };
 
+const SHOPPING_ITEM_FIELDS = {
+    createFields : ['name', 'quantity', 'price', 'bought'],
+};
+
 const PROPERTY_FIELDS = {
     createFields : ['name', 'propertyType', 'address', 'city', 'province', 'postalCode', 'countryCode'],
 };
@@ -25,5 +29,6 @@ const BUSINESS_FIELDS = {
     createFields : ['businessType'],
 };
 
-export { UserFields, WorkOrderFields, PROPERTY_FIELDS, PROPERTY_SECTOR_FIELDS, 
-        LICENSE_FIELDS, BUSINESS_FIELDS };
+export { UserFields, WorkOrderFields, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS, 
+    PROPERTY_SECTOR_FIELDS,LICENSE_FIELDS, BUSINESS_FIELDS };
+

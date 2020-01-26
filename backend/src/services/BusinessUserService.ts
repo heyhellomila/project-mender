@@ -33,7 +33,7 @@ class BusinessUserService {
         }
         const business = await this.businessService.getBusinessById(businessId);
         
-        if (!(await this.userService.userExists(userId))) {
+        if (!(await this.userService.getUser(userId))) {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
         }
         const user = await this.userService.getUser(userId);
@@ -54,7 +54,7 @@ class BusinessUserService {
     }
 
     async getBusinessUsersByUser(userId: number) {
-        if (!(await this.userService.userExists(userId))) {
+        if (!(await this.userService.getUser(userId))) {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
         }
         const user = await this.userService.getUser(userId);
@@ -76,7 +76,7 @@ class BusinessUserService {
         const businessUser = new BusinessUser();
         businessUser.business = await this.businessService.getBusinessById(businessId);
         
-        if (!(await this.userService.userExists(userId))) {
+        if (!(await this.userService.getUser(userId))) {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
         }
         businessUser.user = await this.userService.getUser(userId);

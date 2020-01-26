@@ -4,13 +4,14 @@ import SignUpForm  from '../components/signUpForm/SignUpForm';
 import { register } from '../apis/users/Register';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
+import validatePhoneNumber from '../utils/PhoneNumberUtils';
 
 export default class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       step : 1,
-      email: '', 
+      email: '',
       password: '',
       confirmPassword: '',
       firstName: '',
@@ -40,10 +41,6 @@ export default class SignUpPage extends React.Component {
       }
     }
   }
-  
-  static navigationOptions = {
-    title: 'Sign Up',
-  };
 
   nextStep = () => {
     const { step } = this.state;
@@ -71,7 +68,7 @@ export default class SignUpPage extends React.Component {
         step: step + 1
       });
     }
-  }
+  };
 
   prevStep = () => {
     const { step, type} = this.state;
@@ -102,7 +99,7 @@ export default class SignUpPage extends React.Component {
         });
       }
     }
-  }
+  };
 
   validateName() {
     const { firstName, lastName } = this.state;
@@ -115,31 +112,31 @@ export default class SignUpPage extends React.Component {
 
   handleEmail = (event) => {
     this.setState({email: event});
-  }
+  };
 
   handlePassword = (event) => {
     this.setState({password: event});
-  }
+  };
 
   handleConfirmPassword = (event) => {
     this.setState({confirmPassword: event});
-  }
+  };
 
   handleFirstName = (event) => {
     this.setState({firstName: event});
-  }
+  };
 
   handleLastName = (event) => {
     this.setState({lastName: event});
-  }
+  };
 
   handleType = (event) => {
     this.setState({type: event}, () => this.nextStep());
-  }
+  };
 
   handlePhoneNumber = (event) => {
     this.setState({phoneNumber: event});
-  }
+  };
 
   validateFields = () => { 
     const { password, confirmPassword, email, phoneNumber } = this.state;
@@ -156,20 +153,11 @@ export default class SignUpPage extends React.Component {
       this.setState({ validFormInputs: false, validEmail: false, 
         errorMsg: 'Invalid email address.'});
     }
-    if (!this.validatePhoneNumber(phoneNumber)) {
+    if (!validatePhoneNumber(phoneNumber)) {
       this.setState({ validFormInputs: false, validPhoneNumber: false,
         errorMsg: 'Invalid phone number.'});
     }
-  }
-
-  validatePhoneNumber = (phoneNumber) => {
-    phoneNumber = phoneNumber.replace(/\D/g,'');
-    if (phoneNumber.length !== 10) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  };
 
   registerUser = async() => {
     try {
@@ -178,10 +166,12 @@ export default class SignUpPage extends React.Component {
           this.props.navigation.navigate('LogInPage');
       });
     } catch (err) {
-      this.setState({submitting: false, errorMsg: err.message});
+      this.setState({errorMsg: err.message});
       alert(this.state.errorMsg);
+    } finally {
+      this.setState({submitting: false});
     }
-  }
+  };
 
   handleRegister = async() => {
     this.setState({ submitting: true, validFormInputs: true, errorMsg: '', 
@@ -189,7 +179,7 @@ export default class SignUpPage extends React.Component {
       validPhoneNumber: true });
 
     this.validateFields();
-  }
+  };
 
   render() {
     return (

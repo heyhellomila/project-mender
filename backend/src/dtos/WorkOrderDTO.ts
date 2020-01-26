@@ -2,6 +2,7 @@ import { PropertyDTO } from './PropertyDTO';
 import { SectorDTO } from './SectorDTO';
 import { WorkOrderTypeDTO } from './WorkOrderTypeDTO';
 import { PriorityTypeDTO } from './PriorityTypeDTO';
+import { WorkOrderStatusDTO } from './WorkOrderStatusDTO';
 import { UserDTO } from './UserDTO';
 import { BusinessUserDTO } from './BusinessUserDTO';
 
@@ -26,5 +27,6 @@ export class WorkOrderDTO {
     dateCompleted: Date;
     priceEstimate: number;
     actualCost: number;
-
+    bookmarked: Boolean;
+    workOrderStatus: WorkOrderStatusDTO | string;
 }

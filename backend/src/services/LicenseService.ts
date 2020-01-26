@@ -76,7 +76,7 @@ class LicenseService {
     }
 
     async createLicense(userId: number, license: License) {
-        if (!(await this.userService.userExists(userId))) {
+        if (!(await this.userService.getUser(userId))) {
             throw new ResourceNotFoundError("User with id " + userId + " does not exist.");
         }
         const user: User = await this.userService.getUser(userId);

@@ -12,7 +12,7 @@ const headerStyles = StyleSheet.create({
     },
     closeButton: {
         alignSelf: 'flex-end',
-        position: 'absolute',
+        position: 'absolute'
     },
     closeButtonImage: {
         height: 50,
@@ -23,8 +23,11 @@ const headerStyles = StyleSheet.create({
 const formStyles = StyleSheet.create({
     container: {
         flex: 6, 
-        paddingHorizontal: '7%', 
         backgroundColor: '#f0f0f0'
+    },
+    bodyContainer: {
+        flex: 6,
+        paddingHorizontal: '7%',
     },
     rowContainer: {
         flex: 1,
@@ -76,18 +79,26 @@ const formStyles = StyleSheet.create({
     },
     switchStyle: {
         alignSelf: 'flex-end',
-        marginRight: '5%'
     },
     pickerStyle: {
-        width: '75%', 
+        width: '75%',
         alignSelf: 'flex-end',
         borderColor: '#cccccc',
         backgroundColor: 'white',
-        marginRight: '5%'
-    }
+    },
+    pickerOverlayStyle : {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: '5%',
+        paddingVertical: '1%'
+    },
 });
 
-const footerStyles = StyleSheet.create({ 
+const footerStyles = StyleSheet.create({
+    container: {
+        flex: 2,
+        paddingHorizontal: '3%'
+    },
     infoButton: {
         alignSelf: 'flex-start',
     },
@@ -123,23 +134,25 @@ const footerStyles = StyleSheet.create({
 
 const sectorStyles = StyleSheet.create({
     sectorContainer: {
-        padding: '0%',
+        padding: '1%',
         borderWidth: 2,
         width: '25%', 
-        height: '80%'
+        height: '80%',
+        maxHeight: 200
     },
     selectedSectorContainer: {
-        padding: '0%',
+        padding: '1%',
         borderWidth: 2,
         borderColor: '#00ace6',
         width: '25%', 
-        height: '80%'
+        height: '80%',
+        maxHeight: 200
     },
     sectorIcon: {
         flex: 1,
         width: null,
         height: null,
-        resizeMode: 'contain',
+        resizeMode: 'contain'
     }
 });
 
@@ -171,4 +184,28 @@ const typeStyles = StyleSheet.create({
     }
 });
 
-export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles };
+const datePickerStyles = StyleSheet.create({
+    style: {
+        width: 200, alignSelf: 'flex-end'
+    },
+    dateIcon: {
+        position: 'absolute',
+        left: 0,
+        top: 4,
+        marginLeft: 0
+    },
+    dateInput: {
+        marginLeft: 36,
+        backgroundColor: 'white',
+        borderRadius: 4,
+        borderColor: '#cccccc',
+    },
+    darkDatePickerCon: {
+        backgroundColor: 'black'
+    },
+    lightDatePickerCon: {
+        backgroundColor: 'white'
+    }
+});
+
+export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles, datePickerStyles };

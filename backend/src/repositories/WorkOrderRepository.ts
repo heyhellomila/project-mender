@@ -30,6 +30,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
             .leftJoin('work_orders.createdBy', 'createdBy')
             .leftJoinAndSelect('work_orders.workOrderType', 'workOrderType')
             .leftJoin('work_orders.lastModifiedBy', 'lastModifiedBy')
+            .leftJoinAndSelect('work_orders.workOrderStatus', 'workOrderStatus')
             .where(filterQueries)
             .andWhere(searchTerm != null  ? 'concat(cause, title, description) like :searchTerm' : '1=1',{searchTerm: '%' + searchTerm + '%'})
             .orderBy(workOrderSort, ordering)
