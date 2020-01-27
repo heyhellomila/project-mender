@@ -8,7 +8,7 @@ import { UserType as UserTypeEnum } from '../enums/UserType';
 import { UserDataProvider } from './data_providers/UserDataProvider';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { UserTypeService } from '../services/UserTypeService';
-import {USER_FIELDS, USER_FOR_UPDATE_FIELDS} from '../constants/FindOptionsFields';
+import { USER_FIELDS, USER_FOR_UPDATE_FIELDS } from '../constants/FindOptionsFields';
 import { BadRequestError } from '../errors/BadRequestError';
 import { UserType } from '../entities/UserType';
 import { UserTypeDataProvider } from './data_providers/UserTypeDataProvider';
@@ -16,7 +16,7 @@ import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { HashUtils } from '../utils/HashUtils';
 import { AuthUtils } from '../utils/AuthUtils';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
-import {ConflictError} from "../errors/ConflictError";
+import { ConflictError } from '../errors/ConflictError';
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');

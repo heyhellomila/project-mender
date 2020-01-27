@@ -11,13 +11,21 @@ class ShoppingItemService {
     private workOrderService: WorkOrderService = new WorkOrderService();
     private shoppingItemRepository: ShoppingItemRepository = new ShoppingItemRepository();
 
+    constructor(shoppingItemRepository?: ShoppingItemRepository,
+                workOrderService?: WorkOrderService) {
+        this.shoppingItemRepository = shoppingItemRepository
+            ? shoppingItemRepository : new ShoppingItemRepository();
+        this.workOrderService = workOrderService
+            ? workOrderService : new WorkOrderService();
+    }
+
     async createShoppingItem(workOrderId: number, shoppingItem: ShoppingItem) {
-        if(!(await this.workOrderService.getWorkOrder(workOrderId))) {
-            throw new ResourceNotFoundError('Work Order ' + workOrderId + ' Does not exist');
+        if (!(await this.workOrderService.getWorkOrder(workOrderId))) {
+            throw new ResourceNotFoundError(`Work Order ${workOrderId} Does not exist`);
         }
         const workOrder = new WorkOrder();
         workOrder.id = workOrderId;
-        
+
         shoppingItem.workOrder = workOrder;
 
         try {
@@ -27,23 +35,25 @@ class ShoppingItemService {
         }
     }
 
-    async getShoppingItemByWorkOrderId(workOrderId: number) {        
-        if(!await this.workOrderService.getWorkOrder(workOrderId)) {
+    async getShoppingItemByWorkOrderId(workOrderId: number) {
+        if (!await this.workOrderService.getWorkOrder(workOrderId)) {
             throw new ResourceNotFoundError(`Work Order with id ${workOrderId} does not exist.`);
         }
         try {
-            const workOrder_onlyId: WorkOrder = new WorkOrder();
-            workOrder_onlyId.id = workOrderId;
-            return await this.shoppingItemRepository.getShoppingItemsByWorkOrder(workOrder_onlyId, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER);
+            const workOrderOnlyId: WorkOrder = new WorkOrder();
+            workOrderOnlyId.id = workOrderId;
+            return await this.shoppingItemRepository
+                .getShoppingItemsByWorkOrder(workOrderOnlyId, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER);
         } catch (err) {
             throw err;
         }
     }
 
     async getShoppingItem(id: number) {
-        const shoppingItem: ShoppingItem = await this.shoppingItemRepository.getShoppingItemById(id, SHOPPING_ITEM_FIELDS);
-        if (!shoppingItem){
-            throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`)
+        const shoppingItem: ShoppingItem = await this.shoppingItemRepository
+            .getShoppingItemById(id, SHOPPING_ITEM_FIELDS);
+        if (!shoppingItem) {
+            throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`);
         }
         return shoppingItem;
     }
@@ -56,44 +66,35 @@ class ShoppingItemService {
         }
     }
 
-    async updateShoppingItem(id: number, shoppingItemObj: ShoppingItem){
-        var shoppingItem = new ShoppingItem();
+    async updateShoppingItem(id: number, shoppingItemObj: ShoppingItem) {
+        const shoppingItem = new ShoppingItem();
 
-        if(!await this.getShoppingItem(id)) {
+        if (!await this.getShoppingItem(id)) {
             throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`);
         }
 
-        if(shoppingItemObj.name != null){
+        if (shoppingItemObj.name != null) {
             shoppingItem.name = shoppingItemObj.name;
         }
-        
-        if(shoppingItemObj.workOrder != null){
+
+        if (shoppingItemObj.workOrder != null) {
             const workOrderId = shoppingItemObj.workOrder.id;
-            try{
-                await this.workOrderService.getWorkOrder(workOrderId);
-            } catch (err) {
-                throw new ResourceNotFoundError(`Work Order with id  ${workOrderId} does not exist.`);
-            }
+            await this.workOrderService.getWorkOrder(workOrderId);
             shoppingItem.workOrder = shoppingItemObj.workOrder;
         }
-        
-        if(shoppingItemObj.price != null){
+
+        if (shoppingItemObj.price != null) {
             shoppingItem.price = shoppingItemObj.price;
         }
-        
-        if(shoppingItemObj.quantity != null){
+
+        if (shoppingItemObj.quantity != null) {
             shoppingItem.quantity = shoppingItemObj.quantity;
         }
-        
-        if(shoppingItemObj.bought != null){
+
+        if (shoppingItemObj.bought != null) {
             shoppingItem.bought = shoppingItemObj.bought;
         }
-
-        try{
-            return await this.shoppingItemRepository.updateShoppingItemById(id, shoppingItem);
-        } catch (err) {
-            throw new BadRequestError(err.message);
-        }
+        return await this.shoppingItemRepository.updateShoppingItemById(id, shoppingItem);
     }
 }
 
