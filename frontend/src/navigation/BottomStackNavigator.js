@@ -10,8 +10,10 @@ import AboutUsPage from '../pages/AboutUsPage';
 import ProfilePage from '../pages/ProfilePage';
 import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
+import { styles } from '../stylesheets/Stylesheet';
 
-const menderLogo = require('../../assets/menderlogo.png')
+
+const menderLogo = require('../../assets/mender_new_logo.png')
 
 //Navigator for top header
 const BottomStackNavigatorRoot = createStackNavigator({
@@ -24,7 +26,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
     defaultNavigationOptions: ({ navigation }) => {
         return {
             headerLeft: (
-                <Image style={{ marginLeft: 10, width: 50, height: 50 }} source={menderLogo} />
+                <Image style={styles.imageTopBarLogo} source={menderLogo} />
             ),
             headerTitle: (
                 <View style={{ alignItems: 'center', width: '100%' }}>
