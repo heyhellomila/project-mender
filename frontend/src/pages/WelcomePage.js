@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { styles, buttons } from '../stylesheets/Stylesheet';
 
-const menderLogo = require('../../assets/mender_new_logo_dark.jpg');
+const menderLogo = require('../../assets/mender_logo.jpg');
 
 class WelcomePage extends React.Component {
     static navigationOptions = {

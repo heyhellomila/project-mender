@@ -13,7 +13,7 @@ import HeaderButton from '../components/HeaderButton';
 import { styles } from '../stylesheets/Stylesheet';
 
 
-const menderLogo = require('../../assets/mender_new_logo_dark.jpg')
+const menderLogo = require('../../assets/mender_logo.jpg')
 
 //Navigator for top header
 const BottomStackNavigatorRoot = createStackNavigator({

@@ -4,7 +4,7 @@ import {styles} from '../../stylesheets/Stylesheet';
 import {Image, Text, View} from "react-native";
 import {Button} from "react-native-elements";
 
-const menderLogo = require('../../../assets/mender_new_logo_dark.jpg');
+const menderLogo = require('../../../assets/mender_logo.jpg');
 
 const Header = (props) => {
 
