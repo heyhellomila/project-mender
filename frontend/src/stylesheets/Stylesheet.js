@@ -12,13 +12,30 @@ const styles = StyleSheet.create({
 
     }, menderWelcomeLogo: {
         marginTop: '30%',
-        alignSelf: 'center'
+        alignItems: 'center',
     }, buttonGroup: {
         marginTop: '30%',
         flex: 1,
         justifyContent: 'center'
     }, propertyContainer: {
         height: 50
+    }, imageWelcomeLogo:{
+        width: 250, 
+        height: 250, 
+        borderRadius: 125, 
+        backgroundColor: 'teal'
+    }, imageTopBarLogo: {
+        marginLeft: 10, 
+        width: 50, 
+        height: 50, 
+        borderRadius: 25,
+        backgroundColor: 'teal'
+    },imageNormalLogo: {
+        marginLeft: 10,
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        backgroundColor: 'teal'
     }
 
 })
