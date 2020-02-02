@@ -6,7 +6,7 @@ import { FindOptions } from 'typeorm';
 
 class BusinessUserRepository extends BaseRepository<BusinessUser> {
 
-    async getBusinessUserByData(business: Business, user: User,
+    async getBusinessUserByBusinessAndUser(business: Business, user: User,
                                 fieldOptions?: FindOptions<BusinessUser>) {
         fieldOptions
             ? fieldOptions.where = { business, user }

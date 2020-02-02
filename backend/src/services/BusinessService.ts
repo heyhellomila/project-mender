@@ -19,7 +19,7 @@ class BusinessService {
             ? businessTypeService : new BusinessTypeService();
     }
 
-    async businessExists(neq: number) {
+    async getBusinessByNeq(neq: number) {
         return await this.businessRepository.getBusinessByNEQ(neq);
     }
 
@@ -36,7 +36,7 @@ class BusinessService {
             (business.name || business.businessType.type === BusinessTypeEnum.BUSINESS)) {
             throw new BadRequestError('Cannot provide business name or type \'BUSINESS\' without an NEQ.');
         }
-        if (business.NEQ && await this.businessExists(business.NEQ)) {
+        if (business.NEQ && await this.getBusinessByNeq(business.NEQ)) {
             throw new ResourceExistsError(
                 `A business with the NEQ ${business.NEQ} already exists.`);
         }

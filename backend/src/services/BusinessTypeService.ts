@@ -5,7 +5,12 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 
 class BusinessTypeService {
 
-    private businessTypeRepository : BusinessTypeRepository = new BusinessTypeRepository();
+    private businessTypeRepository : BusinessTypeRepository;
+
+    constructor(businessTypeRepository?: BusinessTypeRepository) {
+        this.businessTypeRepository = businessTypeRepository
+            ? businessTypeRepository : new BusinessTypeRepository();
+    }
 
     async getBusinessType(type: string) {
         const businessTypeObj: BusinessType = await this.businessTypeRepository

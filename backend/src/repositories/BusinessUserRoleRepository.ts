@@ -3,7 +3,7 @@ import { BaseRepository } from './BaseRepository';
 
 class BusinessUserRoleRepository extends BaseRepository<BusinessUserRole> {
 
-    async getUserRole(role: string) {
+    async getBusinessUserRole(role: string) {
         return await this.getRepositoryConnection(BusinessUserRole).findOne({ role });
     }
 }

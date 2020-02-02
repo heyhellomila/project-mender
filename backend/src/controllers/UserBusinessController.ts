@@ -24,7 +24,7 @@ userBusinessController.post(
 
 userBusinessController.get('/:businessId', auth, async(req: Request, res: Response) => {
     try {
-        const businessUser = await businessUserService.getBusinessUserByData(
+        const businessUser = await businessUserService.getBusinessUserByBusinessIdAndUserId(
             Number(req.params.businessId), Number(req.params.userId));
         return res.status(200).json(businessUserMapper.toDTO(businessUser));
     } catch (err) {
@@ -34,7 +34,8 @@ userBusinessController.get('/:businessId', auth, async(req: Request, res: Respon
 
 userBusinessController.get('/', auth, async(req: Request, res: Response) => {
     try {
-        const businesses = await businessUserService.getBusinessesByUser(Number(req.params.userId));
+        const businesses = await businessUserService.getBusinessesByUserId(
+            Number(req.params.userId));
         const businessesDTO : BusinessDTO[] = [];
         businesses.map((business) => {
             businessesDTO.push(businessMapper.toDTO(business));

@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { BusinessRepository } from '../repositories/BusinessRepository';
 import { BusinessTypeService } from '../services/BusinessTypeService';
 import { BusinessService } from '../services/BusinessService';
-import { BusinessDataProvider} from './data_providers/BusinessDataProvider';
+import { BusinessDataProvider } from './data_providers/BusinessDataProvider';
 import { Business } from '../entities/Business';
 import { BusinessTypeDataProvider } from './data_providers/BusinessTypeDataProvider';
 import { BusinessType as BusinessTypeEnum } from '../enums/BusinessType';
@@ -36,9 +36,9 @@ describe('Business Service Test', () => {
         businessService = new BusinessService(businessRepository, businessTypeService);
     });
 
-    it(('businessExists expect business'), async () => {
+    it(('getBusinessByNeq expect business'), async () => {
         when(businessRepositoryMock.getBusinessByNEQ(anyNumber())).thenResolve(business);
-        const fetchedBusiness : Business = await businessService.businessExists(business.NEQ);
+        const fetchedBusiness : Business = await businessService.getBusinessByNeq(business.NEQ);
         verify(businessRepositoryMock.getBusinessByNEQ(business.NEQ)).called();
         equal(fetchedBusiness, business);
     });
