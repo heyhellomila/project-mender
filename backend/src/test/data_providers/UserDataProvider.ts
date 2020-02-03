@@ -65,6 +65,13 @@ class UserDataProvider {
         user.phoneNumber = phoneNumber;
         return user;
     }
+
+    static getUserWithType(id: number, type: string) {
+        const user : User = new User();
+        user.id = id;
+        user.userType = UserTypeDataProvider.getUserType(null, type);
+        return user;
+    }
 }
 
 export { UserDataProvider };
