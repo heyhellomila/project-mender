@@ -25,7 +25,7 @@ userLicenseController.post(
 
 userLicenseController.get('/', auth, async(req: Request, res: Response) => {
     try {
-        const licenses = await licenseService.getLicensesByUser(Number(req.params.userId));
+        const licenses = await licenseService.getLicensesByUserId(Number(req.params.userId));
         const licensesDTO : LicenseDTO[] = [];
         licenses.map((license) => {
             licensesDTO.push(licenseMapper.toDTO(license));

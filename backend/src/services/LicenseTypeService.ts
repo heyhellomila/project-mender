@@ -5,7 +5,12 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 
 class LicenseTypeService {
 
-    private licenseTypeRepository : LicenseTypeRepository = new LicenseTypeRepository();
+    private licenseTypeRepository : LicenseTypeRepository;
+
+    constructor(licenseTypeRepository?: LicenseTypeRepository) {
+        this.licenseTypeRepository = licenseTypeRepository
+            ? licenseTypeRepository : new LicenseTypeRepository();
+    }
 
     async getLicenseType(type: string) {
         const licenseTypeObj: LicenseType = await this.licenseTypeRepository.getLicenseType(type);

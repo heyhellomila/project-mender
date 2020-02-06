@@ -39,7 +39,7 @@ businessController.get('/', auth, async(req: Request, res: Response) => {
 
 businessController.get('/:businessId/users', auth, async(req: Request, res: Response) => {
     try {
-        const users = await businessUserService.getUsersByBusiness(Number(req.params.businessId));
+        const users = await businessUserService.getUsersByBusinessId(Number(req.params.businessId));
         const usersDTO : UserDTO[] = [];
         users.map((user) => {
             usersDTO.push(userMapper.toDTO(user));
