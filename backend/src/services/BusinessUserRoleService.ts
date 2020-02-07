@@ -5,15 +5,21 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 
 class BusinessUserRoleService {
 
-    private userRoleRepository : BusinessUserRoleRepository = new BusinessUserRoleRepository();
+    private businessUserRoleRepository : BusinessUserRoleRepository;
 
-    async getUserRole(role: string) {
-        const userRoleObj: BusinessUserRole = await this.userRoleRepository.getUserRole(role);
-        if (!userRoleObj) {
+    constructor(businessUserRoleRepository?: BusinessUserRoleRepository) {
+        this.businessUserRoleRepository = businessUserRoleRepository
+            ? businessUserRoleRepository : new BusinessUserRoleRepository();
+    }
+
+    async getBusinessUserRole(role: string) {
+        const businessUserRoleObj: BusinessUserRole = await this.businessUserRoleRepository
+            .getBusinessUserRole(role);
+        if (!businessUserRoleObj) {
             throw new ResourceNotFoundError('Invalid Role. Allowed Types: [' +
                 `${Object.keys(BusinessUserRoleEnum)}]`);
         }
-        return userRoleObj;
+        return businessUserRoleObj;
     }
 }
 

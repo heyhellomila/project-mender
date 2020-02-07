@@ -8,10 +8,18 @@ import { Business } from '../entities/Business';
 
 class BusinessService {
 
-    private businessRepository: BusinessRepository = new BusinessRepository();
-    private businessTypeService: BusinessTypeService = new BusinessTypeService();
+    private businessRepository: BusinessRepository;
+    private businessTypeService: BusinessTypeService;
 
-    async businessExists(neq: number) {
+    constructor(businessRepository?: BusinessRepository,
+                businessTypeService?: BusinessTypeService) {
+        this.businessRepository = businessRepository
+            ? businessRepository : new BusinessRepository();
+        this.businessTypeService = businessTypeService
+            ? businessTypeService : new BusinessTypeService();
+    }
+
+    async getBusinessByNeq(neq: number) {
         return await this.businessRepository.getBusinessByNEQ(neq);
     }
 
@@ -28,8 +36,9 @@ class BusinessService {
             (business.name || business.businessType.type === BusinessTypeEnum.BUSINESS)) {
             throw new BadRequestError('Cannot provide business name or type \'BUSINESS\' without an NEQ.');
         }
-        if (business.NEQ && await this.businessExists(business.NEQ)) {
-            throw new ResourceExistsError(`A business with the NEQ ${business.NEQ} aready exists.`);
+        if (business.NEQ && await this.getBusinessByNeq(business.NEQ)) {
+            throw new ResourceExistsError(
+                `A business with the NEQ ${business.NEQ} already exists.`);
         }
         business.businessType = await this.businessTypeService
             .getBusinessType(business.businessType.type);

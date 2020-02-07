@@ -13,21 +13,34 @@ import { BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER,
 
 class BusinessUserService {
 
-    private businessUserRepository : BusinessUserRepository = new BusinessUserRepository();
-    private businessUserRoleService : BusinessUserRoleService = new BusinessUserRoleService();
-    private userService : UserService = new UserService();
-    private businessService : BusinessService = new BusinessService();
+    private businessUserRepository : BusinessUserRepository;
+    private businessUserRoleService : BusinessUserRoleService;
+    private userService : UserService;
+    private businessService : BusinessService;
 
-    async businessUserExists(business: Business, user: User) {
-        return await this.businessUserRepository.getBusinessUserByData(business, user);
+    constructor(businessUserRepository?: BusinessUserRepository,
+                businessUserRoleService?: BusinessUserRoleService, userService?: UserService,
+                businessService?: BusinessService) {
+        this.businessUserRepository = businessUserRepository
+            ? businessUserRepository : new BusinessUserRepository();
+        this.businessUserRoleService = businessUserRoleService
+            ? businessUserRoleService : new BusinessUserRoleService();
+        this.userService = userService
+            ? userService : new UserService();
+        this.businessService = businessService
+            ? businessService : new BusinessService();
     }
 
-    async getBusinessUserByData(businessId: number, userId: number) {
+    async getBusinessUserByBusinessAndUser(business: Business, user: User) {
+        return await this.businessUserRepository.getBusinessUserByBusinessAndUser(business, user);
+    }
+
+    async getBusinessUserByBusinessIdAndUserId(businessId: number, userId: number) {
         const business = await this.businessService.getBusinessById(businessId);
         const user = await this.userService.getUser(userId);
 
         const businessUser: BusinessUser = await this.businessUserRepository
-            .getBusinessUserByData(business, user, BUSINESS_USER_FIELDS);
+            .getBusinessUserByBusinessAndUser(business, user, BUSINESS_USER_FIELDS);
         if (!businessUser) {
             throw new ResourceNotFoundError(`Business User with user id ${userId} ` +
                 `and business id ${businessId} does not exist.`);
@@ -35,7 +48,7 @@ class BusinessUserService {
         return businessUser;
     }
 
-    async getBusinessesByUser(userId: number) {
+    async getBusinessesByUserId(userId: number) {
         const user = await this.userService.getUser(userId);
         const businessUsers = await this.businessUserRepository
             .getBusinessUsersByUser(user, BUSINESS_USER_FIELDS_NO_USER);
@@ -46,7 +59,7 @@ class BusinessUserService {
         return businesses;
     }
 
-    async getUsersByBusiness(businessId: number) {
+    async getUsersByBusinessId(businessId: number) {
         const business = await this.businessService.getBusinessById(businessId);
         const businessUsers =  await this.businessUserRepository
             .getBusinessUsersByBusiness(business, BUSINESS_USER_FIELDS_NO_BUSINESS);
@@ -62,14 +75,15 @@ class BusinessUserService {
         businessUser.business = await this.businessService.getBusinessById(businessId);
         businessUser.user = await this.userService.getUser(userId);
 
-        if (await this.businessUserExists(businessUser.business, businessUser.user)) {
-            throw new ResourceExistsError('This business user aready exists.');
+        if (await this.getBusinessUserByBusinessAndUser(businessUser.business, businessUser.user)) {
+            throw new ResourceExistsError(`Business user with user id ${userId} ` +
+                `and business id ${businessId} already exists.`);
         }
 
         // system will eventually send creation requests to admins to approve user creation
         // (creation_state [PENDING, APPROVED])
         businessUser.businessUserRole = await this.businessUserRoleService
-            .getUserRole(BusinessUserRoleEnum.EMPLOYEE as string);
+            .getBusinessUserRole(BusinessUserRoleEnum.EMPLOYEE as string);
 
         return await this.businessUserRepository.createBusinessUser(businessUser);
     }

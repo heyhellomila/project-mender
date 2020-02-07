@@ -25,7 +25,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
     BottomStackNavigator: {
         screen: BottomStackNavigator,
         navigationOptions: {
-            title: 'Navigation'
+            title:''
         }
     },
     HomePage: {
