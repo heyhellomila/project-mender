@@ -4,7 +4,7 @@ const welcomePageStyles = StyleSheet.create({
     buttonSignUp:{
         display: 'flex',
         height: '55%',
-        borderRadius: 5,
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
 
@@ -17,7 +17,7 @@ const welcomePageStyles = StyleSheet.create({
     buttonLogIn:{
         display: 'flex',
         height: '55%',
-        borderRadius: 5,
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
 

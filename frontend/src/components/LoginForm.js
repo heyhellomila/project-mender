@@ -1,14 +1,14 @@
 import React from 'react';
-import { Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
-import { logInPageStyles } from '../stylesheets/LogInPageStylesheet';
+import {Text, TextInput, View, TouchableOpacity, Image} from 'react-native';
+import {logInPageStyles} from '../stylesheets/LogInPageStylesheet';
 
 const menderLogo = require('../../assets/blank_profile_picture.png');
 
 const LoginForm = (props) => {
     return (
         <View style={logInPageStyles.logInForm}>
-                <Image style={logInPageStyles.imageLogIn}
-                       source={menderLogo} />
+            <Image style={logInPageStyles.imageLogIn}
+                   source={menderLogo}/>
             <TextInput
                 style={logInPageStyles.textInput}
                 placeholder="Email"
@@ -25,19 +25,19 @@ const LoginForm = (props) => {
                 onChangeText={text => props.handlePasswordChange(text)}
             />
             <View style={logInPageStyles.invalidInputView}>
-            {props.error
-                ? <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
-                : null
-            }
+                {props.error
+                    ? <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
+                    : null
+                }
             </View>
-                    <TouchableOpacity style={logInPageStyles.buttonLogIn}
-                                      onPress={() => props.handleLogin()}>
-                        <Text style={logInPageStyles.buttonText}>LOG IN</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={logInPageStyles.buttonBack}
-                                      onPress={() => props.navigation.goBack()}>
-                        <Text style={logInPageStyles.buttonText}>BACK</Text>
-                    </TouchableOpacity>
+            <TouchableOpacity style={logInPageStyles.buttonLogIn}
+                              onPress={() => props.handleLogin()}>
+                <Text style={logInPageStyles.buttonText}>LOG IN</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={logInPageStyles.buttonBack}
+                              onPress={() => props.navigation.goBack()}>
+                <Text style={logInPageStyles.buttonText}>BACK</Text>
+            </TouchableOpacity>
         </View>
     );
 };
