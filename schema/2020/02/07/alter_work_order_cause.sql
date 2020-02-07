@@ -1,0 +1,1 @@
+ALTER TABLE work_orders MODIFY cause varchar(255);

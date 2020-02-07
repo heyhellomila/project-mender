@@ -1,10 +1,10 @@
-const UserFields = {
+const USER_FIELDS = {
     loginFields : ['email', 'password'],
     createFields : ['email', 'password', 'firstName', 'lastName', 'phoneNumber', 'userType'],
 };
 
-const WorkOrderFields = {
-    createFields : ['sectorKind', 'workOrderType', 'title', 'cause', 'serviceNeeded',
+const WORK_ORDER_FIELDS = {
+    createFields : ['sectorKind', 'workOrderType', 'title', 'serviceNeeded',
         'priorityType', 'description', 'dueDate', 'priceEstimate'],
 };
 
@@ -18,7 +18,7 @@ const PROPERTY_FIELDS = {
 
 const PROPERTY_SECTOR_FIELDS = {
     createFields : ['sectorKind'],
-    patchFields: ['sectorKind']
+    patchFields: ['sectorKind'],
 };
 
 const LICENSE_FIELDS = {
@@ -29,6 +29,5 @@ const BUSINESS_FIELDS = {
     createFields : ['NEQ', 'businessType'],
 };
 
-export { UserFields, WorkOrderFields, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS, 
-    PROPERTY_SECTOR_FIELDS,LICENSE_FIELDS, BUSINESS_FIELDS };
-
+export { USER_FIELDS, WORK_ORDER_FIELDS, SHOPPING_ITEM_FIELDS, PROPERTY_FIELDS,
+    PROPERTY_SECTOR_FIELDS, LICENSE_FIELDS, BUSINESS_FIELDS };

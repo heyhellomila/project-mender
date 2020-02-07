@@ -16,7 +16,7 @@ class CreateWorkOrderPage extends React.Component {
             sectorKind: '',
             type: 'CM', 
             title: '',
-            cause: '',
+            cause: null,
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '',
@@ -26,7 +26,6 @@ class CreateWorkOrderPage extends React.Component {
             today: new Date(),
             property: props.property,
             validTitle: true,
-            validCause: true,
             submitting: false,
             success: false,
             headerText: 'Select a Sector'
@@ -50,15 +49,13 @@ class CreateWorkOrderPage extends React.Component {
                 headerText: 'Overview'
             });
         } else if (step === 3) {
-            if (title.length === 0 || cause.length === 0) {
+            if (title.length === 0) {
                 this.setState({
                     validTitle: title.length !== 0,
-                    validCause: cause.length !== 0
                 });
             } else {
                 this.setState({
                     validTitle: true,
-                    validCause: true,
                     step: step + 1,
                     headerText: 'Details'
                 });

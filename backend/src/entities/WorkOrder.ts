@@ -34,7 +34,7 @@ export class WorkOrder {
     @Column()
     title: string;
 
-    @Column()
+    @Column({ nullable: true })
     cause: string;
 
     @Column({ name: 'service_needed', type: 'bit', transformer:
