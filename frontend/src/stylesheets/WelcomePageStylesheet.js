@@ -21,7 +21,7 @@ const welcomePageStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-        backgroundColor: '#4EBBEA',
+        backgroundColor: '#1CA5E0',
         shadowColor: '#2AC062',
         shadowOpacity: 0.4,
         shadowOffset: { height: 10, width: 0 },

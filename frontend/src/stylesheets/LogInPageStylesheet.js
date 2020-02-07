@@ -5,13 +5,15 @@ const logInPageStyles = StyleSheet.create({
         height: '60%', 
         width: '75%', 
         justifyContent: 'center', 
-        alignContent: 'center'},
+        alignContent: 'center'
+    },
     buttonLogIn:{
         display: 'flex',
         height: '12%',
         width: '75%',
         borderRadius: 25,
         justifyContent: 'center',
+        alignItems: 'center',
         alignSelf:'center',
         marginTop: '6%',
 
