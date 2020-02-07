@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
-import { styles, buttons } from '../stylesheets/Stylesheet';
 import { logInPageStyles } from '../stylesheets/LogInPageStylesheet';
 
 const menderLogo = require('../../assets/profileMender.png');
