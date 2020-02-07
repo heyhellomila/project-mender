@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import { logInPageStyles } from '../stylesheets/LogInPageStylesheet';
 
-const menderLogo = require('../../assets/profileMender.png');
+const menderLogo = require('../../assets/blank_profile_picture.png');
 
 const LoginForm = (props) => {
     return (
