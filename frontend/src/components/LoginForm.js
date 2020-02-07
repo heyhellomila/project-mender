@@ -1,42 +1,44 @@
 import React from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
+import { styles, buttons } from '../stylesheets/Stylesheet';
+import { logInPageStyles } from '../stylesheets/LogInPageStylesheet';
+
+const menderLogo = require('../../assets/profileMender.png');
 
 const LoginForm = (props) => {
     return (
-        <View>
-            {props.error 
-                ? <Text>{props.errorMsg}</Text>
-                : null
-            }
-            <Text>
-                Username
-            </Text>
+        <View style={logInPageStyles.logInForm}>
+                <Image style={logInPageStyles.imageLogIn}
+                       source={menderLogo} />
             <TextInput
-                style={{height: 40, width: 150}}
-                placeholder="abc@gmail.com"
+                style={logInPageStyles.textInput}
+                placeholder="Email"
                 defaultValue={props.email}
                 onChangeText={text => props.handleEmailChange(text)}
             />
-            <Text>
-                Password
-            </Text>
+
             <TextInput
-                style={{height: 40, width: 150}}
-                placeholder="password"
+                style={logInPageStyles.textInput}
+                placeholder="Password"
                 defaultValue={props.password}
                 secureTextEntry={true}
                 password={true}
                 onChangeText={text => props.handlePasswordChange(text)}
             />
-            <Button
-                title="Login"
-                onPress={() => props.handleLogin()}
-            />
-            <Button
-                title="Back"
-                onPress={() => props.navigation.goBack()}
-            />
-
+            <View style={logInPageStyles.invalidInputView}>
+            {props.error
+                ? <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
+                : null
+            }
+            </View>
+                    <TouchableOpacity style={logInPageStyles.buttonLogIn}
+                                      onPress={() => props.handleLogin()}>
+                        <Text style={logInPageStyles.buttonText}>LOG IN</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={logInPageStyles.buttonBack}
+                                      onPress={() => props.navigation.goBack()}>
+                        <Text style={logInPageStyles.buttonText}>BACK</Text>
+                    </TouchableOpacity>
         </View>
     );
 };

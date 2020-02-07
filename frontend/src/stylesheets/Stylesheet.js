@@ -148,7 +148,6 @@ const buttons = StyleSheet.create({
         borderRadius: 25
     },
     buttonLogIn: {
-        marginTop: '5%',
         width: '50%',
         alignSelf: 'center',
         borderRadius: 25
