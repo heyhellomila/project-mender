@@ -99,6 +99,12 @@ const formStyles = StyleSheet.create({
         backgroundColor: '#E0E0E0',
         borderColor: '#cccccc',
     },
+    pickerOverlayStyle : {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: '5%',
+        paddingVertical: '1%'
+    },
     bodyContainer: {
         flex: 4,
         paddingHorizontal: '7%'

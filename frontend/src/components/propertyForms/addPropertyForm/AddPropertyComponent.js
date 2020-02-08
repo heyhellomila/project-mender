@@ -44,7 +44,8 @@ const AddPropertyComponent = (props) => {
                                     : formStyles.invalidPickerStyle}
                                 initValueTextStyle={{textAlign: 'left'}}
                                 selectTextStyle={{textAlign: 'left'}}
-                                style={{flex: 1}}/>
+                                style={{flex: 1}}
+                                overlayStyle={formStyles.pickerOverlayStyle}/>
                         </View>
                     </View>
                     <View style={formStyles.inputContainer}>
