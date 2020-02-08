@@ -84,4 +84,4 @@ export const loadProperties = bool => ({
 export const reloadWorkOrders = (bool) => ({
     type: 'RELOAD_WORK_ORDERS',
     reloadWorkOrders: bool
-})
+});

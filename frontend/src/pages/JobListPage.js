@@ -636,7 +636,7 @@ class JobListPage extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
     property: state.property.property,
-    reloadWorkOrders: state.property.reloadWorkOrders
+    reloadWorkOrders: state.workOrder.reloadWorkOrders
 });
 
 const mapDispatchToProps = dispatch => ({
