@@ -6,6 +6,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import WorkOrderForm from '../components/workOrderForm/WorkOrderForm';
 import {SectorType} from "../constants/enums/SectorType";
 import {formStyles, sectorStyles} from "../stylesheets/CreateWorkOrderPageStyleSheet";
+import { reloadWorkOrders } from '../redux/actions';
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
@@ -105,6 +106,7 @@ class CreateWorkOrderPage extends React.Component {
                 Date.parse(this.state.dueDate),
                 this.state.priceEstimate).then(async() => {
                     this.setState({success: true, submitting: false});
+                    this.props.reloadWorkOrders();
                     setTimeout(() => {
                         this.props.navigation.goBack(null);
                     }, 1500);
@@ -177,4 +179,8 @@ const mapStateToProps = (state) => ({
     property: state.property.property
 });
 
-export default connect(mapStateToProps, null)(CreateWorkOrderPage);
+const mapDispatchToProps = dispatch => ({
+    reloadWorkOrders: () => dispatch(reloadWorkOrders(true))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkOrderPage);

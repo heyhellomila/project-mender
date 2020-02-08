@@ -6,6 +6,7 @@ import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
+import { reloadWorkOrders } from '../redux/actions';
 
 class JobListPage extends React.Component {
 
@@ -105,7 +106,15 @@ class JobListPage extends React.Component {
         };
     }
   
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.props.reloadWorkOrders && !this.state.loading && !prevState.loading) {
+            this.setState({
+                data: []
+            });
+            await this.getListOfWorkOrders().then(() => {
+                this.props.finishReloadingWorkOrders();
+            })
+        }
         if (this.props.property !== prevProps.property) {
             this.setState({
                 data: [],
@@ -626,7 +635,12 @@ class JobListPage extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    property: state.property.property
+    property: state.property.property,
+    reloadWorkOrders: state.property.reloadWorkOrders
 });
 
-export default connect(mapStateToProps)(JobListPage);
+const mapDispatchToProps = dispatch => ({
+    finishReloadingWorkOrders: () => dispatch(reloadWorkOrders(false))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobListPage);
