@@ -117,20 +117,22 @@ const jobListCardStyles = StyleSheet.create({
     },
     topDetails: {
         flexDirection: 'row', 
-        alignContent: 'space-between', 
-        paddingBottom: 10
+        paddingTop: 10,
+        paddingBottom: 10,
+        height: 95
     },
     dueDate: {
         fontSize: 12
     },
     title: {
         fontWeight: 'bold', 
-        width: 110
+        width: 150
     },
     calendar: {
         flexDirection: 'column', 
         alignItems: 'center',
-        paddingRight: 10
+        marginRight: 15,
+        justifyContent: 'center'
     },
     arrowIcon: {
         height: 7,
@@ -139,17 +141,19 @@ const jobListCardStyles = StyleSheet.create({
     collapseHeaderSection: {
         flexDirection: 'column', 
         flex: 1,
-        paddingRight: 10
+        paddingRight: 10,
+        justifyContent: 'center'
     },
     collapseHeaderSectionFirstLine: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
         marginBottom: 10, 
-        alignItems: 'center'
+        alignContent: 'flex-start'
     },
-    collapseHeaderSectionSecondLine: {
+    collapseHeaderSectionLine: {
         flexDirection: 'row', 
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: 10
     },
     collapseBodySection: {
         alignItems: 'center', 
@@ -273,21 +277,21 @@ const buttonStyles = StyleSheet.create({
 
 const circleStyles = StyleSheet.create({
     redCircle: {
-        width: 10, 
-        height: 10, 
-        borderRadius: 10/2, 
+        width: 14, 
+        height: 14, 
+        borderRadius: 14/2, 
         backgroundColor: 'red'
     },
     yellowCircle: {
-        width: 10, 
-        height: 10, 
-        borderRadius: 10/2, 
+        width: 14, 
+        height: 14, 
+        borderRadius: 14/2, 
         backgroundColor: 'yellow'
     },
     greenCircle: {
-        width: 10, 
-        height: 10, 
-        borderRadius: 10/2, 
+        width: 14, 
+        height: 14, 
+        borderRadius: 14/2, 
         backgroundColor: 'green'
     }
 });
