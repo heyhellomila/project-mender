@@ -51,7 +51,7 @@ const workOrderReducer = (state = {
 }, action) => {
     switch (action.type) {
         case 'RELOAD_WORK_ORDERS':
-            return { ...state, reloadWOrkOrders: action.reloadWorkOrders };
+            return { ...state, reloadWorkOrders: action.reloadWorkOrders };
         default:
             return state;
     }
