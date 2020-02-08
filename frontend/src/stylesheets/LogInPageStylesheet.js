@@ -2,16 +2,16 @@ import { StyleSheet } from 'react-native';
 
 const logInPageStyles = StyleSheet.create({
     logInForm:{
-        height: '65%',
+        height: '85%',
         width: '80%',
         justifyContent: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 10,
-        backgroundColor: 'white',
         padding: '3%'
+    },
+    logInSignUpSection:{
+        flex: 1,
+        justifyContent: 'center'
     },
     buttonLogIn:{
         flex:3,
@@ -20,17 +20,18 @@ const logInPageStyles = StyleSheet.create({
         width: '100%',
         borderRadius: 50,
         justifyContent: 'center',
-        backgroundColor: '#03ADF7'
+        backgroundColor: '#070D3A'
+    },
+    signUpSection:{
+        flex: 3, 
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        alignItems: 'center'
     },
     buttonSignUp:{
-        flex: 3,
-        display: 'flex',
-        height: '70%',
-        width: '100%',
-        borderRadius: 50,
-        justifyContent: 'center',
-        backgroundColor: '#070D3A',
-        marginTop: 15
+        textDecorationLine: 'underline', 
+        color: '#070D3A', 
+        fontWeight: 'bold'
     },
     buttonText:{
         fontWeight: 'bold',
@@ -38,16 +39,16 @@ const logInPageStyles = StyleSheet.create({
         textAlign: 'center'
     },
     imageLogIn:{
-        flex:3,
-        width: 170,
-        height: 170,
-        borderRadius: 85,
+        flex: 2,
+        width: 200,
+        height: 200,
+        borderRadius: 100,
         alignSelf: 'center',
         borderColor: 'black',
         borderWidth: 1,
     },
     textInput:{
-        flex: 1,
+        flex: 0.5,
         height: '12%', 
         width: '100%',
         borderRadius: 25, 
@@ -56,13 +57,14 @@ const logInPageStyles = StyleSheet.create({
         marginTop: '10%'
     },
     invalidInputView:{
-        flex:0.5,
+        flex:0.4,
         alignSelf: 'center',
         justifyContent: 'center',
         marginTop: 10
     },
     invalidInput:{
-        color: 'red'
+        color: '#C52D05',
+        fontWeight: 'bold'
     },
 });
 

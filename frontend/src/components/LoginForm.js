@@ -7,8 +7,10 @@ const menderLogo = require('../../assets/mender_logo.jpg');
 const LoginForm = (props) => {
     return (
         <View style={logInPageStyles.logInForm}>
+            <View style={{flex: 0.4}}></View>
             <Image style={logInPageStyles.imageLogIn}
                    source={menderLogo}/>
+            <View style={{flex: 1}}></View>
             <TextInput
                 style={logInPageStyles.textInput}
                 placeholder="Email"
@@ -30,15 +32,18 @@ const LoginForm = (props) => {
                     : null
                 }
             </View>
-            <View style={{flex: 2, justifyContent:'center'}}>
-            <TouchableOpacity style={logInPageStyles.buttonLogIn}
-                              onPress={() => props.handleLogin()}>
-                <Text style={logInPageStyles.buttonText}>LOG IN</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={logInPageStyles.buttonSignUp}
-                              onPress={() => props.navigation.navigate('SignUpPage')}>
-                <Text style={logInPageStyles.buttonText}>SIGN UP</Text>
-            </TouchableOpacity>
+            <View style={logInPageStyles.logInSignUpSection}>
+                <TouchableOpacity style={logInPageStyles.buttonLogIn}
+                                  onPress={() => props.handleLoginValidation()}>
+                    <Text style={logInPageStyles.buttonText}>LOG IN</Text>
+                </TouchableOpacity>
+                <View style={logInPageStyles.signUpSection}>
+                    <Text style={logInPageStyles.buttonText}>Don't have an account?</Text>
+                    <TouchableOpacity style={logInPageStyles.buttonSignUp}
+                                      onPress={() => props.navigation.navigate('SignUpPage')}>
+                        <Text style={logInPageStyles.buttonSignUp}> Sign Up.</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

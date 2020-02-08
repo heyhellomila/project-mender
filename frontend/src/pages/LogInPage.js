@@ -36,6 +36,15 @@ class LogInPage extends React.Component {
     this.setState({password: event})
   }
 
+  handleLoginValidation = () =>{
+    const {email, password} = this.state;
+    if(email == '' || password == ''){
+      this.setState({error: true, submitting: false, errorMsg: 'Email or Password can\'t be empty'})
+    }else{
+      this.handleLogin();
+    }
+  }
+
   handleLogin = async() => {
     this.setState({ submitting: true })
     try {
@@ -57,12 +66,12 @@ class LogInPage extends React.Component {
 
     return (
         <ImageBackground
-            style={{flex: 1, width: '100%', justifyContent:'center'}}
+            style={loginComponent.imageBackgroundLogin}
             source={menderBackground}>
         {submitting 
-          ? <Text style={{alignSelf:'center', backgroundColor: 'white', padding: '2%'}}>Loading...</Text>
+          ? <Text style={loginComponent.loadingStyle}>Loading...</Text>
           : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange} 
-            handlePasswordChange={this.handlePasswordChange} handleLogin={this.handleLogin}/>
+            handlePasswordChange={this.handlePasswordChange} handleLoginValidation={this.handleLoginValidation}/>
         }
         </ImageBackground>
     );

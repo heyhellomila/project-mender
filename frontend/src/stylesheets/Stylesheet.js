@@ -41,9 +41,16 @@ const styles = StyleSheet.create({
 })
 
 const loginComponent = StyleSheet.create({
-    logInContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
+    imageBackgroundLogin: {
+        flex: 1, 
+        width: '100%', 
+        justifyContent:'center'
+    },
+    loadingStyle: {
+        alignSelf:'center',
+        backgroundColor: 'white',
+        fontWeight: 'bold',
+        padding: '2%'
     }
 })
 
