@@ -45,11 +45,9 @@ const Overview = (props) => {
                     <Text style={formStyles.infoHeader}>Cause</Text>
                 </View>
                 <View style={formStyles.rowContainer}>
-                    <TextInput style = {props.validCause 
-                            ? formStyles.textInput 
-                            : formStyles.invalidTextInput}
-                            defaultValue = {props.cause}
-                        onChangeText = {(value) => props.handleCause(value)}/>
+                    <TextInput style = {formStyles.textInput}
+                               defaultValue = {props.cause}
+                               onChangeText = {(value) => props.handleCause(value)}/>
                 </View>
             </View>
         </View>
