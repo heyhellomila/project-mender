@@ -109,6 +109,8 @@ class JobListPage extends React.Component {
     async componentDidUpdate(prevProps, prevState) {
         if (this.props.reloadWorkOrders && !this.state.loading && !prevState.loading) {
             this.setState({
+                lastPage: false,
+                isEmpty: false,
                 data: []
             });
             await this.getListOfWorkOrders().then(() => {
