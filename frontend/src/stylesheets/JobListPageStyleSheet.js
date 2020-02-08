@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 const jobListStyles = StyleSheet.create({
     text: {
-        fontSize: 11
+        fontSize: 13
     },
     textRatio: {
-        fontSize: 9
+        fontSize: 11
     },
     row: {
         flexDirection: 'row'
@@ -72,7 +72,7 @@ const headerStyles = StyleSheet.create({
         alignItems: 'center'
     },
     priorityText: {
-        fontSize: 11
+        fontSize: 13
     },
     loadingContainer: {
         justifyContent: 'center'
@@ -122,10 +122,10 @@ const jobListCardStyles = StyleSheet.create({
         height: 90
     },
     dueDate: {
-        fontSize: 12
+        fontSize: 13
     },
     title: {
-        fontSize: 11,
+        fontSize: 15,
         fontWeight: 'bold', 
         width: 150
     },
@@ -163,20 +163,20 @@ const jobListCardStyles = StyleSheet.create({
     dateCreated: {
         fontSize: 13, 
         marginBottom: 10, 
-        width: 75
+        width: '25%'
     },
     date: {
         fontSize: 13, 
         marginBottom: 10
     },
     collapseBodySectionLeft: {
-        fontSize: 11, 
+        fontSize: 13, 
         marginBottom: 10, 
-        width: 75, 
+        width: '25%', 
         paddingTop: 5
     },
     collapseBodySectionRight: {
-        fontSize: 11, 
+        fontSize: 13, 
         marginBottom: 10, 
         backgroundColor: 'white', 
         padding: 5, 
@@ -196,7 +196,7 @@ const jobListCardStyles = StyleSheet.create({
         alignItems: 'center'
     },
     serviceNeededText: {
-        fontSize: 11, 
+        fontSize: 13, 
         marginRight: 10
     },
     photoSection: {
@@ -208,12 +208,12 @@ const jobListCardStyles = StyleSheet.create({
     separator: {
         borderBottomColor: 'black',
         borderBottomWidth: 1,
-        marginBottom: 10
+        marginBottom: 15
     },
     collapseBodySectionBottomButtons: {
         flexDirection: 'row', 
         justifyContent: 'flex-end', 
-        marginBottom: 10
+        marginBottom: 15
     }
 });
 
@@ -248,7 +248,7 @@ const buttonStyles = StyleSheet.create({
     buttonTitle: {
         color: 'black',
         padding: 5,
-        fontSize: 11
+        fontSize: 13
     },
     completedButton: {
         borderRadius: 20,

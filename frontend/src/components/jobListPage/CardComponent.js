@@ -91,13 +91,15 @@ const CardComponent = (props) => {
                                         disabled={true}
                                     />
                                 </View>
+                            </View>
+                            <View style={jobListCardStyles.collapseBodySectionBottom}>
                                 <Text style={jobListStyles.text}>Quotes received: 1</Text>
-                                <Button
-                                    title='View quotes'
-                                    type='outline'
-                                    buttonStyle={buttonStyles.viewQuotesButton}
-                                    titleStyle={buttonStyles.buttonTitle}
-                                />
+                                    <Button
+                                        title='View quotes'
+                                        type='outline'
+                                        buttonStyle={buttonStyles.viewQuotesButton}
+                                        titleStyle={buttonStyles.buttonTitle}
+                                    />
                             </View>
                             <View style={jobListCardStyles.photoSection}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Photos:</Text>
