@@ -6,14 +6,11 @@ import LogInPage from '../pages/LogInPage';
 import DrawerNavigator from './DrawerNavigator';
 
 const RootStack = createStackNavigator({
-    WelcomePage: {
-        screen: WelcomePage
+    LogInPage: {
+        screen: LogInPage,
     },
     SignUpPage: {
         screen: SignUpPage
-    },
-    LogInPage: {
-        screen: LogInPage,
     },
     DrawerNavigator: {
         screen: DrawerNavigator

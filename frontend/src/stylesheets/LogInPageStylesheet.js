@@ -2,67 +2,64 @@ import { StyleSheet } from 'react-native';
 
 const logInPageStyles = StyleSheet.create({
     logInForm:{
-        height: '60%', 
-        width: '75%', 
-        justifyContent: 'center', 
-        alignContent: 'center'
+        height: '65%',
+        width: '80%',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignContent: 'center',
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        padding: '3%'
     },
     buttonLogIn:{
+        flex:3,
         display: 'flex',
-        height: '12%',
-        width: '75%',
-        borderRadius: 25,
+        height: '70%',
+        width: '100%',
+        borderRadius: 50,
         justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf:'center',
-        marginTop: '6%',
-
-        backgroundColor: '#03ADF7',
-        shadowColor: '#2AC062',
-        shadowOpacity: 0.4,
-        shadowOffset: { height: 10, width: 0 },
-        shadowRadius: 20
+        backgroundColor: '#03ADF7'
     },
-    buttonBack:{
+    buttonSignUp:{
+        flex: 3,
         display: 'flex',
-        height: '12%',
-        width: '75%',
-        marginTop: '5%',
-        borderRadius: 25,
+        height: '70%',
+        width: '100%',
+        borderRadius: 50,
         justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-
-        backgroundColor: '#03ADF7',
-        shadowColor: '#2AC062',
-        shadowOpacity: 0.4,
-        shadowOffset: { height: 10, width: 0 },
-        shadowRadius: 20
+        backgroundColor: '#070D3A',
+        marginTop: 15
     },
     buttonText:{
         fontWeight: 'bold',
         color: 'white',
-        alignSelf: 'center'
+        textAlign: 'center'
     },
     imageLogIn:{
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-        backgroundColor: 'teal',
-        alignSelf: 'center'
+        flex:3,
+        width: 170,
+        height: 170,
+        borderRadius: 85,
+        alignSelf: 'center',
+        borderColor: 'black',
+        borderWidth: 1,
     },
     textInput:{
+        flex: 1,
         height: '12%', 
-        width: '100%', 
-        borderColor: 'black', 
+        width: '100%',
         borderRadius: 25, 
         backgroundColor: '#EEF6F9', 
         paddingStart: '5%', 
         marginTop: '10%'
     },
     invalidInputView:{
+        flex:0.5,
         alignSelf: 'center',
-        marginTop: '3%'
+        justifyContent: 'center',
+        marginTop: 10
     },
     invalidInput:{
         color: 'red'

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, TextInput, View, TouchableOpacity, Image} from 'react-native';
 import {logInPageStyles} from '../stylesheets/LogInPageStylesheet';
 
-const menderLogo = require('../../assets/blank_profile_picture.png');
+const menderLogo = require('../../assets/mender_logo.jpg');
 
 const LoginForm = (props) => {
     return (
@@ -30,14 +30,16 @@ const LoginForm = (props) => {
                     : null
                 }
             </View>
+            <View style={{flex: 2, justifyContent:'center'}}>
             <TouchableOpacity style={logInPageStyles.buttonLogIn}
                               onPress={() => props.handleLogin()}>
                 <Text style={logInPageStyles.buttonText}>LOG IN</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={logInPageStyles.buttonBack}
-                              onPress={() => props.navigation.goBack()}>
-                <Text style={logInPageStyles.buttonText}>BACK</Text>
+            <TouchableOpacity style={logInPageStyles.buttonSignUp}
+                              onPress={() => props.navigation.navigate('SignUpPage')}>
+                <Text style={logInPageStyles.buttonText}>SIGN UP</Text>
             </TouchableOpacity>
+            </View>
         </View>
     );
 };

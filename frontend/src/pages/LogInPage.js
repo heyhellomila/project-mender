@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View} from 'react-native';
+import { Text, View, ImageBackground} from 'react-native';
 import LoginForm  from '../components/LoginForm';
 import { login } from '../apis/users/Login'
 import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
 import { loginComponent } from '../stylesheets/Stylesheet';
+
+const menderBackground = require('../../assets/mender_background.png');
 
 class LogInPage extends React.Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class LogInPage extends React.Component {
         await this.props.authenticate(response.data.token).then(() => {
           if (!this.props.user.loading && this.props.user.user) {
             this.props.navigation.navigate('HomePage')
+            this.setState({submitting: false, email: '', password: '', error: false})
           }
         })
       });
@@ -53,13 +56,15 @@ class LogInPage extends React.Component {
     var {submitting} = this.state;
 
     return (
-      <View style={loginComponent.logInContainer}>
+        <ImageBackground
+            style={{flex: 1, width: '100%', justifyContent:'center'}}
+            source={menderBackground}>
         {submitting 
-          ? <Text>Loading...</Text>
+          ? <Text style={{alignSelf:'center', backgroundColor: 'white', padding: '2%'}}>Loading...</Text>
           : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange} 
             handlePasswordChange={this.handlePasswordChange} handleLogin={this.handleLogin}/>
         }
-      </View>
+        </ImageBackground>
     );
   }
 }
