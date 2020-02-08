@@ -28,8 +28,8 @@ const CardComponent = (props) => {
                                 <View style={jobListCardStyles.collapseHeaderSection}>
                                     <View style={jobListCardStyles.collapseHeaderSectionFirstLine}>
                                         <Text style={jobListCardStyles.title}>{props.title}</Text>
-                                        <Text>{props.type === 'CM' ? 'Corrective' : 'Preventive'}</Text>
-                                        <Text># {props.id}</Text>
+                                        <Text style={jobListStyles.text}>{props.type === 'CM' ? 'Corrective' : 'Preventive'}</Text>
+                                        <Text style={jobListStyles.text}># {props.id}</Text>
                                     </View>
                                     <View style={jobListCardStyles.collapseHeaderSectionLine}>
                                         <View style={jobListStyles.row}>
