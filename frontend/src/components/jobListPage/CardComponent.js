@@ -71,11 +71,11 @@ const CardComponent = (props) => {
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Cause:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.cause}</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.cause === null ? 'N/A' : props.cause}</Text>
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Location:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.location}</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.location === null ? 'N/A' : props.location}</Text>
                             </View> 
                             <View style={jobListCardStyles.collapseBodySectionBottom}>
                                 <View style={jobListCardStyles.serviceNeeded}>

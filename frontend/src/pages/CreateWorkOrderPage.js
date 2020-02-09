@@ -17,11 +17,11 @@ class CreateWorkOrderPage extends React.Component {
             sectorKind: '',
             type: 'CM', 
             title: '',
-            cause: '',
+            cause: null,
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '',
-            location: '',
+            location: null,
             dueDate: new Date(),
             priceEstimate: 0,
             navigation: props.navigation,
@@ -90,15 +90,9 @@ class CreateWorkOrderPage extends React.Component {
     
     handleWorkOrder = async() => {
         try {
-            let { cause, description, location } = this.state;
-            if (cause.length === 0) {
-                cause = 'N/A';
-            }
+            let { description } = this.state;
             if (description.length === 0) {
                 description = 'N/A';
-            }
-            if (location.length === 0) {
-                location = 'N/A';
             }
             this.setState({submitting: true});
             await createWorkOrder(
@@ -106,11 +100,11 @@ class CreateWorkOrderPage extends React.Component {
                 this.state.sectorKind,
                 this.state.type,
                 this.state.title,
-                cause,
+                this.state.cause,
                 this.state.serviceNeeded,
                 this.state.priority,
                 description,
-                location,
+                this.state.location,
                 Date.parse(this.state.dueDate),
                 this.state.priceEstimate).then(async() => {
                     this.setState({success: true, submitting: false});
