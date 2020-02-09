@@ -95,6 +95,7 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
             type: true,
         },
         description: true,
+        location: true,
         dueDate: true,
         createdDate: true,
         createdBy: {
@@ -139,6 +140,7 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
             type: true,
         },
         description: true,
+        location: true,
         dueDate: true,
         createdDate: true,
         createdBy: {
@@ -183,6 +185,7 @@ const WORK_ORDER_FIELDS_NO_BUSINESS_USER : FindOptions<WorkOrder> = {
         },
         description: true,
         dueDate: true,
+        location: true,
         createdDate: true,
         createdBy: {
             id: true,

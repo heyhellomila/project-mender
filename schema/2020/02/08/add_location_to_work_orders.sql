@@ -1,0 +1,1 @@
+ALTER TABLE work_orders ADD location varchar(72);

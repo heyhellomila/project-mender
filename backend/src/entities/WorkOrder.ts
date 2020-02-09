@@ -50,6 +50,9 @@ export class WorkOrder {
     @Column({ nullable: true })
     description: string;
 
+    @Column({ nullable: true })
+    location: string;
+
     @Column({ name: 'due_date' })
     dueDate: Date;
 
