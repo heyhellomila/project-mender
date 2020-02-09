@@ -20,7 +20,7 @@ api.interceptors.response.use(async (response) => {
 });
 
 export async function createWorkOrder(propertyId, sectorKind, workOrderType,
-    title, cause, serviceNeeded, priorityType, description, dueDate, priceEstimate) {
+    title, cause, serviceNeeded, priorityType, description, location, dueDate, priceEstimate) {
 
     let body = {
         sectorKind,
@@ -30,6 +30,7 @@ export async function createWorkOrder(propertyId, sectorKind, workOrderType,
         serviceNeeded: JSON.stringify(serviceNeeded),
         priorityType, 
         description, 
+        location,
         dueDate,
         priceEstimate: JSON.stringify(priceEstimate)
     };

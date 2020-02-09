@@ -17,10 +17,11 @@ class CreateWorkOrderPage extends React.Component {
             sectorKind: '',
             type: 'CM', 
             title: '',
-            cause: null,
+            cause: '',
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '',
+            location: '',
             dueDate: new Date(),
             priceEstimate: 0,
             navigation: props.navigation,
@@ -89,9 +90,15 @@ class CreateWorkOrderPage extends React.Component {
     
     handleWorkOrder = async() => {
         try {
-            let { description } = this.state;
+            let { cause, description, location } = this.state;
+            if (cause.length === 0) {
+                cause = 'N/A';
+            }
             if (description.length === 0) {
                 description = 'N/A';
+            }
+            if (location.length === 0) {
+                location = 'N/A';
             }
             this.setState({submitting: true});
             await createWorkOrder(
@@ -99,10 +106,11 @@ class CreateWorkOrderPage extends React.Component {
                 this.state.sectorKind,
                 this.state.type,
                 this.state.title,
-                this.state.cause,
+                cause,
                 this.state.serviceNeeded,
                 this.state.priority,
                 description,
+                location,
                 Date.parse(this.state.dueDate),
                 this.state.priceEstimate).then(async() => {
                     this.setState({success: true, submitting: false});
@@ -145,6 +153,10 @@ class CreateWorkOrderPage extends React.Component {
         this.setState({description: value});
     };
 
+    handleLocation = (value) => {
+        this.setState({location: value});
+    };
+
     handlePriority = (value) => {
         this.setState({priority: value});
     };
@@ -166,7 +178,8 @@ class CreateWorkOrderPage extends React.Component {
                         prevStep={this.prevStep} handleType={this.handleType}
                         handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
                         toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
-                        handleDescription={this.handleDescription} submit={this.handleWorkOrder}
+                        handleDescription={this.handleDescription} handleLocation={this.handleLocation} 
+                        submit={this.handleWorkOrder}
                         handleDueDate={this.handleDueDate}/>
                 }
             </View>

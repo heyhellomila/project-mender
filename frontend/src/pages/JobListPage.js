@@ -184,6 +184,7 @@ class JobListPage extends React.Component {
                     title: workOrder.title,
                     cause: workOrder.cause,
                     notification: workOrder.description,
+                    location: workOrder.location,
                     type: workOrder.workOrderType.type,
                     priority: workOrder.priorityType.type,
                     sectorType: workOrder.sector.type,

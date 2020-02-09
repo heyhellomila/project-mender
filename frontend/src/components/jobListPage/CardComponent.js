@@ -75,7 +75,7 @@ const CardComponent = (props) => {
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Location:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>Upper floor bathroom</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.location}</Text>
                             </View> 
                             <View style={jobListCardStyles.collapseBodySectionBottom}>
                                 <View style={jobListCardStyles.serviceNeeded}>
