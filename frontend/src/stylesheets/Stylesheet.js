@@ -42,9 +42,11 @@ const styles = StyleSheet.create({
 
 const loginComponent = StyleSheet.create({
     imageBackgroundLogin: {
-        flex: 1, 
-        width: '100%', 
-        justifyContent:'center'
+        width: '100%',
+        height: '100%',
+        justifyContent:'center',
+        borderColor: 'red',
+        borderWidth: 2
     },
     loadingStyle: {
         alignSelf:'center',

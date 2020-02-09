@@ -1,32 +1,30 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, PixelRatio, Dimensions } from 'react-native';
 
 const logInPageStyles = StyleSheet.create({
     logInForm:{
-        height: '85%',
-        width: '80%',
         justifyContent: 'center',
         alignSelf: 'center',
+        width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height,
         alignContent: 'center',
-        padding: '3%'
+        borderColor: 'black',
+        borderWidth: 1
     },
     logInSignUpSection:{
-        flex: 1,
-        justifyContent: 'center'
+        alignSelf: 'center',
+        width: Dimensions.get('screen').width*0.75
     },
     buttonLogIn:{
-        flex:3,
-        display: 'flex',
-        height: '70%',
-        width: '100%',
+        height: Dimensions.get('screen').height*0.05,
         borderRadius: 50,
         justifyContent: 'center',
         backgroundColor: '#070D3A'
     },
     signUpSection:{
-        flex: 3, 
         flexDirection: 'row', 
         justifyContent: 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
+        height: Dimensions.get('screen').height*0.05
     },
     buttonSignUp:{
         textDecorationLine: 'underline', 
@@ -39,32 +37,31 @@ const logInPageStyles = StyleSheet.create({
         textAlign: 'center'
     },
     imageLogIn:{
-        flex: 2,
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        alignSelf: 'center',
-        borderColor: 'black',
-        borderWidth: 1,
+        width: Dimensions.get('screen').width * 0.45,
+        height: Dimensions.get('screen').height * 0.22,
+        borderRadius: 999,
+        alignSelf: 'center'
     },
     textInput:{
-        flex: 0.5,
-        height: '12%', 
-        width: '100%',
+        width: Dimensions.get('screen').width*0.75,
+        height: Dimensions.get('screen').height*0.07,
         borderRadius: 25, 
         backgroundColor: '#EEF6F9', 
-        paddingStart: '5%', 
-        marginTop: '10%'
+        paddingStart: '5%'
     },
     invalidInputView:{
-        flex:0.4,
         alignSelf: 'center',
         justifyContent: 'center',
-        marginTop: 10
+        textAlign:'center',
+        width: Dimensions.get('screen').width*0.75,
+        height: Dimensions.get('screen').height*0.05,
+        borderColor: 'pink',
+        borderWidth: 2
     },
     invalidInput:{
         color: '#C52D05',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'center'
     },
 });
 
