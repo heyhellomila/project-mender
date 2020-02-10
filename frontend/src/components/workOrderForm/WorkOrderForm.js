@@ -7,26 +7,29 @@ import Overview from './Overview';
 import Details from './Details';
 import Footer from './Footer';
 import { formStyles } from '../../stylesheets/CreateWorkOrderPageStyleSheet';
-import ChooseSectorKind from "./ChooseSectorKind";
+import ChooseSectorKind from './ChooseSectorKind';
+import ChooseType from './ChooseType';
 
 const WorkOrderForm = (props) => {
     return(
         <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false} 
             resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
             contentContainerStyle={[formStyles.container, {paddingTop: 
-                (Platform.OS === "android" || Platform.OS === "ios") ? StatusBar.currentHeight : 0}]}>
+                (Platform.OS === 'android' || Platform.OS === 'ios') ? StatusBar.currentHeight : 0}]}>
             <View style={{flex: 1}}>
                 <Header {...props} headerText={props.headerText}/>
             </View>
             <View style={formStyles.bodyContainer}>
                 <View style={{flex: 4}}>
                     {props.step === 1 &&
-                        <ChooseSectorType {...props}/>}
+                        <ChooseType {...props}/>}
                     {props.step === 2 &&
-                        <ChooseSectorKind {...props}/>}
+                        <ChooseSectorType {...props}/>}
                     {props.step === 3 &&
-                        <Overview {...props}/>}
+                        <ChooseSectorKind {...props}/>}
                     {props.step === 4 &&
+                        <Overview {...props}/>}
+                    {props.step === 5 &&
                         <Details {...props}/>}
                 </View>
             </View>

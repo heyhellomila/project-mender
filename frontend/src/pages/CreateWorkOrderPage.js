@@ -17,6 +17,8 @@ class CreateWorkOrderPage extends React.Component {
             type: 'CM', 
             title: '',
             cause: null,
+            notification: null,
+            location: null,
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '',
@@ -28,7 +30,7 @@ class CreateWorkOrderPage extends React.Component {
             validTitle: true,
             submitting: false,
             success: false,
-            headerText: 'Select a Sector'
+            headerText: 'Select a Type'
         };
     }
     
@@ -37,18 +39,23 @@ class CreateWorkOrderPage extends React.Component {
     };
 
     nextStep = () => {
-        const { step, title, cause } = this.state;
+        const { step, title } = this.state;
         if (step === 1) {
             this.setState({
                 step: step + 1,
-                headerText: SectorType[this.state.sectorType].display
+                headerText: 'Select a Sector'
             });
         } else if (step === 2) {
             this.setState({
                 step: step + 1,
-                headerText: 'Overview'
+                headerText: SectorType[this.state.sectorType].display
             });
         } else if (step === 3) {
+            this.setState({
+                step: step + 1,
+                headerText: 'Overview'
+            });
+        } else if (step === 4) {
             if (title.length === 0) {
                 this.setState({
                     validTitle: title.length !== 0,
@@ -69,16 +76,22 @@ class CreateWorkOrderPage extends React.Component {
         if (step === 2) {
             this.setState({
                 step: step - 1,
+                type: '',
+                headerText: 'Select a Type'
+            });
+        } else if (step === 3) {
+            this.setState({
+                step: step - 1,
                 sectorType: '',
                 headerText: 'Select a Sector'
             });
-        } else if (step === 3) {
+        } else if (step === 4) {
             this.setState({
                 step: step - 1,
                 sectorKind: '',
                 headerText: SectorType[this.state.sectorType].display
             });
-        } else if (step === 4) {
+        } else if (step === 5) {
             this.setState({
                 step: step - 1,
                 headerText: 'Overview'
@@ -124,7 +137,7 @@ class CreateWorkOrderPage extends React.Component {
     };
 
     handleType = (value) => {
-        this.setState({type: value});
+        this.setState({type: value}, () => this.nextStep());
     };
 
     handleTitle = (value) => {
@@ -133,6 +146,14 @@ class CreateWorkOrderPage extends React.Component {
 
     handleCause = (value) => {
         this.setState({cause: value});
+    };
+
+    handleNotification = (value) => {
+        this.setState({notification: value});
+    };
+
+    handleLocation = (value) => {
+        this.setState({location: value});
     };
 
     toggleServiceNeeded = (value) => {
@@ -165,7 +186,8 @@ class CreateWorkOrderPage extends React.Component {
                         handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
                         toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
                         handleDescription={this.handleDescription} submit={this.handleWorkOrder}
-                        handleDueDate={this.handleDueDate}/>
+                        handleNotification={this.handleNotification} handleDueDate={this.handleDueDate}
+                        handleLocation={this.handleLocation}/>
                 }
             </View>
         );

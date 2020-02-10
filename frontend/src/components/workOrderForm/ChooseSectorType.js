@@ -21,8 +21,8 @@ export function SectorTypeView(props) {
                         ? sectorStyles.selectedSectorContainer
                         : sectorStyles.sectorContainer]}
                     onPress={() => props.handleSectorType(sectorType)}>
-                    <Image style={sectorStyles.sectorIcon} source={SectorType[sectorType].image}></Image>
-                    <Text style={{alignSelf: 'center'}}>{SectorType[sectorType].display}</Text>
+                    <Image style={sectorStyles.sectorIcon} source={SectorType[sectorType].image}/>
+                    <Text style={sectorStyles.subHeader}>{SectorType[sectorType].display}</Text>
                 </TouchableOpacity>
             )}
         </View> )

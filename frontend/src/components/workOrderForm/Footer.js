@@ -12,22 +12,23 @@ const Footer = (props) => {
         <View style={footerStyles.container}>
             <View style={formStyles.rowContainer}>
                 <View style={formStyles.colContainer}>
-                    {props.step === 1
-                        ?   <TouchableOpacity style={footerStyles.infoButton}>
-                                <Image style={footerStyles.imageButton} source={info}></Image>
-                            </TouchableOpacity>
-                        :    <TouchableOpacity onPress={() => props.prevStep()}>
-                                <Image style={footerStyles.imageButton} source={backArrow}></Image>
-                            </TouchableOpacity>
+                    {props.step !== 1 &&
+                        <TouchableOpacity onPress={() => props.prevStep()}>
+                            <Image style={footerStyles.imageButton} source={backArrow}></Image>
+                        </TouchableOpacity>
                     }
                 </View>
                 <View style={formStyles.colContainer}>
-                    {props.step === 3 &&
+                    {props.step < 4 &&
+                        <TouchableOpacity style={footerStyles.infoButton}>
+                            <Image style={footerStyles.imageButton} source={info}></Image>
+                        </TouchableOpacity>}
+                    {props.step === 4 &&
                         <TouchableOpacity style={{alignSelf: 'flex-end'}} onPress={() => props.nextStep()}>
                             <Image style={footerStyles.imageButton} source={nextArrow}></Image>
                         </TouchableOpacity>
                     }
-                    {props.step === 4 &&
+                    {props.step === 5 &&
                         <TouchableOpacity disabled={props.submitting || props.success}
                                           style={footerStyles.submitButton}
                                           onPress={() => props.submit()}>
