@@ -38,10 +38,12 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrderDTO.title = workOrder.title;
         workOrderDTO.cause = workOrder.cause;
         workOrderDTO.serviceNeeded = workOrder.serviceNeeded;
+        workOrderDTO.emergency = workOrder.emergency;
         if (workOrder.priorityType) {
             workOrderDTO.priorityType = this.priorityTypeMapper.toDTO(workOrder.priorityType);
         }
-        workOrderDTO.description = workOrder.description;
+        workOrderDTO.location = workOrder.location;
+        workOrderDTO.notification = workOrder.notification;
         workOrderDTO.dueDate = workOrder.dueDate;
         workOrderDTO.createdDate = workOrder.createdDate;
         if (workOrder.createdBy) {
@@ -72,7 +74,9 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrder.title = workOrderDTO.title;
         workOrder.cause = workOrderDTO.cause;
         workOrder.serviceNeeded = workOrderDTO.serviceNeeded;
-        workOrder.description = workOrderDTO.description;
+        workOrder.emergency = workOrderDTO.emergency;
+        workOrder.location = workOrderDTO.location;
+        workOrder.notification = workOrderDTO.notification;
         workOrder.dueDate = new Date(Number(workOrderDTO.dueDate));
         workOrder.createdDate = workOrderDTO.createdDate;
         workOrder.dateCompleted = workOrderDTO.dateCompleted;

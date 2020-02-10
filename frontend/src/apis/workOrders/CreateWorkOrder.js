@@ -13,14 +13,15 @@ api.interceptors.response.use(async (response) => {
         if (error.code === 'ECONNABORTED' || error.response.data.statusCode === 500) {
             throw new Error('Internal server error. Please try again later.');
         } else if (error.response && error.response.data.statusCode > 400) {
-            throw new Error('Could not create work order.');
+            console.log(error.response);
+            throw new Error('Could not create work order. Please try again later.');
         } else {
             throw error;
         }
 });
 
 export async function createWorkOrder(propertyId, sectorKind, workOrderType,
-    title, cause, serviceNeeded, priorityType, description, dueDate, priceEstimate) {
+    title, cause, serviceNeeded, emergency, priorityType, location, notification, dueDate, priceEstimate) {
 
     let body = {
         sectorKind,
@@ -28,10 +29,12 @@ export async function createWorkOrder(propertyId, sectorKind, workOrderType,
         title, 
         cause, 
         serviceNeeded: JSON.stringify(serviceNeeded),
+        emergency: JSON.stringify(emergency),
         priorityType, 
-        description, 
+        location,
+        notification,
         dueDate,
-        priceEstimate: JSON.stringify(priceEstimate)
+        priceEstimate
     };
 
     return await api.post(`/properties/${propertyId}/workorders/`, body, {

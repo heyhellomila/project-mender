@@ -90,11 +90,13 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
         title: true,
         cause: true,
         serviceNeeded: true,
+        emergency: true,
         priorityType: {
             id: true,
             type: true,
         },
-        description: true,
+        location: true,
+        notification: true,
         dueDate: true,
         createdDate: true,
         createdBy: {
@@ -134,11 +136,13 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
         title: true,
         cause: true,
         serviceNeeded: true,
+        emergency: true,
         priorityType: {
             id: true,
             type: true,
         },
-        description: true,
+        location: true,
+        notification: true,
         dueDate: true,
         createdDate: true,
         createdBy: {
@@ -154,51 +158,6 @@ const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
         dateCompleted: true,
         priceEstimate: true,
         actualCost: true,
-    },
-};
-
-const WORK_ORDER_FIELDS_NO_BUSINESS_USER : FindOptions<WorkOrder> = {
-    relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
-        'lastModifiedBy', 'property'],
-    select: {
-        id: true,
-        property: {
-            id: true,
-        },
-        sector: {
-            id: true,
-            type: true,
-            kind: true,
-        },
-        workOrderType: {
-            id: true,
-            type: true,
-        },
-        title: true,
-        cause: true,
-        serviceNeeded: true,
-        priorityType: {
-            id: true,
-            type: true,
-        },
-        description: true,
-        dueDate: true,
-        createdDate: true,
-        createdBy: {
-            id: true,
-        },
-        lastModifiedDate: true,
-        lastModifiedBy: {
-            id: true,
-        },
-        dateCompleted: true,
-        priceEstimate: true,
-        actualCost: true,
-        bookmarked: true,
-        workOrderStatus: {
-            id: true,
-            status: true,
-        },
     },
 };
 
@@ -236,26 +195,6 @@ const PROPERTY_SECTOR_FIELDS : FindOptions<PropertySector> = {
             kind: true,
         },
         status: true,
-    },
-};
-
-const LICENSE_FIELDS : FindOptions<License> = {
-    relations: ['licenseStatus', 'licenseType', 'user'],
-    select: {
-        id: true,
-        user: {
-            id: true,
-        },
-        licenseNumber: true,
-        licenseType: {
-            id: true,
-            type: true,
-        },
-        licenseStatus: {
-            id: true,
-            status: true,
-        },
-        expiryDate: true,
     },
 };
 
@@ -329,7 +268,7 @@ const BUSINESS_USER_FIELDS_NO_BUSINESS : FindOptions<BusinessUser> = {
 };
 
 export { PROPERTY_FIELDS, USER_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, WORK_ORDER_FIELDS_NO_BUSINESS_USER, SHOPPING_ITEM_FIELDS,
+    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS,
     SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS,
-    LICENSE_FIELDS, LICENSE_FIELDS_NO_USER, BUSINESS_USER_FIELDS,
-    BUSINESS_USER_FIELDS_NO_USER, BUSINESS_USER_FIELDS_NO_BUSINESS };
+    LICENSE_FIELDS_NO_USER, BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER,
+    BUSINESS_USER_FIELDS_NO_BUSINESS };

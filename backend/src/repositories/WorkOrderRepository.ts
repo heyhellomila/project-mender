@@ -7,13 +7,12 @@ import { OrderingByType } from '../enums/OrderingByType';
 class WorkOrderRepository extends BaseRepository<WorkOrder> {
 
     async getWorkOrderById(id: number, fieldOptions?: FindOptions<WorkOrder>) {
-        const workorder = await this.getRepositoryConnection(WorkOrder).findOne(id, fieldOptions);
-        return workorder;
+        return await this.getRepositoryConnection(WorkOrder).findOne(id, fieldOptions);
     }
 
     async getWorkOrders(filterQueries: string, pageNumber: number, pageSize: number,
                         searchTerm: string, workOrderSort: string, ordering: OrderingByType) {
-        const workorders = await this.getRepositoryConnection(WorkOrder)
+        return await this.getRepositoryConnection(WorkOrder)
             .createQueryBuilder('work_orders')
             .addSelect(['properties.id', 'createdBy.id', 'lastModifiedBy.id'])
             .leftJoinAndSelect('work_orders.sector', 'sector')
@@ -24,30 +23,22 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
             .leftJoin('work_orders.lastModifiedBy', 'lastModifiedBy')
             .leftJoinAndSelect('work_orders.workOrderStatus', 'workOrderStatus')
             .where(filterQueries)
-            .andWhere(searchTerm != null  ? 'concat(cause, title, description) like :searchTerm' : '1=1',{searchTerm: '%' + searchTerm + '%'})
+            .andWhere(searchTerm != null  ? 'concat(cause, title, location, notification) like :searchTerm' : '1=1', { searchTerm: '%' + searchTerm + '%' })
             .orderBy(workOrderSort, ordering)
             .skip(pageSize * (pageNumber - 1))
             .take(pageSize)
             .getMany();
-        return workorders;
     }
 
     async getWorkOrdersByProperty(property: Property, fieldOptions?: FindOptions<WorkOrder>) {
         fieldOptions
             ? fieldOptions.where = { property }
             : fieldOptions = { where: { property } };
-        const workOrders = await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
-        return workOrders;
+        return await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
     }
 
     async createWorkOrder(workOrder: WorkOrder) {
-        try {
-            const savedWorkOrder : WorkOrder = await this.getRepositoryConnection(
-                WorkOrder).save(workOrder);
-            return savedWorkOrder;
-        } catch (err) {
-            throw new Error(err);
-        }
+        return await this.getRepositoryConnection(WorkOrder).save(workOrder);
     }
 }
 

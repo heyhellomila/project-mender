@@ -41,6 +41,10 @@ export class WorkOrder {
             { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
     serviceNeeded: Boolean;
 
+    @Column({ name: 'emergency', type: 'bit', transformer:
+            { from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
+    emergency: Boolean;
+
     @ManyToOne(type => PriorityType)
     @JoinColumn({
         name: 'priority_type_id',
@@ -48,7 +52,10 @@ export class WorkOrder {
     priorityType: PriorityType;
 
     @Column({ nullable: true })
-    description: string;
+    location: string;
+
+    @Column({ nullable: true })
+    notification: string;
 
     @Column({ name: 'due_date' })
     dueDate: Date;

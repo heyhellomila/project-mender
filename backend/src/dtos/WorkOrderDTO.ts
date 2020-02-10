@@ -16,8 +16,10 @@ export class WorkOrderDTO {
     title: string;
     cause: string;
     serviceNeeded: Boolean;
+    emergency: Boolean;
     priorityType: PriorityTypeDTO | string;
-    description: string;
+    location: string;
+    notification: string;
     dueDate: Date;
     createdDate: Date;
     createdBy: UserDTO;

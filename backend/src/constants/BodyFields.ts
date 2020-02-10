@@ -4,8 +4,8 @@ const USER_FIELDS = {
 };
 
 const WORK_ORDER_FIELDS = {
-    createFields : ['sectorKind', 'workOrderType', 'title', 'serviceNeeded',
-        'priorityType', 'description', 'dueDate', 'priceEstimate'],
+    createFields : ['sectorKind', 'workOrderType', 'title', 'serviceNeeded', 'emergency',
+        'priorityType', 'dueDate'],
 };
 
 const SHOPPING_ITEM_FIELDS = {
