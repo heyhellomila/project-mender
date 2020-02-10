@@ -38,8 +38,8 @@ const logInPageStyles = StyleSheet.create({
     },
     imageLogIn:{
         width: Dimensions.get('screen').width * 0.45,
-        height: Dimensions.get('screen').height * 0.22,
-        borderRadius: 999,
+        height: Dimensions.get('screen').width * 0.45,
+        borderRadius: (Dimensions.get('screen').width * 0.45)/2,
         alignSelf: 'center'
     },
     textInput:{

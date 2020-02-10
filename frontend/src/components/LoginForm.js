@@ -39,7 +39,7 @@ const LoginForm = (props) => {
             <View style={{borderColor: 'orange', borderWidth: 2, justifyContent: 'center'}}>
                 <View style={logInPageStyles.invalidInputView}>
                     {props.error
-                        ? <Text style={logInPageStyles.invalidInput}>'Internal server error, please try again later'</Text>
+                        ? <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
                         : null
                     }
                 </View>
