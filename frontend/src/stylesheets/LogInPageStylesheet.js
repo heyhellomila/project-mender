@@ -1,21 +1,24 @@
-import { StyleSheet, PixelRatio, Dimensions } from 'react-native';
+import { StyleSheet, PixelRatio, Dimensions, StatusBar, Platform } from 'react-native';
 
 const logInPageStyles = StyleSheet.create({
+    container:{
+        paddingTop: (Platform.OS === "android" || Platform.OS === "ios")
+            ? StatusBar.currentHeight
+            : 0
+    },
     logInForm:{
         justifyContent: 'center',
         alignSelf: 'center',
-        width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height,
-        alignContent: 'center',
-        borderColor: 'black',
-        borderWidth: 1
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        alignContent: 'center'
     },
     logInSignUpSection:{
         alignSelf: 'center',
-        width: Dimensions.get('screen').width*0.75
+        width: Dimensions.get('window').width*0.75
     },
     buttonLogIn:{
-        height: Dimensions.get('screen').height*0.05,
+        height: Dimensions.get('window').height*0.06,
         borderRadius: 50,
         justifyContent: 'center',
         backgroundColor: '#070D3A'
@@ -24,7 +27,7 @@ const logInPageStyles = StyleSheet.create({
         flexDirection: 'row', 
         justifyContent: 'center', 
         alignItems: 'center',
-        height: Dimensions.get('screen').height*0.05
+        height: Dimensions.get('window').height*0.05
     },
     buttonSignUp:{
         textDecorationLine: 'underline', 
@@ -36,32 +39,47 @@ const logInPageStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'center'
     },
+    imageLogInView:{
+        height: Dimensions.get('screen').height * 0.45, 
+        padding: '20%'
+    },
     imageLogIn:{
-        width: Dimensions.get('screen').width * 0.45,
-        height: Dimensions.get('screen').width * 0.45,
-        borderRadius: (Dimensions.get('screen').width * 0.45)/2,
+        width: Dimensions.get('window').width * 0.45,
+        height: Dimensions.get('window').width * 0.45,
+        borderRadius: (Dimensions.get('window').width * 0.45)/2,
         alignSelf: 'center'
     },
+    textInputView:{
+        alignItems: 'center',
+        height: Dimensions.get('window').height * 0.2
+    },
     textInput:{
-        width: Dimensions.get('screen').width*0.75,
-        height: Dimensions.get('screen').height*0.07,
+        width: Dimensions.get('window').width*0.75,
+        height: Dimensions.get('window').height*0.06,
         borderRadius: 25, 
         backgroundColor: '#EEF6F9', 
+        paddingStart: '5%'
+    },
+    textInvalidInput:{
+        width: Dimensions.get('window').width*0.75,
+        height: Dimensions.get('window').height*0.06,
+        borderColor: 'red',
+        borderWidth: 2,
+        borderRadius: 25,
+        backgroundColor: '#EEF6F9',
         paddingStart: '5%'
     },
     invalidInputView:{
         alignSelf: 'center',
         justifyContent: 'center',
         textAlign:'center',
-        width: Dimensions.get('screen').width*0.75,
-        height: Dimensions.get('screen').height*0.05,
-        borderColor: 'pink',
-        borderWidth: 2
+        width: Dimensions.get('window').width*0.75
     },
     invalidInput:{
         color: '#C52D05',
         fontWeight: 'bold',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        paddingBottom: '2%'
     },
 });
 

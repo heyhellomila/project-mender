@@ -1,33 +1,32 @@
 import React from 'react';
-import {Text, TextInput, View, TouchableOpacity, Image, Dimensions} from 'react-native';
+import {Text, TextInput, View, TouchableOpacity, Image, Dimensions, ScrollView} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {logInPageStyles} from '../stylesheets/LogInPageStylesheet';
-
 const menderLogo = require('../../assets/mender_logo.jpg');
 
 const LoginForm = (props) => {
     return (
+        <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false}
+                                 resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
+                                 contentContainerStyle={logInPageStyles.container}>
+            <ScrollView style={{flex: 6}}>
         <View style={logInPageStyles.logInForm}>
-            <View style={{borderColor: 'red', borderWidth: 2, height: Dimensions.get('screen').height * 0.4, padding: '3%'}}>
+            <View style={logInPageStyles.imageLogInView}>
                 <Image style={logInPageStyles.imageLogIn}
                        source={menderLogo}/>
             </View>
-            <View style={{
-                borderColor: 'purple',
-                borderWidth: 2,
-                alignItems: 'center',
-                height: Dimensions.get('screen').height * 0.2
-            }}>
-                <View style={{flex:1,borderColor: 'green', borderWidth: 2, height: Dimensions.get('screen').height * 0.05, justifyContent:'center'}}>
+            <View style={logInPageStyles.textInputView}>
+                <View style={{flex:1}}>
                     <TextInput
-                        style={logInPageStyles.textInput}
+                        style={props.invalidEmail ? logInPageStyles.textInvalidInput: logInPageStyles.textInput}
                         placeholder="Email"
                         defaultValue={props.email}
                         onChangeText={text => props.handleEmailChange(text)}
                     />
                 </View>
-                <View style={{flex:1,borderColor: 'green', borderWidth: 2, height: Dimensions.get('screen').height * 0.05, justifyContent: 'center'}}>
+                <View style={{flex:1}}>
                     <TextInput
-                        style={logInPageStyles.textInput}
+                        style={props.emptyPassword ? logInPageStyles.textInvalidInput: logInPageStyles.textInput}
                         placeholder="Password"
                         defaultValue={props.password}
                         secureTextEntry={true}
@@ -36,11 +35,16 @@ const LoginForm = (props) => {
                     />
                 </View>
             </View>
-            <View style={{borderColor: 'orange', borderWidth: 2, justifyContent: 'center'}}>
+            <View style={{height: Dimensions.get('window').height * 0.23 }}>
                 <View style={logInPageStyles.invalidInputView}>
                     {props.error
-                        ? <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
-                        : null
+                        && <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
+                    }
+                    {props.invalidEmail
+                        && <Text style={logInPageStyles.invalidInput}>{props.invalidEmailErrorMsg}</Text>
+                    }
+                    {props.emptyPassword
+                        && <Text style={logInPageStyles.invalidInput}>{props.emptyPasswordErrorMsg}</Text>
                     }
                 </View>
                 <View style={logInPageStyles.logInSignUpSection}>
@@ -58,6 +62,8 @@ const LoginForm = (props) => {
                 </View>
             </View>
         </View>
+            </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 

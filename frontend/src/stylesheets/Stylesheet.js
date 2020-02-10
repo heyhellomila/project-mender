@@ -45,8 +45,6 @@ const loginComponent = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent:'center',
-        borderColor: 'red',
-        borderWidth: 2
     },
     loadingStyle: {
         alignSelf:'center',

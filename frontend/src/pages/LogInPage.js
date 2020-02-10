@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View, ImageBackground} from 'react-native';
+import { Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import LoginForm  from '../components/LoginForm';
 import { login } from '../apis/users/Login'
 import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
 import { loginComponent } from '../stylesheets/Stylesheet';
+import validator from 'validator';
 
 const menderBackground = require('../../assets/mender_background.png');
 
@@ -17,6 +18,10 @@ class LogInPage extends React.Component {
       submitting: false,
       error: false,
       errorMsg: '',
+      invalidEmail: false,
+      invalidEmailErrorMsg: 'Enter your e-mail address.',
+      emptyPassword: false,
+      emptyPasswordErrorMsg: 'Enter your password.',
       navigation: this.props.navigation
     };
 
@@ -38,9 +43,18 @@ class LogInPage extends React.Component {
 
   handleLoginValidation = () =>{
     const {email, password} = this.state;
-    if(email == '' || password == ''){
-      this.setState({error: true, submitting: false, errorMsg: 'Email or Password can\'t be empty'})
-    }else{
+    this.setState({invalidEmail: false, emptyPassword: false, error: false})
+    if(email == '' && password == ''){
+      this.setState({submitting: false, invalidEmail: true, emptyPassword: true})
+    }else if(email == '' ){
+      this.setState({invalidEmail: true, submitting: false})
+    }
+    else if(password == ''){
+      this.setState({emptyPassword: true, submitting: false})
+    }
+    else if (!validator.isEmail(email)) {
+      this.setState({invalidEmail: true, submitting: false, errorMsg: 'Enter your e-mail address'})
+    } else{
       this.handleLogin();
     }
   }
@@ -68,9 +82,9 @@ class LogInPage extends React.Component {
         <ImageBackground
             style={loginComponent.imageBackgroundLogin}
             source={menderBackground}>
-        {submitting 
-          ? <Text style={loginComponent.loadingStyle}>Loading...</Text>
-          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange} 
+        {submitting
+          ? <ActivityIndicator style={{marginTop: '40%'}} size="large" color="#0000ff" />
+          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
             handlePasswordChange={this.handlePasswordChange} handleLoginValidation={this.handleLoginValidation}/>
         }
         </ImageBackground>
