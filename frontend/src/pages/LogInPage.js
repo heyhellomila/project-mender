@@ -53,7 +53,7 @@ class LogInPage extends React.Component {
       this.setState({emptyPassword: true, submitting: false})
     }
     else if (!validator.isEmail(email)) {
-      this.setState({invalidEmail: true, submitting: false, errorMsg: 'Enter your e-mail address'})
+      this.setState({invalidEmail: true, submitting: false, errorMsg: 'Invalid e-mail address.'})
     } else{
       this.handleLogin();
     }

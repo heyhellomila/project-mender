@@ -40,8 +40,8 @@ const logInPageStyles = StyleSheet.create({
         textAlign: 'center'
     },
     imageLogInView:{
-        height: Dimensions.get('screen').height * 0.45, 
-        padding: '20%'
+        aspectRatio: 6/5.5,
+        padding: '10%'
     },
     imageLogIn:{
         width: Dimensions.get('window').width * 0.45,
@@ -51,14 +51,16 @@ const logInPageStyles = StyleSheet.create({
     },
     textInputView:{
         alignItems: 'center',
-        height: Dimensions.get('window').height * 0.2
+        aspectRatio: 7/2.65
     },
     textInput:{
         width: Dimensions.get('window').width*0.75,
         height: Dimensions.get('window').height*0.06,
         borderRadius: 25, 
         backgroundColor: '#EEF6F9', 
-        paddingStart: '5%'
+        paddingStart: '5%',
+        borderColor: '#EEF6F9',
+        borderWidth: 2
     },
     textInvalidInput:{
         width: Dimensions.get('window').width*0.75,

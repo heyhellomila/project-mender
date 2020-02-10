@@ -35,7 +35,7 @@ const LoginForm = (props) => {
                     />
                 </View>
             </View>
-            <View style={{height: Dimensions.get('window').height * 0.23 }}>
+            <View style={{aspectRatio: 7/3.05}}>
                 <View style={logInPageStyles.invalidInputView}>
                     {props.error
                         && <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
