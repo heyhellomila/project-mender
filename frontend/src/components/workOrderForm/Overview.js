@@ -4,10 +4,10 @@ import React from 'react';
 
 const Overview = (props) => {
     return (
-        <View style= {formStyles.colContainer}>
+        <View style= {[formStyles.colContainer, {flexWrap: 'wrap', marginTop: '3%', marginBottom: '-5%'}]}>
             <View style={formStyles.titleInputGroup}>
                 <View style={formStyles.infoHeaderContainer}>
-                    <Text style={formStyles.infoHeader}>Title</Text>
+                    <Text adjustsFontSizeToFit={true} style={formStyles.infoHeader}>Title</Text>
                 </View>
                 <View style={formStyles.textInputContainer}>
                     <TextInput style = {[props.validTitle
@@ -19,7 +19,7 @@ const Overview = (props) => {
             </View>
             <View style={formStyles.inputGroup}>
                 <View style={formStyles.infoHeaderContainer}>
-                    <Text style={formStyles.infoHeader}>Notification</Text>
+                    <Text adjustsFontSizeToFit={true} style={formStyles.infoHeader}>Notification</Text>
                 </View>
                 <View style={formStyles.textInputContainer}>
                     <TextInput style = {[formStyles.textInput, formStyles.multiLineTextInput]}
@@ -30,7 +30,7 @@ const Overview = (props) => {
             </View>
             <View style={formStyles.inputGroup}>
                 <View style={formStyles.infoHeaderContainer}>
-                    <Text style={formStyles.infoHeader}>Cause</Text>
+                    <Text adjustsFontSizeToFit={true} style={formStyles.infoHeader}>Cause</Text>
                 </View>
                 <View style={formStyles.textInputContainer}>
                     <TextInput style = {[formStyles.textInput, formStyles.multiLineTextInput]}
@@ -41,7 +41,7 @@ const Overview = (props) => {
             </View>
             <View style={formStyles.inputGroup}>
                 <View style={formStyles.infoHeaderContainer}>
-                    <Text style={formStyles.infoHeader}>Location</Text>
+                    <Text adjustsFontSizeToFit={true} style={formStyles.infoHeader}>Location</Text>
                 </View>
                 <View style={formStyles.textInputContainer}>
                     <TextInput style = {formStyles.textInput}

@@ -12,14 +12,16 @@ class CreateWorkOrderPage extends React.Component {
         super(props);
         this.state = {
             step: 1,
+            dateFormat: 'YYYY-MM-DD',
             sectorType: '',
             sectorKind: '',
             type: 'CM', 
-            title: '',
+            title: 'a',
             cause: null,
             notification: null,
             location: null,
-            serviceNeeded: false, 
+            serviceNeeded: false,
+            emergency: false,
             priority: 'MEDIUM', 
             description: '',
             dueDate: new Date(),
@@ -160,6 +162,10 @@ class CreateWorkOrderPage extends React.Component {
         this.setState({serviceNeeded: value});
     };
 
+    toggleEmergency = (value) => {
+        this.setState({emergency: value});
+    };
+
     handleDescription = (value) => {
         this.setState({description: value});
     };
@@ -187,7 +193,7 @@ class CreateWorkOrderPage extends React.Component {
                         toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
                         handleDescription={this.handleDescription} submit={this.handleWorkOrder}
                         handleNotification={this.handleNotification} handleDueDate={this.handleDueDate}
-                        handleLocation={this.handleLocation}/>
+                        handleLocation={this.handleLocation} toggleEmergency={this.toggleEmergency}/>
                 }
             </View>
         );

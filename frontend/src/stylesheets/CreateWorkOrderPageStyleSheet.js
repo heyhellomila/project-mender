@@ -39,7 +39,7 @@ const formStyles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignSelf: 'center',
-        marginHorizontal: '1%'
+        marginHorizontal: '1%',
     },
     titleInputGroup: {
         flex: 1,
@@ -52,14 +52,12 @@ const formStyles = StyleSheet.create({
         marginVertical: '1%'
     },
     infoHeaderContainer: {
-        flex: 0.5,
+        flex: 0.6,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#6ebdff',
         borderRadius: 10,
-        marginVertical: '1%',
-        textAlign: 'center',
-        textAlignVertical: 'center',
+        marginVertical: '1%'
     },
     textInputContainer: {
         flex: 1,
@@ -67,18 +65,18 @@ const formStyles = StyleSheet.create({
         marginBottom: '5%',
     },
     infoHeader: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: '500'
     },
     multiLineTextInput: {
         alignSelf: 'stretch',
     },
     titleTextInput: {
-        fontSize: 19,
+        fontSize: 15,
         textAlign: 'center'
     },
     textInput:{
-        fontSize: 16,
+        fontSize: 14,
         textAlign: 'left',
         backgroundColor: '#ffffff',
         borderColor: '#cccccc',
@@ -111,18 +109,54 @@ const formStyles = StyleSheet.create({
     switchStyle: {
         alignSelf: 'flex-end',
     },
-    pickerStyle: {
-        width: '75%',
-        alignSelf: 'flex-end',
-        borderColor: '#cccccc',
-        backgroundColor: 'white',
-    },
-    pickerOverlayStyle : {
+    dateOptionContainer: {
         flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: '5%',
-        paddingVertical: '1%'
+        backgroundColor: '#d2d2d2',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: '1%',
+        borderColor: '#f0f0f0',
+        borderWidth: 2
     },
+    selectedDateOption: {
+        borderColor: 'black'
+    },
+    dateOptionText: {
+        fontSize: 14,
+        fontWeight: '400'
+    },
+    detailsContainer: {
+        flex: 1,
+        marginTop: '6%',
+        marginBottom: '-8%'
+    },
+    detailsInfoHeaderContainer: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        backgroundColor: '#6ebdff',
+        borderRadius: 10,
+        marginVertical: '1%',
+        height: '65%'
+    },
+    toggleInputGroup: {
+        flex: 0.3
+    },
+    priorityInputGroup: {
+        marginVertical: '2%',
+        flex: 0.5
+    },
+    priorityList: {
+        flex: 0.3
+    },
+    dueDateInputGroup: {
+        flex: 0.4
+    },
+    dueDateOptions: {
+        flex: 0.5
+    }
 });
 
 const footerStyles = StyleSheet.create({
@@ -219,7 +253,9 @@ const typeStyles = StyleSheet.create({
 
 const datePickerStyles = StyleSheet.create({
     style: {
-        width: 200, alignSelf: 'flex-end'
+        marginTop: '2%',
+        width: '75%',
+        alignSelf: 'flex-start'
     },
     dateIcon: {
         position: 'absolute',
