@@ -183,7 +183,7 @@ class JobListPage extends React.Component {
                     id: workOrder.id,
                     title: workOrder.title,
                     cause: workOrder.cause,
-                    notification: workOrder.description,
+                    notification: workOrder.notification,
                     location: workOrder.location,
                     type: workOrder.workOrderType.type,
                     priority: workOrder.priorityType.type,
@@ -227,6 +227,7 @@ class JobListPage extends React.Component {
             });
         })
         .catch((err) => {
+            console.log(err.response);
             this.setState({
                 error: true, 
                 loading: false, 

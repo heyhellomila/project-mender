@@ -48,9 +48,6 @@ export class WorkOrder {
     priorityType: PriorityType;
 
     @Column({ nullable: true })
-    description: string;
-
-    @Column({ nullable: true })
     location: string;
 
     @Column({ name: 'due_date' })
