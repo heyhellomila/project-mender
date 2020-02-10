@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const jobListStyles = StyleSheet.create({
     text: {
@@ -19,8 +19,8 @@ const jobListStyles = StyleSheet.create({
     },
     jobListContainer: {
         flex: 5, 
-        padding: 10, 
-        paddingTop: 35, 
+        padding: '5%', 
+        paddingTop: '5%', 
         backgroundColor: '#fff'
     },
     loadMoreContainer: {
@@ -45,25 +45,24 @@ const jobListStyles = StyleSheet.create({
 const headerStyles = StyleSheet.create({
     jobListHeader: { 
         flexDirection: 'row', 
-        paddingTop: 10,
-        height: 50, 
+        paddingTop: '3%',
+        height: Dimensions.get('window').height * 0.07, 
         backgroundColor: 'white'
     },
     jobListSort: {
         flexDirection: 'row', 
-        height: 50, 
+        height: Dimensions.get('window').height * 0.05, 
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
     jobListDropdown: {
-        marginTop: 10,
-        marginLeft: 15
+        marginTop: '5%',
+        marginLeft: '10%'
     },
     prioritySection: {
-        flexDirection: 'column',
         flex: 1,
-        marginBottom: 5
+        flexDirection: 'column'
     },
     priorities: {
         flex: 1,
@@ -78,16 +77,16 @@ const headerStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     loadMoreIcon: {
-        height: 50
+        height: Dimensions.get('window').height * 0.5
     },
     sortIconDown: {
-        height: 15,
-        width: 15,
+        height: Dimensions.get('window').height * 0.02,
+        width: Dimensions.get('window').height * 0.02,
         transform: [{rotate: '90deg'}],
     },
     sortIconUp: {
-        height: 15,
-        width: 15,
+        height: Dimensions.get('window').height * 0.02,
+        width: Dimensions.get('window').height * 0.02,
         transform: [{rotate: '-90deg'}],
     }
 });
@@ -117,9 +116,8 @@ const jobListCardStyles = StyleSheet.create({
     },
     topDetails: {
         flexDirection: 'row', 
-        paddingTop: 5,
-        paddingBottom: 10,
-        height: 90
+        paddingBottom: '5%',
+        height: Dimensions.get('window').height * 0.1
     },
     dueDate: {
         fontSize: 13
@@ -127,34 +125,34 @@ const jobListCardStyles = StyleSheet.create({
     title: {
         fontSize: 15,
         fontWeight: 'bold', 
-        width: 150
+        width: Dimensions.get('window').width * 0.4
     },
     calendar: {
         flexDirection: 'column', 
         alignItems: 'center',
-        marginRight: 15,
+        marginRight: '5%',
         justifyContent: 'center'
     },
     arrowIcon: {
-        height: 7,
-        width: 7
+        height: Dimensions.get('window').width * 0.02,
+        width: Dimensions.get('window').width * 0.02
     },
     collapseHeaderSection: {
         flexDirection: 'column', 
         flex: 1,
-        paddingRight: 10,
+        paddingRight: '2%',
         justifyContent: 'space-evenly'
     },
     collapseHeaderSectionFirstLine: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
-        marginBottom: 10, 
+        marginBottom: '2%', 
         alignContent: 'flex-start'
     },
     collapseHeaderSectionLine: {
         flexDirection: 'row', 
         justifyContent: 'space-between',
-        marginBottom: 10
+        marginBottom: '2%'
     },
     collapseBodySection: {
         alignItems: 'center', 
@@ -162,34 +160,32 @@ const jobListCardStyles = StyleSheet.create({
     },
     dateCreated: {
         fontSize: 13, 
-        marginBottom: 10, 
-        width: '25%'
+        marginBottom: '5%', 
+        width: Dimensions.get('window').width * 0.22
     },
     date: {
-        fontSize: 13, 
-        marginBottom: 10
+        fontSize: 13
     },
     collapseBodySectionLeft: {
         fontSize: 13, 
-        marginBottom: 10, 
-        width: '25%', 
-        paddingTop: 5
+        marginBottom: '5%', 
+        width: '25%'
     },
     collapseBodySectionRight: {
+        flex: 1,
         fontSize: 13, 
-        marginBottom: 10, 
+        marginBottom: '5%', 
         backgroundColor: 'white', 
         padding: 5, 
         borderRadius: 5, 
         borderColor: 'white', 
-        overflow: 'hidden', 
-        flex: 1
+        overflow: 'hidden'
     },
     collapseBodySectionBottom: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
         alignItems: 'center', 
-        marginBottom: 10
+        marginBottom: '2%'
     },
     serviceNeeded: {
         flexDirection: 'row', 
@@ -197,23 +193,24 @@ const jobListCardStyles = StyleSheet.create({
     },
     serviceNeededText: {
         fontSize: 13, 
-        marginRight: 10
+        marginRight: '5%'
     },
     photoSection: {
         flexDirection: 'row', 
         justifyContent: 'space-between', 
         alignItems: 'center', 
-        marginBottom: 10
+        marginBottom: '2%'
     },
     separator: {
         borderBottomColor: 'black',
         borderBottomWidth: 1,
-        marginBottom: 15
+        marginBottom: '5%'
     },
     collapseBodySectionBottomButtons: {
         flexDirection: 'row', 
         justifyContent: 'flex-end', 
-        marginBottom: 15
+        height: Dimensions.get('window').height * 0.05,
+        marginBottom: '2%',
     }
 });
 
@@ -222,7 +219,7 @@ const buttonStyles = StyleSheet.create({
         alignItems: 'flex-start',
         backgroundColor: 'white',
         borderColor: 'black',
-        height: 35
+        height: Dimensions.get('window').height * 0.05
     },
     jobListFilterButton: {
         borderRadius: 20,
@@ -254,45 +251,47 @@ const buttonStyles = StyleSheet.create({
         borderRadius: 20,
         borderColor: '#a1d19b',
         backgroundColor: '#a1d19b',
-        marginRight: 10
+        marginRight: '5%'
     },
     removeButton: {
         borderRadius: 20,
         borderColor: '#e07276',
-        backgroundColor: '#e07276'
+        backgroundColor: '#e07276',
+        marginLeft: '5%'
     },
     editButton: {
         borderRadius: 20,
         borderColor: '#ededed',
         backgroundColor: '#ededed',
-        marginRight: 10
+        marginRight: '5%',
+        marginLeft: '5%'
     },
     loadMoreButton: {
-        borderRadius: 20,
+        borderRadius: 25,
         borderColor: '#f5f5f5',
         backgroundColor: '#f5f5f5',
         padding: 15,
-        width: 250
+        width: Dimensions.get('window').width * 0.7
     }
 });
 
 const circleStyles = StyleSheet.create({
     redCircle: {
-        width: 14, 
-        height: 14, 
-        borderRadius: 14/2, 
+        width: Dimensions.get('window').width * 0.03,
+        height: Dimensions.get('window').width * 0.03,
+        borderRadius: (Dimensions.get('window').width * 0.03)/2,
         backgroundColor: 'red'
     },
     yellowCircle: {
-        width: 14, 
-        height: 14, 
-        borderRadius: 14/2, 
+        width: Dimensions.get('window').width * 0.03,
+        height: Dimensions.get('window').width * 0.03,
+        borderRadius: (Dimensions.get('window').width * 0.03)/2,
         backgroundColor: 'yellow'
     },
     greenCircle: {
-        width: 14, 
-        height: 14, 
-        borderRadius: 14/2, 
+        width: Dimensions.get('window').width * 0.03,
+        height: Dimensions.get('window').width * 0.03,
+        borderRadius: (Dimensions.get('window').width * 0.03)/2,
         backgroundColor: 'green'
     }
 });
@@ -307,13 +306,13 @@ const filterStyles = StyleSheet.create({
     modal: {
         justifyContent: 'flex-end', 
         margin: 0, 
-        marginLeft: 25, 
-        marginRight: 25
+        marginLeft: '5%', 
+        marginRight: '5%'
     },
     filterView: {
         flex: 1, 
         flexDirection: 'column', 
-        marginTop: 50
+        marginTop: '20%'
     },
     header: {
         flexDirection: 'row', 
@@ -335,8 +334,7 @@ const filterStyles = StyleSheet.create({
     },
     separator: {
         borderBottomColor: '#f0f0f3',
-        borderBottomWidth: 1,
-        marginBottom: 10
+        borderBottomWidth: 1
     },
     filterContainerBookmarked: {
         flexDirection: 'row', 
@@ -350,15 +348,15 @@ const filterStyles = StyleSheet.create({
     },
     filterText: {
         fontSize: 20,
-        marginBottom: 20
+        marginBottom: '10%'
     },
     applyContainer: {
         justifyContent: 'flex-end', 
-        marginBottom: 100
+        marginBottom: '25%'
     },
     applyButton: {
         borderRadius: 0, 
-        height: 50
+        height: Dimensions.get('window').height * 0.06
     }
 });
 
