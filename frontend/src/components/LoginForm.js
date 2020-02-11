@@ -9,7 +9,6 @@ const LoginForm = (props) => {
         <KeyboardAwareScrollView keyboardOpeningTime={0} scrollEnabled={false}
                                  resetScrollToCoords={{ x: 0, y: 0 }} automaticallyAdjustContentInsets={false}
                                  contentContainerStyle={logInPageStyles.container}>
-            <ScrollView style={{flex: 6}}>
         <View style={logInPageStyles.logInForm}>
             <View style={logInPageStyles.imageLogInView}>
                 <Image style={logInPageStyles.imageLogIn}
@@ -65,7 +64,6 @@ const LoginForm = (props) => {
                 </View>
             </View>
         </View>
-            </ScrollView>
         </KeyboardAwareScrollView>
     );
 };
