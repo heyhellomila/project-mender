@@ -42,11 +42,11 @@ const LoginForm = (props) => {
                     {props.emptyEmail
                         && <Text style={logInPageStyles.invalidInput}>{props.emptyEmailErrorMsg}</Text>
                     }
+                    {props.invalidEmail
+                    && <Text style={logInPageStyles.invalidInput}>{props.invalidEmailErrorMsg}</Text>
+                    }
                     {props.emptyPassword
                         && <Text style={logInPageStyles.invalidInput}>{props.emptyPasswordErrorMsg}</Text>
-                    }
-                    {props.invalidEmail
-                        && <Text style={logInPageStyles.invalidInput}>{props.invalidEmailErrorMsg}</Text>
                     }
                 </View>
                 <View style={logInPageStyles.logInSignUpSection}>
