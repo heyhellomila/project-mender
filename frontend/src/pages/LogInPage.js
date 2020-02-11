@@ -6,6 +6,7 @@ import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
 import { loginComponent } from '../stylesheets/Stylesheet';
 import validator from 'validator';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const menderBackground = require('../../assets/mender_background.png');
 
@@ -83,7 +84,9 @@ class LogInPage extends React.Component {
             style={loginComponent.imageBackgroundLogin}
             source={menderBackground}>
         {submitting
-          ? <ActivityIndicator style={{marginTop: '40%'}} size="large" color="#0000ff" />
+          ? <Spinner
+                visible={submitting}
+            />
           : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
             handlePasswordChange={this.handlePasswordChange} handleLoginValidation={this.handleLoginValidation}/>
         }
