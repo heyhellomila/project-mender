@@ -19,8 +19,10 @@ class LogInPage extends React.Component {
       submitting: false,
       error: false,
       errorMsg: '',
+      emptyEmail: false,
       invalidEmail: false,
-      invalidEmailErrorMsg: 'Enter your e-mail address.',
+      invalidEmailErrorMsg: 'Invalid e-mail address.',
+      emptyEmailErrorMsg: 'Enter your e-mail address.',
       emptyPassword: false,
       emptyPasswordErrorMsg: 'Enter your password.',
       navigation: this.props.navigation
@@ -44,17 +46,17 @@ class LogInPage extends React.Component {
 
   handleLoginValidation = () =>{
     const {email, password} = this.state;
-    this.setState({invalidEmail: false, emptyPassword: false, error: false})
+    this.setState({invalidEmail: false, emptyEmail: false, emptyPassword: false, error: false})
     if(email == '' && password == ''){
-      this.setState({submitting: false, invalidEmail: true, emptyPassword: true})
+      this.setState({submitting: false, emptyEmail: true, emptyPassword: true})
     }else if(email == '' ){
-      this.setState({invalidEmail: true, submitting: false})
+      this.setState({emptyEmail: true, submitting: false})
     }
     else if(password == ''){
       this.setState({emptyPassword: true, submitting: false})
     }
     else if (!validator.isEmail(email)) {
-      this.setState({invalidEmail: true, submitting: false, errorMsg: 'Invalid e-mail address.'})
+      this.setState({invalidEmail: true, submitting: false})
     } else{
       this.handleLogin();
     }

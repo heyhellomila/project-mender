@@ -18,7 +18,7 @@ const LoginForm = (props) => {
             <View style={logInPageStyles.textInputView}>
                 <View style={{flex:1}}>
                     <TextInput
-                        style={props.invalidEmail ? logInPageStyles.textInvalidInput: logInPageStyles.textInput}
+                        style={props.invalidEmail || props.emptyEmail ? logInPageStyles.textInvalidInput: logInPageStyles.textInput}
                         placeholder="Email"
                         defaultValue={props.email}
                         onChangeText={text => props.handleEmailChange(text)}
@@ -40,11 +40,14 @@ const LoginForm = (props) => {
                     {props.error
                         && <Text style={logInPageStyles.invalidInput}>{props.errorMsg}</Text>
                     }
-                    {props.invalidEmail
-                        && <Text style={logInPageStyles.invalidInput}>{props.invalidEmailErrorMsg}</Text>
+                    {props.emptyEmail
+                        && <Text style={logInPageStyles.invalidInput}>{props.emptyEmailErrorMsg}</Text>
                     }
                     {props.emptyPassword
                         && <Text style={logInPageStyles.invalidInput}>{props.emptyPasswordErrorMsg}</Text>
+                    }
+                    {props.invalidEmail
+                        && <Text style={logInPageStyles.invalidInput}>{props.invalidEmailErrorMsg}</Text>
                     }
                 </View>
                 <View style={logInPageStyles.logInSignUpSection}>
