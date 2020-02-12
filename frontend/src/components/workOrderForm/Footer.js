@@ -14,18 +14,18 @@ const Footer = (props) => {
                 <View style={formStyles.colContainer}>
                     {props.step !== 1 &&
                         <TouchableOpacity onPress={() => props.prevStep()}>
-                            <Image style={footerStyles.imageButton} source={backArrow}></Image>
+                            <Image style={footerStyles.imageButton} source={backArrow}/>
                         </TouchableOpacity>
                     }
                 </View>
                 <View style={formStyles.colContainer}>
-                    {props.step < 4 &&
-                        <TouchableOpacity style={footerStyles.infoButton}>
-                            <Image style={footerStyles.imageButton} source={info}></Image>
-                        </TouchableOpacity>}
+                    {/*{props.step < 4 &&*/}
+                    {/*    <TouchableOpacity style={footerStyles.infoButton}>*/}
+                    {/*        <Image style={footerStyles.imageButton} source={info}/>*/}
+                    {/*    </TouchableOpacity>}*/}
                     {props.step === 4 &&
                         <TouchableOpacity style={{alignSelf: 'flex-end'}} onPress={() => props.nextStep()}>
-                            <Image style={footerStyles.imageButton} source={nextArrow}></Image>
+                            <Image style={footerStyles.imageButton} source={nextArrow}/>
                         </TouchableOpacity>
                     }
                     {props.step === 5 &&

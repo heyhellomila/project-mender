@@ -250,6 +250,9 @@ const typeStyles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#d2d2d2'
     },
+    preventiveIcon: {
+        margin: '-10%'
+    },
     typeIcon: {
         flex: 1,
         width: null,

@@ -12,7 +12,7 @@ const ChooseType = (props) => {
                 <TouchableOpacity
                     style = {typeStyles.typeContainer}
                     onPress={() => props.handleType('PM')}>
-                    <Image style={typeStyles.typeIcon} source={PM}/>
+                    <Image style={[typeStyles.typeIcon, typeStyles.preventiveIcon]} source={PM}/>
                     <Text style={typeStyles.subHeader}>
                         Preventive
                     </Text>
