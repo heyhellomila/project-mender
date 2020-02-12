@@ -84,7 +84,7 @@ const formStyles = StyleSheet.create({
     },
     textInput:{
         fontSize: 14,
-        textAlign: 'left',
+        textAlign: 'center',
         backgroundColor: '#ffffff',
         borderColor: '#cccccc',
         borderWidth: 1,
