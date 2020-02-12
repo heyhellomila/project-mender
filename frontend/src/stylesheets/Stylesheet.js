@@ -41,11 +41,16 @@ const styles = StyleSheet.create({
 })
 
 const loginComponent = StyleSheet.create({
-    logInContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+    imageBackgroundLogin: {
+        width: '100%',
+        height: '100%',
+        justifyContent:'center',
+    },
+    loadingStyle: {
+        alignSelf:'center',
+        backgroundColor: 'white',
+        fontWeight: 'bold',
+        padding: '2%'
     }
 })
 
@@ -148,7 +153,6 @@ const buttons = StyleSheet.create({
         borderRadius: 25
     },
     buttonLogIn: {
-        marginTop: '5%',
         width: '50%',
         alignSelf: 'center',
         borderRadius: 25

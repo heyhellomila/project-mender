@@ -1,10 +1,14 @@
 import React from 'react';
-import { Text, View} from 'react-native';
+import { Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import LoginForm  from '../components/LoginForm';
 import { login } from '../apis/users/Login'
 import { authenticate } from '../redux/actions'
 import { connect } from 'react-redux';
 import { loginComponent } from '../stylesheets/Stylesheet';
+import validator from 'validator';
+import Spinner from 'react-native-loading-spinner-overlay';
+
+const menderBackground = require('../../assets/mender_background.png');
 
 class LogInPage extends React.Component {
   constructor(props) {
@@ -15,6 +19,12 @@ class LogInPage extends React.Component {
       submitting: false,
       error: false,
       errorMsg: '',
+      emptyEmail: false,
+      invalidEmail: false,
+      invalidEmailErrorMsg: 'Invalid e-mail address.',
+      emptyEmailErrorMsg: 'Enter your e-mail address.',
+      emptyPassword: false,
+      emptyPasswordErrorMsg: 'Enter your password.',
       navigation: this.props.navigation
     };
 
@@ -34,6 +44,21 @@ class LogInPage extends React.Component {
     this.setState({password: event})
   }
 
+  handleLoginValidation = () => {
+    const {email, password} = this.state;
+    this.setState({invalidEmail: false, emptyEmail: false, emptyPassword: false, error: false});
+    this.setState({
+          emptyEmail: email === '',
+          emptyPassword: password === '',
+          invalidEmail: email !== '' && !validator.isEmail(email)
+        },
+        () => {
+          if (!this.state.emptyEmail && !this.state.emptyPassword && !this.state.invalidEmail) {
+            this.setState({submitting: true});
+            this.handleLogin();
+          }
+        })
+  }
   handleLogin = async() => {
     this.setState({ submitting: true })
     try {
@@ -41,6 +66,7 @@ class LogInPage extends React.Component {
         await this.props.authenticate(response.data.token).then(() => {
           if (!this.props.user.loading && this.props.user.user) {
             this.props.navigation.navigate('HomePage')
+            this.setState({submitting: false, email: '', password: '', error: false})
           }
         })
       });
@@ -53,13 +79,17 @@ class LogInPage extends React.Component {
     var {submitting} = this.state;
 
     return (
-      <View style={loginComponent.logInContainer}>
-        {submitting 
-          ? <Text>Loading...</Text>
-          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange} 
-            handlePasswordChange={this.handlePasswordChange} handleLogin={this.handleLogin}/>
+        <ImageBackground
+            style={loginComponent.imageBackgroundLogin}
+            source={menderBackground}>
+        {submitting
+          ? <Spinner
+                visible={submitting}
+            />
+          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
+            handlePasswordChange={this.handlePasswordChange} handleLoginValidation={this.handleLoginValidation}/>
         }
-      </View>
+        </ImageBackground>
     );
   }
 }
