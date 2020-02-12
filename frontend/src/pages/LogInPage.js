@@ -45,22 +45,18 @@ class LogInPage extends React.Component {
   }
 
   handleLoginValidation = () =>{
-    const {email, password} = this.state;
+    const {email, password, emptyEmail, emptyPassword, invalidEmail} = this.state;
     this.setState({invalidEmail: false, emptyEmail: false, emptyPassword: false, error: false})
-    if(email == '' && password == ''){
-      this.setState({submitting: false, emptyEmail: true, emptyPassword: true})
-    }else if(email == '' ){
+    if(email === ''){
       this.setState({emptyEmail: true, submitting: false})
     }
-    else if(!validator.isEmail(email) && password == ''){
-      this.setState({emptyPassword: true, submitting: false, invalidEmail: true})
+    else if(!validator.isEmail(email)){
+      this.setState({invalidEmail: true, submitting: false})
     }
-    else if(password == ''){
+    if(password === ''){
       this.setState({emptyPassword: true, submitting: false})
     }
-    else if (!validator.isEmail(email)) {
-      this.setState({invalidEmail: true, submitting: false})
-    } else{
+    if(email !== '' && password !== '' && validator.isEmail(email)){
       this.handleLogin();
     }
   }
