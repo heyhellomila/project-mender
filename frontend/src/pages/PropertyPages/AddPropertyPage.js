@@ -32,48 +32,44 @@ class AddPropertyPage extends React.Component {
         };
     }
 
-    validatePostalCode(postalCode, countryCode) {
+    validatePostalCode = (postalCode, countryCode) => {
         if (!postalCode) {
             this.setState({
                 validPostalCode: false
             });
+            return false;
         } else {
             if (countryCode && !postcodeValidator(postalCode.trim(), countryCode)) {
                 alert('Invalid postal code.');
                 this.setState({
                     validPostalCode: false
                 });
+                return false;
             } else {
                 this.setState({
                     validPostalCode: true
                 });
+                return true;
             }
         }
+    };
 
-    }
-
-    validateFields() {
-        const { name, address, propertyType, city, province, postalCode, validPostalCode, country } = this.state;
+    validateFields = () => {
+        const { name, address, propertyType, city, province, postalCode, country } = this.state;
         this.validateInput(name, 'validName');
         this.validateInput(address, 'validAddress');
         this.validateInput(propertyType.key, 'validPropertyType');
         this.validateInput(city, 'validCity');
         this.validateInput(province, 'validProvince');
         this.validateInput(country, 'validCountry');
-        this.validatePostalCode(postalCode, country.key);
-        return (name && address && propertyType && city && postalCode && validPostalCode && province && country);
+        let validPostalCode = this.validatePostalCode(postalCode, country.key);
+        return (name && address && propertyType && city && validPostalCode && province && country);
     }
 
     validateInput(input, validField) {
-        if (!input) {
-            this.setState({
-                [validField]: false
-            })
-        } else {
-            this.setState({
-                [validField]: true
-            })
-        }
+        !input
+            ? this.setState({[validField]: false})
+            : this.setState({[validField]: true})
     }
 
     getFinalAddress = (address, addressInfo) => {
@@ -85,7 +81,7 @@ class AddPropertyPage extends React.Component {
     };
 
     handleCreateProperty = async() => {
-        if (this.validateFields()) {
+        if (await this.validateFields()) {
             try {
                 this.setState({submitting: true});
                 const { propertyType, address, addressInfo, city, province,
@@ -100,7 +96,7 @@ class AddPropertyPage extends React.Component {
                         }, 1500);
                 });
             } catch (err) {
-                alert(err.message);
+                alert('Error creating property. Please try again later.');
             } finally {
                 this.setState({submitting: false});
             }

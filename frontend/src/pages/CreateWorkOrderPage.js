@@ -6,6 +6,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import WorkOrderForm from '../components/workOrderForm/WorkOrderForm';
 import {SectorType} from "../constants/enums/SectorType";
 import {formStyles, sectorStyles} from "../stylesheets/CreateWorkOrderPageStyleSheet";
+import { reloadWorkOrders } from '../redux/actions';
 
 class CreateWorkOrderPage extends React.Component {
     constructor(props){
@@ -16,17 +17,17 @@ class CreateWorkOrderPage extends React.Component {
             sectorKind: '',
             type: 'CM', 
             title: '',
-            cause: '',
+            cause: null,
             serviceNeeded: false, 
             priority: 'MEDIUM', 
             description: '',
+            location: null,
             dueDate: new Date(),
             priceEstimate: 0,
             navigation: props.navigation,
             today: new Date(),
             property: props.property,
             validTitle: true,
-            validCause: true,
             submitting: false,
             success: false,
             headerText: 'Select a Sector'
@@ -50,15 +51,13 @@ class CreateWorkOrderPage extends React.Component {
                 headerText: 'Overview'
             });
         } else if (step === 3) {
-            if (title.length === 0 || cause.length === 0) {
+            if (title.length === 0) {
                 this.setState({
                     validTitle: title.length !== 0,
-                    validCause: cause.length !== 0
                 });
             } else {
                 this.setState({
                     validTitle: true,
-                    validCause: true,
                     step: step + 1,
                     headerText: 'Details'
                 });
@@ -105,9 +104,11 @@ class CreateWorkOrderPage extends React.Component {
                 this.state.serviceNeeded,
                 this.state.priority,
                 description,
+                this.state.location,
                 Date.parse(this.state.dueDate),
                 this.state.priceEstimate).then(async() => {
                     this.setState({success: true, submitting: false});
+                    this.props.reloadWorkOrders();
                     setTimeout(() => {
                         this.props.navigation.goBack(null);
                     }, 1500);
@@ -146,6 +147,10 @@ class CreateWorkOrderPage extends React.Component {
         this.setState({description: value});
     };
 
+    handleLocation = (value) => {
+        this.setState({location: value});
+    };
+
     handlePriority = (value) => {
         this.setState({priority: value});
     };
@@ -167,7 +172,8 @@ class CreateWorkOrderPage extends React.Component {
                         prevStep={this.prevStep} handleType={this.handleType}
                         handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
                         toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
-                        handleDescription={this.handleDescription} submit={this.handleWorkOrder}
+                        handleDescription={this.handleDescription} handleLocation={this.handleLocation} 
+                        submit={this.handleWorkOrder}
                         handleDueDate={this.handleDueDate}/>
                 }
             </View>
@@ -180,4 +186,8 @@ const mapStateToProps = (state) => ({
     property: state.property.property
 });
 
-export default connect(mapStateToProps, null)(CreateWorkOrderPage);
+const mapDispatchToProps = dispatch => ({
+    reloadWorkOrders: () => dispatch(reloadWorkOrders(true))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkOrderPage);

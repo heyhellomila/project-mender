@@ -80,3 +80,8 @@ export const loadProperties = bool => ({
     type: 'LOAD_PROPERTIES',
     loadingProperties: bool
 });
+
+export const reloadWorkOrders = (bool) => ({
+    type: 'RELOAD_WORK_ORDERS',
+    reloadWorkOrders: bool
+});

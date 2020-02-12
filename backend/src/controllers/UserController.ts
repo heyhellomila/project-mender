@@ -4,7 +4,7 @@ import { UserMapper } from '../entity_mappers/UserMapper';
 import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
-import { UserFields } from '../constants/BodyFields';
+import { USER_FIELDS } from '../constants/BodyFields';
 import { UserDTO } from 'src/dtos/UserDTO';
 
 const userController = express.Router();
@@ -12,7 +12,7 @@ const userService : UserService = new UserService();
 const userMapper : UserMapper = new UserMapper();
 
 userController.post(
-    '/', validateBody(UserFields.createFields), async (req: Request, res: Response) => {
+    '/', validateBody(USER_FIELDS.createFields), async (req: Request, res: Response) => {
         try {
             const userDTO : UserDTO = req.body as UserDTO;
             const { password } = req.body;
@@ -25,7 +25,7 @@ userController.post(
 );
 
 userController.post(
-    '/login', validateBody(UserFields.loginFields), async (req: Request, res: Response) => {
+    '/login', validateBody(USER_FIELDS.loginFields), async (req: Request, res: Response) => {
         try {
             const { email, password } = req.body;
             const token = await userService.login(email, password);

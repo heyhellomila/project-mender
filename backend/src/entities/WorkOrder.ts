@@ -34,7 +34,7 @@ export class WorkOrder {
     @Column()
     title: string;
 
-    @Column()
+    @Column({ nullable: true })
     cause: string;
 
     @Column({ name: 'service_needed', type: 'bit', transformer:
@@ -48,7 +48,7 @@ export class WorkOrder {
     priorityType: PriorityType;
 
     @Column({ nullable: true })
-    description: string;
+    location: string;
 
     @Column({ name: 'due_date' })
     dueDate: Date;

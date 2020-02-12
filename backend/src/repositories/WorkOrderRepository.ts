@@ -24,7 +24,7 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
             .leftJoin('work_orders.lastModifiedBy', 'lastModifiedBy')
             .leftJoinAndSelect('work_orders.workOrderStatus', 'workOrderStatus')
             .where(filterQueries)
-            .andWhere(searchTerm != null  ? 'concat(cause, title, description) like :searchTerm' : '1=1',{searchTerm: '%' + searchTerm + '%'})
+            .andWhere(searchTerm != null  ? 'concat(cause, title, location) like :searchTerm' : '1=1',{searchTerm: '%' + searchTerm + '%'})
             .orderBy(workOrderSort, ordering)
             .skip(pageSize * (pageNumber - 1))
             .take(pageSize)

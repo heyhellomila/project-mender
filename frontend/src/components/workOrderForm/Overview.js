@@ -45,11 +45,19 @@ const Overview = (props) => {
                     <Text style={formStyles.infoHeader}>Cause</Text>
                 </View>
                 <View style={formStyles.rowContainer}>
-                    <TextInput style = {props.validCause 
-                            ? formStyles.textInput 
-                            : formStyles.invalidTextInput}
-                            defaultValue = {props.cause}
-                        onChangeText = {(value) => props.handleCause(value)}/>
+                    <TextInput style = {formStyles.textInput}
+                               defaultValue = {props.cause}
+                               onChangeText = {(value) => props.handleCause(value)}/>
+                </View>
+            </View>
+            <View style={{flex: 1, marginVertical: '6%'}}>
+                <View style={formStyles.rowContainer}>
+                    <Text style={formStyles.infoHeader}>Location</Text>
+                </View>
+                <View style={formStyles.rowContainer}>
+                    <TextInput style = {formStyles.textInput}
+                               defaultValue = {props.location}
+                               onChangeText = {(value) => props.handleLocation(value)}/>
                 </View>
             </View>
         </View>
