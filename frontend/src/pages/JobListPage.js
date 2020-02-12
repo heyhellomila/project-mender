@@ -6,6 +6,7 @@ import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
+import { reloadWorkOrders } from '../redux/actions';
 
 class JobListPage extends React.Component {
 
@@ -105,7 +106,17 @@ class JobListPage extends React.Component {
         };
     }
   
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.props.reloadWorkOrders && !this.state.loading && !prevState.loading) {
+            this.setState({
+                lastPage: false,
+                isEmpty: false,
+                data: []
+            });
+            await this.getListOfWorkOrders().then(() => {
+                this.props.finishReloadingWorkOrders();
+            })
+        }
         if (this.props.property !== prevProps.property) {
             this.setState({
                 data: [],
@@ -172,7 +183,8 @@ class JobListPage extends React.Component {
                     id: workOrder.id,
                     title: workOrder.title,
                     cause: workOrder.cause,
-                    notification: workOrder.description,
+                    notification: workOrder.notification,
+                    location: workOrder.location,
                     type: workOrder.workOrderType.type,
                     priority: workOrder.priorityType.type,
                     sectorType: workOrder.sector.type,
@@ -215,6 +227,7 @@ class JobListPage extends React.Component {
             });
         })
         .catch((err) => {
+            console.log(err.response);
             this.setState({
                 error: true, 
                 loading: false, 
@@ -626,7 +639,12 @@ class JobListPage extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    property: state.property.property
+    property: state.property.property,
+    reloadWorkOrders: state.workOrder.reloadWorkOrders
 });
 
-export default connect(mapStateToProps)(JobListPage);
+const mapDispatchToProps = dispatch => ({
+    finishReloadingWorkOrders: () => dispatch(reloadWorkOrders(false))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobListPage);

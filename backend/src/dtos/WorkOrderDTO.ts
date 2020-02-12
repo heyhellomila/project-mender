@@ -18,6 +18,7 @@ export class WorkOrderDTO {
     serviceNeeded: Boolean;
     priorityType: PriorityTypeDTO | string;
     description: string;
+    location: string;
     dueDate: Date;
     createdDate: Date;
     createdBy: UserDTO;

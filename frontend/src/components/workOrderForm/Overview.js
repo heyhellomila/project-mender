@@ -50,6 +50,16 @@ const Overview = (props) => {
                                onChangeText = {(value) => props.handleCause(value)}/>
                 </View>
             </View>
+            <View style={{flex: 1, marginVertical: '6%'}}>
+                <View style={formStyles.rowContainer}>
+                    <Text style={formStyles.infoHeader}>Location</Text>
+                </View>
+                <View style={formStyles.rowContainer}>
+                    <TextInput style = {formStyles.textInput}
+                               defaultValue = {props.location}
+                               onChangeText = {(value) => props.handleLocation(value)}/>
+                </View>
+            </View>
         </View>
     );
 };

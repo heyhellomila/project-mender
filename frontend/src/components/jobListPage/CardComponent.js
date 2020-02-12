@@ -28,19 +28,10 @@ const CardComponent = (props) => {
                                 <View style={jobListCardStyles.collapseHeaderSection}>
                                     <View style={jobListCardStyles.collapseHeaderSectionFirstLine}>
                                         <Text style={jobListCardStyles.title}>{props.title}</Text>
-                                        <View
-                                            style={
-                                                props.priority === 'HIGH'
-                                                ? circleStyles.redCircle
-                                                : props.priority === 'MEDIUM'
-                                                    ? circleStyles.yellowCircle
-                                                    : circleStyles.greenCircle
-                                            }
-                                        />
-                                        <Text>{props.type === 'CM' ? 'Corrective' : 'Preventive'}</Text>
-                                        <Text># {props.id}</Text>
+                                        <Text style={jobListStyles.text}>{props.type === 'CM' ? 'Corrective' : 'Preventive'}</Text>
+                                        <Text style={jobListStyles.text}># {props.id}</Text>
                                     </View>
-                                    <View style={jobListCardStyles.collapseHeaderSectionSecondLine}>
+                                    <View style={jobListCardStyles.collapseHeaderSectionLine}>
                                         <View style={jobListStyles.row}>
                                             <Text style={PixelRatio.get() < 3 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorType.replace(/_/g, ' ')}</Text>
                                             <TouchableOpacity style={jobListStyles.container}>
@@ -51,9 +42,20 @@ const CardComponent = (props) => {
                                             </TouchableOpacity>
                                             <Text style={PixelRatio.get() < 3 ? jobListStyles.textRatio : jobListStyles.text}>{props.sectorKind.replace(/_/g, ' ')}</Text>
                                         </View>
+                                    </View>
+                                    <View style={jobListCardStyles.collapseHeaderSectionLine}>
                                         <Text style={PixelRatio.get() < 3 ? jobListStyles.textRatio : jobListStyles.text}>Status: {props.status.replace(/_/g, ' ')}</Text>
+                                        <View
+                                            style={
+                                                props.priority === 'HIGH'
+                                                ? circleStyles.redCircle
+                                                : props.priority === 'MEDIUM'
+                                                    ? circleStyles.yellowCircle
+                                                    : circleStyles.greenCircle
+                                            }
+                                        />
                                     </View>
-                                    </View>
+                                </View>
                             </View>
                         </Card>
                     </CollapseHeader>
@@ -69,11 +71,11 @@ const CardComponent = (props) => {
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Cause:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.cause}</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.cause === null ? 'N/A' : props.cause}</Text>
                             </View>
                             <View style={jobListStyles.row}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Location:</Text>
-                                <Text style={jobListCardStyles.collapseBodySectionRight}>Upper floor bathroom</Text>
+                                <Text style={jobListCardStyles.collapseBodySectionRight}>{props.location === null ? 'N/A' : props.location}</Text>
                             </View> 
                             <View style={jobListCardStyles.collapseBodySectionBottom}>
                                 <View style={jobListCardStyles.serviceNeeded}>
@@ -89,13 +91,15 @@ const CardComponent = (props) => {
                                         disabled={true}
                                     />
                                 </View>
+                            </View>
+                            <View style={jobListCardStyles.collapseBodySectionBottom}>
                                 <Text style={jobListStyles.text}>Quotes received: 1</Text>
-                                <Button
-                                    title='View quotes'
-                                    type='outline'
-                                    buttonStyle={buttonStyles.viewQuotesButton}
-                                    titleStyle={buttonStyles.buttonTitle}
-                                />
+                                    <Button
+                                        title='View quotes'
+                                        type='outline'
+                                        buttonStyle={buttonStyles.viewQuotesButton}
+                                        titleStyle={buttonStyles.buttonTitle}
+                                    />
                             </View>
                             <View style={jobListCardStyles.photoSection}>
                                 <Text style={jobListCardStyles.collapseBodySectionLeft}>Photos:</Text>
