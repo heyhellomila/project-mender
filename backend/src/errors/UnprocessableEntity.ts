@@ -1,4 +1,4 @@
-import {HttpError} from './HttpError';
+import { HttpError } from './HttpError';
 
 class UnprocessableEntity extends HttpError {
     constructor(message: string) {
@@ -7,4 +7,4 @@ class UnprocessableEntity extends HttpError {
     }
 }
 
-export {UnprocessableEntity};
+export { UnprocessableEntity };

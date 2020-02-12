@@ -22,8 +22,8 @@ export function SectorKindView(props) {
                         ? sectorStyles.selectedSectorContainer
                         : sectorStyles.sectorContainer]}
                     onPress={() => props.handleSectorKind(kinds[sectorKind].kind)}>
-                    <Image style={sectorStyles.sectorIcon} source={kinds[sectorKind].image}></Image>
-                    <Text style={{alignSelf: 'center', textAlign: 'center'}}>{kinds[sectorKind].display}</Text>
+                    <Image style={sectorStyles.sectorIcon} source={kinds[sectorKind].image}/>
+                    <Text style={sectorStyles.subHeader}>{kinds[sectorKind].display}</Text>
                 </TouchableOpacity>
             )}
         </View> )

@@ -7,6 +7,7 @@ export enum WorkOrderQuery {
     'PROPERTYID' = 'propertyId',
     'WORKORDERTYPE' = 'workOrderType',
     'SERVICENEEDED' = 'serviceNeeded',
+    'EMERGENCY' = 'emergency',
     'PRIORITYTYPE' = 'priorityType',
     'PRICEESTIMATE' = 'priceEstimate',
     'GREATERTHAN' = 'greaterThan',

@@ -16,6 +16,7 @@ propertyWorkOrdersController.post(
     async (req: Request, res: Response) => {
         try {
             req.body.serviceNeeded = Boolean(JSON.parse(req.body.serviceNeeded));
+            req.body.emergency = Boolean(JSON.parse(req.body.emergency));
             const workOrderDTO : WorkOrderDTO = req.body as WorkOrderDTO;
             const { decodedToken } = req.body;
             const workOrder = await workOrderService.createWorkOrder(
