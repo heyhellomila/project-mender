@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import { WorkOrderService } from '../services/WorkOrderService';
 import { WorkOrderMapper } from '../entity_mappers/WorkOrderMapper';
 import auth from '../middleware/auth';
@@ -13,15 +13,15 @@ const workOrderController = express.Router();
 workOrderController.get('/', auth, async(req: Request, res: Response) => {
     try {
         const workOrders = await workOrderService.getWorkOrders(new Map(Object.entries(req.query)));
-        var workOrderDTOs : WorkOrderDTO[] = [];
+        const workOrderDTOs : WorkOrderDTO[] = [];
         workOrders.map((workOrder) => {
             workOrderDTOs.push(workOrderMapper.toDTO(workOrder));
         });
         return res.status(200).json(workOrderDTOs);
     } catch (err) {
         return handleError(err, res);
-    } 
-})
+    }
+});
 
 workOrderController.get('/:id', auth, async(req: Request, res: Response) => {
     try {
@@ -30,5 +30,6 @@ workOrderController.get('/:id', auth, async(req: Request, res: Response) => {
     } catch (err) {
         return handleError(err, res);
     }
-})
-export {workOrderController};
+});
+
+export { workOrderController };

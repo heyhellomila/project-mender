@@ -13,7 +13,6 @@ api.interceptors.response.use(async (response) => {
         if (error.code === 'ECONNABORTED' || error.response.data.statusCode === 500) {
             throw new Error('Internal server error. Please try again later.');
         } else if (error.response && error.response.data.statusCode > 400) {
-            console.log(error.response);
             throw new Error('Could not create work order. Please try again later.');
         } else {
             throw error;

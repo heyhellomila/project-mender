@@ -169,6 +169,12 @@ class WorkOrderService {
                                     'serviceNeeded', '=',
                                     queryMap.get(WorkOrderQuery.SERVICENEEDED));
         }
+        if (queryMap.get(WorkOrderQuery.EMERGENCY)) {
+            filterQueries += this.
+            createSQLFilterQuery(filterQueries, 'work_orders',
+                'emergency', '=',
+                queryMap.get(WorkOrderQuery.EMERGENCY));
+        }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'priorityType',
