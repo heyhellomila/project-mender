@@ -16,7 +16,7 @@ class CreateWorkOrderPage extends React.Component {
             sectorType: '',
             sectorKind: '',
             type: '',
-            title: 'a',
+            title: '',
             cause: null,
             notification: null,
             location: null,
