@@ -1,5 +1,4 @@
-import {datePickerStyles, formStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
-import { circleStyles } from '../../stylesheets/CommonStyleSheet';
+import {datePickerStyles, formStyles, circleStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import {View, Text, Switch, TouchableOpacity} from 'react-native';
 import React from 'react';
 import DatePicker from 'react-native-datepicker';
@@ -43,23 +42,35 @@ const Details = (props) => {
                 </View>
                 <View style={[formStyles.rowContainer, formStyles.priorityList]}>
                     <View style={formStyles.colContainer}>
-                        <TouchableOpacity onPress={() => props.handlePriority('HIGH')}>
-                            <View style={[circleStyles.redCircle,
-                                props.priority === 'HIGH' && circleStyles.selected]}/>
+                        <TouchableOpacity onPress={() => props.handlePriority('HIGH')}
+                            style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={props.priority === 'HIGH'
+                                ? circleStyles.selected
+                                : circleStyles.unselected}>
+                                <View style={circleStyles.redCircle}/>
+                            </View>
                             <Text>Priority 1</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={formStyles.colContainer}>
-                        <TouchableOpacity onPress={() => props.handlePriority('MEDIUM')}>
-                            <View style={[circleStyles.yellowCircle,
-                                props.priority === 'MEDIUM' && circleStyles.selected]}/>
+                        <TouchableOpacity onPress={() => props.handlePriority('MEDIUM')}
+                            style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={props.priority === 'MEDIUM'
+                                ? circleStyles.selected
+                                : circleStyles.unselected}>
+                                <View style={circleStyles.yellowCircle}/>
+                            </View>
                             <Text>Priority 2</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={formStyles.colContainer}>
-                        <TouchableOpacity onPress={() => props.handlePriority('LOW')}>
-                            <View style={[circleStyles.greenCircle,
-                                props.priority === 'LOW' && circleStyles.selected]}/>
+                        <TouchableOpacity onPress={() => props.handlePriority('LOW')}
+                            style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={props.priority === 'LOW'
+                                ? circleStyles.selected
+                                : circleStyles.unselected}>
+                                <View style={circleStyles.greenCircle}/>
+                            </View>
                             <Text>Priority 3</Text>
                         </TouchableOpacity>
                     </View>

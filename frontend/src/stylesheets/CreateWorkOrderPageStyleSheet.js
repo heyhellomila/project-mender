@@ -128,8 +128,8 @@ const formStyles = StyleSheet.create({
     },
     detailsContainer: {
         flex: 1,
-        marginTop: '6%',
-        marginBottom: '-8%'
+        marginTop: '7%',
+        marginBottom: '-12%'
     },
     detailsInfoHeaderContainer: {
         flex: 2,
@@ -152,7 +152,8 @@ const formStyles = StyleSheet.create({
         flex: 0.3
     },
     dueDateInputGroup: {
-        flex: 0.4
+        flex: 0.4,
+        marginVertical: '2%'
     },
     dueDateOptions: {
         flex: 0.5
@@ -277,4 +278,45 @@ const datePickerStyles = StyleSheet.create({
     }
 });
 
-export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles, datePickerStyles };
+const circleStyles = StyleSheet.create({
+    redCircle: {
+        width: 30,
+        height: 30,
+        borderRadius: 30/2,
+        backgroundColor: 'red',
+        margin: '10%'
+    },
+    yellowCircle: {
+        width: 30,
+        height: 30,
+        borderRadius: 30/2,
+        backgroundColor: 'yellow',
+        margin: '10%'
+    },
+    greenCircle: {
+        width: 30,
+        height: 30,
+        borderRadius: 30/2,
+        backgroundColor: 'green',
+        margin: '10%'
+    },
+    unselected: {
+        width: 40,
+        height: 40,
+        borderRadius: 40/2,
+        backgroundColor: '#00000000',
+        borderWidth: 1,
+        borderColor: '#f0f0f0',
+        margin: '2%'
+    },
+    selected: {
+        width: 40,
+        height: 40,
+        borderRadius: 40/2,
+        backgroundColor: '#00000000',
+        borderWidth: 1.5,
+        margin: '2%'
+    }
+});
+
+export { headerStyles, formStyles, footerStyles, sectorStyles, typeStyles, datePickerStyles, circleStyles };
