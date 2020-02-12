@@ -81,7 +81,6 @@ const formStyles = StyleSheet.create({
     },
     titleTextInput: {
         fontSize: 15,
-        textAlign: 'center'
     },
     textInput:{
         fontSize: 14,
