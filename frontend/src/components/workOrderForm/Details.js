@@ -16,9 +16,8 @@ const Details = (props) => {
                 <View style={formStyles.detailsInfoHeaderContainer}>
                     <Text style={formStyles.infoHeader}>Emergency</Text>
                 </View>
-                <View style={formStyles.colContainer}>
+                <View style={formStyles.switchContainer}>
                     <Switch
-                        style={formStyles.switchStyle}
                         onValueChange = {(value) => props.toggleEmergency(value)}
                         value = {props.emergency}/>
                 </View>
@@ -27,9 +26,8 @@ const Details = (props) => {
                 <View style={formStyles.detailsInfoHeaderContainer}>
                     <Text style={formStyles.infoHeader}>Service Needed</Text>
                 </View>
-                <View style={formStyles.colContainer}>
+                <View style={formStyles.switchContainer}>
                     <Switch
-                        style={formStyles.switchStyle}
                         onValueChange = {(value) => props.toggleServiceNeeded(value)}
                         value = {props.serviceNeeded}/>
                 </View>

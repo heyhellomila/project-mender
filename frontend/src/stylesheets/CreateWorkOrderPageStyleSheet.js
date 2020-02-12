@@ -106,8 +106,11 @@ const formStyles = StyleSheet.create({
         borderWidth: 1,
         padding: '2%'
     },
-    switchStyle: {
-        alignSelf: 'flex-end',
+    switchContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        height: '80%'
     },
     dateOptionContainer: {
         flex: 1,
@@ -148,7 +151,7 @@ const formStyles = StyleSheet.create({
         backgroundColor: '#6ebdff',
         borderRadius: 10,
         marginVertical: '1%',
-        height: '65%'
+        height: '65%',
     },
     toggleInputGroup: {
         flex: 0.3
