@@ -120,7 +120,7 @@ class CreateWorkOrderPage extends React.Component {
                     this.setState({success: true, submitting: false});
                     this.props.reloadWorkOrders();
                     setTimeout(() => {
-                        this.props.navigation.goBack(null);
+                        this.props.navigation.navigate('JobListPage')
                     }, 1500);
                 });
         } catch (err) {
