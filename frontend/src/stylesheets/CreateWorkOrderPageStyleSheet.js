@@ -57,12 +57,12 @@ const formStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#6ebdff',
         borderRadius: 10,
-        marginVertical: '1%'
     },
     textInputContainer: {
         flex: 1,
         flexDirection: 'row',
         marginBottom: '5%',
+        marginTop: '1%'
     },
     infoHeader: {
         fontSize: 16,
@@ -150,7 +150,6 @@ const formStyles = StyleSheet.create({
         alignSelf: 'stretch',
         backgroundColor: '#6ebdff',
         borderRadius: 10,
-        marginVertical: '1%',
         height: '65%',
     },
     toggleInputGroup: {
