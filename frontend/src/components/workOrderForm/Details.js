@@ -43,7 +43,7 @@ const Details = (props) => {
                 <View style={[formStyles.rowContainer, formStyles.priorityList]}>
                     <View style={formStyles.colContainer}>
                         <TouchableOpacity onPress={() => props.handlePriority('HIGH')}
-                            style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            style={circleStyles.container}>
                             <View style={props.priority === 'HIGH'
                                 ? circleStyles.selected
                                 : circleStyles.unselected}>
@@ -54,7 +54,7 @@ const Details = (props) => {
                     </View>
                     <View style={formStyles.colContainer}>
                         <TouchableOpacity onPress={() => props.handlePriority('MEDIUM')}
-                            style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            style={circleStyles.container}>
                             <View style={props.priority === 'MEDIUM'
                                 ? circleStyles.selected
                                 : circleStyles.unselected}>
@@ -65,7 +65,7 @@ const Details = (props) => {
                     </View>
                     <View style={formStyles.colContainer}>
                         <TouchableOpacity onPress={() => props.handlePriority('LOW')}
-                            style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                            style={circleStyles.container}>
                             <View style={props.priority === 'LOW'
                                 ? circleStyles.selected
                                 : circleStyles.unselected}>

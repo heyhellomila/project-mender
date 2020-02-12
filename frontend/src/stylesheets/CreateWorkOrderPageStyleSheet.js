@@ -126,10 +126,19 @@ const formStyles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '400'
     },
+    overviewContainer: {
+        flexWrap: 'wrap',
+        marginTop: '3%',
+        marginBottom: '-5%'
+    },
     detailsContainer: {
         flex: 1,
         marginTop: '7%',
         marginBottom: '-12%'
+    },
+    chooseTypeContainer: {
+        flex: 1,
+        marginTop: '25%'
     },
     detailsInfoHeaderContainer: {
         flex: 2,
@@ -279,6 +288,11 @@ const datePickerStyles = StyleSheet.create({
 });
 
 const circleStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
     redCircle: {
         width: 30,
         height: 30,
