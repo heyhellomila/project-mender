@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const headerStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: '4%'
+    },
     headerStyle: {
         fontSize: 36,
         textAlign: 'center',
@@ -17,6 +21,10 @@ const headerStyles = StyleSheet.create({
     closeButtonImage: {
         height: 50,
         width: 50
+    },
+    titleContainer: {
+        flex: 1,
+        marginTop: '3%'
     }
 });
 
@@ -150,7 +158,7 @@ const formStyles = StyleSheet.create({
         alignSelf: 'stretch',
         backgroundColor: '#6ebdff',
         borderRadius: 10,
-        height: '65%',
+        height: '60%',
     },
     toggleInputGroup: {
         flex: 0.3
