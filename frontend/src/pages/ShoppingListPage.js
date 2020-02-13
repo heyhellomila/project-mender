@@ -44,7 +44,7 @@ class ShoppingListPage extends React.Component {
             <View style={styles.container}>
                 <CommonHeader user={this.state.user} />
                 <View style={styles.bodyContainer}>
-                    <Text>Shopping LIST</Text>
+                    <Text>Shopping List</Text>
                 </View>
             </View>
         );

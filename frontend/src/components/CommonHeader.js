@@ -8,7 +8,9 @@ export default class CommonHeader extends Component {
         return (
             <View style={headerStyles.commonHeaderComponent}>
                 <View style={headerStyles.commonHeaderTextComponent}>
-                    <Text style={ headerStyles.commonHeaderText}>Hi {this.props.user.firstName}!</Text>
+                    <Text style={headerStyles.commonHeaderText}>
+                        Hi {this.props.user.firstName}!
+                    </Text>
                 </View>
                 <View style={ headerStyles.commonHeaderSearch }>
                     <Search 

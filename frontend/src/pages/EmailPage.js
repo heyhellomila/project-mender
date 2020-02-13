@@ -9,6 +9,7 @@ class JobListPage extends React.Component {
     static navigationOptions = {
         title: 'Email Page',
     };
+
     constructor(props) {
         super(props);
         this.state = {

@@ -17,6 +17,8 @@ const rootReducer = (state = {
             return { ...state, error: action.error };
         case 'RELOAD_PROFILE':
             return { ...state, reloadingUserProfile: action.reloadingUserProfile, user: action.user };
+        case 'UPDATE_USER':
+            return { ...state, user: action.user };
         default:
             return state;
     }

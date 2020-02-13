@@ -40,6 +40,7 @@ class DrawerComponent extends Component {
 const mapDispatchToProps = dispatch => ({
     userLogout: () => dispatch(userLogout())
 });
+
 const mapStateToProps = state => ({
     user: state.user,
     property: state.property

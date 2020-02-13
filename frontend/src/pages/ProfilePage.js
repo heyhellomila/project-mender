@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
 import {getUser} from '../../src/apis/users/GetUser';
-import {reloadUserProfile} from '../redux/actions';
+import {reloadUserProfile, userUpdate} from '../redux/actions';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
 import validatePhoneNumber from '../utils/PhoneNumberUtils';
@@ -292,6 +292,9 @@ class ProfilePage extends Component {
             await updateUser(user.id, this.getUpdatedFields())
                 .then(() => {
                     this.props.reloadUserProfile(true, user);
+                })
+                .then(() => {
+                    this.props.userUpdate(user);
                 });
         } catch (err) {
             if (err.message === '401') {
@@ -310,21 +313,23 @@ class ProfilePage extends Component {
     };
 
     async getUpdatedProfile() {
-        await getUser(this.state.user.id).then((response) => {
-            this.props.reloadUserProfile(false, response.data);
-            alert("Profile Updated")
-            this.setState({
-                page: "profilePage",
-                user: response.data,
-                loading: false
+        await getUser(this.state.user.id)
+            .then((response) => {
+                this.props.reloadUserProfile(false, response.data);
+                alert("Profile Updated")
+                this.setState({
+                    page: "profilePage",
+                    user: response.data,
+                    loading: false
+                })
             })
-        })
     }
 
     render() {
         return (
             <ProfilePageForm
                 {...this.state}
+                {...this.props}
                 handleUpdate={this.handleUpdate}
                 handleFirstNameChange={this.handleFirstNameChange}
                 handleLastNameChange={this.handleLastNameChange}
@@ -351,6 +356,7 @@ class ProfilePage extends Component {
 
 const mapDispatchToProps = dispatch => ({
     reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
+    userUpdate: (user) => dispatch(userUpdate(user))
 });
 
 const mapStateToProps = (state) => ({
