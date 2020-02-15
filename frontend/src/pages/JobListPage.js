@@ -117,7 +117,7 @@ class JobListPage extends React.Component {
                 this.props.finishReloadingWorkOrders();
             })
         }
-        if (this.props.property !== prevProps.property) {
+        if (this.props.property !== prevProps.property && this.props.user === prevProps.user) {
             this.setState({
                 data: [],
                 loading: false,
