@@ -12,6 +12,7 @@ class AddPropertyPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            step: 1,
             submitting: false,
             success: false,
             name: '',
@@ -31,6 +32,28 @@ class AddPropertyPage extends React.Component {
             validCountry: true,
         };
     }
+
+    nextStep = () => {
+        const { step } = this.state;
+
+        if (step === 1) {
+            if (this.validateGeneralInfo()) {
+                this.setState({
+                    step: step + 1
+                });
+            }
+        }
+    };
+
+    prevStep = () => {
+        const { step } = this.state;
+
+        if (step === 2) {
+            this.setState({
+                step: step - 1
+            });
+        }
+    };
 
     validatePostalCode = (postalCode, countryCode) => {
         if (!postalCode) {
@@ -54,17 +77,22 @@ class AddPropertyPage extends React.Component {
         }
     };
 
-    validateFields = () => {
-        const { name, address, propertyType, city, province, postalCode, country } = this.state;
+    validateGeneralInfo = () => {
+        const { name, propertyType  } = this.state;
         this.validateInput(name, 'validName');
-        this.validateInput(address, 'validAddress');
         this.validateInput(propertyType.key, 'validPropertyType');
+        return (name && propertyType);
+    };
+
+    validateAddressInfo = () => {
+        const { address, city, province, postalCode, country } = this.state;
+        this.validateInput(address, 'validAddress');
         this.validateInput(city, 'validCity');
         this.validateInput(province, 'validProvince');
         this.validateInput(country, 'validCountry');
         let validPostalCode = this.validatePostalCode(postalCode, country.key);
-        return (name && address && propertyType && city && validPostalCode && province && country);
-    }
+        return (address && city && validPostalCode && province && country);
+    };
 
     validateInput(input, validField) {
         !input
@@ -73,7 +101,7 @@ class AddPropertyPage extends React.Component {
     }
 
     getFinalAddress = (address, addressInfo) => {
-        let finalAddress = '';
+        let finalAddress;
         addressInfo
             ? finalAddress = `${address}, ${addressInfo}`.trim()
             : finalAddress = address.trim();
@@ -81,7 +109,7 @@ class AddPropertyPage extends React.Component {
     };
 
     handleCreateProperty = async() => {
-        if (await this.validateFields()) {
+        if (await this.validateAddressInfo()) {
             try {
                 this.setState({submitting: true});
                 const { propertyType, address, addressInfo, city, province,
@@ -153,15 +181,14 @@ class AddPropertyPage extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <AddPropertyComponent {...this.state} {...this.props}
-                    handlePropertyType={this.handlePropertyType} handleAddress={this.handleAddress}
-                    handleName={this.handleName} handleCity={this.handleCity}
-                    handlePostalCode={this.handlePostalCode} handleProvince={this.handleProvince}
-                    handleAddressInfo={this.handleAddressInfo} handleCountry={this.handleCountry}
-                    submit={this.handleCreateProperty}
-                />
-            </View>
+            <AddPropertyComponent {...this.state} {...this.props}
+                handlePropertyType={this.handlePropertyType} handleAddress={this.handleAddress}
+                handleName={this.handleName} handleCity={this.handleCity}
+                handlePostalCode={this.handlePostalCode} handleProvince={this.handleProvince}
+                handleAddressInfo={this.handleAddressInfo} handleCountry={this.handleCountry}
+                submit={this.handleCreateProperty} nextStep={this.nextStep}
+                prevStep={this.prevStep}
+            />
         );
     }
 }

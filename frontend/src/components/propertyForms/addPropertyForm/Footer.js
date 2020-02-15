@@ -1,19 +1,37 @@
 import React from 'react';
-import { footerStyles } from '../../../stylesheets/AddPropertyStyleSheet';
-import { TouchableOpacity, View } from 'react-native';
+import { footerStyles, formStyles } from '../../../stylesheets/AddPropertyStyleSheet';
+import {Image, TouchableOpacity, View} from 'react-native';
 import { Icon } from 'react-native-elements';
+
+const backArrow = require('../../../../assets/Back_arrow.png');
+const nextArrow = require('../../../../assets/Front_arrow.png');
 
 const Footer = (props) => {
     return(
         <View style={footerStyles.container}>
-            <TouchableOpacity disabled={props.submitting || props.success}
-                                  style={{flex: 1}}
-                                  onPress={() => props.submit()}>
-                {props.success
-                    ?   <Icon name='check-circle' type='font-awesome' color='#1fcf13' size={45}/>
-                    :   <Icon name='check-circle' type='font-awesome' size={45}/>
+            <View style={[formStyles.colContainer, {alignItems: 'flex-start'}]}>
+                {props.step === 2 &&
+                    <TouchableOpacity onPress={() => props.prevStep()}>
+                        <Image style={footerStyles.imageButton} source={backArrow}/>
+                    </TouchableOpacity>
                 }
-            </TouchableOpacity>
+            </View>
+            <View style={[formStyles.colContainer, {alignItems: 'flex-end'}]}>
+                {props.step === 1 &&
+                    <TouchableOpacity onPress={() => props.nextStep()}>
+                        <Image style={footerStyles.imageButton} source={nextArrow}/>
+                    </TouchableOpacity>
+                }
+                {props.step === 2 &&
+                    <TouchableOpacity disabled={props.submitting || props.success}
+                                      onPress={() => props.submit()}>
+                        {props.success
+                            ? <Icon name='check-circle' type='font-awesome' color='#1fcf13' size={45}/>
+                            : <Icon name='check-circle' type='font-awesome' size={45}/>
+                        }
+                    </TouchableOpacity>
+                }
+            </View>
         </View>
     );
 };

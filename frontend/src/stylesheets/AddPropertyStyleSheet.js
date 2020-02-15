@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { Platform, StatusBar } from 'react-native';
 
 const headerStyles = StyleSheet.create({
+    container: {
+        flex: 0.6,
+        marginTop: '4%'
+    },
     headerStyle: {
         fontSize: 36,
         textAlign: 'center',
@@ -31,7 +35,7 @@ const formStyles = StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'flex-start',
         alignItems: 'stretch',
-        marginVertical: '1%',
+        marginVertical: '1%'
     },
     colContainer: {
         flex: 1,
@@ -41,8 +45,8 @@ const formStyles = StyleSheet.create({
     },
     infoHeader: {
         fontSize: 20,
-        alignSelf: 'center',
-        fontWeight: '400'
+        alignSelf: 'flex-end',
+        fontWeight: '400',
     },
     textInput:{
         fontSize: 16,
@@ -67,7 +71,6 @@ const formStyles = StyleSheet.create({
         borderRadius: 4
     },
     pickerStyle: {
-        flex: 1,
         alignSelf: 'flex-start',
         width: '100%',
         alignItems: 'stretch',
@@ -78,7 +81,6 @@ const formStyles = StyleSheet.create({
         borderColor: '#cccccc',
     },
     invalidPickerStyle: {
-        flex: 1,
         alignSelf: 'flex-start',
         width: '100%',
         alignItems: 'stretch',
@@ -89,7 +91,6 @@ const formStyles = StyleSheet.create({
         borderColor: 'red'
     },
     disabledPickerStyle: {
-        flex: 1,
         alignSelf: 'flex-start',
         width: '100%',
         alignItems: 'stretch',
@@ -105,13 +106,16 @@ const formStyles = StyleSheet.create({
         paddingHorizontal: '5%',
         paddingVertical: '1%'
     },
-    bodyContainer: {
+    generalInfoContainer: {
+        flex: 4,
+        paddingHorizontal: '7%'
+    },
+    addressContainer: {
         flex: 4,
         paddingHorizontal: '7%'
     },
     inputContainer: {
-        flex: 1,
-        marginVertical: '6%'
+        flex: 1
     }
 });
 
@@ -119,10 +123,12 @@ const footerStyles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'stretch',
-        marginBottom: '6%',
-        padding: '6%'
-    }
+        paddingHorizontal: '6%',
+    },
+    imageButton: {
+        width: 45,
+        height: 45
+    },
 });
 
 export { headerStyles, formStyles, footerStyles };

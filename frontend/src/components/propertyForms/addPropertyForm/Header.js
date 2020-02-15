@@ -5,16 +5,15 @@ const x = require('../../../../assets/X.png');
 
 const Header = (props) => {
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={headerStyles.container}>
             <View>
-                <View>
-                    <Text style={headerStyles.headerStyle}>New Property</Text>
-                </View>
-                <View style={headerStyles.closeButton}>
-                    <TouchableOpacity style={headerStyles.closeButton} onPress={() => props.navigation.goBack(null)}>
-                        <Image style={headerStyles.closeButtonImage} source={x}></Image>
-                    </TouchableOpacity>
-                </View>
+                <Text style={headerStyles.headerStyle}>New Property</Text>
+            </View>
+            <View style={headerStyles.closeButton}>
+                <TouchableOpacity style={headerStyles.closeButton}
+                                  onPress={() => props.navigation.goBack(null)}>
+                    <Image style={headerStyles.closeButtonImage} source={x}/>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
