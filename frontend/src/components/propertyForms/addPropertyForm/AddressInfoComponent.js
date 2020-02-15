@@ -12,7 +12,7 @@ const AddressInfoComponent = (props) => {
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Address
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.rowContainer}>
@@ -37,7 +37,7 @@ const AddressInfoComponent = (props) => {
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         City
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.rowContainer}>
@@ -52,7 +52,7 @@ const AddressInfoComponent = (props) => {
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Province
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.rowContainer}>
@@ -61,19 +61,18 @@ const AddressInfoComponent = (props) => {
                             {key: Province.QC, label: 'Quebec'},
                         ]}
                         initValue={props.province.label}
-                        initValueTextStyle={{color: 'black', textAlign: 'left'}}
-                        selectTextStyle={{textAlign: 'left'}}
+                        initValueTextStyle={formStyles.pickerText}
                         disabled={true}
                         onChange={(option) => props.handleProvince(option)}
                         selectStyle={formStyles.disabledPickerStyle}
-                        style={{flex: 1}}/>
+                        style={formStyles.pickerStyle}/>
                 </View>
             </View>
             <View style={formStyles.inputContainer}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Postal Code
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.rowContainer}>
@@ -88,7 +87,7 @@ const AddressInfoComponent = (props) => {
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Country
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.inputContainer}>
@@ -98,12 +97,11 @@ const AddressInfoComponent = (props) => {
                             {key: CountryCode.CA, label: 'Canada'},
                         ]}
                         initValue={props.country.label}
-                        initValueTextStyle={{color: 'black', textAlign: 'left'}}
-                        selectTextStyle={{textAlign: 'left'}}
+                        initValueTextStyle={formStyles.pickerText}
                         onChange={(option) => props.handleCountry(option)}
                         disabled={true}
                         selectStyle={formStyles.disabledPickerStyle}
-                        style={{flex: 1}}/>
+                        style={formStyles.pickerStyle}/>
                 </View>
                 </View>
             </View>

@@ -9,14 +9,14 @@ const nextArrow = require('../../../../assets/Front_arrow.png');
 const Footer = (props) => {
     return(
         <View style={footerStyles.container}>
-            <View style={[formStyles.colContainer, {alignItems: 'flex-start'}]}>
+            <View style={[formStyles.colContainer, footerStyles.leftButton]}>
                 {props.step === 2 &&
                     <TouchableOpacity onPress={() => props.prevStep()}>
                         <Image style={footerStyles.imageButton} source={backArrow}/>
                     </TouchableOpacity>
                 }
             </View>
-            <View style={[formStyles.colContainer, {alignItems: 'flex-end'}]}>
+            <View style={[formStyles.colContainer, footerStyles.rightButton]}>
                 {props.step === 1 &&
                     <TouchableOpacity onPress={() => props.nextStep()}>
                         <Image style={footerStyles.imageButton} source={nextArrow}/>

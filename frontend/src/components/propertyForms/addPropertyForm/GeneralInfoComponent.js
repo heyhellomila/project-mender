@@ -11,7 +11,7 @@ const GeneralInfoComponent = (props) => {
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Property Type
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.rowContainer}>
@@ -26,14 +26,18 @@ const GeneralInfoComponent = (props) => {
                             {key: PropertyType.COTTAGE, label: 'Cottage'},
                             {key: PropertyType.MOBILE_HOME, label: 'Mobile Home'}
                         ]}
-                        initValue='Select a property type...'
+                        initValue={props.propertyType.key
+                            ? props.propertyType.label
+                            : 'Select a property type...'}
                         onChange={(option) => props.handlePropertyType(option)}
                         selectStyle={props.validPropertyType
-                            ? formStyles.pickerStyle
-                            : formStyles.invalidPickerStyle}
-                        initValueTextStyle={{textAlign: 'left'}}
-                        selectTextStyle={{textAlign: 'left'}}
-                        style={{flex: 1}}
+                            ? formStyles.pickerSelectStyle
+                            : formStyles.invalidPickerSelectStyle}
+                        initValueTextStyle={props.propertyType.key
+                            ? formStyles.pickerText
+                            : formStyles.unselectedPickerText}
+                        selectTextStyle={formStyles.pickerText}
+                        style={formStyles.pickerStyle}
                         overlayStyle={formStyles.pickerOverlayStyle}/>
                 </View>
             </View>
@@ -41,7 +45,7 @@ const GeneralInfoComponent = (props) => {
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Name of Property
-                        <Text style={{color: 'red'}}> * </Text>
+                        <Text style={formStyles.asteriskStyle}> * </Text>
                     </Text>
                 </View>
                 <View style={formStyles.rowContainer}>
