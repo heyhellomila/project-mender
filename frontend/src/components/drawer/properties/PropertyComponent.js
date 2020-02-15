@@ -64,6 +64,8 @@ class PropertyComponent extends Component {
                                 this.props.selectProperty(property);
                             }
                         })
+                    } else {
+                        this.props.selectProperty(null);
                     }
                     this.setState({
                         loading: false
@@ -80,7 +82,11 @@ class PropertyComponent extends Component {
                 <Spinner
                     visible={this.props.loadingProperties || this.props.reloadProperties || this.state.loading}
                 />
-                <Text style={drawerComponent.propertyHeader}>My Properties</Text>
+                {this.props.property &&
+                    <Text style={drawerComponent.propertyHeader}>
+                        My Properties
+                    </Text>
+                }
                     {this.state.loading
                             ?   <View><Text>Loading...</Text></View>
                             :   <View style={{flex: 1}}>
