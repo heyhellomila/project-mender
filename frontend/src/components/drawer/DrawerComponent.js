@@ -1,5 +1,5 @@
 import { DrawerItems } from 'react-navigation-drawer';
-import { SafeAreaView, ScrollView, Text } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import React, { Component } from 'react';
 import { userLogout } from '../../redux/actions';
 import { connect } from 'react-redux';
