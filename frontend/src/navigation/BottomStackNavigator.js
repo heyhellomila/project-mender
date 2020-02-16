@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { Image, View, Text, TouchableHighlight } from 'react-native';
+import { Image, View, Text, TouchableHighlight, SafeAreaViewComponent } from 'react-native';
 import React from 'react';
 import BottomNavigator from './BottomNavigator';
 import CreateWorkOrderPage from '../pages/CreateWorkOrderPage';
@@ -12,7 +12,6 @@ import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
 import { styles, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
-
 
 const menderLogo = require('../../assets/mender_logo_no_text.jpg')
 
@@ -27,7 +26,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
     defaultNavigationOptions: ({ navigation }) => {
         return {
             headerStyle: {
-                height: 130,
+                height: 100,
                 paddingBottom: 10
             },
             headerLeft: (

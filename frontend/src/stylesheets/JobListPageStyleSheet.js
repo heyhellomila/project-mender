@@ -37,6 +37,7 @@ const jobListStyles = StyleSheet.create({
     },
     emptyText: {
         fontSize: 15,
+        fontWeight: '300',
         color: '#ababab',
         textAlign: 'center'
     }

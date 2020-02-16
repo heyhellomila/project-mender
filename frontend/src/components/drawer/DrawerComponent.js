@@ -26,7 +26,7 @@ class DrawerComponent extends Component {
     render() {
         return (
             <SafeAreaView style={drawerComponent.container}>
-                <Header {...this.props} {...this.state}/>
+                <Header/>
                 <PropertyComponent {...this.props}/>
                 <ScrollView style={{flex: 2}}>
                     <DrawerItems {...this.props}/>

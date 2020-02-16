@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'teal',
         alignSelf: 'flex-start'
     },
+    imageRightNavLogo: {
+        width: 50, 
+        height: 50, 
+        borderRadius: 25,
+        backgroundColor: 'teal'
+    },
     imageNormalLogo: {
         marginLeft: 10,
         width: 200,
@@ -129,12 +135,13 @@ const signUpComponent = StyleSheet.create({
 const headerStyles = StyleSheet.create({
     commonHeaderTextComponent: {
         flex: 2,
-        paddingTop: 20
+        paddingTop: 10
     },
     commonHeaderText: {
         textAlign: 'center', 
         fontSize: 30,
-        paddingTop: 10
+        fontWeight: '200',
+        paddingTop: 25
     },
     commonHeaderTitle: {
         alignItems: 'center', 
@@ -145,7 +152,7 @@ const headerStyles = StyleSheet.create({
         flex: 2, 
         alignSelf: 'center', 
         width: 300,
-        paddingBottom: 10
+        paddingTop: 10
     },
     commonHeaderComponent: {
         flex: 1, 
@@ -153,7 +160,8 @@ const headerStyles = StyleSheet.create({
         borderBottomWidth: 2
     },
     propertyHeaderText: {
-        fontSize: 20,
+        fontSize: 15,
+        fontWeight: '200',
         paddingTop: 15
     },
     profileButton: {

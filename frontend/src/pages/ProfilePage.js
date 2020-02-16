@@ -41,7 +41,8 @@ class ProfilePage extends Component {
             loading: false,
             submitting: false,
             emptyField: false,
-            navigation: this.props.navigation
+            navigation: this.props.navigation,
+            isSearchVisible: false
         }
     }
 
