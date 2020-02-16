@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
 
 class HomePage extends React.Component {
     static navigationOptions = {
@@ -19,7 +18,6 @@ class HomePage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <CommonHeader user={this.state.user} />
                 <View style={styles.bodyContainer}>
                     <Text>Home page</Text>
                 </View>

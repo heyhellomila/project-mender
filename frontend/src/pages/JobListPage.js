@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
@@ -602,7 +601,6 @@ class JobListPage extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <CommonHeader user={this.state.user} />
                 <JobListComponent {...this.state} 
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}

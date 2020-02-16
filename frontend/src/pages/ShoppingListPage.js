@@ -3,7 +3,6 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
 
 class ShoppingListPage extends React.Component {
     static navigationOptions = {
@@ -42,7 +41,6 @@ class ShoppingListPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <CommonHeader user={this.state.user} />
                 <View style={styles.bodyContainer}>
                     <Text>Shopping List</Text>
                 </View>

@@ -17,8 +17,6 @@ const rootReducer = (state = {
             return { ...state, error: action.error };
         case 'RELOAD_PROFILE':
             return { ...state, reloadingUserProfile: action.reloadingUserProfile, user: action.user };
-        case 'UPDATE_USER':
-            return { ...state, user: action.user };
         default:
             return state;
     }
@@ -28,8 +26,7 @@ const propertyReducer = (state = {
     property: null,
     reloadProperties: false,
     loadingProperties: false,
-    selectLast: false,
-    maintainSelection: false,
+    selectLast: false
 }, action) => {
     switch (action.type) {
         case 'LOGIN':
@@ -41,8 +38,7 @@ const propertyReducer = (state = {
         case 'LOAD_PROPERTIES':
             return { ...state, loadingProperties: action.loadProperties};
         case 'RELOAD_PROPERTIES':
-            return { ...state, reloadProperties: action.reloadProperties, selectLast: action.selectLast,
-                maintainSelection: action.maintainSelection };
+            return { ...state, reloadProperties: action.reloadProperties, selectLast: action.selectLast };
         default:
             return state;
     }

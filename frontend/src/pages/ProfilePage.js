@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
 import {getUser} from '../../src/apis/users/GetUser';
-import {reloadUserProfile, userUpdate} from '../redux/actions';
+import {reloadUserProfile} from '../redux/actions';
 import validator from 'validator';
 import passwordValidator from '../utils/PasswordUtils';
 import validatePhoneNumber from '../utils/PhoneNumberUtils';
@@ -293,9 +293,6 @@ class ProfilePage extends Component {
                 .then(() => {
                     this.props.reloadUserProfile(true, user);
                 })
-                .then(() => {
-                    this.props.userUpdate(user);
-                });
         } catch (err) {
             if (err.message === '401') {
                 this.setState({
@@ -355,8 +352,7 @@ class ProfilePage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
-    userUpdate: (user) => dispatch(userUpdate(user))
+    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user))
 });
 
 const mapStateToProps = (state) => ({

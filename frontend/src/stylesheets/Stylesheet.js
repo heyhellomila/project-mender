@@ -10,34 +10,40 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
 
-    }, menderWelcomeLogo: {
+    }, 
+    menderWelcomeLogo: {
         marginTop: '30%',
         alignItems: 'center',
-    }, buttonGroup: {
+    }, 
+    buttonGroup: {
         marginTop: '30%',
         flex: 1,
         justifyContent: 'center'
-    }, propertyContainer: {
+    }, 
+    propertyContainer: {
         height: 50
-    }, imageWelcomeLogo:{
+    }, 
+    imageWelcomeLogo:{
         width: 250, 
         height: 250, 
         borderRadius: 125, 
         backgroundColor: 'teal'
-    }, imageTopBarLogo: {
-        marginLeft: 10, 
+    }, 
+    imageTopBarLogo: {
+        marginLeft: 10,
         width: 50, 
         height: 50, 
         borderRadius: 25,
-        backgroundColor: 'teal'
-    },imageNormalLogo: {
+        backgroundColor: 'teal',
+        alignSelf: 'flex-start'
+    },
+    imageNormalLogo: {
         marginLeft: 10,
         width: 200,
         height: 200,
         borderRadius: 100,
         backgroundColor: 'teal'
     }
-
 })
 
 const loginComponent = StyleSheet.create({
@@ -122,27 +128,39 @@ const signUpComponent = StyleSheet.create({
 
 const headerStyles = StyleSheet.create({
     commonHeaderTextComponent: {
-        flex: 3
+        flex: 2,
+        paddingTop: 20
     },
     commonHeaderText: {
         textAlign: 'center', 
-        fontSize: 25,
+        fontSize: 30,
         paddingTop: 10
     },
+    commonHeaderTitle: {
+        alignItems: 'center', 
+        width: '100%', 
+        justifyContent: 'space-around'
+    },
     commonHeaderSearch: {
-        flex: 3, 
-        alignSelf:'center', 
-        width: '75%'
+        flex: 2, 
+        alignSelf: 'center', 
+        width: 300,
+        paddingBottom: 10
     },
     commonHeaderComponent: {
         flex: 1, 
         borderBottomColor:'#d3d3d3', 
-        borderBottomWidth:2
+        borderBottomWidth: 2
     },
     propertyHeaderText: {
         fontSize: 20,
-        paddingTop: 10,
-        paddingBottom: 10
+        paddingTop: 15
+    },
+    profileButton: {
+        marginRight: 10, 
+        width: 50, 
+        height: 50, 
+        alignSelf: 'flex-start'
     }
 })
 
