@@ -13,20 +13,18 @@ class DrawerComponent extends Component {
         super(props);
         this.state = {
             loggingOut: false,
-            user: props.user.user,
-            property: props.property
         }
     }
 
     handleLogout = async () => {
         await this.props.userLogout();
         this.props.navigation.navigate('LogInPage')
-    }
+    };
 
     render() {
         return (
             <SafeAreaView style={drawerComponent.container}>
-                <Header {...this.props} {...this.state}/>
+                <Header {...this.props}/>
                 <PropertyComponent {...this.props}/>
                 <ScrollView style={{flex: 2}}>
                     <DrawerItems {...this.props}/>

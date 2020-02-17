@@ -5,7 +5,7 @@ import { getUserId } from '../utils/AuthUtil';
 export const authenticate = (token) => async dispatch => {
     dispatch(loading(true));
     await AsyncStorage.setItem('Authorization', token).then(async (_) => {
-        userId = await getUserId();
+        const userId = await getUserId();
         if (!userId) {
             dispatch(error('Error'));
             dispatch(loading(false));

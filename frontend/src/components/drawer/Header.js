@@ -12,24 +12,26 @@ const Header = (props) => {
         <View style={drawerComponent.header}>
             <Image source={menderLogo} style={styles.imageTopBarLogo} />
             <Text>{props.user.firstName} {props.user.lastName}</Text>
-            <View style={drawerComponent.buttonGroup}>
-                <View style={drawerComponent.buttonContainer}>
-                    <Button
-                        title='Details'
-                        type='outline'
-                        raised={true}
-                        onPress={() => props.navigation.navigate('PropertyDetails')}/>
+            {props.property.property &&
+                <View style={drawerComponent.buttonGroup}>
+                    <View style={drawerComponent.buttonContainer}>
+                        <Button
+                            title='Details'
+                            type='outline'
+                            raised={true}
+                            onPress={() => props.navigation.navigate('PropertyDetails')}/>
+                    </View>
+                    <View style={drawerComponent.buttonContainer}>
+                        <Button
+                            title='Sectors'
+                            type='outline'
+                            raised={true}
+                            onPress={() => props.navigation.navigate('PropertySectors')}/>
+                    </View>
                 </View>
-                <View style={drawerComponent.buttonContainer}>
-                    <Button
-                        title='Sectors'
-                        type='outline'
-                        raised={true}
-                        onPress={() => props.navigation.navigate('PropertySectors')}/>
-                </View>
-            </View>
+            }
         </View>
     );
-}
+};
 
 export default Header;
