@@ -7,7 +7,7 @@ import React from 'react';
 const GeneralInfoComponent = (props) => {
     return(
         <View style={formStyles.generalInfoContainer}>
-            <View style={formStyles.inputContainer}>
+            <View style={formStyles.generalInfoInputContainer}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Property Type
@@ -41,7 +41,7 @@ const GeneralInfoComponent = (props) => {
                         overlayStyle={formStyles.pickerOverlayStyle}/>
                 </View>
             </View>
-            <View style={formStyles.inputContainer}>
+            <View style={formStyles.generalInfoInputContainer}>
                 <View style={formStyles.rowContainer}>
                     <Text style={formStyles.infoHeader}>
                         Name of Property

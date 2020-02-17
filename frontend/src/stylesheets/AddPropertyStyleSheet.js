@@ -131,15 +131,17 @@ const formStyles = StyleSheet.create({
         paddingVertical: '1%'
     },
     generalInfoContainer: {
-        flex: 1,
         paddingHorizontal: '7%',
-        padding: '55%',
-        marginTop: '-67%'
+        height: '100%',
+        marginTop: '-11%'
     },
     addressContainer: {
         flex: 4,
         paddingHorizontal: '7%',
         marginTop: '-6%'
+    },
+    generalInfoInputContainer: {
+        height: '25%'
     },
     inputContainer: {
         flex: 1
