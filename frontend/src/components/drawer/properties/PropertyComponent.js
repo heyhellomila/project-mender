@@ -90,9 +90,11 @@ class PropertyComponent extends Component {
                     {this.state.loading
                             ?   <View><Text>Loading...</Text></View>
                             :   <View style={{flex: 1}}>
-                                    <ScrollView>
-                                        <PropertyListComponent {...this.state} {...this.props}/>
-                                    </ScrollView>
+                                    {this.props.property &&
+                                        <ScrollView>
+                                            <PropertyListComponent {...this.state} {...this.props}/>
+                                        </ScrollView>
+                                    }
                                     <View style={drawerComponent.buttonGroup}>
                                         <View style={drawerComponent.buttonContainer}>
                                             <Button
