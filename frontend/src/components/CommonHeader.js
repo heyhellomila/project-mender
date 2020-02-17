@@ -15,10 +15,8 @@ class CommonHeader extends Component {
         return (
             <View>
                 <View style={headerStyles.commonHeaderTextComponent}>
-                    { this.props.user
-                        ? <Text style={headerStyles.commonHeaderText}>Hi {this.props.user.firstName}!</Text>
-                        : null
-                    }
+                    {this.props.user && 
+                        <Text style={headerStyles.commonHeaderText}>Hi {this.props.user.firstName}!</Text>}
                 </View>
             </View>
         );

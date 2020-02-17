@@ -18,7 +18,12 @@ class Header extends Component {
         return(
             <View style={drawerComponent.header}>
                 <Image source={menderLogo} style={styles.imageRightNavLogo} />
-                <Text style={drawerComponent.name}>{this.props.user.firstName} {this.props.user.lastName}</Text>
+                {
+                    this.props.user && 
+                        <Text style={drawerComponent.name}>
+                            {this.props.user.firstName} {this.props.user.lastName}
+                        </Text>
+                }          
                 <View style={drawerComponent.buttonGroup}>
                     <View style={drawerComponent.buttonContainer}>
                         <Button
