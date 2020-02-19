@@ -10,11 +10,14 @@ const drawerComponent = StyleSheet.create({
     header: {
         flex: 0.5,
         alignItems: 'center',
-        marginTop: '3%'
+        marginTop: '1%'
     },
     logo: {
         height: 50, 
         width: 50, 
+    },
+    name: {
+        fontWeight: '300'
     },
     properties: {
         flex: 1.5,

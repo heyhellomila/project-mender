@@ -44,7 +44,7 @@ const ChangeNameComponent = (props) => {
                             <TouchableOpacity
                                 style={((props.submitting && props.validateNameFields()) || !props.validateNameFields()) ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
                                 disabled={props.submitting || !props.validateNameFields()}
-                                onPress={() => props.handleUpdate()}><Text>Confirm</Text></TouchableOpacity>
+                                onPress={() => {props.handleUpdate()}}><Text>Confirm</Text></TouchableOpacity>
                         </View>
                         <View style={changeProfileComponentStyles.changeProfileBackButton}>
                             <TouchableOpacity

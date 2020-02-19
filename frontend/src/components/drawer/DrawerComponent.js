@@ -24,7 +24,7 @@ class DrawerComponent extends Component {
     render() {
         return (
             <SafeAreaView style={drawerComponent.container}>
-                <Header {...this.props}/>
+                <Header/>
                 <PropertyComponent {...this.props}/>
                 <ScrollView style={{flex: 2}}>
                     <DrawerItems {...this.props}/>
@@ -38,6 +38,7 @@ class DrawerComponent extends Component {
 const mapDispatchToProps = dispatch => ({
     userLogout: () => dispatch(userLogout())
 });
+
 const mapStateToProps = state => ({
     user: state.user,
     property: state.property

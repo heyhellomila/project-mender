@@ -41,7 +41,8 @@ class ProfilePage extends Component {
             loading: false,
             submitting: false,
             emptyField: false,
-            navigation: this.props.navigation
+            navigation: this.props.navigation,
+            isSearchVisible: false
         }
     }
 
@@ -292,7 +293,7 @@ class ProfilePage extends Component {
             await updateUser(user.id, this.getUpdatedFields())
                 .then(() => {
                     this.props.reloadUserProfile(true, user);
-                });
+                })
         } catch (err) {
             if (err.message === '401') {
                 this.setState({
@@ -310,21 +311,23 @@ class ProfilePage extends Component {
     };
 
     async getUpdatedProfile() {
-        await getUser(this.state.user.id).then((response) => {
-            this.props.reloadUserProfile(false, response.data);
-            alert("Profile Updated")
-            this.setState({
-                page: "profilePage",
-                user: response.data,
-                loading: false
+        await getUser(this.state.user.id)
+            .then((response) => {
+                this.props.reloadUserProfile(false, response.data);
+                alert("Profile Updated")
+                this.setState({
+                    page: "profilePage",
+                    user: response.data,
+                    loading: false
+                })
             })
-        })
     }
 
     render() {
         return (
             <ProfilePageForm
                 {...this.state}
+                {...this.props}
                 handleUpdate={this.handleUpdate}
                 handleFirstNameChange={this.handleFirstNameChange}
                 handleLastNameChange={this.handleLastNameChange}
@@ -350,7 +353,7 @@ class ProfilePage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
+    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user))
 });
 
 const mapStateToProps = (state) => ({

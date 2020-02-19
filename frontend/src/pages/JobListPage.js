@@ -2,11 +2,11 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
 import { reloadWorkOrders } from '../redux/actions';
+import SearchComponent from '../components/SearchComponent'
 
 class JobListPage extends React.Component {
 
@@ -117,7 +117,7 @@ class JobListPage extends React.Component {
                 this.props.finishReloadingWorkOrders();
             })
         }
-        if (this.props.property !== prevProps.property) {
+        if (this.props.property !== prevProps.property && this.props.user === prevProps.user) {
             this.setState({
                 data: [],
                 loading: false,
@@ -602,7 +602,7 @@ class JobListPage extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <CommonHeader user={this.state.user} />
+                <SearchComponent/>
                 <JobListComponent {...this.state} 
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}
