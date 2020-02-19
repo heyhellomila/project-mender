@@ -40,6 +40,10 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
     async createWorkOrder(workOrder: WorkOrder) {
         return await this.getRepositoryConnection(WorkOrder).save(workOrder);
     }
+
+    async updateWorkOrderById(id: number, workOrder: WorkOrder) {
+        await this.getRepositoryConnection(WorkOrder).update({ id }, workOrder);
+    }
 }
 
 export { WorkOrderRepository };

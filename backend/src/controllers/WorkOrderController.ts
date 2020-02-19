@@ -32,4 +32,15 @@ workOrderController.get('/:id', auth, async(req: Request, res: Response) => {
     }
 });
 
+workOrderController.patch('/:id', auth, async(req: Request, res: Response) => {
+    try {
+        const workOrderDTO : WorkOrderDTO = req.body as WorkOrderDTO;
+        await workOrderService.updateWorkOrderById(
+            Number(req.params.id), workOrderMapper.fromDTO(workOrderDTO));
+        return res.status(204).end();
+    } catch (err) {
+        return handleError(err, res);
+    }
+});
+
 export { workOrderController };

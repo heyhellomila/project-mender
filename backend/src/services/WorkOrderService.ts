@@ -14,6 +14,7 @@ import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
+import { UserService } from './UserService';
 
 class WorkOrderService {
 
@@ -21,6 +22,7 @@ class WorkOrderService {
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
     private businessUserService: BusinessUserService = new BusinessUserService();
+    private userService: UserService = new UserService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
@@ -142,74 +144,74 @@ class WorkOrderService {
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'property', '=',
-                                    queryMap.get(WorkOrderQuery.PROPERTYID));
+                                     'property', '=',
+                                     queryMap.get(WorkOrderQuery.PROPERTYID));
         }
         if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'sector',
-                                    'type', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'sector',
-                                    'kind', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
+                                     'kind', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'workOrderType',
-                                    'type', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}\'`);
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'serviceNeeded', '=',
-                                    queryMap.get(WorkOrderQuery.SERVICENEEDED));
+                                     'serviceNeeded', '=',
+                                     queryMap.get(WorkOrderQuery.SERVICENEEDED));
         }
         if (queryMap.get(WorkOrderQuery.EMERGENCY)) {
             filterQueries += this.
             createSQLFilterQuery(filterQueries, 'work_orders',
-                'emergency', '=',
-                queryMap.get(WorkOrderQuery.EMERGENCY));
+                                 'emergency', '=',
+                                 queryMap.get(WorkOrderQuery.EMERGENCY));
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'priorityType',
-                                    'type', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}\'`);
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'priceEstimate', '=',
-                                    queryMap.get(WorkOrderQuery.PRICEESTIMATE));
+                                     'priceEstimate', '=',
+                                     queryMap.get(WorkOrderQuery.PRICEESTIMATE));
         }
         if (queryMap.get(WorkOrderQuery.BOOKMARKED)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'bookmarked', '=',
-                                    queryMap.get(WorkOrderQuery.BOOKMARKED));
+                                     'bookmarked', '=',
+                                     queryMap.get(WorkOrderQuery.BOOKMARKED));
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERSTATUS)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'workOrderStatus',
-                                    'status', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.WORKORDERSTATUS)}\'`);
+                                     'status', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.WORKORDERSTATUS)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
-                                    queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
+                                     queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
+                                     queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
-                                    queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
+                                     queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
+                                     queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
         }
         return filterQueries;
     }
@@ -231,6 +233,88 @@ class WorkOrderService {
             throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }
         return workOrder;
+    }
+    async updateWorkOrderById(id: number, workOrderObj: WorkOrder) {
+        const workOrder = new WorkOrder();
+        await this.getWorkOrder(id);
+
+        if (workOrderObj.property != null) {
+            workOrder.property = await this.propertyService
+                .getPropertyById(workOrderObj.property.id);
+        }
+        if (workOrderObj.sector != null) {
+            workOrder.sector = await this.sectorService
+                .getSectorByKind(workOrderObj.sector.kind);
+        }
+        if (workOrderObj.workOrderType != null) {
+            workOrder.workOrderType = await this.workOrderTypeService
+                .getWorkOrderType(workOrderObj.workOrderType.type);
+        }
+        if (workOrderObj.title != null) {
+            workOrder.title = workOrderObj.title;
+        }
+        if (workOrderObj.cause != null) {
+            workOrder.cause = workOrderObj.cause;
+        }
+        if (workOrderObj.serviceNeeded != null) {
+            workOrder.serviceNeeded = workOrderObj.serviceNeeded;
+        }
+        if (workOrderObj.priorityType != null) {
+            workOrder.priorityType = await this.priorityTypeService
+                .getPriorityType(workOrderObj.priorityType.type);
+        }
+        if (workOrderObj.dueDate != null) {
+            workOrder.dueDate = workOrderObj.dueDate;
+        }
+        // This part may be optional since createdDate shouldn't ever need a reason to be changed
+        if (workOrderObj.createdDate != null) {
+            workOrder.createdDate = workOrderObj.createdDate;
+        }
+        if (workOrderObj.createdBy != null) {
+            workOrder.createdBy = await this.userService.getUser(workOrderObj.createdBy.id);
+        }
+        // This shouldn't be null on an update, so maybe even consider throwing an exception
+        // if it's null
+        if (workOrderObj.lastModifiedDate != null) {
+            workOrder.lastModifiedDate = workOrderObj.lastModifiedDate;
+        }
+        // Again this shouldn't be null on an update, so maybe even consider throwing an exception
+        // if it's null
+        if (workOrderObj.lastModifiedBy != null) {
+            workOrder.lastModifiedBy = await this.userService
+               .getUser(workOrderObj.lastModifiedBy.id);
+        }
+        if (workOrderObj.dateCompleted != null) {
+            workOrder.dateCompleted = workOrderObj.dateCompleted;
+        }
+        if (workOrderObj.priceEstimate != null) {
+            workOrder.priceEstimate = workOrderObj.priceEstimate;
+        }
+        if (workOrderObj.actualCost != null) {
+            workOrder.actualCost = workOrderObj.actualCost;
+        }
+        if (workOrderObj.bookmarked != null) {
+            workOrder.bookmarked = workOrderObj.bookmarked;
+        }
+        if (workOrderObj.workOrderStatus != null) {
+            workOrder.workOrderStatus = await this.workOrderStatusService
+                .getWorkOrderStatus(workOrderObj.workOrderStatus.status);
+        }
+        if (workOrderObj.contractedBy != null) {
+            workOrder.contractedBy = await this.businessUserService
+                .getBusinessUserByBusinessIdAndUserId(workOrderObj.contractedBy.business.id,
+                                                      workOrderObj.contractedBy.id);
+        }
+        if (workOrderObj.location != null) {
+            workOrder.location = workOrderObj.location;
+        }
+        if (workOrderObj.emergency != null) {
+            workOrder.emergency = workOrderObj.emergency;
+        }
+        if (workOrderObj.notification != null) {
+            workOrder.notification = workOrderObj.notification;
+        }
+        return await this.workOrderRepository.updateWorkOrderById(id, workOrder);
     }
 }
 
