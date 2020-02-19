@@ -13,15 +13,13 @@ class DrawerComponent extends Component {
         super(props);
         this.state = {
             loggingOut: false,
-            user: props.user.user,
-            property: props.property
         }
     }
 
     handleLogout = async () => {
         await this.props.userLogout();
         this.props.navigation.navigate('LogInPage')
-    }
+    };
 
     render() {
         return (

@@ -21,6 +21,6 @@ const PropertyListComponent = (props) => {
             ))}
         </View>
     );
-}
+};
 
 export default PropertyListComponent;

@@ -23,7 +23,7 @@ class Header extends Component {
                         <Text style={drawerComponent.name}>
                             {this.props.user.firstName} {this.props.user.lastName}
                         </Text>
-                }          
+                }  
                 <View style={drawerComponent.buttonGroup}>
                     <View style={drawerComponent.buttonContainer}>
                         <Button
