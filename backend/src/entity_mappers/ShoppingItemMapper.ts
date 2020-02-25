@@ -9,7 +9,7 @@ class ShoppingItemMapper implements ObjectMapper<ShoppingItem, ShoppingItemDTO> 
     toDTO(shoppingItem: ShoppingItem) : ShoppingItemDTO {
         const shoppingItemDTO : ShoppingItemDTO = new ShoppingItemDTO();
         shoppingItemDTO.id = shoppingItem.id;
-        if(shoppingItem.workOrder) {
+        if (shoppingItem.workOrder) {
             shoppingItemDTO.workOrder = this.workOrderMapper.toDTO(shoppingItem.workOrder);
         }
         shoppingItemDTO.name = shoppingItem.name;

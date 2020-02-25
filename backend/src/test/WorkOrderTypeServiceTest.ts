@@ -1,6 +1,6 @@
 import 'mocha';
 import { equal } from 'assert';
-import {anyString, anything, instance, mock, verify, when} from 'ts-mockito';
+import { anyString, instance, mock, verify, when } from 'ts-mockito';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { WorkOrderTypeService } from '../services/WorkOrderTypeService';
 import { WorkOrderTypeRepository } from '../repositories/WorkOrderTypeRepository';

@@ -1,4 +1,4 @@
-import {HttpError} from './HttpError';
+import { HttpError } from './HttpError';
 
 class BadRequestError extends HttpError {
     constructor(message: string) {
@@ -7,4 +7,4 @@ class BadRequestError extends HttpError {
     }
 }
 
-export {BadRequestError};
+export { BadRequestError };

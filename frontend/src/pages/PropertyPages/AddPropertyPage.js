@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
 import { postcodeValidator } from 'postcode-validator';
 import { CountryCode } from '../../constants/enums/CountryCode';
 import { Province } from '../../constants/enums/Province';

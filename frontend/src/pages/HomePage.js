@@ -7,7 +7,7 @@ import SearchComponent from '../components/SearchComponent'
 class HomePage extends React.Component {
     static navigationOptions = {
         title: 'Home'
-    }
+    };
     constructor(props) {
         super(props);
         this.state = {

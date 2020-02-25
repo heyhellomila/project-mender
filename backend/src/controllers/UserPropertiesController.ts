@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import { PropertyService } from '../services/PropertyService';
 import { PropertyDTO } from '../dtos/PropertyDTO';
 import { PropertyMapper } from '../entity_mappers/PropertyMapper';
@@ -6,12 +6,10 @@ import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
 import { PROPERTY_FIELDS } from '../constants/BodyFields';
-import { ActivityStatusMapper } from '../entity_mappers/ActivityStatusMapper';
 
 const userPropertiesController = express.Router({ mergeParams: true });
 const propertyService = new PropertyService();
 const propertyMapper = new PropertyMapper();
-const activityStatusMapper = new ActivityStatusMapper();
 
 userPropertiesController.post(
     '/', auth, validateBody(PROPERTY_FIELDS.createFields), async (req: Request, res: Response) => {

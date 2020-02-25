@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { BadRequestError } from '../errors/BadRequestError';
 import { LicenseType as LicenseTypeEnum } from '../enums/LicenseType';

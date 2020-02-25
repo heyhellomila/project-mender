@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 
 const backArrow = require('../../../assets/Back_arrow.png');
 const nextArrow = require('../../../assets/Front_arrow.png');
-const info = require('../../../assets/Information.png');
+// const info = require('../../../assets/Information.png');
 
 const Footer = (props) => {
     return(

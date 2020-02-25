@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { Image, View, Text, TouchableHighlight, SafeAreaViewComponent } from 'react-native';
+import { Image, View } from 'react-native';
 import React from 'react';
 import BottomNavigator from './BottomNavigator';
 import CreateWorkOrderPage from '../pages/CreateWorkOrderPage';
@@ -13,7 +13,7 @@ import HeaderButton from '../components/HeaderButton';
 import { styles, headerStyles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
 
-const menderLogo = require('../../assets/mender_logo_no_text.jpg')
+const menderLogo = require('../../assets/mender_logo_no_text.jpg');
 
 //Navigator for top header
 const BottomStackNavigatorRoot = createStackNavigator({
@@ -45,7 +45,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
             )
         }
     }
-})
+});
 
 //navigator at root level for Work Order Modal
 const RootNavigator = createStackNavigator({
@@ -58,7 +58,7 @@ const RootNavigator = createStackNavigator({
 },{
     headerMode: 'none',
     mode: 'modal',
-})
+});
 const BottomStackNavigator = createAppContainer(RootNavigator);
 
 export default BottomStackNavigator;

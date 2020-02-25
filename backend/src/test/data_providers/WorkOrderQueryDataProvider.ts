@@ -1,9 +1,9 @@
 import { WorkOrderQuery } from '../../enums/WorkOrderQueryEnum';
-import {SectorType} from "../../enums/SectorType";
-import {SectorKind} from "../../enums/SectorKind";
-import {WorkOrderType} from "../../enums/WorkOrderType";
-import {PriorityType} from "../../enums/PriorityType";
-import {WorkOrderStatus} from "../../enums/WorkOrderStatusEnum";
+import { SectorType } from '../../enums/SectorType';
+import { SectorKind } from '../../enums/SectorKind';
+import { WorkOrderType } from '../../enums/WorkOrderType';
+import { PriorityType } from '../../enums/PriorityType';
+import { WorkOrderStatus } from '../../enums/WorkOrderStatusEnum';
 
 class WorkOrderQueryDataProvider {
 
@@ -31,4 +31,3 @@ class WorkOrderQueryDataProvider {
 }
 
 export { WorkOrderQueryDataProvider };
-

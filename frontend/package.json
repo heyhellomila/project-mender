@@ -60,7 +60,8 @@
     "validator": "^12.0.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^8.0.0"
+    "babel-preset-expo": "^8.0.0",
+    "react-native-vector-icons": "^6.6.0"
   },
   "private": true
 }

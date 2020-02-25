@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity} from 'react-native';
 import { textInputStyles, buttonStyles, containerStyles, changeProfileComponentStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ChangeEmailComponent = (props) => {
@@ -40,22 +40,22 @@ const ChangeEmailComponent = (props) => {
                     </View>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
                         {!props.validEmailMatch &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Emails must match.</Text>
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Emails must match.</Text>
                         }
                         {!props.validEmail &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Please enter a valid email.</Text>
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Please enter a valid email.</Text>
                         }
                         {!props.validAuth &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Incorrect password.</Text>
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Incorrect password.</Text>
                         }
                         {!props.validConfirmPassword &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Password can't be empty.</Text>
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Password can't be empty.</Text>
                         }
                         {!props.emailNotAlreadyUsed &&
-                        <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Email already in use.</Text>
+                            <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Email already in use.</Text>
                         }
                     </View>
-                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}></View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}/>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
                             <TouchableOpacity style={props.submitting ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
@@ -74,6 +74,6 @@ const ChangeEmailComponent = (props) => {
             </View>
         </View>
     );
-}
+};
 
 export default ChangeEmailComponent;

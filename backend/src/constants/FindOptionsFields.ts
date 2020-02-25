@@ -5,7 +5,6 @@ import { WorkOrder } from '../entities/WorkOrder';
 import { License } from '../entities/License';
 import { PropertySector } from '../entities/PropertySector';
 import { BusinessUser } from '../entities/BusinessUser';
-import { Business } from '../entities/Business';
 import { ShoppingItem } from 'src/entities/ShoppingItem';
 
 const PROPERTY_FIELDS : FindOptions<Property> = {
@@ -70,7 +69,7 @@ const USER_FOR_UPDATE_FIELDS : FindOptions<User> = {
     },
 };
 
-const WorkOrderFields : FindOptions<WorkOrder> = {
+const WORK_ORDER_FIELDS : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy',
         'lastModifiedBy', 'property', 'workOrderStatus', 'contractedBy'],
     select: {
@@ -120,7 +119,7 @@ const WorkOrderFields : FindOptions<WorkOrder> = {
     },
 };
 
-const WorkOrderFieldsNoProperty : FindOptions<WorkOrder> = {
+const WORK_ORDER_FIELDS_NO_PROPERTY : FindOptions<WorkOrder> = {
     relations: ['workOrderType', 'priorityType', 'sector', 'createdBy', 'lastModifiedBy', 'workOrderStatus'],
     select: {
         id: true,
@@ -267,8 +266,8 @@ const BUSINESS_USER_FIELDS_NO_BUSINESS : FindOptions<BusinessUser> = {
     },
 };
 
-export { PROPERTY_FIELDS, USER_FIELDS, WorkOrderFields, PROPERTY_FIELDS_NO_USER,
-    WorkOrderFieldsNoProperty, SHOPPING_ITEM_FIELDS,
+export { PROPERTY_FIELDS, USER_FIELDS, WORK_ORDER_FIELDS, PROPERTY_FIELDS_NO_USER,
+    WORK_ORDER_FIELDS_NO_PROPERTY, SHOPPING_ITEM_FIELDS,
     SHOPPING_ITEM_FIELDS_NO_WORK_ORDER, PROPERTY_SECTOR_FIELDS, USER_FOR_UPDATE_FIELDS,
     LICENSE_FIELDS_NO_USER, BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER,
     BUSINESS_USER_FIELDS_NO_BUSINESS };

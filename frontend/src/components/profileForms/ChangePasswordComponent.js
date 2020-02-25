@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import {textInputStyles, buttonStyles, containerStyles, changeProfileComponentStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ChangePasswordComponent = (props) => {
@@ -56,7 +56,7 @@ const ChangePasswordComponent = (props) => {
                         <Text style={changeProfileComponentStyles.changeProfileInvalidText}>Can't use previous password as the new password.</Text>
                         }
                     </View>
-                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}></View>
+                    <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}/>
                     <View style={changeProfileComponentStyles.changeProfileInsideComponentNormalRows}>
                         <View style={changeProfileComponentStyles.changeProfileConfirmButton}>
                             <TouchableOpacity style={props.submitting ? buttonStyles.buttonConfirmDisabled : buttonStyles.buttonConfirm}
@@ -75,6 +75,6 @@ const ChangePasswordComponent = (props) => {
             </View>
         </View>
     );
-}
+};
 
 export default ChangePasswordComponent;

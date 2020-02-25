@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
 import SearchComponent from '../components/SearchComponent'
-import Search from 'react-native-search-box';
 
 class JobListPage extends React.Component {
     static navigationOptions = {
@@ -18,26 +17,6 @@ class JobListPage extends React.Component {
             user: props.user.user,
             displayModal: false,
         }
-    }
-
-    openModal() {
-        this.setState(prevState => {
-            return {
-                displayModal: true
-            }
-        });
-    }
-
-    closeModal = () => {
-        this.setState(prevState => {
-            return {
-                displayModal: false
-            }
-        })
-    }
-
-    openWorkModal = () => {
-        this.openModal();
     }
 
     render() {

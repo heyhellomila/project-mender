@@ -24,7 +24,7 @@ const containerStyles = StyleSheet.create({
         justifyContent: 'center', 
         alignItems: 'center'
     }
-})
+});
 
 const profilePageStyles = StyleSheet.create({
     profilePageRows:{
@@ -70,7 +70,7 @@ const profilePageStyles = StyleSheet.create({
         flex: 2, 
         justifyContent:'center'
     }
-})
+});
 
 const changeProfileComponentStyles = StyleSheet.create({
     changeProfileInsideComponent:{
@@ -113,17 +113,7 @@ const changeProfileComponentStyles = StyleSheet.create({
         textDecorationLine: 'underline',
         fontWeight: 'bold'
     }
-})
-
-const titleStyles = StyleSheet.create({
-    title: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-    },
-})
+});
 
 const textInputStyles = StyleSheet.create({
   textInput:{
@@ -148,7 +138,7 @@ const textInputStyles = StyleSheet.create({
       paddingVertical: '2%',
       borderRadius: 4
   }
-})
+});
 
 const buttonStyles = StyleSheet.create({
     bottomButtonsRow:{
@@ -187,7 +177,7 @@ const buttonStyles = StyleSheet.create({
         shadowOffset: { height: 10, width: 0 },
         shadowRadius: 20
     }
-})
+});
 
 const imageStyles = StyleSheet.create({
     imageView:{
@@ -203,6 +193,6 @@ const imageStyles = StyleSheet.create({
         height: 75, 
         borderRadius: 75/2
     }
-})
+});
 
-export { titleStyles, textInputStyles, buttonStyles, imageStyles, containerStyles, profilePageStyles, changeProfileComponentStyles };
+export { textInputStyles, buttonStyles, imageStyles, containerStyles, profilePageStyles, changeProfileComponentStyles };

@@ -6,7 +6,6 @@ import { SectorRepository } from '../repositories/SectorTypeRepository';
 import { SectorService } from '../services/SectorService';
 import { Sector } from '../entities/Sector';
 import { SectorDataProvider } from './data_providers/SectorDataProvider';
-import {SectorKind} from "../enums/SectorKind";
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');

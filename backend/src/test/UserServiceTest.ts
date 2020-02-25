@@ -37,7 +37,6 @@ describe('User Service Test', () => {
     const user : User = UserDataProvider.getUser(1);
     const userType : UserType = UserTypeDataProvider.getUserType(1, UserTypeEnum.HOMEOWNER);
     const email : string = 'test@gmail.com';
-    const userDoesNotExistString : string = 'User does not exist';
     const validPassword : string = 'validPassword123';
     const hashedPassword : string = 'hashed-password';
     const invalidPassword : string = '123';

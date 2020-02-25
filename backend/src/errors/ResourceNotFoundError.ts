@@ -1,4 +1,4 @@
-import {HttpError} from './HttpError';
+import { HttpError } from './HttpError';
 
 class ResourceNotFoundError extends HttpError {
     constructor(message: string) {
@@ -7,4 +7,4 @@ class ResourceNotFoundError extends HttpError {
     }
 }
 
-export {ResourceNotFoundError};
+export { ResourceNotFoundError };

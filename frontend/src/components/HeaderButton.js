@@ -9,11 +9,7 @@ class HeaderButton extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.user == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return nextProps.user != null;
     }
 
     render() {

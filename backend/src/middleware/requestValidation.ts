@@ -4,7 +4,7 @@ import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 export const validateBody = (parameters: any) => (
     req: Request, res: Response, next: NextFunction) => {
     const missingParameters = new Set();
-    let errorString = '';
+    let errorString: string;
     if (Array.isArray(req.body)) {
         for (const object of req.body) {
             for (const parameter of parameters) {

@@ -12,7 +12,7 @@ const Header = (props) => {
                 </View>
                 <View style={headerStyles.closeButton}>
                     <TouchableOpacity style={headerStyles.closeButton} onPress={() => props.navigation.goBack(null)}>
-                        <Image style={headerStyles.closeButtonImage} source={x}></Image>
+                        <Image style={headerStyles.closeButtonImage} source={x}/>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -1,7 +1,6 @@
 import { ObjectMapper } from './ObjectMapper';
 import { Sector } from '../entities/Sector';
 import { SectorDTO } from '../dtos/SectorDTO';
-import { SectorType as SectorTypeEnum } from '../enums/SectorType';
 import { SectorKind as SectorKindEnum } from '../enums/SectorKind';
 import { BadRequestError } from '../errors/BadRequestError';
 

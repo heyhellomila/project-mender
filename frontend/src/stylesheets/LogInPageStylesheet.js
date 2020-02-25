@@ -1,4 +1,4 @@
-import { StyleSheet, PixelRatio, Dimensions, StatusBar, Platform } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native';
 
 const logInPageStyles = StyleSheet.create({
     container:{

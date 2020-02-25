@@ -49,11 +49,10 @@ const propertyReducer = (state = {
 const workOrderReducer = (state = {
     reloadWorkOrders: false
 }, action) => {
-    switch (action.type) {
-        case 'RELOAD_WORK_ORDERS':
-            return { ...state, reloadWorkOrders: action.reloadWorkOrders };
-        default:
-            return state;
+    if (action.type === 'RELOAD_WORK_ORDERS') {
+        return { ...state, reloadWorkOrders: action.reloadWorkOrders };
+    } else {
+        return state;
     }
 };
 
