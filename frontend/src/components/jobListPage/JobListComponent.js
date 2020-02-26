@@ -12,7 +12,7 @@ const JobListComponent = (props) => {
                 <FlatList
                     data={props.data}
                     renderItem={ ({item}) => (
-                        <CardComponent {...item} />
+                        <CardComponent {...item} deleteWorkOrder={props.deleteWorkOrder} />
                     )}
                     keyExtractor={(item, index) => index.toString()}
                     ListHeaderComponent={<Header {...props} />} 

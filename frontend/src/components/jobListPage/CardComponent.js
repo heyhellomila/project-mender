@@ -130,12 +130,14 @@ const CardComponent = (props) => {
                                     type='outline'
                                     buttonStyle={buttonStyles.editButton}
                                     titleStyle={buttonStyles.buttonTitle}
+                                    // onPress={}
                                 />
                                 <Button
                                     title='Remove'
                                     type='outline'
                                     buttonStyle={buttonStyles.removeButton}
                                     titleStyle={buttonStyles.buttonTitle}
+                                    onPress={() => props.deleteProperty(props.id)}
                                 />
                             </View>
                         </Card> 

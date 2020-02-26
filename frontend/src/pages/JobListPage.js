@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import {Alert, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../stylesheets/Stylesheet';
 import CommonHeader from '../components/CommonHeader';
@@ -7,6 +7,8 @@ import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
 import { reloadWorkOrders } from '../redux/actions';
+import {updateWorkOrderById} from "../apis/workOrders/updateWorkOrderById";
+import {WorkOrderStatus} from "../constants/enums/WorkOrderStatus";
 
 class JobListPage extends React.Component {
 
@@ -179,7 +181,10 @@ class JobListPage extends React.Component {
             this.state.greaterThan, this.state.greaterThanValue, this.state.lowerThan, this.state.lowerThanValue)
         .then((response) => {
             this.setState({
-                workOrders: response.data.map((workOrder) => ({
+                workOrders: response.data.filter((workOrder) =>
+                    workOrder.workOrderStatus !== WorkOrderStatus.CANCELLED ||
+                    workOrder.workOrderStatus !== WorkOrderStatus.COMPLETED)
+                    .map((workOrder) => ({
                     id: workOrder.id,
                     title: workOrder.title,
                     cause: workOrder.cause,
@@ -597,7 +602,21 @@ class JobListPage extends React.Component {
                 isSorting: true, 
                 lastPage: false
             })
-    }
+    };
+
+    deleteWorkOrder = async(workOrderId) => {
+        Alert.alert('Delete Work Order',
+            `Are you sure you want to delete this Work Order?`,
+            [
+                {text: 'Cancel', onPress: () => {}},
+                {text: 'Delete', onPress: () => this.confirmDeleteWorkOrder(workOrderId)}
+            ]);
+    };
+
+    confirmDeleteWorkOrder = async(workOrderId) => {
+        await updateWorkOrderById(workOrderId,
+            {workOrderStatus: WorkOrderStatus.CANCELLED});
+    };
 
     render() {
         return (
@@ -631,6 +650,7 @@ class JobListPage extends React.Component {
                     handleApplySectorFilter={this.handleApplySectorFilter}
                     handleApplyTypeFilter={this.handleApplyTypeFilter}
                     handleApplyStatusFilter={this.handleApplyStatusFilter}
+                    deleteWorkOrder={this.deleteWorkOrder}
                 />
             </ScrollView>
         );
