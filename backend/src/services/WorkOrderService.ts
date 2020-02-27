@@ -8,7 +8,7 @@ import { WorkOrderStatusService } from './WorkOrderStatusService';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
+import { WORK_ORDER_FIELDS, WORK_ORDER_FIELDS_NO_PROPERTY } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
 import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
@@ -90,7 +90,7 @@ class WorkOrderService {
         }
         try {
             return await this.workOrderRepository.getWorkOrdersByProperty(
-                property, WorkOrderFieldsNoProperty);
+                property, WORK_ORDER_FIELDS_NO_PROPERTY);
         } catch (err) {
             throw err;
         }
@@ -228,7 +228,7 @@ class WorkOrderService {
 
     async getWorkOrder(id: number) {
         const workOrder: WorkOrder = await this.workOrderRepository.
-                                                    getWorkOrderById(id, WorkOrderFields);
+                                                    getWorkOrderById(id, WORK_ORDER_FIELDS);
         if (!workOrder) {
             throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }

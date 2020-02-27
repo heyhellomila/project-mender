@@ -248,8 +248,8 @@ const buttonStyles = StyleSheet.create({
     },
     completedButton: {
         borderRadius: 20,
-        borderColor: '#a1d19b',
-        backgroundColor: '#a1d19b',
+        borderColor: '#66e856',
+        backgroundColor: '#66e856',
         marginRight: '5%'
     },
     removeButton: {

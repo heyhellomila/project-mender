@@ -121,9 +121,11 @@ const CardComponent = (props) => {
                                 <Button
                                     title='Completed'
                                     type='outline'
-                                    disabled={true}
+                                    disabled={false}
+                                    buttonStyle={buttonStyles.completedButton}
                                     disabledStyle={buttonStyles.completedButton}
                                     titleStyle={buttonStyles.buttonTitle}
+                                    onPress={() => props.completeWorkOrder(props.id)}
                                 />
                                 <Button
                                     title='Edit'
@@ -137,7 +139,7 @@ const CardComponent = (props) => {
                                     type='outline'
                                     buttonStyle={buttonStyles.removeButton}
                                     titleStyle={buttonStyles.buttonTitle}
-                                    onPress={() => props.deleteProperty(props.id)}
+                                    onPress={() => props.deleteWorkOrder(props.id)}
                                 />
                             </View>
                         </Card> 

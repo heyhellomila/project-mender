@@ -182,22 +182,25 @@ class JobListPage extends React.Component {
         .then((response) => {
             this.setState({
                 workOrders: response.data.filter((workOrder) =>
-                    workOrder.workOrderStatus !== WorkOrderStatus.CANCELLED ||
-                    workOrder.workOrderStatus !== WorkOrderStatus.COMPLETED)
+                    workOrder.workOrderStatus.status !== WorkOrderStatus.CANCELLED &&
+                    workOrder.workOrderStatus.status !== WorkOrderStatus.COMPLETED)
                     .map((workOrder) => ({
-                    id: workOrder.id,
-                    title: workOrder.title,
-                    cause: workOrder.cause,
-                    notification: workOrder.notification,
-                    location: workOrder.location,
-                    type: workOrder.workOrderType.type,
-                    priority: workOrder.priorityType.type,
-                    sectorType: workOrder.sector.type,
-                    sectorKind: workOrder.sector.kind,
-                    dueDate: workOrder.dueDate,
-                    createdDate: workOrder.createdDate,
-                    serviceNeeded: workOrder.serviceNeeded,
-                    status: workOrder.workOrderStatus.status
+                        id: workOrder.id,
+                        title: workOrder.title,
+                        cause: workOrder.cause,
+                        notification: workOrder.notification,
+                        location: workOrder.location,
+                        type: workOrder.workOrderType.type,
+                        priority: workOrder.priorityType.type,
+                        sectorType: workOrder.sector.type,
+                        sectorKind: workOrder.sector.kind,
+                        dueDate: workOrder.dueDate,
+                        createdDate: workOrder.createdDate,
+                        lastModifiedDate: workOrder.lastModifiedDate,
+                        lastModifiedBy: workOrder.lastModifiedBy,
+                        dateCompleted: workOrder.dateCompleted,
+                        serviceNeeded: workOrder.serviceNeeded,
+                        status: workOrder.workOrderStatus.status
                     }))
             });
         })
@@ -615,7 +618,35 @@ class JobListPage extends React.Component {
 
     confirmDeleteWorkOrder = async(workOrderId) => {
         await updateWorkOrderById(workOrderId,
-            {workOrderStatus: WorkOrderStatus.CANCELLED});
+            { workOrderStatus: WorkOrderStatus.CANCELLED,
+                        lastModifiedDate: new Date(),
+                        lastModifiedBy: {id : this.state.user.id}
+            });
+        this.setState({
+            data: []
+        });
+        this.getListOfWorkOrders();
+    };
+
+    completeWorkOrder = async(workOrderId) => {
+        Alert.alert('Complete Work Order',
+            `Are you sure you want to complete this Work Order?`,
+            [
+                {text: 'Cancel', onPress: () => {}},
+                {text: 'Complete', onPress: () => this.confirmCompleteWorkOrder(workOrderId)}
+            ]);
+    };
+
+    confirmCompleteWorkOrder = async(workOrderId) => {
+        await updateWorkOrderById(workOrderId,
+            { workOrderStatus: WorkOrderStatus.COMPLETED,
+                dateCompleted: new Date(),
+                lastModifiedBy: {id : this.state.user.id}
+            });
+        this.setState({
+            data: []
+        });
+        this.getListOfWorkOrders();
     };
 
     render() {
@@ -651,6 +682,7 @@ class JobListPage extends React.Component {
                     handleApplyTypeFilter={this.handleApplyTypeFilter}
                     handleApplyStatusFilter={this.handleApplyStatusFilter}
                     deleteWorkOrder={this.deleteWorkOrder}
+                    completeWorkOrder={this.completeWorkOrder}
                 />
             </ScrollView>
         );
