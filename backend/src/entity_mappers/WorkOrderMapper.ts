@@ -12,6 +12,7 @@ import { WorkOrderTypeDTO } from '../dtos/WorkOrderTypeDTO';
 import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
 import { BusinessUserMapper } from './BusinessUserMapper';
 import { WorkOrderStatusDTO } from '../dtos/WorkOrderStatusDTO';
+import {UserDTO} from "../dtos/UserDTO";
 
 class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
@@ -69,7 +70,6 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
     fromDTO(workOrderDTO: WorkOrderDTO) : WorkOrder {
         const workOrder : WorkOrder = new WorkOrder();
-
         workOrder.id = workOrderDTO.id;
         workOrder.title = workOrderDTO.title;
         workOrder.cause = workOrderDTO.cause;
@@ -83,6 +83,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrder.priceEstimate = workOrderDTO.priceEstimate;
         workOrder.actualCost = workOrderDTO.actualCost;
         workOrder.bookmarked = workOrderDTO.bookmarked;
+        workOrder.lastModifiedDate = workOrderDTO.lastModifiedDate;
 
         if (workOrderDTO.sectorKind) {
             workOrder.sector = this.sectorMapper.fromDTO(
@@ -99,6 +100,10 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         if (workOrderDTO.workOrderStatus) {
             workOrder.workOrderStatus = this.workOrderStatusMapper.fromDTO(
                 new WorkOrderStatusDTO(workOrderDTO.workOrderStatus as string));
+        }
+        if (workOrderDTO.lastModifiedBy) {
+            workOrder.lastModifiedBy = this.userMapper.fromDTO(
+                new UserDTO(workOrderDTO.lastModifiedBy.id as number));
         }
 
         return workOrder;

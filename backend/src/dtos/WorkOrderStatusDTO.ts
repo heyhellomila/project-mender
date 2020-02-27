@@ -1,5 +1,5 @@
 export class WorkOrderStatusDTO {
-    
+
     id: number;
     status: string;
 

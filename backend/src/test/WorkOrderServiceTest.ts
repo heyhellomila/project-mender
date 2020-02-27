@@ -14,7 +14,7 @@ import { WorkOrderDataProvider } from './data_providers/WorkOrderDataProvider';
 import { equal } from 'assert';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { BadRequestError } from '../errors/BadRequestError';
-import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
+import { WORK_ORDER_FIELDS, WORK_ORDER_FIELDS_NO_PROPERTY } from '../constants/FindOptionsFields';
 import { WorkOrderQueryDataProvider } from './data_providers/WorkOrderQueryDataProvider';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 
@@ -218,7 +218,7 @@ describe('Work Order Service Test', () => {
         const fetchedWorkOrders = await workOrderService.getWorkOrdersByPropertyId(property.id);
         verify(propertyServiceMock.getPropertyById(property.id)).called();
         verify(workOrderRepositoryMock.
-            getWorkOrdersByProperty(property, WorkOrderFieldsNoProperty)).called();
+            getWorkOrdersByProperty(property, WORK_ORDER_FIELDS_NO_PROPERTY)).called();
         equal(fetchedWorkOrders, workOrders);
     });
 
@@ -287,7 +287,7 @@ describe('Work Order Service Test', () => {
         when(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).
             thenResolve(workOrder);
         const fetchedWorkOrder = await workOrderService.getWorkOrder(workOrder.id);
-        verify(workOrderRepositoryMock.getWorkOrderById(workOrder.id, WorkOrderFields)).called();
+        verify(workOrderRepositoryMock.getWorkOrderById(workOrder.id, WORK_ORDER_FIELDS)).called();
         equal(fetchedWorkOrder, workOrder);
     });
 

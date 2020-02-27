@@ -10,4 +10,10 @@ export class UserDTO {
     lastName: string;
     phoneNumber: number;
     userType: UserTypeDTO | string;
+
+    constructor(id? : number) {
+        if (id) {
+            this.id = id;
+        }
+    }
 }
