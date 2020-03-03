@@ -7,16 +7,16 @@ import { BadRequestError } from '../errors/BadRequestError';
 class PriorityTypeMapper implements ObjectMapper<PriorityType, PriorityTypeDTO> {
 
     toDTO(priorityType: PriorityType) : PriorityTypeDTO {
-        var priorityTypeDTO : PriorityTypeDTO = new PriorityTypeDTO();
+        const priorityTypeDTO : PriorityTypeDTO = new PriorityTypeDTO();
         priorityTypeDTO.type = priorityType.type;
         return priorityTypeDTO;
     }
 
     fromDTO(priorityTypeDTO: PriorityTypeDTO) : PriorityType {
-        var priorityType : PriorityType = new PriorityType();
+        const priorityType : PriorityType = new PriorityType();
         if (!(priorityTypeDTO.type in PriorityTypeEnum)) {
-            throw new BadRequestError('Invalid Priority Type. Allowed Types: [' 
-                + Object.keys(PriorityTypeEnum) +']');
+            throw new BadRequestError('Invalid Priority Type. Allowed Types: ['
+                + `${Object.keys(PriorityTypeEnum)}]`);
         }
         priorityType.type = priorityTypeDTO.type;
         return priorityType;

@@ -7,4 +7,4 @@ export enum PropertyType {
     'MULTIPLEX' = 'MULTIPLEX',
     'COTTAGE' = 'COTTAGE',
     'MOBILE_HOME' = 'MOBILE_HOME',
-};
+}

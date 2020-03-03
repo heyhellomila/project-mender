@@ -1,7 +1,6 @@
-import { headerStyles, formStyles } from '../../stylesheets/SignUpFormStyleSheet';
-import { View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { headerStyles } from '../../stylesheets/SignUpFormStyleSheet';
+import { Text, SafeAreaView } from 'react-native';
 import React from 'react';
-const x = require('../../../assets/X.png');
 
 const Header = (props) => {
     return (

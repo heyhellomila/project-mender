@@ -1,7 +1,6 @@
 import React  from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { propertyList } from '../../../stylesheets/PropertyListStyleSheet';
-import {drawerComponent} from "../../../stylesheets/DrawerStyleSheet";
 
 const PropertyListComponent = (props) => {
     return (

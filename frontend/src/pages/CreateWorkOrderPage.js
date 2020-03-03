@@ -2,10 +2,9 @@ import React from 'react';
 import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
 import NoAccessComponent from '../components/NoAccessComponent';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import { View } from 'react-native';
 import WorkOrderForm from '../components/workOrderForm/WorkOrderForm';
-import {SectorType} from "../constants/enums/SectorType";
-import {formStyles, sectorStyles} from "../stylesheets/CreateWorkOrderPageStyleSheet";
+import { SectorType } from "../constants/enums/SectorType";
 import { reloadWorkOrders } from '../redux/actions';
 
 class CreateWorkOrderPage extends React.Component {

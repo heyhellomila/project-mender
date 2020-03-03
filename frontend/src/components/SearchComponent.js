@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import Search from 'react-native-search-box';
 import { headerStyles} from '../stylesheets/Stylesheet';
 
@@ -15,6 +15,6 @@ class SearchComponent extends Component {
             </View>
         );
     }
-};
+}
 
 export default SearchComponent;

@@ -1,11 +1,12 @@
 import * as jwt from 'jsonwebtoken';
 import { User } from 'src/entities/User';
+
 require('dotenv/config');
 
 class AuthUtils {
 
     async generateAuthToken(user: User) {
-        const token = await new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             jwt.sign(
                 { userId: user.id },
                 process.env.JWT_KEY,
@@ -18,7 +19,6 @@ class AuthUtils {
                 },
             );
         });
-        return token;
     }
 }
 

@@ -15,8 +15,8 @@ class WorkOrderStatusMapper implements ObjectMapper<WorkOrderStatus, WorkOrderSt
     fromDTO(workOrderStatusDTO: WorkOrderStatusDTO) : WorkOrderStatus {
         const workOrderStatus : WorkOrderStatus = new WorkOrderStatus();
         if (!(workOrderStatusDTO.status in WorkOrderStatusEnum)) {
-            throw new BadRequestError('Invalid Work Order Status. Allowed Statuses: [' 
-                + Object.keys(WorkOrderStatusEnum) +']');
+            throw new BadRequestError('Invalid Work Order Status. Allowed Statuses: ['
+                + `${Object.keys(WorkOrderStatusEnum)}]`);
         }
         workOrderStatus.status = workOrderStatusDTO.status;
         return workOrderStatus;

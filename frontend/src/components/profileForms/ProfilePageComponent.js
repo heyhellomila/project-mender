@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button} from 'react-native';
-import {buttonStyles, containerStyles, imageStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { containerStyles, imageStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const profilePicture = require('../../../assets/profileMender.png');
 
@@ -90,8 +90,7 @@ const ProfilePageComponent = (props) => {
                 </View>
             </View>
         </View>
-    )
-        ;
-}
+    );
+};
 
 export default ProfilePageComponent; 

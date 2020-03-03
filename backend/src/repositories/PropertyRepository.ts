@@ -11,20 +11,20 @@ class PropertyRepository extends BaseRepository<Property> {
     }
 
     async getPropertiesByUser(user: User, fieldOptions?: FindOptions<Property>) {
-        fieldOptions
-            ? fieldOptions.where = { user }
-            : fieldOptions = { where: { user } };
-        const properties = await this.getRepositoryConnection(Property).find(fieldOptions);
-        return properties;
+        let finalFieldOptions = fieldOptions;
+        finalFieldOptions
+            ? finalFieldOptions.where = { user }
+            : finalFieldOptions = { where: { user } };
+        return await this.getRepositoryConnection(Property).find(finalFieldOptions);
     }
 
     async getPropertiesByUserAndActivityStatus(user: User, activityStatus: ActivityStatus,
                                                fieldOptions?: FindOptions<Property>) {
-        fieldOptions
-            ? fieldOptions.where = { user, activityStatus }
-            : fieldOptions = { where: { user, activityStatus } };
-        const properties = await this.getRepositoryConnection(Property).find(fieldOptions);
-        return properties;
+        let finalFieldOptions = fieldOptions;
+        finalFieldOptions
+            ? finalFieldOptions.where = { user, activityStatus }
+            : finalFieldOptions = { where: { user, activityStatus } };
+        return await this.getRepositoryConnection(Property).find(finalFieldOptions);
     }
 
     async createProperty(property : Property) {

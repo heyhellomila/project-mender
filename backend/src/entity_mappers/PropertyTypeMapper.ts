@@ -7,16 +7,16 @@ import { BadRequestError } from '../errors/BadRequestError';
 class PropertyTypeMapper implements ObjectMapper<PropertyType, PropertyTypeDTO> {
 
     toDTO(propertyType: PropertyType) : PropertyTypeDTO {
-        var propertyTypeDTO : PropertyTypeDTO = new PropertyTypeDTO();
+        const propertyTypeDTO : PropertyTypeDTO = new PropertyTypeDTO();
         propertyTypeDTO.type = propertyType.type;
         return propertyTypeDTO;
     }
 
     fromDTO(propertyTypeDTO: PropertyTypeDTO) : PropertyType {
-        var propertyType : PropertyType = new PropertyType();
+        const propertyType : PropertyType = new PropertyType();
         if (!(propertyTypeDTO.type in PropertyTypeEnum)) {
-            throw new BadRequestError('Invalid Property Type. Allowed Types: [' 
-                + Object.keys(PropertyTypeEnum) +']');
+            throw new BadRequestError('Invalid Property Type. Allowed Types: ['
+                + `${Object.keys(PropertyTypeEnum)}]`);
         }
         propertyType.type = propertyTypeDTO.type;
         return propertyType;

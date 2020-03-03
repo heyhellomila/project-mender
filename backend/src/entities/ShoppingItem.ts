@@ -1,8 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { WorkOrder } from './WorkOrder';
 
-
-@Entity({ name: 'shopping_items'})    
+@Entity({ name: 'shopping_items' })
 export class ShoppingItem {
     @PrimaryGeneratedColumn()
     id: number;
@@ -22,6 +21,7 @@ export class ShoppingItem {
     @Column()
     price: number;
 
-    @Column({name: 'bought', type: 'bit', transformer:{ from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
+    @Column({ name: 'bought', type: 'bit', transformer: {
+        from: (v: Buffer) => !!v.readInt8(0), to: v => v }})
     bought: Boolean;
 }

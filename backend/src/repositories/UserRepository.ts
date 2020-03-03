@@ -9,9 +9,8 @@ class UserRepository extends BaseRepository<User> {
     }
 
     async getUserById(id: number, fieldOptions?: FindOptions<User>) {
-        const user = await this.getRepositoryConnection(User)
+        return await this.getRepositoryConnection(User)
             .findOne(id, fieldOptions);
-        return user;
     }
 
     async createUser(user: User) {

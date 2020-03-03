@@ -7,16 +7,16 @@ import { BadRequestError } from '../errors/BadRequestError';
 class ActivityStatusMapper implements ObjectMapper<ActivityStatus, ActivityStatusDTO> {
 
     toDTO(activityStatus: ActivityStatus) : ActivityStatusDTO {
-        var activityStatusDTO : ActivityStatusDTO = new ActivityStatusDTO();
+        const activityStatusDTO : ActivityStatusDTO = new ActivityStatusDTO();
         activityStatusDTO.status = activityStatus.status;
         return activityStatusDTO;
     }
 
     fromDTO(activityStatusDTO: ActivityStatusDTO) : ActivityStatus {
-        var activityStatus : ActivityStatus = new ActivityStatus();
+        const activityStatus : ActivityStatus = new ActivityStatus();
         if (!(activityStatusDTO.status in ActivityStatusEnum)) {
-            throw new BadRequestError('Invalid Activity Status. Allowed Types: [' 
-                + Object.keys(ActivityStatusEnum) +']');
+            throw new BadRequestError('Invalid Activity Status. Allowed Types: ['
+                + `${Object.keys(ActivityStatusEnum)}]`);
         }
         activityStatus.status = activityStatusDTO.status;
         return activityStatus;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button, TouchableOpacity} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity} from 'react-native';
 import {
     textInputStyles,
     buttonStyles,
@@ -59,6 +59,6 @@ const ChangeNameComponent = (props) => {
             </View>
         </View>
     );
-}
+};
 
 export default ChangeNameComponent;

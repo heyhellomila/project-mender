@@ -11,7 +11,8 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.user
+            user: props.user,
+            property: props.property
         };
     }
     render() {
@@ -23,30 +24,33 @@ class Header extends Component {
                         <Text style={drawerComponent.name}>
                             {this.props.user.firstName} {this.props.user.lastName}
                         </Text>
-                }  
-                <View style={drawerComponent.buttonGroup}>
-                    <View style={drawerComponent.buttonContainer}>
-                        <Button
-                            title='Details'
-                            type='outline'
-                            raised={true}
-                            onPress={() => props.navigation.navigate('PropertyDetails')}/>
+                }
+                {this.props.property &&
+                    <View style={drawerComponent.buttonGroup}>
+                        <View style={drawerComponent.buttonContainer}>
+                            <Button
+                                title='Details'
+                                type='outline'
+                                raised={true}
+                                onPress={() => this.props.navigation.navigate('PropertyDetails')}/>
+                        </View>
+                        <View style={drawerComponent.buttonContainer}>
+                            <Button
+                                title='Sectors'
+                                type='outline'
+                                raised={true}
+                                onPress={() => this.props.navigation.navigate('PropertySectors')}/>
+                        </View>
                     </View>
-                    <View style={drawerComponent.buttonContainer}>
-                        <Button
-                            title='Sectors'
-                            type='outline'
-                            raised={true}
-                            onPress={() => props.navigation.navigate('PropertySectors')}/>
-                    </View>
-                </View>
+                }
             </View>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user.user
+    user: state.user.user,
+    property: state.property.property
 });
 
 export default connect(mapStateToProps, null)(Header);

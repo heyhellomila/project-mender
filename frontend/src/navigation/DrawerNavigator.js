@@ -1,22 +1,22 @@
-import {createAppContainer} from 'react-navigation';
-import {createDrawerNavigator} from 'react-navigation-drawer';
+import { createAppContainer } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import SettingsPage from '../pages/SettingsPage';
 import HelpPage from '../pages/HelpPage';
 import AboutUsPage from '../pages/AboutUsPage';
 import ProfilePage from '../pages/ProfilePage';
 import HomePage from '../pages/HomePage';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 import React from 'react';
 import DrawerComponent from '../components/drawer/DrawerComponent'
 import BottomStackNavigator from './BottomStackNavigator';
-import {createStackNavigator} from 'react-navigation-stack';
+import { createStackNavigator } from 'react-navigation-stack';
 import AddPropertyPage from '../pages/PropertyPages/AddPropertyPage';
-import {drawerComponent} from '../../src/stylesheets/DrawerStyleSheet';
+import { drawerComponent } from '../../src/stylesheets/DrawerStyleSheet';
 import PropertyDetailsPage from '../pages/PropertyPages/PropertyDetailsPage';
 import PropertySectorsPage from '../pages/PropertyPages/PropertySectorsPage';
 
 const homeIcon = require('../../assets/homeIcon.png');
-const profileMenderIcon = require("../../assets/profileMender.png")
+const profileMenderIcon = require('../../assets/profileMender.png');
 const settingsIcon = require('../../assets/settingsIcon.png');
 const helpIcon = require('../../assets/helpIcon.png');
 const aboutUsIcon = require('../../assets/aboutUsIcon.png');
@@ -32,7 +32,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
         screen: HomePage,
         navigationOptions: {
             title: 'Home',
-            drawerIcon: ({tintColor}) => (
+            drawerIcon: () => (
                 <Image
                     source={homeIcon}
                     resizeMode='contain'
@@ -44,7 +44,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
         screen: ProfilePage,
         navigationOptions: {
             title: 'Profile',
-            drawerIcon: ({tintColor}) => (
+            drawerIcon: () => (
                 <Image
                     source={profileMenderIcon}
                     resizeMode='contain'
@@ -56,7 +56,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
         screen: SettingsPage,
         navigationOptions: {
             title: 'Settings',
-            drawerIcon: ({tintColor}) => (
+            drawerIcon: () => (
                 <Image
                     source={settingsIcon}
                     resizeMode='contain'
@@ -68,7 +68,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
         screen: HelpPage,
         navigationOptions: {
             title: 'Help',
-            drawerIcon: ({tintColor}) => (
+            drawerIcon: () => (
                 <Image
                     source={helpIcon}
                     resizeMode='contain'
@@ -80,7 +80,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
         screen: AboutUsPage,
         navigationOptions: {
             title: 'About Us',
-            drawerIcon: ({tintColor}) => (
+            drawerIcon: () => (
                 <Image
                     source={aboutUsIcon}
                     resizeMode='contain'
@@ -89,7 +89,7 @@ const DrawerNavigatorStack = createDrawerNavigator({
         }
     }
 }, {
-    drawerPosition: "right",
+    drawerPosition: 'right',
     contentComponent: DrawerComponent
 });
 

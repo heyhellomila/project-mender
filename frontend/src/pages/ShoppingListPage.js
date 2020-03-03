@@ -18,27 +18,6 @@ class ShoppingListPage extends React.Component {
         }
     }
 
-    openModal() {
-        alert('ok');
-        this.setState(prevState => {
-            return {
-                displayModal: true
-            }
-        });
-    }
-
-    closeModal = () => {
-        this.setState(prevState => {
-            return {
-                displayModal: false
-            }
-        })
-    }
-
-    openWorkModal = () => {
-        this.openModal();
-    }
-
     render() {
         return (
             <View style={styles.container}>

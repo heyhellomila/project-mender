@@ -1,4 +1,4 @@
-import {HttpError} from './HttpError';
+import { HttpError } from './HttpError';
 
 class ConflictError extends HttpError {
     constructor(message: string) {
@@ -7,4 +7,4 @@ class ConflictError extends HttpError {
     }
 }
 
-export {ConflictError};
+export { ConflictError };

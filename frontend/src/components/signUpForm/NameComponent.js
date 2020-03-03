@@ -29,7 +29,7 @@ const NameComponent = (props) => {
                         onChangeText = {(value) => props.handleLastName(value)}/>
                 </View>
             </View>
-            <View style={formStyles.rowContainer}></View>
+            <View style={formStyles.rowContainer}/>
         </View>
     );
 };

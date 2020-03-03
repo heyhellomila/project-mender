@@ -16,7 +16,7 @@ const BottomNavigator = createBottomTabNavigator({
     HomePage: {
         screen: HomePage,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Image
+            tabBarIcon: () => (<Image
                 source={homeIcon}
                 style={{ width: 24, height: 24, tintColor: 'black' }}
             />),
@@ -25,7 +25,7 @@ const BottomNavigator = createBottomTabNavigator({
     JobListPage: {
         screen: JobListPage,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Image
+            tabBarIcon: () => (<Image
                 source={jobListIcon}
                 style={{ width: 24, height: 24, tintColor: 'black' }}
             />),
@@ -33,9 +33,8 @@ const BottomNavigator = createBottomTabNavigator({
     },
     OpenWorkModal: {
         screen: () => null,
-        navigationOptions: ({ navigation }) => ({
+        navigationOptions: () => ({
             title: '',
-            tabBarOnPress: () => navigation.navigate('Modal') ,
             tabBarIcon: ({ tintColor }) => (<Image
                 source={addWorkIcon}
                 style={{ width: 60, height: 60, tintColor: 'black' }}
@@ -45,7 +44,7 @@ const BottomNavigator = createBottomTabNavigator({
     ShoppingListPage: {
         screen: ShoppingListPage,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Image
+            tabBarIcon: () => (<Image
                 source={shoppingListIcon}
                 style={{ width: 24, height: 24, tintColor: 'black' }}
             />),
@@ -54,7 +53,7 @@ const BottomNavigator = createBottomTabNavigator({
     EmailPage: {
         screen: EmailPage,
         navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (<Image
+            tabBarIcon: () => (<Image
                 source={emailIcon}
                 style={{ width: 24, height: 24, tintColor: 'black' }}
             />),
@@ -73,6 +72,6 @@ const BottomNavigator = createBottomTabNavigator({
             elevation: 5
         }
     }
-})
+});
 
 export default BottomNavigator;

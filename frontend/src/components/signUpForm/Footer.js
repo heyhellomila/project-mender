@@ -1,6 +1,6 @@
 import React from 'react';
 import { formStyles, footerStyles } from '../../stylesheets/SignUpFormStyleSheet';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 const Footer = (props) => {

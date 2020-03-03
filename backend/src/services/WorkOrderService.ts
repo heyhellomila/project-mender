@@ -8,9 +8,8 @@ import { WorkOrderStatusService } from './WorkOrderStatusService';
 import { WorkOrderRepository } from '../repositories/WorkOrderRepository';
 import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
-import { WorkOrderFields, WorkOrderFieldsNoProperty } from '../constants/FindOptionsFields';
+import { WORK_ORDER_FIELDS, WORK_ORDER_FIELDS_NO_PROPERTY } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
-import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
@@ -20,7 +19,6 @@ class WorkOrderService {
     private propertyService: PropertyService = new PropertyService();
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
-    private businessUserService: BusinessUserService = new BusinessUserService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
@@ -88,7 +86,7 @@ class WorkOrderService {
         }
         try {
             return await this.workOrderRepository.getWorkOrdersByProperty(
-                property, WorkOrderFieldsNoProperty);
+                property, WORK_ORDER_FIELDS_NO_PROPERTY);
         } catch (err) {
             throw err;
         }
@@ -142,74 +140,74 @@ class WorkOrderService {
         if (queryMap.get(WorkOrderQuery.PROPERTYID)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'property', '=',
-                                    queryMap.get(WorkOrderQuery.PROPERTYID));
+                                     'property', '=',
+                                     queryMap.get(WorkOrderQuery.PROPERTYID));
         }
         if (queryMap.get(WorkOrderQuery.SECTORTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'sector',
-                                    'type', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.SECTORTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SECTORKIND)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'sector',
-                                    'kind', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
+                                     'kind', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.SECTORKIND)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'workOrderType',
-                                    'type', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}\'`);
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.WORKORDERTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.SERVICENEEDED)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'serviceNeeded', '=',
-                                    queryMap.get(WorkOrderQuery.SERVICENEEDED));
+                                     'serviceNeeded', '=',
+                                     queryMap.get(WorkOrderQuery.SERVICENEEDED));
         }
         if (queryMap.get(WorkOrderQuery.EMERGENCY)) {
             filterQueries += this.
             createSQLFilterQuery(filterQueries, 'work_orders',
-                'emergency', '=',
-                queryMap.get(WorkOrderQuery.EMERGENCY));
+                                 'emergency', '=',
+                                 queryMap.get(WorkOrderQuery.EMERGENCY));
         }
         if (queryMap.get(WorkOrderQuery.PRIORITYTYPE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'priorityType',
-                                    'type', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}\'`);
+                                     'type', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.PRIORITYTYPE)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.PRICEESTIMATE)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'priceEstimate', '=',
-                                    queryMap.get(WorkOrderQuery.PRICEESTIMATE));
+                                     'priceEstimate', '=',
+                                     queryMap.get(WorkOrderQuery.PRICEESTIMATE));
         }
         if (queryMap.get(WorkOrderQuery.BOOKMARKED)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    'bookmarked', '=',
-                                    queryMap.get(WorkOrderQuery.BOOKMARKED));
+                                     'bookmarked', '=',
+                                     queryMap.get(WorkOrderQuery.BOOKMARKED));
         }
         if (queryMap.get(WorkOrderQuery.WORKORDERSTATUS)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'workOrderStatus',
-                                    'status', '=',
-                                    `\'${queryMap.get(WorkOrderQuery.WORKORDERSTATUS)}\'`);
+                                     'status', '=',
+                                     `\'${queryMap.get(WorkOrderQuery.WORKORDERSTATUS)}\'`);
         }
         if (queryMap.get(WorkOrderQuery.GREATERTHAN)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
-                                    queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
+                                     queryMap.get(WorkOrderQuery.GREATERTHAN), '>',
+                                     queryMap.get(WorkOrderQuery.GREATERTHANVALUE));
         }
         if (queryMap.get(WorkOrderQuery.LOWERTHAN)) {
             filterQueries += this.
                 createSQLFilterQuery(filterQueries, 'work_orders',
-                                    queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
-                                    queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
+                                     queryMap.get(WorkOrderQuery.LOWERTHAN), '<',
+                                     queryMap.get(WorkOrderQuery.LOWERTHANVALUE));
         }
         return filterQueries;
     }
@@ -226,7 +224,7 @@ class WorkOrderService {
 
     async getWorkOrder(id: number) {
         const workOrder: WorkOrder = await this.workOrderRepository.
-                                                    getWorkOrderById(id, WorkOrderFields);
+                                                    getWorkOrderById(id, WORK_ORDER_FIELDS);
         if (!workOrder) {
             throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }

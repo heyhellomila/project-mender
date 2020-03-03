@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import SignUpForm  from '../components/signUpForm/SignUpForm';
 import { register } from '../apis/users/Register';
 import validator from 'validator';
@@ -30,7 +29,7 @@ export default class SignUpPage extends React.Component {
     };
   }
 
-  componentDidUpdate() {
+  async componentDidUpdate() {
     if (this.state.validFormInputs === true && this.state.submitting === true) {
       this.registerUser();
     }

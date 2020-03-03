@@ -6,7 +6,7 @@ import { PriorityTypeDataProvider } from './PriorityTypeDataProvider';
 import { PriorityType } from '../../enums/PriorityType';
 import { WorkOrderTypeDataProvider } from './WorkOrderTypeDataProvider';
 import { WorkOrderStatusDataProvider } from './WorkOrderStatusDataProvider';
-import {WorkOrderType} from "../../enums/WorkOrderType";
+import { WorkOrderType } from '../../enums/WorkOrderType';
 
 class WorkOrderDataProvider {
 
