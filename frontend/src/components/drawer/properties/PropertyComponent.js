@@ -72,7 +72,7 @@ class PropertyComponent extends Component {
                     });
                 });
             }).catch((error) => {
-                alert(error);
+                alert(error.message);
             });
     }
 

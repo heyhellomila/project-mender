@@ -25,6 +25,8 @@ class PropertySectorsPage extends React.Component {
     async componentDidMount() {
         await getPropertySectorsByPropertyId(this.props.property.id).then((res) => {
             this.sortPropertySectors(res.data);
+        }).catch((err) => {
+            alert(err.message);
         });
     }
 
@@ -120,7 +122,7 @@ class PropertySectorsPage extends React.Component {
             }
         } catch (err) {
             this.setState({success: false});
-            alert('One or more sectors were not successfully updated. Please try again later.');
+            alert(err.message);
         } finally {
             this.setState({
                 submitting: false,

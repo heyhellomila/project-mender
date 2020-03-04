@@ -227,7 +227,6 @@ class JobListPage extends React.Component {
             });
         })
         .catch((err) => {
-            console.log(err.response);
             this.setState({
                 error: true, 
                 loading: false, 

@@ -114,7 +114,7 @@ class PropertyDetailsPage extends React.Component {
                         this.props.reloadPropertiesAfterEdit();
                     });
             } catch (err) {
-                alert('Error updating property, please try again later.');
+                alert(err.message);
             } finally {
                 this.setState({submitting: false, editing: false, success: false});
             }
