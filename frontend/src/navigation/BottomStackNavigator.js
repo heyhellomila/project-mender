@@ -11,6 +11,7 @@ import ProfilePage from '../pages/ProfilePage';
 import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
 import { styles } from '../stylesheets/Stylesheet';
+import EditWorkOrderPage from "../pages/EditWorkOrderPage";
 
 
 const menderLogo = require('../../assets/mender_logo_no_text.jpg')
@@ -40,7 +41,7 @@ const BottomStackNavigatorRoot = createStackNavigator({
             )
         }
     }
-})
+});
 
 //navigator at root level for Work Order Modal
 const RootNavigator = createStackNavigator({
@@ -50,10 +51,13 @@ const RootNavigator = createStackNavigator({
     Modal: {
         screen: CreateWorkOrderPage,
     },
+    EditWorkOrder: {
+        screen: EditWorkOrderPage,
+    },
 },{
     headerMode: 'none',
     mode: 'modal',
-})
+});
 const BottomStackNavigator = createAppContainer(RootNavigator);
 
 export default BottomStackNavigator;
