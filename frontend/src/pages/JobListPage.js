@@ -104,7 +104,8 @@ class JobListPage extends React.Component {
             greaterThan: '',
             greaterThanValue: '',
             lowerThan: '',
-            lowerThanValue: ''
+            lowerThanValue: '',
+            navigation: this.props.navigation
         };
     }
   

@@ -132,7 +132,7 @@ const CardComponent = (props) => {
                                     type='outline'
                                     buttonStyle={buttonStyles.editButton}
                                     titleStyle={buttonStyles.buttonTitle}
-                                    // onPress={}
+                                    onPress={() => props.navigation.navigate('Modal')}
                                 />
                                 <Button
                                     title='Remove'
