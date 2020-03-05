@@ -123,7 +123,7 @@ class AddPropertyPage extends React.Component {
                         }, 1500);
                 });
             } catch (err) {
-                alert('Error creating property. Please try again later.');
+                alert(err.message);
             } finally {
                 this.setState({submitting: false});
             }

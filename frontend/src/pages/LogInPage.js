@@ -83,13 +83,14 @@ class LogInPage extends React.Component {
         <ImageBackground
             style={loginComponent.imageBackgroundLogin}
             source={menderBackground}>
-        {submitting
-          ? <Spinner
+          {submitting
+            ? <Spinner
                 visible={submitting}
-            />
-          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
-            handlePasswordChange={this.handlePasswordChange} handleLoginValidation={this.handleLoginValidation}/>
-        }
+              />
+            : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
+                handlePasswordChange={this.handlePasswordChange}
+                handleLoginValidation={this.handleLoginValidation}/>
+          }
         </ImageBackground>
     );
   }

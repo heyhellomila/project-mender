@@ -16,13 +16,15 @@ const Header = (props) => {
                             : SectorType[props.sectorType].display
                         }
                     </Text>
-                    <Text style={headerStyles.subHeaderStyle}>{props.property.name} ({props.property.address})</Text>
+                    <Text style={headerStyles.subHeaderStyle}>
+                        {props.property.name} ({props.property.address})
+                    </Text>
                 </View>
                 <View style={headerStyles.closeButton}>
                     <TouchableOpacity
                         style={headerStyles.closeButton}
                         onPress={() => props.navigation.navigate('HomePage')}>
-                        <Image style={headerStyles.closeButtonImage} source={x}></Image>
+                        <Image style={headerStyles.closeButtonImage} source={x}/>
                     </TouchableOpacity>
                 </View>
             </View>

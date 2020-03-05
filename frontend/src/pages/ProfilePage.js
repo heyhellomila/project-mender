@@ -304,6 +304,8 @@ class ProfilePage extends Component {
                     passwordNotAlreadyUsed: false,
                     submitting: false
                 })
+            } else {
+                alert(err.message);
             }
         }
     };

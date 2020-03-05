@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import { LOCAL_API_KEY } from 'react-native-dotenv';
+import { handleGeneralErrors } from '../ErrorHandler';
 
 const api = axios.create({
     baseURL: `http://${LOCAL_API_KEY}/api`,
@@ -8,13 +9,10 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(async (response) => {
-    return await response;
+    return response;
 }, async (error) => {
-    if (error.code === 'ECONNABORTED' || error.response.data.statusCode === 500) {
-        throw new Error('Internal server error. Please try again later.');
-    } else {
-        throw error;
-    }
+    await handleGeneralErrors(error);
+    throw Error('Could not update property. Please try again later.');
 });
 
 export async function updatePropertyById(id, property) {
