@@ -77,7 +77,7 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
         workOrder.emergency = workOrderDTO.emergency;
         workOrder.location = workOrderDTO.location;
         workOrder.notification = workOrderDTO.notification;
-        workOrder.dueDate = new Date(Number(workOrderDTO.dueDate));
+        workOrder.dueDate = workOrderDTO.dueDate;
         workOrder.createdDate = workOrderDTO.createdDate;
         workOrder.dateCompleted = workOrderDTO.dateCompleted;
         workOrder.priceEstimate = workOrderDTO.priceEstimate;

@@ -201,7 +201,9 @@ class JobListPage extends React.Component {
                         lastModifiedBy: workOrder.lastModifiedBy,
                         dateCompleted: workOrder.dateCompleted,
                         serviceNeeded: workOrder.serviceNeeded,
-                        status: workOrder.workOrderStatus.status
+                        status: workOrder.workOrderStatus.status,
+                        emergency: workOrder.emergency,
+                        priceEstimate: workOrder.priceEstimate
                     }))
             });
         })

@@ -15,6 +15,7 @@ class EditWorkOrderPage extends React.Component {
         this.state = {
             step: 1,
             dateFormat: 'YYYY-MM-DD',
+            oldWorkOrder: this.props.navigation.state.params,
             sectorType: this.props.navigation.state.params.sectorType,
             sectorKind: this.props.navigation.state.params.sectorKind,
             type: this.props.navigation.state.params.type,
@@ -23,19 +24,17 @@ class EditWorkOrderPage extends React.Component {
             notification: this.props.navigation.state.params.notification,
             location: this.props.navigation.state.params.location,
             serviceNeeded: this.props.navigation.state.params.serviceNeeded,
-            emergency: false,
+            emergency: this.props.navigation.state.params.emergency,
             priority: this.props.navigation.state.params.priority,
-            dueDate: this.props.navigation.state.params.dueDate,
-            priceEstimate: null,
+            dueDate: new Date(this.props.navigation.state.params.dueDate),
+            priceEstimate: this.props.navigation.state.params.priceEstimate,
             navigation: props.navigation,
             today: new Date(),
             property: props.property,
             validTitle: true,
             submitting: false,
             success: false,
-            headerText: 'Select a Type',
-            oldWorkOrder: this.props.navigation.state.params,
-            updatedWorkOrder: null
+            headerText: 'Select a Type'
         };
     }
     
@@ -107,8 +106,8 @@ class EditWorkOrderPage extends React.Component {
     handleEditWorkOrder = async() => {
         try {
             this.setState({submitting: true});
-            this.handleUpdatedWorkOrderFields();
-            await updateWorkOrderById(this.props.oldWorkOrder.id, this.state.updatedWorkOrder)
+            const updatedWorkOrder = this.handleUpdatedWorkOrderFields();
+            await updateWorkOrderById(this.state.oldWorkOrder.id, updatedWorkOrder)
                 .then(async() => {
                 this.setState({success: true, submitting: false});
                 this.props.reloadWorkOrders();
@@ -123,20 +122,43 @@ class EditWorkOrderPage extends React.Component {
     };
 
     handleUpdatedWorkOrderFields() {
+        let updatedWorkOrder = {};
         if(this.state.oldWorkOrder.title !== this.state.title){
-            this.setState({updatedWorkOrder: {title: this.state.title}})
+            updatedWorkOrder.title = this.state.title;
         }
         if(this.state.oldWorkOrder.cause !== this.state.cause){
-            this.setState({updatedWorkOrder: {cause: this.state.cause}})
+            updatedWorkOrder.cause = this.state.cause;
         }
         if(this.state.oldWorkOrder.notification !== this.state.notification){
-            this.setState({updatedWorkOrder: {notification: this.state.notification}})
+            updatedWorkOrder.notification = this.state.notification;
         }
         if(this.state.oldWorkOrder.location !== this.state.location){
-            this.setState({updatedWorkOrder: {location: this.state.location}})
+            updatedWorkOrder.location = this.state.location;
         }
-        this.setState({updatedWorkOrder: {lastModifiedDate: new Date()}});
-        this.setState({updatedWorkOrder: {lastModifiedBy: {id: this.props.user.id}}});
+        if(this.state.oldWorkOrder.type !== this.state.type){
+            updatedWorkOrder.type = this.state.type;
+        }
+        if(this.state.oldWorkOrder.priority !== this.state.priority){
+            updatedWorkOrder.priority = this.state.priority;
+        }
+        if(this.state.oldWorkOrder.sectorType !== this.state.sectorType){
+            updatedWorkOrder.sectorType = this.state.sectorType;
+        }
+        if(this.state.oldWorkOrder.sectorKind !== this.state.sectorKind){
+            updatedWorkOrder.sectorKind = this.state.sectorKind;
+        }
+        if(this.state.oldWorkOrder.dueDate !== this.state.dueDate){
+            updatedWorkOrder.dueDate = this.state.dueDate;
+        }
+        if(this.state.oldWorkOrder.serviceNeeded !== this.state.serviceNeeded){
+            updatedWorkOrder.serviceNeeded = this.state.serviceNeeded;
+        }
+        if(this.state.oldWorkOrder.priceEstimate !== this.state.priceEstimate){
+            updatedWorkOrder.priceEstimate = this.state.priceEstimate;
+        }
+        updatedWorkOrder.lastModifiedDate = new Date();
+        updatedWorkOrder.lastModifiedBy = {id: this.props.user.user.id};
+        return updatedWorkOrder;
     }
 
     handleSectorType = (value) => {
