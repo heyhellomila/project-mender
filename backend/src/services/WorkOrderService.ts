@@ -228,13 +228,14 @@ class WorkOrderService {
 
     async getWorkOrder(id: number) {
         const workOrder: WorkOrder = await this.workOrderRepository.
-                                                    getWorkOrderById(id, WORK_ORDER_FIELDS);
+        getWorkOrderById(id, WORK_ORDER_FIELDS);
         if (!workOrder) {
             throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }
         return workOrder;
     }
-    async updateWorkOrderById(id: number, workOrderObj: WorkOrder) {
+
+    async updateWorkOrderById(id: number, workOrderObj: WorkOrder, updatedByUserId: number) {
         const workOrder = new WorkOrder();
         await this.getWorkOrder(id);
 
@@ -266,24 +267,6 @@ class WorkOrderService {
         if (workOrderObj.dueDate != null) {
             workOrder.dueDate = workOrderObj.dueDate;
         }
-        // This part may be optional since createdDate shouldn't ever need a reason to be changed
-        if (workOrderObj.createdDate != null) {
-            workOrder.createdDate = workOrderObj.createdDate;
-        }
-        if (workOrderObj.createdBy != null) {
-            workOrder.createdBy = await this.userService.getUser(workOrderObj.createdBy.id);
-        }
-        // This shouldn't be null on an update, so maybe even consider throwing an exception
-        // if it's null
-        if (workOrderObj.lastModifiedDate != null) {
-            workOrder.lastModifiedDate = workOrderObj.lastModifiedDate;
-        }
-        // Again this shouldn't be null on an update, so maybe even consider throwing an exception
-        // if it's null
-        if (workOrderObj.lastModifiedBy != null) {
-            workOrder.lastModifiedBy = await this.userService
-               .getUser(workOrderObj.lastModifiedBy.id);
-        }
         if (workOrderObj.dateCompleted != null) {
             workOrder.dateCompleted = workOrderObj.dateCompleted;
         }
@@ -314,8 +297,18 @@ class WorkOrderService {
         if (workOrderObj.notification != null) {
             workOrder.notification = workOrderObj.notification;
         }
+        if (workOrderObj.workOrderStatus.status === WorkOrderStatus.COMPLETED) {
+            workOrder.dateCompleted = new Date();
+        } else {
+            workOrder.lastModifiedDate = new Date();
+        }
+
+        const updatedBy: User = new User();
+        updatedBy.id = updatedByUserId;
+        workOrder.lastModifiedBy = updatedBy;
         return await this.workOrderRepository.updateWorkOrderById(id, workOrder);
     }
+
 }
 
 export { WorkOrderService };

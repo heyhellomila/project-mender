@@ -148,7 +148,7 @@ class EditWorkOrderPage extends React.Component {
             updatedWorkOrder.sectorKind = this.state.sectorKind;
         }
         if(this.state.oldWorkOrder.dueDate !== this.state.dueDate){
-            updatedWorkOrder.dueDate = this.state.dueDate;
+            updatedWorkOrder.dueDate = Date.parse(this.state.dueDate);
         }
         if(this.state.oldWorkOrder.serviceNeeded !== this.state.serviceNeeded){
             updatedWorkOrder.serviceNeeded = this.state.serviceNeeded;
@@ -156,8 +156,6 @@ class EditWorkOrderPage extends React.Component {
         if(this.state.oldWorkOrder.priceEstimate !== this.state.priceEstimate){
             updatedWorkOrder.priceEstimate = this.state.priceEstimate;
         }
-        updatedWorkOrder.lastModifiedDate = new Date();
-        updatedWorkOrder.lastModifiedBy = {id: this.props.user.user.id};
         return updatedWorkOrder;
     }
 

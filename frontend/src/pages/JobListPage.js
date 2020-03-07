@@ -197,8 +197,6 @@ class JobListPage extends React.Component {
                         sectorKind: workOrder.sector.kind,
                         dueDate: workOrder.dueDate,
                         createdDate: workOrder.createdDate,
-                        lastModifiedDate: workOrder.lastModifiedDate,
-                        lastModifiedBy: workOrder.lastModifiedBy,
                         dateCompleted: workOrder.dateCompleted,
                         serviceNeeded: workOrder.serviceNeeded,
                         status: workOrder.workOrderStatus.status,
@@ -620,10 +618,7 @@ class JobListPage extends React.Component {
 
     confirmDeleteWorkOrder = async(workOrderId) => {
         await updateWorkOrderById(workOrderId,
-            { workOrderStatus: WorkOrderStatus.CANCELLED,
-                        lastModifiedDate: new Date(),
-                        lastModifiedBy: {id : this.state.user.id}
-            });
+            { workOrderStatus: WorkOrderStatus.CANCELLED });
         this.setState({
             data: []
         });
@@ -641,10 +636,7 @@ class JobListPage extends React.Component {
 
     confirmCompleteWorkOrder = async(workOrderId) => {
         await updateWorkOrderById(workOrderId,
-            { workOrderStatus: WorkOrderStatus.COMPLETED,
-                dateCompleted: new Date(),
-                lastModifiedBy: {id : this.state.user.id}
-            });
+            { workOrderStatus: WorkOrderStatus.COMPLETED });
         this.setState({
             data: []
         });

@@ -34,9 +34,10 @@ workOrderController.get('/:id', auth, async(req: Request, res: Response) => {
 
 workOrderController.patch('/:id', auth, async(req: Request, res: Response) => {
     try {
+        const { decodedToken } = req.body;
         const workOrderDTO : WorkOrderDTO = req.body as WorkOrderDTO;
         await workOrderService.updateWorkOrderById(
-            Number(req.params.id), workOrderMapper.fromDTO(workOrderDTO));
+            Number(req.params.id), workOrderMapper.fromDTO(workOrderDTO), decodedToken.userId);
         return res.status(204).end();
     } catch (err) {
         return handleError(err, res);
