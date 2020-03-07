@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import { getPropertiesByUser } from '../../../apis/properties/GetPropertiesByUser';
 import { connect } from 'react-redux';
 import {reloadProperties, selectProperty, loadProperties} from '../../../redux/actions';
@@ -72,7 +72,7 @@ class PropertyComponent extends Component {
                     });
                 });
             }).catch((error) => {
-                alert(error);
+                alert(error.message);
             });
     }
 

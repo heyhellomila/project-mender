@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Platform, StatusBar} from 'react-native';
+import { View } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ProfilePageComponent from '../../components/profileForms/ProfilePageComponent';
 import ChangeNameComponent from '../../components/profileForms/ChangeNameComponent';
@@ -7,7 +7,7 @@ import ChangePasswordComponent from '../../components/profileForms/ChangePasswor
 import ChangeEmailComponent from '../../components/profileForms/ChangeEmailComponent';
 import ChangePhoneNumberComponent from '../../components/profileForms/ChangePhoneNumberComponent';
 import Header from '../../components/profileForms/Header';
-import {titleStyles, containerStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
+import { containerStyles, profilePageStyles } from '../../stylesheets/ProfilePageStylesheet';
 
 const ProfilePageForm = (props) => {
     return (

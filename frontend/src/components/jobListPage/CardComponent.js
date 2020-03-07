@@ -81,10 +81,7 @@ const CardComponent = (props) => {
                                 <View style={jobListCardStyles.serviceNeeded}>
                                     <Text style={jobListCardStyles.serviceNeededText}>Service needed: {props.serviceNeeded}</Text>
                                     <ToggleSwitch
-                                        isOn={props.serviceNeeded === true
-                                            ? true
-                                            : false
-                                        }
+                                        isOn={props.serviceNeeded === true}
                                         onColor='#42d553'
                                         size='small'
                                         onToggle={isOn => console.log(isOn)}

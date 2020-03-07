@@ -31,10 +31,11 @@ class WorkOrderRepository extends BaseRepository<WorkOrder> {
     }
 
     async getWorkOrdersByProperty(property: Property, fieldOptions?: FindOptions<WorkOrder>) {
-        fieldOptions
-            ? fieldOptions.where = { property }
-            : fieldOptions = { where: { property } };
-        return await this.getRepositoryConnection(WorkOrder).find(fieldOptions);
+        let finalFieldOptions = fieldOptions;
+        finalFieldOptions
+            ? finalFieldOptions.where = { property }
+            : finalFieldOptions = { where: { property } };
+        return await this.getRepositoryConnection(WorkOrder).find(finalFieldOptions);
     }
 
     async createWorkOrder(workOrder: WorkOrder) {

@@ -2,12 +2,12 @@ import React from 'react';
 import {Alert, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
 import { getWorkOrders } from '../apis/workOrders/GetWorkOrders';
 import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
 import { reloadWorkOrders } from '../redux/actions';
 import {updateWorkOrderById} from "../apis/workOrders/updateWorkOrderById";
+import SearchComponent from '../components/SearchComponent'
 import {WorkOrderStatus} from "../constants/enums/WorkOrderStatus";
 
 class JobListPage extends React.Component {
@@ -120,7 +120,7 @@ class JobListPage extends React.Component {
                 this.props.finishReloadingWorkOrders();
             })
         }
-        if (this.props.property !== prevProps.property) {
+        if (this.props.property !== prevProps.property && this.props.user === prevProps.user) {
             this.setState({
                 data: [],
                 loading: false,
@@ -207,7 +207,7 @@ class JobListPage extends React.Component {
                     }))
             });
         })
-        .then((response) => {
+        .then(() => {
             if (this.state.pageNumber === 1) {
                 this.setState({
                     data: this.state.workOrders
@@ -238,12 +238,11 @@ class JobListPage extends React.Component {
             });
         })
         .catch((err) => {
-            console.log(err.response);
             this.setState({
                 error: true, 
                 loading: false, 
                 errorMsg: err.message
-            })
+            });
             alert(this.state.errorMsg);
         });
     }
@@ -257,79 +256,79 @@ class JobListPage extends React.Component {
                 () => this.getListOfWorkOrders()
             );
         }
-    }
+    };
 
     toggleBookmarkedModal = () => {
         this.setState({
             isBookmarkedModalVisible: !this.state.isBookmarkedModalVisible
         });
-    }
+    };
 
     toggleDueDateModal = () => {
         this.setState({
             isDueDateModalVisible: !this.state.isDueDateModalVisible
         });
-    }
+    };
 
     togglePriorityModal = () => {
         this.setState({
             isPriorityModalVisible: !this.state.isPriorityModalVisible
         });
-    }
+    };
 
     toggleSectorModal = () => {         
         this.setState({
             isSectorModalVisible: !this.state.isSectorModalVisible
         });
-    }
+    };
 
     toggleTypeModal = () => {
         this.setState({
             isTypeModalVisible: !this.state.isTypeModalVisible
         });
-    }
+    };
 
     toggleStatusModal = () => {
         this.setState({
             isStatusModalVisible: !this.state.isStatusModalVisible
         });
-    }
+    };
 
     toggleBookmarkedSwitch = (value) => {
         this.setState({
             filterSwitch: value
         })
-    }
+    };
 
     toggleDueDateOption = (value) => {
         this.setState({
             filterDueDateOptionValue: value
         });
-    }
+    };
 
     togglePriorityOption = (value) => {
         this.setState({
             filterPriorityOptionValue: value
         });
-    }
+    };
 
     toggleSectorOption = (value) => {
         this.setState({
             filterSectorOptionValue: value
         });
-    }
+    };
 
     toggleTypeOption = (value) => {
         this.setState({
             filterTypeOptionValue: value
         });
-    }
+    };
 
     toggleStatusOption = (value) => {
         this.setState({
             filterStatusOptionValue: value
         });
-    }
+    };
 
     handleCancelBookmarkedFilter = () => {
         if (this.state.filterBookmarked === 'true') {
@@ -342,7 +341,7 @@ class JobListPage extends React.Component {
             });
         }
         this.toggleBookmarkedModal()
-    }
+    };
 
     handleCancelDueDateFilter = () => {
         this.state.dueDateOptions.map(option => {
@@ -353,7 +352,7 @@ class JobListPage extends React.Component {
             }
         });
         this.toggleDueDateModal()
-    }
+    };
 
     handleCancelPriorityFilter = () => {
         this.state.priorityOptions.map(option => {
@@ -368,7 +367,7 @@ class JobListPage extends React.Component {
             }
         });
         this.togglePriorityModal()
-    }
+    };
 
     handleCancelSectorFilter = () => {
         this.state.sectorOptions.map(option => {
@@ -383,10 +382,10 @@ class JobListPage extends React.Component {
             }
         });
         this.toggleSectorModal()
-    }
+    };
 
     handleCancelTypeFilter = () => {
-        this.state.typeOptions.map(option => {
+        this.state.typeOptions.map(() => {
             if (this.state.filterType === '') {
                 this.setState({
                     filterTypeOptionValue: 0
@@ -402,7 +401,7 @@ class JobListPage extends React.Component {
             }
         });
         this.toggleTypeModal()
-    }
+    };
 
     handleCancelStatusFilter = () => {
         this.state.statusOptions.map(option => {
@@ -417,7 +416,7 @@ class JobListPage extends React.Component {
             }
         });
         this.toggleStatusModal()
-    }
+    };
 
     handleApplyBookmarkedFilter = () => {
         if (this.state.filterSwitch) {
@@ -433,10 +432,10 @@ class JobListPage extends React.Component {
             isFiltering: !this.state.isFiltering},
             () => this.toggleBookmarkedModal()
         );
-    }
+    };
 
     handleApplyDueDateFilter = () => {
-        this.state.dueDateOptions.map(option => {
+        this.state.dueDateOptions.map(() => {
             if (this.state.filterDueDateOptionValue === 0) {
                 this.setState({
                     greaterThan: '',
@@ -491,7 +490,7 @@ class JobListPage extends React.Component {
             isFiltering: !this.state.isFiltering},
             () => this.toggleDueDateModal()
         );
-    }
+    };
 
     handleApplyPriorityFilter = () => {
         this.state.priorityOptions.map(option => {
@@ -509,7 +508,7 @@ class JobListPage extends React.Component {
             isFiltering: !this.state.isFiltering},
             () => this.togglePriorityModal()
         );
-    }
+    };
 
     handleApplySectorFilter = () => {
         this.state.sectorOptions.map(option => {
@@ -527,10 +526,10 @@ class JobListPage extends React.Component {
             isFiltering: !this.state.isFiltering},
             () => this.toggleSectorModal()
         );
-    }
+    };
 
     handleApplyTypeFilter = () => {
-        this.state.typeOptions.map(option => {
+        this.state.typeOptions.map(() => {
             if (this.state.filterTypeOptionValue === 0) {
                 this.setState({
                     filterType: ''
@@ -549,7 +548,7 @@ class JobListPage extends React.Component {
             isFiltering: !this.state.isFiltering},
             () => this.toggleTypeModal()
         );
-    }
+    };
 
     handleApplyStatusFilter = () => {
         this.state.statusOptions.map(option => {
@@ -567,7 +566,7 @@ class JobListPage extends React.Component {
             isFiltering: !this.state.isFiltering},
             () => this.toggleStatusModal()
         );
-    }
+    };
 
     handleSort = (index, value) => {
         this.state.sortByFields.map(field => {
@@ -584,7 +583,7 @@ class JobListPage extends React.Component {
             isSorting: true, 
             lastPage: false
         });
-    }
+    };
 
     handleOrdering = () => {
         this.state.ascending === true
@@ -655,7 +654,7 @@ class JobListPage extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <CommonHeader user={this.state.user} />
+                <SearchComponent/>
                 <JobListComponent {...this.state} 
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}

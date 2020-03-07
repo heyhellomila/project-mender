@@ -15,7 +15,7 @@ class HeaderAddress extends Component {
         return (
             <View>
                 {this.props.property
-                    ? <Text style={headerStyles.propertyHeaderText}>{this.props.property.name}</Text>
+                    ? <Text style={headerStyles.propertyHeaderText}>Property - {this.props.property.name}</Text>
                     : null
                 }
             </View>

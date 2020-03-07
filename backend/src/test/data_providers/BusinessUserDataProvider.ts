@@ -6,8 +6,6 @@ import { BusinessUserRole } from '../../entities/BusinessUserRole';
 class BusinessUserDataProvider {
 
     static getBusinessUser(id: number, business: Business, user: User) : BusinessUser;
-    static getBusinessUser(id: number, business: Business, user: User,
-                           businessUserRole: BusinessUserRole) : BusinessUser;
 
     static getBusinessUser(id: number, business: Business, user: User,
                            businessUserRole?: BusinessUserRole) : BusinessUser {

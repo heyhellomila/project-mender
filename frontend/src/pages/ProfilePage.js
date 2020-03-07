@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
-import {updateUser, updateUserPassword} from '../../src/apis/users/UpdateUser';
+import { updateUser } from '../../src/apis/users/UpdateUser';
 import {getUser} from '../../src/apis/users/GetUser';
 import {reloadUserProfile} from '../redux/actions';
 import validator from 'validator';
@@ -41,7 +40,8 @@ class ProfilePage extends Component {
             loading: false,
             submitting: false,
             emptyField: false,
-            navigation: this.props.navigation
+            navigation: this.props.navigation,
+            isSearchVisible: false
         }
     }
 
@@ -88,7 +88,6 @@ class ProfilePage extends Component {
     };
 
     goToProfilePage = () => {
-        const {user} = this.state;
         this.setState({
             page: 'profilePage',
             validFirstName: true,
@@ -127,18 +126,18 @@ class ProfilePage extends Component {
             updatedUser.lastName = lastName
         }
         if (newEmail !== '') {
-            updatedUser.email = newEmail
+            updatedUser.email = newEmail;
             updatedUser.currentPassword = currentPassword
         }
         if (newPhoneNumber !== '') {
             updatedUser.phoneNumber = newPhoneNumber
         }
         if (newPassword !== null) {
-            updatedUser.password = newPassword
+            updatedUser.password = newPassword;
             updatedUser.currentPassword = currentPassword
         }
         return updatedUser;
-    }
+    };
 
     handleFirstNameChange = event => {
         this.setState({firstName: event}, async () => {
@@ -164,18 +163,16 @@ class ProfilePage extends Component {
             : this.setState({
                 [validField]: false
             })
-    }
+    };
 
     validateNameFields = () => {
         const {firstName, lastName, validFirstName, validLastName} = this.state;
         if (firstName === this.props.user.firstName && lastName === this.props.user.lastName) {
-            return false
-        }else if (!validFirstName || !validLastName) {
-            return false
-        }else{
-            return true
+            return false;
+        } else {
+            return !(!validFirstName || !validLastName);
         }
-    }
+    };
 
     handleNewEmail = event => {
         this.setState({newEmail: event})
@@ -185,7 +182,7 @@ class ProfilePage extends Component {
         this.setState({confirmEmail: event})
     };
 
-    handleEmailChange = () => {
+    handleEmailChange = async() => {
         const {newEmail, confirmEmail, currentPassword} = this.state;
         this.setState({
             submitting: true,
@@ -194,61 +191,63 @@ class ProfilePage extends Component {
             validAuth: true,
             validConfirmPassword: true,
             emailNotAlreadyUsed: true
-        })
+        });
         if ( newEmail === '' || !validator.isEmail(newEmail)) {
             this.setState({
                 validEmail: false
             });
-        }if (newEmail !== confirmEmail || confirmEmail === '') {
+        }
+        if (newEmail !== confirmEmail || confirmEmail === '') {
             this.setState({
                 validEmailMatch: false
             });
-        }if(currentPassword === null || currentPassword === ''){
+        }
+        if(currentPassword === null || currentPassword === ''){
             this.setState({
                 validConfirmPassword: false
             });
         }
-        if (newEmail !== '' && validator.isEmail(newEmail) && newEmail === confirmEmail && currentPassword !== null && currentPassword !== ''){
+        if (newEmail !== '' && validator.isEmail(newEmail) && newEmail === confirmEmail && currentPassword !== null && currentPassword !== '') {
             this.handleUpdate();
-        }else{
+        } else {
             this.setState({
                 submitting: false
             })
         }
-    }
+    };
 
     handlePhoneNumber = event => {
         this.setState({newPhoneNumber: event})
     };
 
-    handlePhoneNumberChange = () => {
-        const {newPhoneNumber, validPhoneNumber} = this.state;
+    handlePhoneNumberChange = async () => {
+        const { newPhoneNumber } = this.state;
         this.setState({
             submitting: true,
             validPhoneNumber: true,
             phoneNumberNotAlreadyUsed: true,
             emptyField: false
-        })
+        });
         if (newPhoneNumber === this.props.user.phoneNumber) {
             this.setState({phoneNumberNotAlreadyUsed: false})
         }
-        if(newPhoneNumber === ''){
+        if (newPhoneNumber === ''){
             this.setState({emptyField: true})
-        }else if(!validatePhoneNumber(newPhoneNumber)){
+        } else if (!validatePhoneNumber(newPhoneNumber)){
             this.setState({validPhoneNumber: false})
         }
-        if(newPhoneNumber !== this.props.user.phoneNumber && newPhoneNumber !== '' && validatePhoneNumber(newPhoneNumber)){
+        if (newPhoneNumber !== this.props.user.phoneNumber && newPhoneNumber !== '' && validatePhoneNumber(newPhoneNumber)){
             this.handleUpdate();
         }else{
             this.setState({
                 submitting: false
             })
         }
-    }
+    };
 
     handleCurrentPassword = event => {
         this.setState({currentPassword: event})
-    }
+    };
 
     handleNewPasswordChange = event => {
         this.setState({newPassword: event})
@@ -258,9 +257,9 @@ class ProfilePage extends Component {
         this.setState({confirmPassword: event})
     };
 
-    handlePasswordChange = () => {
+    handlePasswordChange = async () => {
         const {newPassword, confirmPassword, currentPassword} = this.state;
-        this.setState({validConfirmPassword: true, validPasswordMatch: true, validPassword: true, passwordNotAlreadyUsed: true, validAuth: true})
+        this.setState({validConfirmPassword: true, validPasswordMatch: true, validPassword: true, passwordNotAlreadyUsed: true, validAuth: true});
         if (!passwordValidator.validate(newPassword)) {
             this.setState({
                 validPassword: false
@@ -287,12 +286,12 @@ class ProfilePage extends Component {
 
     handleUpdate = async () => {
         const {user} = this.state;
-        this.setState({submitting: true})
+        this.setState({submitting: true});
         try {
             await updateUser(user.id, this.getUpdatedFields())
                 .then(() => {
                     this.props.reloadUserProfile(true, user);
-                });
+                })
         } catch (err) {
             if (err.message === '401') {
                 this.setState({
@@ -305,26 +304,30 @@ class ProfilePage extends Component {
                     passwordNotAlreadyUsed: false,
                     submitting: false
                 })
+            } else {
+                alert(err.message);
             }
         }
     };
 
     async getUpdatedProfile() {
-        await getUser(this.state.user.id).then((response) => {
-            this.props.reloadUserProfile(false, response.data);
-            alert("Profile Updated")
-            this.setState({
-                page: "profilePage",
-                user: response.data,
-                loading: false
+        await getUser(this.state.user.id)
+            .then((response) => {
+                this.props.reloadUserProfile(false, response.data);
+                alert('Profile Updated');
+                this.setState({
+                    page: 'profilePage',
+                    user: response.data,
+                    loading: false
+                })
             })
-        })
     }
 
     render() {
         return (
             <ProfilePageForm
                 {...this.state}
+                {...this.props}
                 handleUpdate={this.handleUpdate}
                 handleFirstNameChange={this.handleFirstNameChange}
                 handleLastNameChange={this.handleLastNameChange}
@@ -350,7 +353,7 @@ class ProfilePage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user)),
+    reloadUserProfile: (bool, user) => dispatch(reloadUserProfile(bool, user))
 });
 
 const mapStateToProps = (state) => ({

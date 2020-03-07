@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import {textInputStyles, buttonStyles, containerStyles, changeProfileComponentStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const ChangePhoneNumberComponent = (props) => {
@@ -50,6 +50,6 @@ const ChangePhoneNumberComponent = (props) => {
             </View>
         </View>
     );
-}
+};
 
 export default ChangePhoneNumberComponent;

@@ -28,7 +28,7 @@ const JobListComponent = (props) => {
                 <View style={jobListStyles.loadMoreContainer}>
                     {
                         props.loading === true && props.showSortIndicator === false
-                            ?   <View style={jobListStyles.loadMoreIcon}>
+                            ?   <View>
                                     <ActivityIndicator animating size={'small'} style={{height: 30}} />
                                 </View>
                             :   props.lastPage === false && props.showSortIndicator === false

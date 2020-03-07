@@ -10,35 +10,47 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
 
-    }, menderWelcomeLogo: {
+    }, 
+    menderWelcomeLogo: {
         marginTop: '30%',
         alignItems: 'center',
-    }, buttonGroup: {
+    }, 
+    buttonGroup: {
         marginTop: '30%',
         flex: 1,
         justifyContent: 'center'
-    }, propertyContainer: {
+    }, 
+    propertyContainer: {
         height: 50
-    }, imageWelcomeLogo:{
+    }, 
+    imageWelcomeLogo:{
         width: 250, 
         height: 250, 
         borderRadius: 125, 
         backgroundColor: 'teal'
-    }, imageTopBarLogo: {
-        marginLeft: 10, 
+    }, 
+    imageTopBarLogo: {
+        marginLeft: 10,
+        width: 50, 
+        height: 50, 
+        borderRadius: 25,
+        backgroundColor: 'teal',
+        alignSelf: 'flex-start'
+    },
+    imageRightNavLogo: {
         width: 50, 
         height: 50, 
         borderRadius: 25,
         backgroundColor: 'teal'
-    },imageNormalLogo: {
+    },
+    imageNormalLogo: {
         marginLeft: 10,
         width: 200,
         height: 200,
         borderRadius: 100,
         backgroundColor: 'teal'
     }
-
-})
+});
 
 const loginComponent = StyleSheet.create({
     imageBackgroundLogin: {
@@ -52,99 +64,47 @@ const loginComponent = StyleSheet.create({
         fontWeight: 'bold',
         padding: '2%'
     }
-})
-
-const signUpComponent = StyleSheet.create({
-    signUpPageComponent: {
-        flex:1, 
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    header: {
-        alignSelf: 'center',
-        fontSize: 20,
-        paddingTop: 10,
-        marginTop: 25,
-    },
-    headerView: {
-        paddingBottom: 10,
-        marginBottom: 15,
-        borderBottomColor: '#4DAFFF',
-        borderBottomWidth: 3,
-    },
-    fieldDescriptor: {
-        paddingTop: 10
-    },
-    signUpInputText: {
-        height: 40, 
-        width: 150, 
-        borderBottomColor: 'black', 
-        borderBottomWidth: 1,
-        marginBottom: 3,
-    },
-    invalidSignUpInputText: {
-        height: 40, 
-        width: 150, 
-        borderBottomColor: 'red', 
-        borderBottomWidth: 1,
-        marginBottom: 3
-    },
-    picker: {
-        width: 160,
-        height: 100
-    },
-    pickerItem: {
-        height: 100
-    },
-    registerButton: {
-        alignSelf: 'center',
-        marginRight:40,
-        marginLeft:40,
-        marginTop:5,
-        paddingTop:5,
-        paddingBottom:10,
-        backgroundColor:'#4DAFFF',
-        borderRadius:10,
-        borderWidth: 2,
-        borderColor: '#fff',
-        width: 200,
-        height: 40
-    },
-    registerText:{
-        alignSelf: 'center',
-        color:'#fff',
-        textAlign:'center',
-        paddingLeft : 10,
-        paddingRight : 10,
-        fontSize: 16
-    }
-})
+});
 
 const headerStyles = StyleSheet.create({
     commonHeaderTextComponent: {
-        flex: 3
+        flex: 2,
+        paddingTop: 10
     },
     commonHeaderText: {
         textAlign: 'center', 
-        fontSize: 25,
-        paddingTop: 10
+        fontSize: 30,
+        fontWeight: '200',
+        paddingTop: 25
+    },
+    commonHeaderTitle: {
+        alignItems: 'center', 
+        width: '100%', 
+        justifyContent: 'space-around'
     },
     commonHeaderSearch: {
-        flex: 3, 
-        alignSelf:'center', 
-        width: '75%'
+        flex: 2, 
+        alignSelf: 'center', 
+        width: 300,
+        paddingTop: 10
     },
     commonHeaderComponent: {
         flex: 1, 
         borderBottomColor:'#d3d3d3', 
-        borderBottomWidth:2
+        borderBottomWidth: 2
     },
     propertyHeaderText: {
-        fontSize: 20,
-        paddingTop: 10,
-        paddingBottom: 10
+        fontSize: 15,
+        fontWeight: '200',
+        paddingTop: 15
+    },
+    profileButton: {
+        marginRight: 10, 
+        width: 50, 
+        height: 50, 
+        alignSelf: 'flex-start'
     }
-})
+});
 
 const buttons = StyleSheet.create({
     buttonSignUp: {
@@ -175,6 +135,6 @@ const buttons = StyleSheet.create({
         marginBottom: 10,
         fontSize: 20
     }
-})
+});
 
-export { styles, buttons, loginComponent, headerStyles, signUpComponent };
+export { styles, buttons, loginComponent, headerStyles };

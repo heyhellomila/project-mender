@@ -33,7 +33,7 @@ const Footer = (props) => {
                     :
                         <TouchableOpacity
                             disabled={props.loading}
-                            style={[footerStyles.rightButton, footerStyles.deleteButton]}
+                            style={footerStyles.deleteButton}
                             onPress={() => props.deleteProperty()}>
                             <Text style={footerStyles.buttonText}>Delete</Text>
                         </TouchableOpacity>

@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';	
-import { LOCAL_API_KEY } from 'react-native-dotenv'	
+import { LOCAL_API_KEY } from 'react-native-dotenv'
+import { handleGeneralErrors } from '../ErrorHandler';
 
 var api = axios.create({	
     baseURL: `http://${LOCAL_API_KEY}/api`,
@@ -8,14 +9,13 @@ var api = axios.create({
 });	
 
 api.interceptors.response.use(async (response) => {
-    return await response;
+    return response;
     }, async (error) => {
-        if (error.code == 'ECONNABORTED' || error.response.data.statusCode == 500){
-            throw new Error('Internal server error. Please try again later.')
-        } else if (error.response.data.statusCode > 400) {
+        await handleGeneralErrors(error);
+        if (error.response.data.statusCode > 400) {
             throw new Error('Could not find user.')
         } else {
-            throw error;
+            throw Error('Could not get user. Please try again later.');
         }
 });
 

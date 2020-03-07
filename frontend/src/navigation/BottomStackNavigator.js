@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { Image, View, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import React from 'react';
 import BottomNavigator from './BottomNavigator';
 import CreateWorkOrderPage from '../pages/CreateWorkOrderPage';
@@ -10,11 +10,11 @@ import AboutUsPage from '../pages/AboutUsPage';
 import ProfilePage from '../pages/ProfilePage';
 import HeaderAddress from '../components/HeaderAddress';
 import HeaderButton from '../components/HeaderButton';
-import { styles } from '../stylesheets/Stylesheet';
+import { styles, headerStyles } from '../stylesheets/Stylesheet';
 import EditWorkOrderPage from "../pages/EditWorkOrderPage";
+import CommonHeader from '../components/CommonHeader';
 
-
-const menderLogo = require('../../assets/mender_logo_no_text.jpg')
+const menderLogo = require('../../assets/mender_logo_no_text.jpg');
 
 //Navigator for top header
 const BottomStackNavigatorRoot = createStackNavigator({
@@ -26,16 +26,21 @@ const BottomStackNavigatorRoot = createStackNavigator({
 }, {
     defaultNavigationOptions: ({ navigation }) => {
         return {
+            headerStyle: {
+                height: 100,
+                paddingBottom: 10
+            },
             headerLeft: (
                 <Image style={styles.imageTopBarLogo} source={menderLogo} />
             ),
             headerTitle: (
-                <View style={{ alignItems: 'center', width: '100%' }}>
+                <View style={headerStyles.commonHeaderTitle}>
                     <HeaderAddress/>
+                    <CommonHeader/>
                 </View>
             ),
             headerRight: (
-                <View style={{ marginRight: 10, width: 50, height: 50 }}>
+                <View style={headerStyles.profileButton}>
                     <HeaderButton navigation={navigation}/>
                 </View>
             )

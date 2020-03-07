@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Button} from 'react-native';
-import {buttonStyles, containerStyles, imageStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { containerStyles, imageStyles, profilePageStyles} from '../../stylesheets/ProfilePageStylesheet';
 
 const profilePicture = require('../../../assets/profileMender.png');
 
@@ -18,7 +18,8 @@ const ProfilePageComponent = (props) => {
                     <View style={profilePageStyles.profilePageInsideRows}>
                         <View style={profilePageStyles.profilePageJustifyContentStart}><Text>
                             <Text style={profilePageStyles.profilePageBoldText}>Name: </Text>
-                            <Text>{props.user.firstName} {props.user.lastName}</Text>
+                            {props.user &&
+                                <Text>{props.user.firstName} {props.user.lastName}</Text>}
                         </Text>
                         </View>
                         <View style={profilePageStyles.profilePageJustifyContentEnd}>
@@ -34,7 +35,8 @@ const ProfilePageComponent = (props) => {
                         <View style={profilePageStyles.profilePageJustifyContentStart}>
                             <Text>
                                 <Text style={profilePageStyles.profilePageBoldText}>Email: </Text>
-                                <Text>{props.user.email}</Text>
+                                {props.user &&
+                                    <Text>{props.user.email}</Text>}
                             </Text>
                         </View>
                         <View style={profilePageStyles.profilePageJustifyContentEnd}>
@@ -50,7 +52,8 @@ const ProfilePageComponent = (props) => {
                         <View style={profilePageStyles.profilePageJustifyContentStart}>
                             <Text>
                                 <Text style={profilePageStyles.profilePageBoldText}>Phone Number: </Text>
-                                <Text>{props.user.phoneNumber}</Text>
+                                {props.user &&
+                                    <Text>{props.user.phoneNumber}</Text>}
                             </Text>
                         </View>
                         <View style={profilePageStyles.profilePageJustifyContentEnd}>
@@ -87,8 +90,7 @@ const ProfilePageComponent = (props) => {
                 </View>
             </View>
         </View>
-    )
-        ;
-}
+    );
+};
 
 export default ProfilePageComponent; 

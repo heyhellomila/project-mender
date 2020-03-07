@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, TextInput, View, TouchableOpacity, Image, Dimensions, ScrollView} from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {logInPageStyles} from '../stylesheets/LogInPageStylesheet';
+import { logInPageStyles } from '../stylesheets/LogInPageStylesheet';
 const menderLogo = require('../../assets/mender_logo.jpg');
 
 const LoginForm = (props) => {

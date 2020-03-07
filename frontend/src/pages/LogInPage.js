@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ImageBackground, ActivityIndicator} from 'react-native';
+import { ImageBackground } from 'react-native';
 import LoginForm  from '../components/LoginForm';
 import { login } from '../apis/users/Login'
 import { authenticate } from '../redux/actions'
@@ -38,11 +38,11 @@ class LogInPage extends React.Component {
 
   handleEmailChange = event => {
     this.setState({email: event})
-  }
+  };
 
   handlePasswordChange = event => {
     this.setState({password: event})
-  }
+  };
 
   handleLoginValidation = () => {
     const {email, password} = this.state;
@@ -52,20 +52,21 @@ class LogInPage extends React.Component {
           emptyPassword: password === '',
           invalidEmail: email !== '' && !validator.isEmail(email)
         },
-        () => {
+        async () => {
           if (!this.state.emptyEmail && !this.state.emptyPassword && !this.state.invalidEmail) {
             this.setState({submitting: true});
             this.handleLogin();
           }
         })
-  }
+  };
+
   handleLogin = async() => {
-    this.setState({ submitting: true })
+    this.setState({ submitting: true });
     try {
       await login(this.state.email, this.state.password).then(async (response) => {
         await this.props.authenticate(response.data.token).then(() => {
           if (!this.props.user.loading && this.props.user.user) {
-            this.props.navigation.navigate('HomePage')
+            this.props.navigation.navigate('HomePage');
             this.setState({submitting: false, email: '', password: '', error: false})
           }
         })
@@ -73,22 +74,23 @@ class LogInPage extends React.Component {
     } catch (err) {
       this.setState({error: true, submitting: false, errorMsg: err.message})
     }
-  }
+  };
 
   render() {
-    var {submitting} = this.state;
+    let {submitting} = this.state;
 
     return (
         <ImageBackground
             style={loginComponent.imageBackgroundLogin}
             source={menderBackground}>
-        {submitting
-          ? <Spinner
+          {submitting
+            ? <Spinner
                 visible={submitting}
-            />
-          : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
-            handlePasswordChange={this.handlePasswordChange} handleLoginValidation={this.handleLoginValidation}/>
-        }
+              />
+            : <LoginForm {...this.state} handleEmailChange={this.handleEmailChange}
+                handlePasswordChange={this.handlePasswordChange}
+                handleLoginValidation={this.handleLoginValidation}/>
+          }
         </ImageBackground>
     );
   }

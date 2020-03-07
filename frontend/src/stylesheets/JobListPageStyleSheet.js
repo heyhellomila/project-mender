@@ -37,6 +37,7 @@ const jobListStyles = StyleSheet.create({
     },
     emptyText: {
         fontSize: 15,
+        fontWeight: '300',
         color: '#ababab',
         textAlign: 'center'
     }
@@ -77,7 +78,7 @@ const headerStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     loadMoreIcon: {
-        height: Dimensions.get('window').height * 0.5
+        height: 15
     },
     sortIconDown: {
         height: Dimensions.get('window').height * 0.02,
@@ -124,7 +125,7 @@ const jobListCardStyles = StyleSheet.create({
     title: {
         fontSize: 15,
         fontWeight: 'bold', 
-        width: Dimensions.get('window').width * 0.4
+        width: Dimensions.get('window').width * 0.3
     },
     calendar: {
         flexDirection: 'column', 

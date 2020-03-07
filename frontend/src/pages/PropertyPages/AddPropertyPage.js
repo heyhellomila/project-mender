@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
 import { postcodeValidator } from 'postcode-validator';
 import { CountryCode } from '../../constants/enums/CountryCode';
 import { Province } from '../../constants/enums/Province';
@@ -124,7 +123,7 @@ class AddPropertyPage extends React.Component {
                         }, 1500);
                 });
             } catch (err) {
-                alert('Error creating property. Please try again later.');
+                alert(err.message);
             } finally {
                 this.setState({submitting: false});
             }

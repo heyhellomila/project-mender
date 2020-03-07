@@ -3,12 +3,13 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
+import SearchComponent from '../components/SearchComponent'
 
 class JobListPage extends React.Component {
     static navigationOptions = {
         title: 'Email Page',
     };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -18,30 +19,10 @@ class JobListPage extends React.Component {
         }
     }
 
-    openModal() {
-        this.setState(prevState => {
-            return {
-                displayModal: true
-            }
-        });
-    }
-
-    closeModal = () => {
-        this.setState(prevState => {
-            return {
-                displayModal: false
-            }
-        })
-    }
-
-    openWorkModal = () => {
-        this.openModal();
-    }
-
     render() {
         return (
             <View style={styles.container}>
-                <CommonHeader user={this.state.user} />
+                <SearchComponent/>
                 <View style={styles.bodyContainer}>
                     <Text>Email</Text>
                 </View>

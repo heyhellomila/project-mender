@@ -1,17 +1,16 @@
 import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import { Provider } from 'react-redux'
-import rootReducer from './src/redux/reducers'
-
-const store = createStore(rootReducer, applyMiddleware( thunkMiddleware ));
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
+import NavigatorService from './src/navigation/NavigatorService';
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-         <AppNavigator/>
+         <AppNavigator
+             ref={navigatorRef => {NavigatorService.setContainer(navigatorRef);}}
+         />
       </Provider>
     );
   }

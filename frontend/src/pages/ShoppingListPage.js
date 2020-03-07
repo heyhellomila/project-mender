@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { userLogout } from '../redux/actions';
 import { styles } from '../stylesheets/Stylesheet';
-import CommonHeader from '../components/CommonHeader';
+import SearchComponent from '../components/SearchComponent'
 
 class ShoppingListPage extends React.Component {
     static navigationOptions = {
@@ -18,33 +18,12 @@ class ShoppingListPage extends React.Component {
         }
     }
 
-    openModal() {
-        alert('ok');
-        this.setState(prevState => {
-            return {
-                displayModal: true
-            }
-        });
-    }
-
-    closeModal = () => {
-        this.setState(prevState => {
-            return {
-                displayModal: false
-            }
-        })
-    }
-
-    openWorkModal = () => {
-        this.openModal();
-    }
-
     render() {
         return (
             <View style={styles.container}>
-                <CommonHeader user={this.state.user} />
+                <SearchComponent/>
                 <View style={styles.bodyContainer}>
-                    <Text>Shopping LIST</Text>
+                    <Text>Shopping List</Text>
                 </View>
             </View>
         );

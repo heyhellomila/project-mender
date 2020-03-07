@@ -5,7 +5,6 @@ import { WorkOrder } from '../entities/WorkOrder';
 import { License } from '../entities/License';
 import { PropertySector } from '../entities/PropertySector';
 import { BusinessUser } from '../entities/BusinessUser';
-import { Business } from '../entities/Business';
 import { ShoppingItem } from 'src/entities/ShoppingItem';
 
 const PROPERTY_FIELDS : FindOptions<Property> = {
