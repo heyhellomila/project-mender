@@ -14,7 +14,6 @@ import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
-import { UserService } from './UserService';
 
 class WorkOrderService {
 
@@ -22,7 +21,6 @@ class WorkOrderService {
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
     private businessUserService: BusinessUserService = new BusinessUserService();
-    private userService: UserService = new UserService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
@@ -32,7 +30,8 @@ class WorkOrderService {
                 priorityTypeService?: PriorityTypeService,
                 workOrderTypeService?: WorkOrderTypeService,
                 workOrderStatusService?: WorkOrderStatusService,
-                workOrderRepository?: WorkOrderRepository) {
+                workOrderRepository?: WorkOrderRepository,
+                businessUserService?: BusinessUserService) {
         this.propertyService = propertyService
             ? propertyService : new PropertyService();
         this.sectorService = sectorService
@@ -45,6 +44,8 @@ class WorkOrderService {
             ? workOrderStatusService : new WorkOrderStatusService();
         this.workOrderRepository = workOrderRepository
             ? workOrderRepository : new WorkOrderRepository();
+        this.businessUserService = businessUserService
+            ? businessUserService : new BusinessUserService();
     }
 
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
