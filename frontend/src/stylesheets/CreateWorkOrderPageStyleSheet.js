@@ -256,6 +256,14 @@ const typeStyles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#d2d2d2'
     },
+    selectedTypeContainer: {
+        padding: '1%',
+        borderWidth: 2,
+        borderColor: '#00ace6',
+        width: '50%',
+        height: '80%',
+        maxHeight: 200
+    },
     preventiveIcon: {
         margin: '-10%'
     },

@@ -1,4 +1,4 @@
-import {formStyles, typeStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
+import {formStyles, sectorStyles, typeStyles} from '../../stylesheets/CreateWorkOrderPageStyleSheet';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 
@@ -10,7 +10,9 @@ const ChooseType = (props) => {
         <View style= {formStyles.chooseTypeContainer}>
             <View style={formStyles.rowContainer}>
                 <TouchableOpacity
-                    style = {typeStyles.typeContainer}
+                    style = {props.type === 'PM'
+                        ? typeStyles.selectedTypeContainer
+                        : typeStyles.typeContainer}
                     onPress={() => props.handleType('PM')}>
                     <Image style={[typeStyles.typeIcon, typeStyles.preventiveIcon]} source={PM}/>
                     <Text style={typeStyles.subHeader}>
@@ -20,7 +22,9 @@ const ChooseType = (props) => {
             </View>
             <View style={formStyles.rowContainer}>
                 <TouchableOpacity
-                    style = {typeStyles.typeContainer}
+                    style = {props.type === 'CM'
+                        ? typeStyles.selectedTypeContainer
+                        : typeStyles.typeContainer}
                     onPress={() => props.handleType('CM')}>
                     <Image style={typeStyles.typeIcon} source={CM}/>
                     <Text style={typeStyles.subHeader}>

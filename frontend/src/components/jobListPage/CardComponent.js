@@ -116,7 +116,7 @@ const CardComponent = (props) => {
                             <View style={jobListCardStyles.separator}/>
                             <View style={jobListCardStyles.collapseBodySectionBottomButtons}>
                                 <Button
-                                    title='Completed'
+                                    title='Complete'
                                     type='outline'
                                     disabled={false}
                                     buttonStyle={buttonStyles.completedButton}

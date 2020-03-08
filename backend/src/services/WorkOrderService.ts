@@ -238,7 +238,6 @@ class WorkOrderService {
     async updateWorkOrderById(id: number, workOrderObj: WorkOrder, updatedByUserId: number) {
         const workOrder = new WorkOrder();
         await this.getWorkOrder(id);
-
         if (workOrderObj.property != null) {
             workOrder.property = await this.propertyService
                 .getPropertyById(workOrderObj.property.id);
@@ -297,8 +296,12 @@ class WorkOrderService {
         if (workOrderObj.notification != null) {
             workOrder.notification = workOrderObj.notification;
         }
-        if (workOrderObj.workOrderStatus.status === WorkOrderStatus.COMPLETED) {
-            workOrder.dateCompleted = new Date();
+        if (workOrderObj.workOrderStatus != null) {
+            if (workOrderObj.workOrderStatus.status === WorkOrderStatus.COMPLETED) {
+                workOrder.dateCompleted = new Date();
+            } else {
+                workOrder.lastModifiedDate = new Date();
+            }
         } else {
             workOrder.lastModifiedDate = new Date();
         }

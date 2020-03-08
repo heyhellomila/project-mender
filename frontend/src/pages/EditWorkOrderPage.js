@@ -1,13 +1,11 @@
 import React from 'react';
-import { createWorkOrder } from '../apis/workOrders/CreateWorkOrder';
 import { connect } from 'react-redux';
 import NoAccessComponent from '../components/NoAccessComponent';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import { View } from 'react-native';
 import WorkOrderForm from '../components/workOrderForm/WorkOrderForm';
-import {SectorType} from "../constants/enums/SectorType";
-import {formStyles, sectorStyles} from "../stylesheets/CreateWorkOrderPageStyleSheet";
+import { SectorType } from "../constants/enums/SectorType";
 import { reloadWorkOrders } from '../redux/actions';
-import {updateWorkOrderById} from "../apis/workOrders/updateWorkOrderById";
+import { updateWorkOrderById } from "../apis/workOrders/updateWorkOrderById";
 
 class EditWorkOrderPage extends React.Component {
     constructor(props){
@@ -117,7 +115,7 @@ class EditWorkOrderPage extends React.Component {
             });
         } catch (err) {
             this.setState({submitting: false});
-            alert(err.message);
+            alert("Hello1!!" + err.message);
         }
     };
 
@@ -138,8 +136,8 @@ class EditWorkOrderPage extends React.Component {
         if(this.state.oldWorkOrder.type !== this.state.type){
             updatedWorkOrder.type = this.state.type;
         }
-        if(this.state.oldWorkOrder.priority !== this.state.priority){
-            updatedWorkOrder.priority = this.state.priority;
+        if(this.state.oldWorkOrder.priorityType !== this.state.priority){
+            updatedWorkOrder.priorityType = this.state.priority;
         }
         if(this.state.oldWorkOrder.sectorType !== this.state.sectorType){
             updatedWorkOrder.sectorType = this.state.sectorType;
@@ -208,22 +206,16 @@ class EditWorkOrderPage extends React.Component {
     };
 
     render() {
-        const { property } = this.props;
         return (
-            <View style={{flex: 1}}> 
-                {!property 
-                    ? <NoAccessComponent
-                        errorMessage={'You must have a registered property to create a work order.'}
-                        navigation={this.props.navigation}/>
-                    : <WorkOrderForm {...this.state} {...this.props} handleTitle={this.handleTitle}
-                        handleCause={this.handleCause} nextStep={this.nextStep} 
-                        prevStep={this.prevStep} handleType={this.handleType}
-                        handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
-                        toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
-                        handleDescription={this.handleDescription} submit={this.handleEditWorkOrder}
-                        handleNotification={this.handleNotification} handleDueDate={this.handleDueDate}
-                        handleLocation={this.handleLocation} toggleEmergency={this.toggleEmergency}/>
-                }
+            <View style={{flex: 1}}>
+                  <WorkOrderForm {...this.state} {...this.props} handleTitle={this.handleTitle}
+                    handleCause={this.handleCause} nextStep={this.nextStep}
+                    prevStep={this.prevStep} handleType={this.handleType}
+                    handleSectorType={this.handleSectorType} handleSectorKind={this.handleSectorKind}
+                    toggleServiceNeeded={this.toggleServiceNeeded} handlePriority={this.handlePriority}
+                    handleDescription={this.handleDescription} submit={this.handleEditWorkOrder}
+                    handleNotification={this.handleNotification} handleDueDate={this.handleDueDate}
+                    handleLocation={this.handleLocation} toggleEmergency={this.toggleEmergency}/>
             </View>
         );
     }
