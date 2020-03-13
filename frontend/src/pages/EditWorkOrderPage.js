@@ -78,19 +78,16 @@ class EditWorkOrderPage extends React.Component {
         if (step === 2) {
             this.setState({
                 step: step - 1,
-                type: '',
                 headerText: 'Select a Type'
             });
         } else if (step === 3) {
             this.setState({
                 step: step - 1,
-                sectorType: '',
                 headerText: 'Select a Sector'
             });
         } else if (step === 4) {
             this.setState({
                 step: step - 1,
-                sectorKind: '',
                 headerText: SectorType[this.state.sectorType].display
             });
         } else if (step === 5) {
