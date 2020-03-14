@@ -116,23 +116,27 @@ const CardComponent = (props) => {
                             <View style={jobListCardStyles.separator}/>
                             <View style={jobListCardStyles.collapseBodySectionBottomButtons}>
                                 <Button
-                                    title='Completed'
+                                    title='Complete'
                                     type='outline'
-                                    disabled={true}
+                                    disabled={false}
+                                    buttonStyle={buttonStyles.completedButton}
                                     disabledStyle={buttonStyles.completedButton}
                                     titleStyle={buttonStyles.buttonTitle}
+                                    onPress={() => props.completeWorkOrder(props.id)}
                                 />
                                 <Button
                                     title='Edit'
                                     type='outline'
                                     buttonStyle={buttonStyles.editButton}
                                     titleStyle={buttonStyles.buttonTitle}
+                                    onPress={() => props.navigation.navigate('EditWorkOrder', props)}
                                 />
                                 <Button
                                     title='Remove'
                                     type='outline'
                                     buttonStyle={buttonStyles.removeButton}
                                     titleStyle={buttonStyles.buttonTitle}
+                                    onPress={() => props.deleteWorkOrder(props.id)}
                                 />
                             </View>
                         </Card> 

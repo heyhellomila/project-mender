@@ -69,7 +69,6 @@ class WorkOrderMapper implements ObjectMapper<WorkOrder, WorkOrderDTO> {
 
     fromDTO(workOrderDTO: WorkOrderDTO) : WorkOrder {
         const workOrder : WorkOrder = new WorkOrder();
-
         workOrder.id = workOrderDTO.id;
         workOrder.title = workOrderDTO.title;
         workOrder.cause = workOrderDTO.cause;

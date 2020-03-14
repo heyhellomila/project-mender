@@ -10,6 +10,7 @@ import { Property } from '../entities/Property';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WORK_ORDER_FIELDS, WORK_ORDER_FIELDS_NO_PROPERTY } from '../constants/FindOptionsFields';
 import { User }  from '../entities/User';
+import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
@@ -19,6 +20,7 @@ class WorkOrderService {
     private propertyService: PropertyService = new PropertyService();
     private sectorService: SectorService = new SectorService();
     private priorityTypeService: PriorityTypeService = new PriorityTypeService();
+    private businessUserService: BusinessUserService = new BusinessUserService();
     private workOrderTypeService: WorkOrderTypeService = new WorkOrderTypeService();
     private workOrderStatusService: WorkOrderStatusService = new WorkOrderStatusService();
     private workOrderRepository: WorkOrderRepository = new WorkOrderRepository();
@@ -28,7 +30,8 @@ class WorkOrderService {
                 priorityTypeService?: PriorityTypeService,
                 workOrderTypeService?: WorkOrderTypeService,
                 workOrderStatusService?: WorkOrderStatusService,
-                workOrderRepository?: WorkOrderRepository) {
+                workOrderRepository?: WorkOrderRepository,
+                businessUserService?: BusinessUserService) {
         this.propertyService = propertyService
             ? propertyService : new PropertyService();
         this.sectorService = sectorService
@@ -41,6 +44,8 @@ class WorkOrderService {
             ? workOrderStatusService : new WorkOrderStatusService();
         this.workOrderRepository = workOrderRepository
             ? workOrderRepository : new WorkOrderRepository();
+        this.businessUserService = businessUserService
+            ? businessUserService : new BusinessUserService();
     }
 
     async createWorkOrder(propertyId: number, workOrder: WorkOrder, createdByUserId: number) {
@@ -224,12 +229,90 @@ class WorkOrderService {
 
     async getWorkOrder(id: number) {
         const workOrder: WorkOrder = await this.workOrderRepository.
-                                                    getWorkOrderById(id, WORK_ORDER_FIELDS);
+        getWorkOrderById(id, WORK_ORDER_FIELDS);
         if (!workOrder) {
             throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }
         return workOrder;
     }
+
+    async updateWorkOrderById(id: number, workOrderObj: WorkOrder, updatedByUserId: number) {
+        const workOrder = new WorkOrder();
+        await this.getWorkOrder(id);
+        if (workOrderObj.property != null) {
+            workOrder.property = await this.propertyService
+                .getPropertyById(workOrderObj.property.id);
+        }
+        if (workOrderObj.sector != null) {
+            workOrder.sector = await this.sectorService
+                .getSectorByKind(workOrderObj.sector.kind);
+        }
+        if (workOrderObj.workOrderType != null) {
+            workOrder.workOrderType = await this.workOrderTypeService
+                .getWorkOrderType(workOrderObj.workOrderType.type);
+        }
+        if (workOrderObj.title != null) {
+            workOrder.title = workOrderObj.title;
+        }
+        if (workOrderObj.cause != null) {
+            workOrder.cause = workOrderObj.cause;
+        }
+        if (workOrderObj.serviceNeeded != null) {
+            workOrder.serviceNeeded = workOrderObj.serviceNeeded;
+        }
+        if (workOrderObj.priorityType != null) {
+            workOrder.priorityType = await this.priorityTypeService
+                .getPriorityType(workOrderObj.priorityType.type);
+        }
+        if (workOrderObj.dueDate != null) {
+            workOrder.dueDate = workOrderObj.dueDate;
+        }
+        if (workOrderObj.dateCompleted != null) {
+            workOrder.dateCompleted = workOrderObj.dateCompleted;
+        }
+        if (workOrderObj.priceEstimate != null) {
+            workOrder.priceEstimate = workOrderObj.priceEstimate;
+        }
+        if (workOrderObj.actualCost != null) {
+            workOrder.actualCost = workOrderObj.actualCost;
+        }
+        if (workOrderObj.bookmarked != null) {
+            workOrder.bookmarked = workOrderObj.bookmarked;
+        }
+        if (workOrderObj.workOrderStatus != null) {
+            workOrder.workOrderStatus = await this.workOrderStatusService
+                .getWorkOrderStatus(workOrderObj.workOrderStatus.status);
+        }
+        if (workOrderObj.contractedBy != null) {
+            workOrder.contractedBy = await this.businessUserService
+                .getBusinessUserByBusinessIdAndUserId(workOrderObj.contractedBy.business.id,
+                                                      workOrderObj.contractedBy.id);
+        }
+        if (workOrderObj.location != null) {
+            workOrder.location = workOrderObj.location;
+        }
+        if (workOrderObj.emergency != null) {
+            workOrder.emergency = workOrderObj.emergency;
+        }
+        if (workOrderObj.notification != null) {
+            workOrder.notification = workOrderObj.notification;
+        }
+        if (workOrderObj.workOrderStatus != null) {
+            if (workOrderObj.workOrderStatus.status === WorkOrderStatus.COMPLETED) {
+                workOrder.dateCompleted = new Date();
+            } else {
+                workOrder.lastModifiedDate = new Date();
+            }
+        } else {
+            workOrder.lastModifiedDate = new Date();
+        }
+
+        const updatedBy: User = new User();
+        updatedBy.id = updatedByUserId;
+        workOrder.lastModifiedBy = updatedBy;
+        return await this.workOrderRepository.updateWorkOrderById(id, workOrder);
+    }
+
 }
 
 export { WorkOrderService };

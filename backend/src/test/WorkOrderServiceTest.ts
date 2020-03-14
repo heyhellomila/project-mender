@@ -17,6 +17,8 @@ import { BadRequestError } from '../errors/BadRequestError';
 import { WORK_ORDER_FIELDS, WORK_ORDER_FIELDS_NO_PROPERTY } from '../constants/FindOptionsFields';
 import { WorkOrderQueryDataProvider } from './data_providers/WorkOrderQueryDataProvider';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
+import { BusinessUserService } from '../services/BusinessUserService';
+import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -44,6 +46,9 @@ describe('Work Order Service Test', () => {
 
     let workOrderRepositoryMock: WorkOrderRepository;
     let workOrderRepository: WorkOrderRepository;
+
+    let businessUserServiceMock: BusinessUserService;
+    let businessUserService: BusinessUserService;
 
     const testUserId = 1;
     const workOrder: WorkOrder = WorkOrderDataProvider.getWorkOrderPopulated(1);
@@ -80,9 +85,13 @@ describe('Work Order Service Test', () => {
         workOrderRepositoryMock = mock(WorkOrderRepository);
         workOrderRepository = instance(workOrderRepositoryMock);
 
+        businessUserServiceMock = mock(BusinessUserService);
+        businessUserService = instance(businessUserServiceMock);
+
         workOrderService = new WorkOrderService(propertyService, sectorService,
                                                 priorityTypeService, workOrderTypeService,
-                                                workOrderStatusService, workOrderRepository);
+                                                workOrderStatusService, workOrderRepository,
+                                                businessUserService);
     });
 
     it(('createWorkOrder happy path'), async() => {
@@ -297,5 +306,97 @@ describe('Work Order Service Test', () => {
         await expect(workOrderService.getWorkOrder(workOrder.id)).to.be.
             rejectedWith(ResourceNotFoundError);
         verify(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).called();
+    });
+
+    it(('updateWorkOrderById happy path'), async() => {
+        when(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).
+            thenResolve(workOrder);
+        when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
+        when(sectorServiceMock.getSectorByKind(anyString())).
+            thenResolve(workOrder.sector);
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
+            thenResolve(workOrder.workOrderType);
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
+            thenResolve(workOrder.priorityType);
+        when(workOrderStatusServiceMock.getWorkOrderStatus(anything())).
+            thenResolve(workOrder.workOrderStatus);
+        when(businessUserServiceMock.
+            getBusinessUserByBusinessIdAndUserId(anyNumber(), anyNumber())).
+            thenResolve(workOrder.contractedBy);
+        when(workOrderRepositoryMock.updateWorkOrderById(anyNumber(), workOrder)).
+            thenResolve(null);
+        workOrder.property = property;
+        await workOrderService.updateWorkOrderById(workOrder.id, workOrder, testUserId);
+        verify(workOrderRepositoryMock.getWorkOrderById(testUserId, WORK_ORDER_FIELDS));
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
+        verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
+        verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).called();
+        verify(businessUserServiceMock.
+            getBusinessUserByBusinessIdAndUserId(workOrder.contractedBy.business.id,
+                                                 workOrder.contractedBy.id)).called();
+    });
+
+    it(('updateWorkOrderById Completed work order'), async() => {
+        when(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).
+        thenResolve(workOrder);
+        when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
+        when(sectorServiceMock.getSectorByKind(anyString())).
+        thenResolve(workOrder.sector);
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
+        thenResolve(workOrder.workOrderType);
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
+        thenResolve(workOrder.priorityType);
+        when(workOrderStatusServiceMock.getWorkOrderStatus(anything())).
+        thenResolve(workOrder.workOrderStatus);
+        when(businessUserServiceMock.
+        getBusinessUserByBusinessIdAndUserId(anyNumber(), anyNumber())).
+        thenResolve(workOrder.contractedBy);
+        when(workOrderRepositoryMock.updateWorkOrderById(anyNumber(), workOrder)).
+        thenResolve(null);
+        workOrder.property = property;
+        workOrder.workOrderStatus.status = WorkOrderStatus.COMPLETED;
+        await workOrderService.updateWorkOrderById(workOrder.id, workOrder, testUserId);
+        verify(workOrderRepositoryMock.getWorkOrderById(testUserId, WORK_ORDER_FIELDS));
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
+        verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
+        verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).called();
+        verify(businessUserServiceMock.
+        getBusinessUserByBusinessIdAndUserId(workOrder.contractedBy.business.id,
+                                             workOrder.contractedBy.id)).called();
+    });
+
+    it(('updateWorkOrderById Cancelled work order'), async() => {
+        when(workOrderRepositoryMock.getWorkOrderById(anyNumber(), anything())).
+        thenResolve(workOrder);
+        when(propertyServiceMock.getPropertyById(anyNumber())).thenResolve(property);
+        when(sectorServiceMock.getSectorByKind(anyString())).
+        thenResolve(workOrder.sector);
+        when(workOrderTypeServiceMock.getWorkOrderType(anyString())).
+        thenResolve(workOrder.workOrderType);
+        when(priorityTypeServiceMock.getPriorityType(anyString())).
+        thenResolve(workOrder.priorityType);
+        when(workOrderStatusServiceMock.getWorkOrderStatus(anything())).
+        thenResolve(workOrder.workOrderStatus);
+        when(businessUserServiceMock.
+        getBusinessUserByBusinessIdAndUserId(anyNumber(), anyNumber())).
+        thenResolve(workOrder.contractedBy);
+        when(workOrderRepositoryMock.updateWorkOrderById(anyNumber(), workOrder)).
+        thenResolve(null);
+        workOrder.property = property;
+        workOrder.workOrderStatus.status = WorkOrderStatus.CANCELLED;
+        await workOrderService.updateWorkOrderById(workOrder.id, workOrder, testUserId);
+        verify(workOrderRepositoryMock.getWorkOrderById(testUserId, WORK_ORDER_FIELDS));
+        verify(propertyServiceMock.getPropertyById(property.id)).called();
+        verify(sectorServiceMock.getSectorByKind(workOrder.sector.kind)).called();
+        verify(workOrderTypeServiceMock.getWorkOrderType(workOrder.workOrderType.type)).called();
+        verify(priorityTypeServiceMock.getPriorityType(workOrder.priorityType.type)).called();
+        verify(workOrderStatusServiceMock.getWorkOrderStatus(anything())).called();
+        verify(businessUserServiceMock.
+        getBusinessUserByBusinessIdAndUserId(workOrder.contractedBy.business.id,
+                                             workOrder.contractedBy.id)).called();
     });
 });

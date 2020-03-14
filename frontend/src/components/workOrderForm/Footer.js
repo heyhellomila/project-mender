@@ -23,7 +23,7 @@ const Footer = (props) => {
                     {/*    <TouchableOpacity style={footerStyles.infoButton}>*/}
                     {/*        <Image style={footerStyles.imageButton} source={info}/>*/}
                     {/*    </TouchableOpacity>}*/}
-                    {props.step === 4 &&
+                    {(props.step !== 5) &&
                         <TouchableOpacity style={{alignSelf: 'flex-end'}} onPress={() => props.nextStep()}>
                             <Image style={footerStyles.imageButton} source={nextArrow}/>
                         </TouchableOpacity>
