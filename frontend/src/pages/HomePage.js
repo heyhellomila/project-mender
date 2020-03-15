@@ -1,29 +1,38 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { styles } from '../stylesheets/Stylesheet';
+import { styles } from '../stylesheets/DataAnalyticsStyleSheet'
 import SearchComponent from '../components/SearchComponent'
+import Header from '../components/homePage/Header'
 
 class HomePage extends React.Component {
     static navigationOptions = {
         title: 'Home'
     };
+
     constructor(props) {
         super(props);
         this.state = {
             user: props.user.user,
-            displayModal: false,
+            selectedIndex: 0,
+            buttons: ['Week', 'Month', 'Year'],
         }
+    }
+
+    updateSelection = (selectedIndex) => {
+        this.setState({
+            selectedIndex: selectedIndex
+        })
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <SearchComponent/>
-                <View style={styles.bodyContainer}>
-                    <Text>Home page</Text>
-                </View>
-            </View>
+            <ScrollView style={styles.container}>
+                <SearchComponent />
+                <Header {...this.state}
+                    updateSelection={this.updateSelection}
+                />
+            </ScrollView>
         );
     }
 }

@@ -646,7 +646,7 @@ class JobListPage extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <SearchComponent/>
+                <SearchComponent />
                 <JobListComponent {...this.state} 
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}
