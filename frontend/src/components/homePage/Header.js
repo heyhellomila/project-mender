@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dimensions, Image, Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { Text, View } from 'react-native';
 import { headerStyles } from '../../stylesheets/DataAnalyticsStyleSheet'
 import { ButtonGroup } from 'react-native-elements';
-
+ 
 const Header = (props) => {
     return (
         <View style={headerStyles.header}>
@@ -15,6 +15,7 @@ const Header = (props) => {
                 containerStyle={headerStyles.buttonGroup}
                 innerBorderStyle={headerStyles.buttonBorder}
                 buttonStyle={headerStyles.button}
+                textStyle={headerStyles.buttonText}
                 selectedButtonStyle={headerStyles.selectedButton}
                 selectedTextStyle={headerStyles.selectedButtonText}
             />

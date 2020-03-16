@@ -11,7 +11,6 @@ const headerStyles = StyleSheet.create({
     header: {
         justifyContent: 'flex-start', 
         marginLeft: '5%', 
-        marginBottom: Dimensions.get('window').height * 0.60,
     },
     headerTitle: {
         fontSize: 30, 
@@ -31,6 +30,12 @@ const headerStyles = StyleSheet.create({
     buttonBorder: {
         color: 'white',
     },
+    buttonText: {
+        color: '#060522', 
+        padding: 5, 
+        fontSize: 15,
+        fontWeight: '300',
+    },
     selectedButton: {
         borderRadius: 30, 
         backgroundColor: '#060522', 
@@ -40,9 +45,68 @@ const headerStyles = StyleSheet.create({
         color: 'white', 
         padding: 5, 
         fontSize: 15,
-        fontWeight: 'bold',
+        fontWeight: '800',
     },
-
 });
 
-export { styles, headerStyles };
+const dataAnalyticsStyles = StyleSheet.create({ 
+    container: {
+        justifyContent: 'flex-start', 
+        marginLeft: '5%', 
+    },
+    text: {
+        color: '#060522',
+        fontSize: 13,
+        fontWeight: '300',
+    },
+    completedContainer: {
+        flexDirection: 'row', 
+        marginLeft: '10%',
+    },
+    legendContainer: {
+        flexDirection: 'column', 
+        marginLeft: '1%', 
+        marginTop: '20%',
+    },
+    completedYouContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        marginBottom: '10%',
+    },
+    completedContractorContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+    },
+    completedYouCircle: {
+        width: 13,
+        height: 13,
+        borderRadius: 13/2,
+        borderColor: '#565567',
+        borderWidth: 3,
+        backgroundColor: 'white',
+        marginRight: '5%',
+    },
+    completedContractorCircle: {
+        width: 13,
+        height: 13,
+        borderRadius: 13/2,
+        borderColor: '#c1c1c9',
+        borderWidth: 3,
+        backgroundColor: 'white',
+        marginRight: '5%',
+    },
+    averageTimeContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'space-around',
+        marginRight: '5%'
+    },
+    averageTimeText: {
+        color: '#060522',
+        fontSize: 25,
+        fontWeight: '800',
+    },
+});
+
+
+export { styles, headerStyles, dataAnalyticsStyles };
