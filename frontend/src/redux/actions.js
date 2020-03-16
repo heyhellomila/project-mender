@@ -27,7 +27,9 @@ export const authenticate = (token) => async dispatch => {
 export const userLogout = () => async dispatch => {
     dispatch(loading(true));
     AsyncStorage.removeItem('Authorization').then((_) => {
-        dispatch(logout());
+        setTimeout(() => {
+            dispatch(logout());
+        }, 1500);
         dispatch(loading(false));
     }).catch((err) => {
             dispatch(error(err.message || 'ERROR'));
