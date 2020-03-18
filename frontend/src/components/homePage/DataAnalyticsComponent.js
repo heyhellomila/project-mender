@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { dataAnalyticsStyles } from '../../stylesheets/DataAnalyticsStyleSheet'
 import { StackedBarChart, ProgressChart } from 'react-native-chart-kit';
 
@@ -13,7 +13,7 @@ const DataAnalyticsComponent = (props) => {
                             ? props.completionRateWeekData
                             : props.selectedIndex === 1
                                 ? props.completionRateMonthData
-                                : props.completionRateYearData} // will be conditional ? : to show either week/month/year
+                                : props.completionRateYearData}
                     width={500}
                     height={200}
                     showLegend={false}
