@@ -5,15 +5,15 @@ const Header = (props) => {
     return (
         <View style={{alignSelf: 'center'}}>
                 {props.page === "profilePage" &&
-                <Text>Account information & security</Text>}
+                    <Text>Account information & security</Text>}
                 {props.page === "changeNamePage" &&
-                <Text >Change your name</Text>}
+                    <Text >Change your name</Text>}
                 {props.page === "passwordChangePage" &&
-                <Text>Change your password</Text>}
+                    <Text>Change your password</Text>}
                 {props.page === "updateEmailPage" &&
-                <Text>Change your email address</Text>}
+                    <Text>Change your email address</Text>}
                 {props.page === "updatePhoneNumberPage" &&
-                <Text>Change your phone number</Text>}
+                    <Text>Change your phone number</Text>}
         </View>
     );
 };

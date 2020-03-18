@@ -8,6 +8,7 @@ import ChangeEmailComponent from '../../components/profileForms/ChangeEmailCompo
 import ChangePhoneNumberComponent from '../../components/profileForms/ChangePhoneNumberComponent';
 import Header from '../../components/profileForms/Header';
 import { containerStyles, profilePageStyles } from '../../stylesheets/ProfilePageStylesheet';
+import Spinner from "react-native-loading-spinner-overlay";
 
 const ProfilePageForm = (props) => {
     return (
@@ -18,16 +19,21 @@ const ProfilePageForm = (props) => {
                 <Header style page={props.page}/>
             </View>
             <View style={profilePageStyles.profilePageMainViews}>
-                {props.page === "profilePage" &&
-                <ProfilePageComponent {...props} />}
-                {props.page === "changeNamePage" &&
-                <ChangeNameComponent {...props}/>}
-                {props.page === "passwordChangePage" &&
-                <ChangePasswordComponent {...props} />}
-                {props.page === "updateEmailPage" &&
-                <ChangeEmailComponent {...props} />}
-                {props.page === "updatePhoneNumberPage" &&
-                <ChangePhoneNumberComponent {...props} />}
+                {props.loading
+                    ?
+                        <Spinner visible={props.loading}/>
+                    :
+                        <View style={{flex: 1}}>{props.page === "profilePage" &&
+                            <ProfilePageComponent {...props} />}
+                        {props.page === "changeNamePage" &&
+                            <ChangeNameComponent {...props}/>}
+                        {props.page === "passwordChangePage" &&
+                            <ChangePasswordComponent {...props} />}
+                        {props.page === "updateEmailPage" &&
+                            <ChangeEmailComponent {...props} />}
+                        {props.page === "updatePhoneNumberPage" &&
+                        <ChangePhoneNumberComponent {...props} />}</View>
+                }
             </View>
         </KeyboardAwareScrollView>
     );
