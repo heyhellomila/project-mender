@@ -11,6 +11,7 @@ const headerStyles = StyleSheet.create({
     header: {
         justifyContent: 'flex-start', 
         marginLeft: '5%', 
+        marginBottom: '5%',
     },
     headerTitle: {
         fontSize: 30, 
@@ -56,12 +57,16 @@ const dataAnalyticsStyles = StyleSheet.create({
     },
     text: {
         color: '#060522',
-        fontSize: 13,
-        fontWeight: '300',
+        fontSize: 15,
+        fontWeight: '200',
+    },
+    completionRateContainer: {
+        flexDirection: 'column', 
+        marginLeft: '1%',
     },
     completedContainer: {
         flexDirection: 'row', 
-        marginLeft: '10%',
+        marginLeft: '5%',
     },
     legendContainer: {
         flexDirection: 'column', 
@@ -98,8 +103,9 @@ const dataAnalyticsStyles = StyleSheet.create({
     averageTimeContainer: {
         flexDirection: 'row', 
         alignItems: 'center', 
-        justifyContent: 'space-around',
-        marginRight: '5%'
+        justifyContent: 'space-between',
+        marginLeft: '1%',
+        marginRight: '5%',
     },
     averageTimeText: {
         color: '#060522',
