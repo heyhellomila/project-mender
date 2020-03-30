@@ -3,6 +3,7 @@ module.exports = {
     verbose: true,
     clearMocks: true,
     collectCoverage: true,
+    updateSnapshot: true,
     moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
     transform: {
         '^.+\\.(js|jsx)?$': 'babel-jest'
