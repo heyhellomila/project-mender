@@ -21,7 +21,6 @@ class ShoppingListPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                {/*<SearchComponent/>*/}
                 <View style={styles.bodyContainer}>
                     <Text>Shopping List</Text>
                 </View>
