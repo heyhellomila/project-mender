@@ -7,7 +7,7 @@ import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
 import { reloadWorkOrders } from '../redux/actions';
 import {updateWorkOrderById} from "../apis/workOrders/updateWorkOrderById";
-import SearchComponent from '../components/SearchComponent'
+import CommonSearch from '../components/CommonSearch'
 import {WorkOrderStatus} from "../constants/enums/WorkOrderStatus";
 
 class JobListPage extends React.Component {
@@ -658,7 +658,7 @@ class JobListPage extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <SearchComponent {...this.state} getSearchTerm = {this.getSearchTerm}/>
+                <CommonSearch {...this.state} getSearchTerm = {this.getSearchTerm}/>
                 <JobListComponent {...this.state} 
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}

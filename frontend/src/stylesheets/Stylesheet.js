@@ -82,12 +82,6 @@ const headerStyles = StyleSheet.create({
         width: '100%', 
         justifyContent: 'space-around'
     },
-    commonHeaderSearch: {
-        alignSelf: 'center',
-        padding: 10,
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
     commonHeaderComponent: {
         flex: 1, 
         borderBottomColor:'#d3d3d3', 
