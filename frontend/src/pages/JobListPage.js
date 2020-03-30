@@ -645,7 +645,10 @@ class JobListPage extends React.Component {
     };
 
     getSearchTerm =  (searchData) => {
-        this.setState({searchTerm: searchData}, async () => {
+        this.setState({
+            searchTerm: searchData,
+            isEmpty: false
+            }, async () => {
             await this.getListOfWorkOrders().then(() => {
                 this.props.finishReloadingWorkOrders();
             })
