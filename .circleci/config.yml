@@ -16,6 +16,10 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       # run lint before tests
+      - run: # run frontend build
+         name: frontend build
+         path: frontend/
+         command: npm start
       - run: # run backend tests with coverage
          name: backend-test with coverage
          path: backend/
