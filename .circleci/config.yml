@@ -16,13 +16,10 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       # run lint before tests
-      - run: # install expo for frontend build
-         name: Install Expo CLI
-         command: npm install -g expo-cli
       - run: # run frontend build
-         name: frontend build
+         name: frontend-test
          path: frontend/
-         command: npm install && npm start
+         command: npm install && npm test
       - run: # run backend tests with coverage
          name: backend-test with coverage
          path: backend/
