@@ -19,7 +19,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <SearchComponent/>
+                {/*<SearchComponent/>*/}
                 <View style={styles.bodyContainer}>
                     <Text>Home page</Text>
                 </View>
