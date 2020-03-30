@@ -19,7 +19,7 @@ jobs:
       - run: # run frontend build
          name: frontend build
          path: frontend/
-         command: npm install -g && npm start
+         command: npm install && npm start
       - run: # run backend tests with coverage
          name: backend-test with coverage
          path: backend/
