@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { View, TextInput, Dimensions, TouchableOpacity, Image } from 'react-native';
-import Search from 'react-native-search-box';
 import SearchComponent from '../components/SearchComponent'
 const searchImage = require('../../assets/search.jpg');
 

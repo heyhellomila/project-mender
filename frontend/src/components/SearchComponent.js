@@ -13,7 +13,7 @@ const SearchComponent = (props) => {
                            value={props.searchText}/>
                 <TouchableOpacity
                     onPress={() => props.handleSearchSubmit() }>
-                    <Image source={searchImage} style={searchStyles.searchIcon}></Image>
+                    <Image source={searchImage} style={searchStyles.searchIcon}/>
                 </TouchableOpacity>
             </View>
         );
