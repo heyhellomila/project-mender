@@ -7,7 +7,7 @@ import JobListComponent  from '../components/jobListPage/JobListComponent';
 import moment from 'moment';
 import { reloadWorkOrders } from '../redux/actions';
 import {updateWorkOrderById} from "../apis/workOrders/updateWorkOrderById";
-import SearchComponent from '../components/SearchComponent'
+import CommonSearch from '../components/CommonSearch'
 import {WorkOrderStatus} from "../constants/enums/WorkOrderStatus";
 
 class JobListPage extends React.Component {
@@ -105,7 +105,8 @@ class JobListPage extends React.Component {
             greaterThanValue: '',
             lowerThan: '',
             lowerThanValue: '',
-            navigation: this.props.navigation
+            navigation: this.props.navigation,
+            searchTerm: null
         };
     }
   
@@ -179,7 +180,7 @@ class JobListPage extends React.Component {
         this.setState({loading: true});
         await getWorkOrders(this.props.property.id, this.state.pageSize, this.state.pageNumber, this.state.sortBy, this.state.ordering, 
             this.state.filterBookmarked, this.state.filterPriority, this.state.filterSector, this.state.filterType, this.state.filterStatus, 
-            this.state.greaterThan, this.state.greaterThanValue, this.state.lowerThan, this.state.lowerThanValue)
+            this.state.greaterThan, this.state.greaterThanValue, this.state.lowerThan, this.state.lowerThanValue, this.state.searchTerm)
         .then((response) => {
             this.setState({
                 workOrders: response.data.filter((workOrder) =>
@@ -643,10 +644,21 @@ class JobListPage extends React.Component {
         this.getListOfWorkOrders();
     };
 
+    getSearchTerm =  (searchData) => {
+        this.setState({
+            searchTerm: searchData,
+            isEmpty: false
+            }, async () => {
+            await this.getListOfWorkOrders().then(() => {
+                this.props.finishReloadingWorkOrders();
+            })
+        })
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
-                <SearchComponent/>
+                <CommonSearch {...this.state} getSearchTerm = {this.getSearchTerm}/>
                 <JobListComponent {...this.state} 
                     handleLoadMore={this.handleLoadMore}
                     handleOrdering={this.handleOrdering}
