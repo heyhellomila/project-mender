@@ -116,6 +116,8 @@ Currently, for development purposes, polling/hot reloading is supported for the 
 
 If after running 'npm install', there are displaying errors for the charts, do the following:
 
-run ```expo install react-native-chart-kit`` 
-and ```expo install react-native-svg```
-then run ```expo r -c``
+(1) run ```expo install react-native-chart-kit``` 
+(2) run ```expo install react-native-svg```
+(3) run ```expo r -c```
+
+For any bugs, do not hesitate to create a new issue.
