@@ -110,3 +110,12 @@ Additionally, add the following environment variable to /frontend:
 Finally, once the application has been built, scan the QR displayed in the terminal.
 
 Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend (see https://github.com/milaroisin/project-mender/issues/195).
+
+
+### Data Analytics Feature
+
+If after running 'npm install', there are displaying errors for the charts, do the following:
+
+run ```expo install react-native-chart-kit`` 
+and ```expo install react-native-svg```
+then run ```expo r -c``
