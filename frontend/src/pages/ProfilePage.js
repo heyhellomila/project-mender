@@ -358,7 +358,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state) => ({
     user: state.user.user,
-    reloadingUserProfile: state.user.reloadingUserProfile
+    reloadingUserProfile: state.user.reloadingUserProfile,
+    loading: state.user.loading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

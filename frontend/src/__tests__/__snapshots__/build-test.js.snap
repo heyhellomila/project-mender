@@ -1,0 +1,352 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Application renders correctly 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={false}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#eee",
+        "flex": 1,
+        "flexDirection": "column-reverse",
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        pointerEvents="auto"
+        style={
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "opacity": 1,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+              Object {
+                "translateY": 0,
+              },
+            ],
+          }
+        }
+      >
+        <View
+          accessibilityElementsHidden={false}
+          style={
+            Object {
+              "backgroundColor": "#fff",
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            accessibilityIgnoresInvertColors={true}
+            style={
+              Object {
+                "height": "100%",
+                "justifyContent": "center",
+                "width": "100%",
+              }
+            }
+          >
+            <Image
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  },
+                  Object {
+                    "height": "100%",
+                    "width": "100%",
+                  },
+                  undefined,
+                ]
+              }
+            />
+            <RCTScrollView
+              automaticallyAdjustContentInsets={false}
+              contentContainerStyle={
+                Object {
+                  "paddingTop": 42,
+                }
+              }
+              contentInset={
+                Object {
+                  "bottom": 0,
+                }
+              }
+              enableAutomaticScroll={true}
+              enableOnAndroid={false}
+              enableResetScrollToCoords={true}
+              extraHeight={75}
+              extraScrollHeight={0}
+              getScrollResponder={[Function]}
+              handleOnScroll={[Function]}
+              keyboardDismissMode="interactive"
+              keyboardOpeningTime={0}
+              keyboardSpace={0}
+              onScroll={[Function]}
+              resetKeyboardSpace={[Function]}
+              resetScrollToCoords={
+                Object {
+                  "x": 0,
+                  "y": 0,
+                }
+              }
+              scrollEnabled={false}
+              scrollEventThrottle={1}
+              scrollForExtraHeightOnAndroid={[Function]}
+              scrollIntoView={[Function]}
+              scrollToEnd={[Function]}
+              scrollToFocusedInput={[Function]}
+              scrollToPosition={[Function]}
+              showsVerticalScrollIndicator={true}
+              update={[Function]}
+              viewIsInsideTabBar={false}
+            >
+              <View>
+                <View
+                  style={
+                    Object {
+                      "alignContent": "center",
+                      "alignSelf": "center",
+                      "height": 1334,
+                      "justifyContent": "center",
+                      "width": 750,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "aspectRatio": 1.0909090909090908,
+                        "padding": "10%",
+                      }
+                    }
+                  >
+                    <Image
+                      source={1}
+                      style={
+                        Object {
+                          "alignSelf": "center",
+                          "borderRadius": 168.75,
+                          "height": 337.5,
+                          "width": 337.5,
+                        }
+                      }
+                    />
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "aspectRatio": 2.6415094339622645,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                        }
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        defaultValue=""
+                        onChangeText={[Function]}
+                        placeholder="Email"
+                        rejectResponderTermination={true}
+                        style={
+                          Object {
+                            "backgroundColor": "#EEF6F9",
+                            "borderColor": "#EEF6F9",
+                            "borderRadius": 25,
+                            "borderWidth": 2,
+                            "height": 80.03999999999999,
+                            "paddingStart": "5%",
+                            "width": 562.5,
+                          }
+                        }
+                        underlineColorAndroid="transparent"
+                      />
+                    </View>
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                        }
+                      }
+                    >
+                      <TextInput
+                        allowFontScaling={true}
+                        defaultValue=""
+                        onChangeText={[Function]}
+                        password={true}
+                        placeholder="Password"
+                        rejectResponderTermination={true}
+                        secureTextEntry={true}
+                        style={
+                          Object {
+                            "backgroundColor": "#EEF6F9",
+                            "borderColor": "#EEF6F9",
+                            "borderRadius": 25,
+                            "borderWidth": 2,
+                            "height": 80.03999999999999,
+                            "paddingStart": "5%",
+                            "width": 562.5,
+                          }
+                        }
+                        underlineColorAndroid="transparent"
+                      />
+                    </View>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "aspectRatio": 2.295081967213115,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignSelf": "center",
+                          "justifyContent": "center",
+                          "textAlign": "center",
+                          "width": 562.5,
+                        }
+                      }
+                    />
+                    <View
+                      style={
+                        Object {
+                          "alignSelf": "center",
+                          "width": 562.5,
+                        }
+                      }
+                    >
+                      <View
+                        accessible={true}
+                        focusable={true}
+                        isTVSelectable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          Object {
+                            "backgroundColor": "#070D3A",
+                            "borderRadius": 50,
+                            "height": 80.03999999999999,
+                            "justifyContent": "center",
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Object {
+                              "color": "white",
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            }
+                          }
+                        >
+                          LOG IN
+                        </Text>
+                      </View>
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flexDirection": "row",
+                            "height": 66.7,
+                            "justifyContent": "center",
+                          }
+                        }
+                      >
+                        <Text
+                          style={
+                            Object {
+                              "color": "white",
+                              "fontWeight": "bold",
+                              "textAlign": "center",
+                            }
+                          }
+                        >
+                          Don't have an account?
+                        </Text>
+                        <View
+                          accessible={true}
+                          focusable={true}
+                          isTVSelectable={true}
+                          onClick={[Function]}
+                          onResponderGrant={[Function]}
+                          onResponderMove={[Function]}
+                          onResponderRelease={[Function]}
+                          onResponderTerminate={[Function]}
+                          onResponderTerminationRequest={[Function]}
+                          onStartShouldSetResponder={[Function]}
+                          style={
+                            Object {
+                              "color": "#070D3A",
+                              "fontWeight": "bold",
+                              "opacity": 1,
+                              "textDecorationLine": "underline",
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              Object {
+                                "color": "#070D3A",
+                                "fontWeight": "bold",
+                                "textDecorationLine": "underline",
+                              }
+                            }
+                          >
+                             Sign Up.
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </RCTScrollView>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

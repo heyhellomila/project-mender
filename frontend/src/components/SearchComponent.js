@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import Search from 'react-native-search-box';
-import { headerStyles} from '../stylesheets/Stylesheet';
+import React from 'react';
+import { View, Text, Button, TouchableOpacity, TextInput, Dimensions, Image } from 'react-native';
+import { searchStyles } from '../stylesheets/SearchComponentStylesheet'
 
-class SearchComponent extends Component {
-    render() {
+const searchImage = require('../../assets/search.jpg');
+
+const SearchComponent = (props) => {
         return (
-            <View style={headerStyles.commonHeaderSearch}>
-                <Search 
-                    ref="search_box"
-                    backgroundColor="white"
-                    titleCancelColor="black"
-                />
+            <View style={searchStyles.searchBar}>
+                <TextInput style={searchStyles.searchInput}
+                           placeholder={'search'}
+                           onChangeText={text => props.handleSearchText(text)}
+                           value={props.searchText}/>
+                <TouchableOpacity
+                    onPress={() => props.handleSearchSubmit() }>
+                    <Image source={searchImage} style={searchStyles.searchIcon}/>
+                </TouchableOpacity>
             </View>
         );
-    }
 }
 
 export default SearchComponent;
