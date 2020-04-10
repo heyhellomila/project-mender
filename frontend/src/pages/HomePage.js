@@ -54,7 +54,6 @@ class HomePage extends React.Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <SearchComponent />
                 <Header {...this.state} updateSelection={this.updateSelection} />
                 <DataAnalyticsComponent {...this.state} />
             </ScrollView>

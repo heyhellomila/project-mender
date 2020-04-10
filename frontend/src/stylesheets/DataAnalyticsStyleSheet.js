@@ -11,6 +11,7 @@ const headerStyles = StyleSheet.create({
     header: {
         justifyContent: 'flex-start', 
         marginLeft: '5%', 
+        marginTop: '5%',
         marginBottom: '5%',
     },
     headerTitle: {
