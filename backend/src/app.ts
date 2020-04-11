@@ -2,9 +2,9 @@ import { Router } from './controllers';
 import { createConnection } from 'typeorm';
 import express from 'express';
 import * as config from './config.json';
-import { loggerFactory } from "../logger-config";
+import { getNewLogger } from './LoggerConfig'
 
-const log = loggerFactory.getLogger("startup.App");
+const logger = getNewLogger('AppStartup');
 
 require('dotenv/config');
 
@@ -31,7 +31,7 @@ createConnection({
 
     app.listen(config.SERVER_PORT, () => {
         console.log(`Running server on port ${config.SERVER_PORT}`);
-        log.info(`Running server on port ${config.SERVER_PORT}`);
+        logger.info(`Running server on port ${config.SERVER_PORT}`);
         // Add logger here to show app is now running
     });
 });

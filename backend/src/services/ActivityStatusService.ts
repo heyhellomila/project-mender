@@ -15,7 +15,7 @@ class ActivityStatusService {
     async getActivityStatus(status: string) {
         const activityStatusObj: ActivityStatus = await this.activityStatusRepository
             .getActivityStatus(status);
-        if (!activityStatusObj) {
+        if (!activityStatusObj) { 
             throw new ResourceNotFoundError('Invalid Status. Allowed Types: [ ' +
                 `${Object.keys(ActivityStatusEnum)} ]`);
         }
