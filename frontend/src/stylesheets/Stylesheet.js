@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
         flex: 5,
         alignItems: 'center',
         justifyContent: 'center'
-
     }, 
     menderWelcomeLogo: {
         marginTop: '30%',

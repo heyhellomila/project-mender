@@ -22,7 +22,6 @@ class JobListPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <SearchComponent/>
                 <View style={styles.bodyContainer}>
                     <Text>Email</Text>
                 </View>
