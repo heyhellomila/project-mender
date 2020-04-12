@@ -10,6 +10,9 @@ import { User } from '../entities/User';
 import { USER_FIELDS, USER_FOR_UPDATE_FIELDS } from '../constants/FindOptionsFields';
 import { HashUtils } from '../utils/HashUtils';
 import { AuthUtils } from '../utils/AuthUtils';
+import { getNewLogger } from '../Log4jsConfig'
+
+const userServiceLogger = getNewLogger('UserService');
 
 class UserService {
 
@@ -29,6 +32,8 @@ class UserService {
     async register(user: User, password: string) {
 
         if (!passwordValidator.validate(Buffer.from(password))) {
+            userServiceLogger.error('400 BadRequestError - Password must be at least 8 characters' +
+                ' and must include at least one digit.');
             throw new BadRequestError('Password must be at least 8 characters' +
                 ' and must include at least one digit.');
         }
@@ -44,10 +49,12 @@ class UserService {
     async login(email: string, password: string) {
         const user = await this.userRepository.getUserByEmail(email);
         if (!user) {
+            userServiceLogger.error('404 ResourceNotFoundError - No user was found with this email.');
             throw new ResourceNotFoundError('No user was found with this email.');
         }
         const match = await this.hashUtils.compare(password, user.passwordHash);
         if (!match) {
+            userServiceLogger.error('401 UnauthorizedError - Password entered is incorrect.');
             throw new UnauthorizedError('Password entered is incorrect.');
         }
         return await this.authUtils.generateAuthToken(user);
@@ -56,6 +63,7 @@ class UserService {
     async getUser(id: number) {
         const user: User = await this.userRepository.getUserById(id, USER_FIELDS);
         if (!user) {
+            userServiceLogger.error(`404 ResourceNotFoundError - User with id ${id} does not exist.`);
             throw new ResourceNotFoundError(`User with id ${id} does not exist.`);
         }
         return user;
@@ -69,10 +77,13 @@ class UserService {
         if (userObj.password != null) {
             await this.confirmPassword(userObj.confirmPassword, existingUser.passwordHash);
             if (!passwordValidator.validate(Buffer.from(userObj.password))) {
+                userServiceLogger.error('400 BadRequestError - Password must be at least 8 characters' +
+                    ' and must include at least one digit.');
                 throw new BadRequestError('Password must be at least 8 characters' +
                     ' and must include at least one digit.');
             }
             if (await this.hashUtils.compare(userObj.password, existingUser.passwordHash)) {
+                userServiceLogger.error('409 ConflictError - Can\'t use previous password.');
                 throw new ConflictError('Can\'t use previous password.');
             }
             user.passwordHash = await this.hashUtils.generateHash(userObj.password) as string;
@@ -100,9 +111,11 @@ class UserService {
 
     private async confirmPassword(confirmPassword: string, passwordHash: string) {
         if (!confirmPassword) {
+            userServiceLogger.error('400 BadRequestError - confirmPassword field is empty.');
             throw new BadRequestError('confirmPassword field is empty.');
         }
         if (!await this.hashUtils.compare(confirmPassword, passwordHash)) {
+            userServiceLogger.error('401 UnauthorizedError - Incorrect password.');
             throw new UnauthorizedError('Incorrect password.');
         }
     }
@@ -110,6 +123,7 @@ class UserService {
     // Throws an error if email is in used, otherwise returns void.
     private async verifyEmailAvailability(email : string) : Promise<void> {
         if (await this.userRepository.getUserByEmail(email)) {
+            userServiceLogger.error(`409 ResourceExistsError - Email ${email} already in use.`);
             throw new ResourceExistsError(`Email ${email} already in use.`);
         }
     }

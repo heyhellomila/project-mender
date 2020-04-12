@@ -9,6 +9,9 @@ import { ActivityStatusDTO } from '../dtos/ActivityStatusDTO';
 import { BadRequestError } from '../errors/BadRequestError';
 import { Province as ProvinceEnum } from '../enums/Province';
 import { CountryCode as CountryCodeEnum } from '../enums/CountryCode';
+import { getNewLogger } from '../Log4jsConfig'
+
+const propertyMapperLogger = getNewLogger('PropertyMapper');
 
 class PropertyMapper implements ObjectMapper<Property, PropertyDTO> {
 
@@ -51,6 +54,8 @@ class PropertyMapper implements ObjectMapper<Property, PropertyDTO> {
 
         if (propertyDTO.province) {
             if (!(propertyDTO.province in ProvinceEnum)) {
+                propertyMapperLogger.error('400 BadRequestError - Invalid province. Allowed Types: [' +
+                    `${Object.keys(ProvinceEnum)}]`);
                 throw new BadRequestError('Invalid province. Allowed Types: [' +
                     `${Object.keys(ProvinceEnum)}]`);
             }
@@ -59,6 +64,8 @@ class PropertyMapper implements ObjectMapper<Property, PropertyDTO> {
 
         if (propertyDTO.countryCode) {
             if (!(propertyDTO.countryCode in CountryCodeEnum)) {
+                propertyMapperLogger.error('400 BadRequestError - Invalid country code. Allowed Types: [' +
+                    `${Object.keys(CountryCodeEnum)}]`);
                 throw new BadRequestError('Invalid country code. Allowed Types: [' +
                     `${Object.keys(CountryCodeEnum)}]`);
             }

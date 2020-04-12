@@ -7,6 +7,9 @@ import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
 import { PropertyService } from './PropertyService';
 import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { Sector } from '../entities/Sector';
+import { getNewLogger } from '../Log4jsConfig'
+
+const propertySectorServiceLogger = getNewLogger('PropertySectorService');
 
 class PropertySectorService {
 
@@ -28,6 +31,7 @@ class PropertySectorService {
         const property : Property = await this.propertyService.getPropertyById(propertyId);
         const sectors : Sector[] = [];
         if (!property) {
+            propertySectorServiceLogger.error(`404 ResourceNotFoundError - Property with id ${propertyId} does not exist.`);
             throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
         }
 
@@ -42,6 +46,9 @@ class PropertySectorService {
             .getPropertySectorsByPropertyAndSectors(property, sectors);
 
         if (savedPropertySectors.length > 0) {
+            propertySectorServiceLogger.error(`409 ResourceExistsError - The property with id ${property.id} ` +
+                `already has the following sectors: [${savedPropertySectors.map(
+                    savedPropertySector => savedPropertySector.sector.kind)}]`);
             throw new ResourceExistsError(`The property with id ${property.id} ` +
                 `already has the following sectors: [${savedPropertySectors.map(
                     savedPropertySector => savedPropertySector.sector.kind)}]`);
@@ -59,6 +66,7 @@ class PropertySectorService {
     async update(propertyId: number, propertySectors: PropertySector[]) {
         const property : Property = await this.propertyService.getPropertyById(propertyId);
         if (!property) {
+            propertySectorServiceLogger.error(`404 ResourceNotFoundError - Property with id ${propertyId} does not exist.`);
             throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
         }
         // Map of sector kind to property sector
@@ -87,6 +95,8 @@ class PropertySectorService {
                     missingSectorKinds.push(sectorKind);
                 }
             });
+            propertySectorServiceLogger.error(`404 ResourceNotFoundError - Sector kinds [${missingSectorKinds.toString()}] ` +
+                `do not exist for property id ${propertyId}.`);
             throw new ResourceNotFoundError(`Sector kinds [${missingSectorKinds.toString()}] ` +
                 `do not exist for property id ${propertyId}.`);
         }

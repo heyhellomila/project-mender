@@ -12,6 +12,9 @@ import { LicenseRepository } from '../repositories/LicenseRepository';
 import { License } from '../entities/License';
 import { LICENSE_TYPE_CATEGORIES } from '../constants/LicenseTypeCategories';
 import { LICENSE_FIELDS_NO_USER } from '../constants/FindOptionsFields';
+import { getNewLogger } from '../Log4jsConfig'
+
+const licenseServiceLogger = getNewLogger('LicenseService');
 
 class LicenseService {
 
@@ -40,6 +43,7 @@ class LicenseService {
     async getLicensesByUserId(userId: number) {
         const user: User = await this.userService.getUser(userId);
         if (user.userType.type === UserTypeEnum.HOMEOWNER) {
+            licenseServiceLogger.error('400 BadRequestError - Cannot provide licenses for user of type \'HOMEOWNER\'.');
             throw new BadRequestError('Cannot provide licenses for user of type \'HOMEOWNER\'.');
         }
         return await this.licenseRepository.getLicensesByUser(user, LICENSE_FIELDS_NO_USER);
@@ -55,11 +59,15 @@ class LicenseService {
 
         if (await this.licenseRepository.getLicenseByUserAndLicenseType(
             license.user, license.licenseType)) {
+            licenseServiceLogger.error(`409 ResourceExistsError - License of type ${license.licenseType.type} ` +
+                `for user ${userId} already exists`);
             throw new ResourceExistsError(`License of type ${license.licenseType.type} ` +
                 `for user ${userId} already exists`);
         }
 
         if (await this.getLicenseByNumberAndType(license.licenseNumber, license.licenseType)) {
+            licenseServiceLogger.error(`409 ResourceExistsError - License of type ${license.licenseType.type} ` +
+                `with number ${license.licenseNumber} already exists.`);
             throw new ResourceExistsError(`License of type ${license.licenseType.type} ` +
                 `with number ${license.licenseNumber} already exists.`);
         }
@@ -79,14 +87,19 @@ class LicenseService {
         if (userType === UserTypeEnum.INSPECTOR
             && !Object.values(LICENSE_TYPE_CATEGORIES.InspectorTypes)
                 .includes(licenseType as LicenseTypeEnum)) {
+            licenseServiceLogger.error(`400 BadRequestError - User of type ${userType} ` +
+                `can only have license types [${Object.keys(LICENSE_TYPE_CATEGORIES.InspectorTypes)}].`);
             throw new BadRequestError(`User of type ${userType} ` +
                 `can only have license types [${Object.keys(LICENSE_TYPE_CATEGORIES.InspectorTypes)}].`);
         } else if (userType === UserTypeEnum.CONTRACTOR
             && !Object.values(LICENSE_TYPE_CATEGORIES.ContractorTypes)
                 .includes(licenseType as LicenseTypeEnum)) {
+            licenseServiceLogger.error(`400 BadRequestError - User of type ${userType} ` +
+                `can only have license types [${Object.keys(LICENSE_TYPE_CATEGORIES.ContractorTypes)}].`);
             throw new BadRequestError(`User of type ${userType} ` +
                 `can only have license types [${Object.keys(LICENSE_TYPE_CATEGORIES.ContractorTypes)}].`);
         } else if (userType === UserTypeEnum.HOMEOWNER) {
+            licenseServiceLogger.error('400 BadRequestError - A Homeowner cannot add a license.');
             throw new BadRequestError('A Homeowner cannot add a license.');
         }
     }

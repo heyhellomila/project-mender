@@ -4,7 +4,9 @@ import { ObjectMapper } from './ObjectMapper';
 import { UserTypeMapper } from './UserTypeMapper';
 import { BadRequestError } from '../errors/BadRequestError';
 import { UserTypeDTO } from '../dtos/UserTypeDTO';
+import { getNewLogger } from '../Log4jsConfig'
 
+const userMapperLogger = getNewLogger('UserMapper');
 const validator = require('validator');
 
 class UserMapper implements ObjectMapper<User, UserDTO> {
@@ -35,12 +37,14 @@ class UserMapper implements ObjectMapper<User, UserDTO> {
 
         if (userDTO.email) {
             if (!validator.isEmail(userDTO.email)) {
+                userMapperLogger.error('400 BadRequestError - Invalid Email address');
                 throw new BadRequestError('Invalid Email address');
             }
             user.email = userDTO.email;
         }
         if (userDTO.phoneNumber) {
             if (!validator.isMobilePhone(userDTO.phoneNumber)) {
+                userMapperLogger.error('400 BadRequestError - Invalid phone number');
                 throw new BadRequestError('Invalid phone number');
             }
             user.phoneNumber = userDTO.phoneNumber;

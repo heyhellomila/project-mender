@@ -3,6 +3,9 @@ import { WorkOrderType } from '../entities/WorkOrderType';
 import { WorkOrderTypeDTO } from '../dtos/WorkOrderTypeDTO';
 import { WorkOrderType as WorkOrderTypeEnum } from '../enums/WorkOrderType';
 import { BadRequestError } from '../errors/BadRequestError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const workOrderTypeMapperLogger = getNewLogger('WorkOrderTypeMapper');
 
 class WorkOrderTypeMapper implements ObjectMapper<WorkOrderType, WorkOrderTypeDTO> {
 
@@ -15,6 +18,8 @@ class WorkOrderTypeMapper implements ObjectMapper<WorkOrderType, WorkOrderTypeDT
     fromDTO(workOrderTypeDTO: WorkOrderTypeDTO) : WorkOrderType {
         const workOrderType : WorkOrderType = new WorkOrderType();
         if (!(workOrderTypeDTO.type in WorkOrderTypeEnum)) {
+            workOrderTypeMapperLogger.error('400 BadRequestError - Invalid Work Order Type. Allowed Types: ['
+                + `${Object.keys(WorkOrderTypeEnum)}]`);
             throw new BadRequestError('Invalid Work Order Type. Allowed Types: ['
                 + `${Object.keys(WorkOrderTypeEnum)}]`);
         }

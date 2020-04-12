@@ -14,7 +14,7 @@ export function getNewLogger(name: string) {
       categories: {
         default: { 
           appenders: [ 'allData' ], 
-          level: 'info', 
+          level: 'debug', 
           enableCallStack: true 
         }
       }

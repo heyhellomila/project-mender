@@ -3,6 +3,9 @@ import { PriorityType } from '../entities/PriorityType';
 import { PriorityTypeDTO } from '../dtos/PriorityTypeDTO';
 import { PriorityType as PriorityTypeEnum } from '../enums/PriorityType';
 import { BadRequestError } from '../errors/BadRequestError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const priorityTypeMapperLogger = getNewLogger('PriorityTypeMapper');
 
 class PriorityTypeMapper implements ObjectMapper<PriorityType, PriorityTypeDTO> {
 
@@ -15,6 +18,8 @@ class PriorityTypeMapper implements ObjectMapper<PriorityType, PriorityTypeDTO> 
     fromDTO(priorityTypeDTO: PriorityTypeDTO) : PriorityType {
         const priorityType : PriorityType = new PriorityType();
         if (!(priorityTypeDTO.type in PriorityTypeEnum)) {
+            priorityTypeMapperLogger.error('400 BadRequestError - Invalid Priority Type. Allowed Types: ['
+                + `${Object.keys(PriorityTypeEnum)}]`);
             throw new BadRequestError('Invalid Priority Type. Allowed Types: ['
                 + `${Object.keys(PriorityTypeEnum)}]`);
         }
