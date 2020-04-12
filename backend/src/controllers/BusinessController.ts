@@ -9,17 +9,20 @@ import { BUSINESS_FIELDS } from '../constants/BodyFields';
 import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
+import { getNewLogger } from '../Log4jsConfig';
 
 const businessController = express.Router({ mergeParams: true });
 const businessService : BusinessService = new BusinessService();
 const businessMapper : BusinessMapper = new BusinessMapper();
 const businessUserService : BusinessUserService = new BusinessUserService();
 const userMapper : UserMapper = new UserMapper();
+const businessControllerLogger = getNewLogger('BusinessController');
 
 businessController.post(
     '/', auth, validateBody(BUSINESS_FIELDS.createFields), async (req: Request, res: Response) => {
         try {
             const businessDTO : BusinessDTO = req.body as BusinessDTO;
+            businessControllerLogger.debug(`Add business ${JSON.stringify(businessDTO)}`);
             const business = await businessService.createBusiness(
                 businessMapper.fromDTO(businessDTO));
             return res.status(200).json(businessMapper.toDTO(business));
@@ -30,6 +33,7 @@ businessController.post(
 
 businessController.get('/', auth, async(req: Request, res: Response) => {
     try {
+        businessControllerLogger.debug(`Get business ${req.query.id}`);
         const business = await businessService.getBusinessById(Number(req.query.id));
         return res.status(200).json(businessMapper.toDTO(business));
     } catch (err) {
@@ -39,6 +43,7 @@ businessController.get('/', auth, async(req: Request, res: Response) => {
 
 businessController.get('/:businessId/users', auth, async(req: Request, res: Response) => {
     try {
+        businessControllerLogger.debug(`Get business ${req.params.businessId} users`);
         const users = await businessUserService.getUsersByBusinessId(Number(req.params.businessId));
         const usersDTO : UserDTO[] = [];
         users.map((user) => {

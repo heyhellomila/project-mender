@@ -6,10 +6,12 @@ import auth from '../middleware/auth';
 import { handleError } from '../utils/HttpUtils';
 import { validateBody } from '../middleware/requestValidation';
 import { WORK_ORDER_FIELDS } from '../constants/BodyFields';
+import { getNewLogger } from '../Log4jsConfig';
 
 const propertyWorkOrdersController = express.Router({ mergeParams: true });
 const workOrderService = new WorkOrderService();
 const workOrderMapper = new WorkOrderMapper();
+const propertyWorkOrdersControllerLogger = getNewLogger('PropertyWorkOrdersController');
 
 propertyWorkOrdersController.post(
     '/', auth, validateBody(WORK_ORDER_FIELDS.createFields),
@@ -18,6 +20,7 @@ propertyWorkOrdersController.post(
             req.body.serviceNeeded = Boolean(JSON.parse(req.body.serviceNeeded));
             req.body.emergency = Boolean(JSON.parse(req.body.emergency));
             const workOrderDTO : WorkOrderDTO = req.body as WorkOrderDTO;
+            propertyWorkOrdersControllerLogger.debug(`Add work order ${JSON.stringify(workOrderDTO)} to property ${req.params.propertyId}`);
             const { decodedToken } = req.body;
             const workOrder = await workOrderService.createWorkOrder(
                 Number(req.params.propertyId),
@@ -32,6 +35,7 @@ propertyWorkOrdersController.post(
 
 propertyWorkOrdersController.get('/', auth, async(req: Request, res: Response) => {
     try {
+        propertyWorkOrdersControllerLogger.debug(`Get work orders for property ${req.params.propertyId}`);
         const workOrders = await workOrderService
             .getWorkOrdersByPropertyId(Number(req.params.propertyId));
         const workOrderDTOs : WorkOrderDTO[] = [];
