@@ -4,7 +4,7 @@ export function getNewLogger(name: string) {
 
     configure({
       appenders: {
-        allData: { 
+        backendData: { 
           type: 'dateFile', 
           compress: true, 
           layout: { type: 'pattern', pattern: '%d %p %z [%c] %m' },
@@ -13,7 +13,7 @@ export function getNewLogger(name: string) {
       },
       categories: {
         default: { 
-          appenders: [ 'allData' ], 
+          appenders: [ 'backendData' ], 
           level: 'debug', 
           enableCallStack: true 
         }
