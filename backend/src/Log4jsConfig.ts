@@ -8,7 +8,7 @@ export function getNewLogger(name: string) {
           type: 'dateFile', 
           compress: true, 
           layout: { type: 'pattern', pattern: '%d %p %z [%c] %m' },
-          filename: '../logs/loggedData.log' 
+          filename: '../logs/backendLogs.log' 
         }
       },
       categories: {
