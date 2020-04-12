@@ -2,7 +2,7 @@ import { Router } from './controllers';
 import { createConnection } from 'typeorm';
 import express from 'express';
 import * as config from './config.json';
-import { getNewLogger } from './LoggerConfig'
+import { getNewLogger } from './Log4jsConfig'
 
 const logger = getNewLogger('AppStartup');
 
@@ -21,6 +21,7 @@ createConnection({
     synchronize : false,
     timezone: 'Z',
 }).then(() => {
+    logger.info('Connected to database');
     console.log('Connected to database');
 
     const app = express();
@@ -30,8 +31,7 @@ createConnection({
     app.use(router.getRouter());
 
     app.listen(config.SERVER_PORT, () => {
-        console.log(`Running server on port ${config.SERVER_PORT}`);
         logger.info(`Running server on port ${config.SERVER_PORT}`);
-        // Add logger here to show app is now running
+        console.log(`Running server on port ${config.SERVER_PORT}`);
     });
 });
