@@ -43,6 +43,19 @@ cd frontend/
 npm install
 ```
 
+
+### For Mac OSX Systems ( Catalina - 10.15+ & above): 
+
+**Update** - With the latest release of Mac OSX Catalina (10.15+ and up) on October 19, 2019 and the replacement of `bash` with `zsh`, additional steps must be done to allow permissions for the app to run.
+
+1. Select `System Preferences` from the `Apple` menu.
+2. Select `Security & Privacy` icon.
+3.  Under the `Privacy` tab, and locate the 	`Full Disk Access` folder on the left side pane.
+4. Tick onto the checkbox for the `Watchman` application to grant full access.
+
+Restart `zsh` and the Mender application should be running smoothly from here on.
+
+
 ### Environment Variables
 
 The /backend will require the following environment variables:
@@ -87,6 +100,12 @@ To start the front-end server, use the following command from `frontend/`:
 
 ``` shell
 npm start
+```
+
+If there are errors from running this command on `/frontend`, the alternative would be:
+
+```shell
+expo r -c
 ```
 
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
