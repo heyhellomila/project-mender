@@ -46,12 +46,14 @@ npm install
 
 ### For Mac OSX Systems ( Catalina - 10.15+ & above): 
 
-**Update** - With the latest release of Mac OSX Catalina (10.15+ and up) on October 19, 2019 and the replacement of `bash` with `zsh`, additional steps must be done to allow permissions for the app to run.
+**Update** - With the latest release of Mac OSX Catalina (10.15+ and up) on October 19, 2019 and the replacement of `bash` with `zsh`, additional steps must be done to allow permissions for the app to run. 
 
-1. Select `System Preferences` from the `Apple` menu.
-2. Select `Security & Privacy` icon.
-3.  Under the `Privacy` tab, and locate the 	`Full Disk Access` folder on the left side pane.
-4. Tick onto the checkbox for the `Watchman` application to grant full access.
+Do not use `bash` for OSX 10.15 & above.
+
+    1. Select `System Preferences` from the `Apple` menu.
+    2. Select `Security & Privacy` icon.
+    3. Under the `Privacy` tab, and locate the 	`Full Disk Access` folder on the left side pane.
+    4. Tick onto the checkbox for the `Watchman` application to grant full access.
 
 Restart `zsh` and the Mender application should be running smoothly from here on.
 
@@ -112,6 +114,10 @@ Afterwards, scan the barcode or navigate to the link provided by Expo with your 
 
 Note that both servers must be running as separate processes for the application to function.
 
+Furthermore, once PR #258 is merged, any frontend change made will require the following before commit:
+
+1 -  run `npm run test`  from `/frontend`
+2 - add the generated snapshot file to the commit
 
 ### Running Application with Docker
 
@@ -122,10 +128,11 @@ docker-compose up --build
 ```
 
 Ensure that port forwarding is enabled with the Docker technology installed, specifically for the following host and guest ports: 3000:3000, 19000:19000, 19001:19001 and 19002:19002.
-Additionally, add the following environment variable to /frontend:
+
+Add the following environment variable to /frontend:
 
 `REACT_NATIVE_PACKAGER_HOSTNAME=<ip-address>`
 
 Finally, once the application has been built, scan the QR displayed in the terminal.
 
-Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend (see https://github.com/milaroisin/project-mender/issues/195).
+Tor development purposes, polling/hot reloading is supported for the backend, but not for the frontend (see https://github.com/milaroisin/project-mender/issues/195).
