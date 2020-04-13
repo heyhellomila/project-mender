@@ -10,6 +10,9 @@ import { ResourceExistsError } from '../errors/ResourceExistsError';
 import { Business } from 'src/entities/Business';
 import { BUSINESS_USER_FIELDS, BUSINESS_USER_FIELDS_NO_USER,
     BUSINESS_USER_FIELDS_NO_BUSINESS } from '../constants/FindOptionsFields';
+import { getNewLogger } from '../Log4jsConfig'
+
+const businessUserServiceLogger = getNewLogger('BusinessUserService');
 
 class BusinessUserService {
 
@@ -42,6 +45,8 @@ class BusinessUserService {
         const businessUser: BusinessUser = await this.businessUserRepository
             .getBusinessUserByBusinessAndUser(business, user, BUSINESS_USER_FIELDS);
         if (!businessUser) {
+            businessUserServiceLogger.error(`404 ResourceNotFoundError - Business User with user id ${userId} ` +
+                `and business id ${businessId} does not exist.`);
             throw new ResourceNotFoundError(`Business User with user id ${userId} ` +
                 `and business id ${businessId} does not exist.`);
         }
@@ -76,6 +81,8 @@ class BusinessUserService {
         businessUser.user = await this.userService.getUser(userId);
 
         if (await this.getBusinessUserByBusinessAndUser(businessUser.business, businessUser.user)) {
+            businessUserServiceLogger.error(`409 ResourceExistsError - Business user with user id ${userId} ` +
+                `and business id ${businessId} already exists.`);
             throw new ResourceExistsError(`Business user with user id ${userId} ` +
                 `and business id ${businessId} already exists.`);
         }

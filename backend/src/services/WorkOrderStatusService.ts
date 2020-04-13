@@ -2,6 +2,9 @@ import { WorkOrderStatusRepository } from '../repositories/WorkOrderStatusReposi
 import { WorkOrderStatus as WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
 import { WorkOrderStatus } from '../entities/WorkOrderStatus';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const workOrderStatusServiceLogger = getNewLogger('WorkOrderStatusService');
 
 class WorkOrderStatusService {
 
@@ -16,6 +19,8 @@ class WorkOrderStatusService {
         const workOrderStatus: WorkOrderStatus = await this.workOrderStatusRepository.
             getWorkOrderStatus(status);
         if (!workOrderStatus) {
+            workOrderStatusServiceLogger.error(`404 ResourceNotFoundError - Invalid Work Order Status. Allowed Statuses: [
+                ${Object.keys(WorkOrderStatusEnum)}]`);
             throw new ResourceNotFoundError(`Invalid Work Order Status. Allowed Statuses: [
                 ${Object.keys(WorkOrderStatusEnum)}]`);
         }

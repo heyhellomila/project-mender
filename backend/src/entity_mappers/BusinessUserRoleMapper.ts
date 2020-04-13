@@ -3,24 +3,29 @@ import { BusinessUserRole } from '../entities/BusinessUserRole';
 import { BusinessUserRoleDTO } from '../dtos/BusinessUserRoleDTO';
 import { BusinessUserRole as BusinessUserRoleEnum } from '../enums/BusinessUserRole';
 import { BadRequestError } from '../errors/BadRequestError';
+import { getNewLogger } from '../Log4jsConfig'
 
-class UserRoleMapper implements ObjectMapper<BusinessUserRole, BusinessUserRoleDTO> {
+const businessUserRoleMapperLogger = getNewLogger('BusinessUserRoleMapper');
 
-    toDTO(userRole: BusinessUserRole) : BusinessUserRoleDTO {
-        const userRoleDTO : BusinessUserRoleDTO = new BusinessUserRoleDTO();
-        userRoleDTO.role = userRole.role;
-        return userRoleDTO;
+class BusinessUserRoleMapper implements ObjectMapper<BusinessUserRole, BusinessUserRoleDTO> {
+
+    toDTO(businessUserRole: BusinessUserRole) : BusinessUserRoleDTO {
+        const businessUserRoleDTO : BusinessUserRoleDTO = new BusinessUserRoleDTO();
+        businessUserRoleDTO.role = businessUserRole.role;
+        return businessUserRoleDTO;
     }
 
-    fromDTO(userRoleDTO: BusinessUserRoleDTO) : BusinessUserRole {
-        const userRole : BusinessUserRole = new BusinessUserRole();
-        if (!(userRoleDTO.role in BusinessUserRoleEnum)) {
+    fromDTO(businessUserRoleDTO: BusinessUserRoleDTO) : BusinessUserRole {
+        const businessUserRole : BusinessUserRole = new BusinessUserRole();
+        if (!(businessUserRoleDTO.role in BusinessUserRoleEnum)) {
+            businessUserRoleMapperLogger.error('400 BadRequestError - Invalid User Role. Allowed Types: [' +
+                `${Object.keys(BusinessUserRoleEnum)}]`);
             throw new BadRequestError('Invalid User Role. Allowed Types: [' +
                 `${Object.keys(BusinessUserRoleEnum)}]`);
         }
-        userRole.role = userRoleDTO.role;
-        return userRole;
+        businessUserRole.role = businessUserRoleDTO.role;
+        return businessUserRole;
     }
 }
 
-export { UserRoleMapper };
+export { BusinessUserRoleMapper };

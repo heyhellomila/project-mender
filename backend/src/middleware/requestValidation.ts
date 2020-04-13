@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { UnprocessableEntity } from '../errors/UnprocessableEntity';
+import { getNewLogger } from '../Log4jsConfig';
+
+const requestValidationLogger = getNewLogger('RequestValidationMiddleware');
 
 export const validateBody = (parameters: any) => (
     req: Request, res: Response, next: NextFunction) => {
@@ -24,6 +27,7 @@ export const validateBody = (parameters: any) => (
         errorString = `Request body missing [${Array.from(missingParameters).toString()}].`;
     }
     if (missingParameters.size > 0) {
+        requestValidationLogger.error(`422 UnprocessableEntity -  ${errorString}`);
         res.status(422).json(new UnprocessableEntity(errorString));
     } else {
         next();

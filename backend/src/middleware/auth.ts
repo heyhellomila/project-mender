@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { BadRequestError } from '../errors/BadRequestError';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { UserService } from '../services/UserService';
+import { getNewLogger } from '../Log4jsConfig'
+
+const authLogger = getNewLogger('AuthMiddleware');
 
 const jwt = require('jsonwebtoken');
 // tslint:disable-next-line:variable-name
@@ -25,6 +28,7 @@ const auth = async(req: Request, res: Response, next: NextFunction) => {
         try {
             await userService.getUser(data.userId);
         } catch (err) {
+            authLogger.error('401 UnauthorizedError - Not authorized to access this resource');
             throw new UnauthorizedError('Not authorized to access this resource');
         }
 

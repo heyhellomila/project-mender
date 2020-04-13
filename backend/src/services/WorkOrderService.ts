@@ -14,6 +14,9 @@ import { BusinessUserService }  from '../services/BusinessUserService';
 import { OrderingByType } from '../enums/OrderingByType';
 import { WorkOrderQuery } from '../enums/WorkOrderQueryEnum';
 import { WorkOrderStatus } from '../enums/WorkOrderStatusEnum';
+import { getNewLogger } from '../Log4jsConfig'
+
+const workOrderServiceLogger = getNewLogger('WorkOrderService');
 
 class WorkOrderService {
 
@@ -80,6 +83,7 @@ class WorkOrderService {
         try {
             return await this.workOrderRepository.createWorkOrder(workOrder);
         } catch (err) {
+            workOrderServiceLogger.error(`400 BadRequestError - ${err.message}`);
             throw new BadRequestError(err.message);
         }
     }
@@ -87,12 +91,14 @@ class WorkOrderService {
     async getWorkOrdersByPropertyId(propertyId: number) {
         const property: Property = await this.propertyService.getPropertyById(propertyId);
         if (!property) {
+            workOrderServiceLogger.error(`404 ResourceNotFoundError - Property with id ${propertyId} does not exist.`);
             throw new ResourceNotFoundError(`Property with id ${propertyId} does not exist.`);
         }
         try {
             return await this.workOrderRepository.getWorkOrdersByProperty(
                 property, WORK_ORDER_FIELDS_NO_PROPERTY);
         } catch (err) {
+            workOrderServiceLogger.error(err.message);
             throw err;
         }
     }
@@ -100,10 +106,12 @@ class WorkOrderService {
     async getWorkOrders(queryMap: Map<string, string>) {
         let ordering = OrderingByType.ASC;
         if (!queryMap.get(WorkOrderQuery.PAGESIZE) || !queryMap.get(WorkOrderQuery.PAGENUMBER)) {
+            workOrderServiceLogger.error('400 BadRequestError - Missing required parameter. Required parameters: [pageSize, pageNumber]');
             throw new BadRequestError('Missing required parameter. Required parameters: [pageSize, pageNumber]');
         }
         if (parseInt(queryMap.get(WorkOrderQuery.PAGESIZE), this.radix) < 1
             || parseInt(queryMap.get(WorkOrderQuery.PAGESIZE), this.radix) > 10) {
+            workOrderServiceLogger.error('400 BadRequestError - pageSize parameter must be at least 1 and no greater than 10.');
             throw new BadRequestError('pageSize parameter must be at least 1 and no greater than 10.');
         }
         if (queryMap.get(WorkOrderQuery.ORDERING) === 'DESC') {
@@ -133,8 +141,10 @@ class WorkOrderService {
 
         if (queryMap.get(WorkOrderQuery.SORTBY) != null
             && !workOrderSortMapper.has(queryMap.get(WorkOrderQuery.SORTBY))) {
+            workOrderServiceLogger.error(`400 BadRequestError - ${queryMap.get(WorkOrderQuery.SORTBY)} is an invalid` +
+                `parameter for sorting. Accepted sorting parameters are: [' ${Array.from(workOrderSortMapper.keys())}]`);
             throw new BadRequestError(`${queryMap.get(WorkOrderQuery.SORTBY)} is an invalid` +
-            `parameter for sorting. Accepted sorting parameters are: [' ${Array.from(workOrderSortMapper.keys())}]`);
+                `parameter for sorting. Accepted sorting parameters are: [' ${Array.from(workOrderSortMapper.keys())}]`);
         }
 
         return workOrderSortMapper.get(queryMap.get(WorkOrderQuery.SORTBY));
@@ -231,6 +241,7 @@ class WorkOrderService {
         const workOrder: WorkOrder = await this.workOrderRepository.
         getWorkOrderById(id, WORK_ORDER_FIELDS);
         if (!workOrder) {
+            workOrderServiceLogger.error(`404 ResourceNotFoundError - Work Order with id ${id} does not exist.`);
             throw new ResourceNotFoundError(`Work Order with id ${id} does not exist.`);
         }
         return workOrder;

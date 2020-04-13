@@ -1,14 +1,14 @@
 import { BusinessUser } from '../entities/BusinessUser';
 import { BusinessUserDTO } from '../dtos/BusinessUserDTO';
 import { ObjectMapper } from './ObjectMapper';
-import { UserRoleMapper } from './BusinessUserRoleMapper';
+import { BusinessUserRoleMapper } from './BusinessUserRoleMapper';
 import { BusinessUserRoleDTO } from '../dtos/BusinessUserRoleDTO';
 import { UserMapper } from './UserMapper';
 import { BusinessMapper } from './BusinessMapper';
 
 class BusinessUserMapper implements ObjectMapper<BusinessUser, BusinessUserDTO> {
 
-    private businessUserRoleMapper : UserRoleMapper = new UserRoleMapper();
+    private businessUserRoleMapper : BusinessUserRoleMapper = new BusinessUserRoleMapper();
     private userMapper : UserMapper = new UserMapper();
     private businessMapper : BusinessMapper = new BusinessMapper();
 

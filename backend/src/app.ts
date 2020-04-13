@@ -2,6 +2,9 @@ import { Router } from './controllers';
 import { createConnection } from 'typeorm';
 import express from 'express';
 import * as config from './config.json';
+import { getNewLogger } from './Log4jsConfig'
+
+const appLogger = getNewLogger('AppStartup');
 
 require('dotenv/config');
 
@@ -18,6 +21,7 @@ createConnection({
     synchronize : false,
     timezone: 'Z',
 }).then(() => {
+    appLogger.info('Connected to database');
     console.log('Connected to database');
 
     const app = express();
@@ -27,6 +31,7 @@ createConnection({
     app.use(router.getRouter());
 
     app.listen(config.SERVER_PORT, () => {
+        appLogger.info(`Running server on port ${config.SERVER_PORT}`);
         console.log(`Running server on port ${config.SERVER_PORT}`);
     });
 });

@@ -3,6 +3,9 @@ import { BusinessType } from '../entities/BusinessType';
 import { BusinessTypeDTO } from '../dtos/BusinessTypeDTO';
 import { BusinessType as BusinessTypeEnum } from '../enums/BusinessType';
 import { BadRequestError } from '../errors/BadRequestError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const businessTypeMapperLogger = getNewLogger('BusinessTypeMapper');
 
 class BusinessTypeMapper implements ObjectMapper<BusinessType, BusinessTypeDTO> {
 
@@ -15,6 +18,8 @@ class BusinessTypeMapper implements ObjectMapper<BusinessType, BusinessTypeDTO> 
     fromDTO(businessTypeDTO: BusinessTypeDTO) : BusinessType {
         const businessType : BusinessType = new BusinessType();
         if (!(businessTypeDTO.type in BusinessTypeEnum)) {
+            businessTypeMapperLogger.error('400 BadRequestError - Invalid Business Type. Allowed Types: [' +
+                `${Object.keys(BusinessTypeEnum)}]`);
             throw new BadRequestError('Invalid Business Type. Allowed Types: [' +
                 `${Object.keys(BusinessTypeEnum)}]`);
         }

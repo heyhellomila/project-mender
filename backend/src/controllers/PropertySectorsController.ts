@@ -7,11 +7,12 @@ import { PropertySectorDTO } from '../dtos/PropertySectorDTO';
 import { validateBody } from '../middleware/requestValidation';
 import { PROPERTY_SECTOR_FIELDS } from '../constants/BodyFields';
 import { PropertySector } from '../entities/PropertySector';
-
-const propertySectorService = new PropertySectorService();
-const propertySectorMapper = new PropertySectorMapper();
+import { getNewLogger } from '../Log4jsConfig';
 
 const propertySectorsController = express.Router({ mergeParams: true });
+const propertySectorService = new PropertySectorService();
+const propertySectorMapper = new PropertySectorMapper();
+const propertySectorsControllerLogger = getNewLogger('PropertySectorsController');
 
 propertySectorsController.post(
     '/', validateBody(PROPERTY_SECTOR_FIELDS.createFields), auth,
@@ -19,6 +20,7 @@ propertySectorsController.post(
         try {
             const { propertyId } = req.params;
             const propertySectorDTOs : PropertySectorDTO[] = req.body as PropertySectorDTO[];
+            propertySectorsControllerLogger.debug(`Add property sectors ${JSON.stringify(propertySectorDTOs)} to property ${propertyId}`);
             const propertySectors : PropertySector[] = await propertySectorService
                 .createPropertySectors(
                     Number(propertyId),
@@ -37,6 +39,7 @@ propertySectorsController.patch(
         try {
             const { propertyId } = req.params;
             const propertySectorDTOs : PropertySectorDTO[] = req.body as PropertySectorDTO[];
+            propertySectorsControllerLogger.debug(`Update property sectors for property ${propertyId}`);
             await propertySectorService.update(
                 Number(propertyId),
                 propertySectorDTOs.map(propertySectorDTO =>
@@ -50,6 +53,7 @@ propertySectorsController.patch(
 propertySectorsController.get(
     '/', auth, async (req: Request, res: Response) => {
         try {
+            propertySectorsControllerLogger.debug(`Get property sectors for property ${req.params.propertyId}`);
             const propertySectors : PropertySector[] = await propertySectorService
                 .getSectorsByPropertyId(Number(req.params.propertyId));
             return res.status(200).json(propertySectors.map(

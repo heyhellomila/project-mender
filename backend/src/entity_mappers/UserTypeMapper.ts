@@ -3,6 +3,9 @@ import { UserType } from '../entities/UserType';
 import { UserTypeDTO } from '../dtos/UserTypeDTO';
 import { UserType as UserTypeEnum } from '../enums/UserType';
 import { BadRequestError } from '../errors/BadRequestError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const userTypeMapperLogger = getNewLogger('UserTypeMapper');
 
 class UserTypeMapper implements ObjectMapper<UserType, UserTypeDTO> {
 
@@ -15,6 +18,8 @@ class UserTypeMapper implements ObjectMapper<UserType, UserTypeDTO> {
     fromDTO(userTypeDTO: UserTypeDTO) : UserType {
         const userType : UserType = new UserType();
         if (!(userTypeDTO.type in UserTypeEnum)) {
+            userTypeMapperLogger.error('400 BadRequestError - Invalid User Type. Allowed Types: ['
+                + `${Object.keys(UserTypeEnum)}]`);
             throw new BadRequestError('Invalid User Type. Allowed Types: ['
                 + `${Object.keys(UserTypeEnum)}]`);
         }

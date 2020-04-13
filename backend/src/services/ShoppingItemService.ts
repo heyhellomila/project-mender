@@ -5,6 +5,9 @@ import { ShoppingItemRepository } from '../repositories/ShoppingItemRepository';
 import { SHOPPING_ITEM_FIELDS, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER } from '../constants/FindOptionsFields';
 import { WorkOrder } from '../entities/WorkOrder';
 import { WorkOrderService } from './WorkOrderService';
+import { getNewLogger } from '../Log4jsConfig'
+
+const ShoppingItemServiceLogger = getNewLogger('ShoppingItemService');
 
 class ShoppingItemService {
 
@@ -21,6 +24,7 @@ class ShoppingItemService {
 
     async createShoppingItem(workOrderId: number, shoppingItem: ShoppingItem) {
         if (!(await this.workOrderService.getWorkOrder(workOrderId))) {
+            ShoppingItemServiceLogger.error(`404 ResourceNotFoundError - Work Order ${workOrderId} Does not exist`);
             throw new ResourceNotFoundError(`Work Order ${workOrderId} Does not exist`);
         }
         const workOrder = new WorkOrder();
@@ -31,12 +35,14 @@ class ShoppingItemService {
         try {
             return await this.shoppingItemRepository.createShoppingItem(shoppingItem);
         } catch (err) {
+            ShoppingItemServiceLogger.error(`400 BadRequestError - ${err.message}`);
             throw new BadRequestError(err.message);
         }
     }
 
     async getShoppingItemByWorkOrderId(workOrderId: number) {
         if (!await this.workOrderService.getWorkOrder(workOrderId)) {
+            ShoppingItemServiceLogger.error(`404 ResourceNotFoundError - Work Order with id ${workOrderId} does not exist.`);
             throw new ResourceNotFoundError(`Work Order with id ${workOrderId} does not exist.`);
         }
         try {
@@ -45,6 +51,7 @@ class ShoppingItemService {
             return await this.shoppingItemRepository
                 .getShoppingItemsByWorkOrder(workOrderOnlyId, SHOPPING_ITEM_FIELDS_NO_WORK_ORDER);
         } catch (err) {
+            ShoppingItemServiceLogger.error(err.message)
             throw err;
         }
     }
@@ -53,6 +60,7 @@ class ShoppingItemService {
         const shoppingItem: ShoppingItem = await this.shoppingItemRepository
             .getShoppingItemById(id, SHOPPING_ITEM_FIELDS);
         if (!shoppingItem) {
+            ShoppingItemServiceLogger.error(`404 ResourceNotFoundError - Shopping Item with id ${id} does not exist.`);
             throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`);
         }
         return shoppingItem;
@@ -62,6 +70,7 @@ class ShoppingItemService {
         try {
             await this.shoppingItemRepository.deleteShoppingItem(id);
         } catch (err) {
+            ShoppingItemServiceLogger.error(`404 ResourceNotFoundError - Shopping Item with id ${id} does not exist.`);
             throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`);
         }
     }
@@ -70,6 +79,7 @@ class ShoppingItemService {
         const shoppingItem = new ShoppingItem();
 
         if (!await this.getShoppingItem(id)) {
+            ShoppingItemServiceLogger.error(`404 ResourceNotFoundError - Shopping Item with id ${id} does not exist.`);
             throw new ResourceNotFoundError(`Shopping Item with id ${id} does not exist.`);
         }
 

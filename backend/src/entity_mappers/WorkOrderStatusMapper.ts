@@ -3,6 +3,9 @@ import { WorkOrderStatus } from '../entities/WorkOrderStatus';
 import { WorkOrderStatusDTO } from '../dtos/WorkOrderStatusDTO';
 import { WorkOrderStatus as WorkOrderStatusEnum } from '../enums/WorkOrderStatusEnum';
 import { BadRequestError } from '../errors/BadRequestError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const workOrderStatusMapperLogger = getNewLogger('WorkOrderStatusMapper');
 
 class WorkOrderStatusMapper implements ObjectMapper<WorkOrderStatus, WorkOrderStatusDTO> {
 
@@ -15,6 +18,8 @@ class WorkOrderStatusMapper implements ObjectMapper<WorkOrderStatus, WorkOrderSt
     fromDTO(workOrderStatusDTO: WorkOrderStatusDTO) : WorkOrderStatus {
         const workOrderStatus : WorkOrderStatus = new WorkOrderStatus();
         if (!(workOrderStatusDTO.status in WorkOrderStatusEnum)) {
+            workOrderStatusMapperLogger.error('400 BadRequestError - Invalid Work Order Status. Allowed Statuses: ['
+                + `${Object.keys(WorkOrderStatusEnum)}]`);
             throw new BadRequestError('Invalid Work Order Status. Allowed Statuses: ['
                 + `${Object.keys(WorkOrderStatusEnum)}]`);
         }

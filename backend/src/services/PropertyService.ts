@@ -9,6 +9,9 @@ import { PropertyTypeService } from './PropertyTypeService';
 import { User } from '../entities/User';
 import { PROPERTY_FIELDS, PROPERTY_FIELDS_NO_USER } from '../constants/FindOptionsFields';
 import { postcodeValidator } from 'postcode-validator';
+import { getNewLogger } from '../Log4jsConfig'
+
+const propertyServiceLogger = getNewLogger('PropertyService');
 
 class PropertyService {
 
@@ -33,6 +36,8 @@ class PropertyService {
 
     async createProperty(userId: number, property: Property) {
         if (!postcodeValidator(property.postalCode, property.countryCode)) {
+            propertyServiceLogger.error(`400 BadRequestError - Postal code ${property.postalCode} is invalid for given country ` +
+                `${property.countryCode}`);
             throw new BadRequestError(`Postal code ${property.postalCode} is invalid for given country ` +
                 `${property.countryCode}`);
         }
@@ -61,6 +66,7 @@ class PropertyService {
         const property : Property = await this.propertyRepository.getPropertyById(
             id, PROPERTY_FIELDS);
         if (!property) {
+            propertyServiceLogger.error(`404 ResourceNotFoundError - Property with id ${id} does not exist.`);
             throw new ResourceNotFoundError(`Property with id ${id} does not exist.`);
         }
         return property;

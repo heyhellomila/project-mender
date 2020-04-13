@@ -2,6 +2,9 @@ import { BusinessUserRoleRepository } from '../repositories/BusinessUserRoleRepo
 import { BusinessUserRole as BusinessUserRoleEnum } from '../enums/BusinessUserRole';
 import { BusinessUserRole as BusinessUserRole } from '../entities/BusinessUserRole';
 import { ResourceNotFoundError } from '../errors/ResourceNotFoundError';
+import { getNewLogger } from '../Log4jsConfig'
+
+const businessUserRoleServiceLogger = getNewLogger('BusinessUserRoleService');
 
 class BusinessUserRoleService {
 
@@ -16,6 +19,8 @@ class BusinessUserRoleService {
         const businessUserRoleObj: BusinessUserRole = await this.businessUserRoleRepository
             .getBusinessUserRole(role);
         if (!businessUserRoleObj) {
+            businessUserRoleServiceLogger.error('404 ResourceNotFoundError - Invalid Role. Allowed Types: [' +
+                `${Object.keys(BusinessUserRoleEnum)}]`);
             throw new ResourceNotFoundError('Invalid Role. Allowed Types: [' +
                 `${Object.keys(BusinessUserRoleEnum)}]`);
         }
