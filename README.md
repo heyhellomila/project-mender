@@ -17,6 +17,7 @@ This web application uses the following technologies:
 
 ## Installing Dependencies
 
+
 Before starting, make sure you have working versions of npm (6.12+), node (12.9.0+) and mySQL (5.7.22+).
 
 ```shell
@@ -43,6 +44,22 @@ cd frontend/
 npm install
 ```
 
+### For Mac OSX Systems ( Catalina - 10.15+ & above)
+
+**Update** - With the latest release of Mac OSX Catalina (10.15+ and up) on October 19, 2019 and the replacement of `bash` with `zsh`, additional steps must be done to allow permissions for the app to run.
+
+Do not use `bash` for OSX 10.15 & above.
+
+1. Select `System Preferences` from the `Apple` menu.
+
+2. Select `Security & Privacy` icon.
+
+3. Under the `Privacy` tab, and locate the `Full Disk Access` folder on the left side pane.
+
+4. Tick onto the checkbox for the `Watchman` application to grant full access.
+
+Restart `zsh` and the Mender application should be running smoothly from here on.
+
 ### Environment Variables
 
 The /backend will require the following environment variables:
@@ -62,7 +79,6 @@ The /frontend will require the following environment variables:
 LOCAL_API_KEY=<ip-address>:3000
 ```
 
-
 ### Running the Back-end Server
 
 To start the back-end server, use the following command from `backend/`:
@@ -72,6 +88,7 @@ _A. on NodeDemon:_
 ```shell
 npm start
 ```
+
 or
 
 _B. on ts-node:_
@@ -79,7 +96,6 @@ _B. on ts-node:_
 ```shell
 npm run dev
 ```
-
 
 ### Running the Front-end Server
 
@@ -92,7 +108,6 @@ npm start
 Afterwards, scan the barcode or navigate to the link provided by Expo with your phone.
 
 Note that both servers must be running as separate processes for the application to function.
-
 
 ### Running Application with Docker
 
@@ -110,3 +125,12 @@ Additionally, add the following environment variable to /frontend:
 Finally, once the application has been built, scan the QR displayed in the terminal.
 
 Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend (see https://github.com/milaroisin/project-mender/issues/195).
+
+## Team XENA
+
+![xena-banner](https://raw.githubusercontent.com/milaroisin/atelier-xena/master/CourseAdmin/xena-banner.png)
+
+| Jamal Ghamrouai | Dania Kalomiris  |
+|--|--|
+| **Anamika Pancholy** | **Daniel Privotsky** |
+| **Mila Roisin** |**Sébastien Ong Tone** |
