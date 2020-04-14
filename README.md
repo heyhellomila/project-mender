@@ -125,3 +125,12 @@ Additionally, add the following environment variable to /frontend:
 Finally, once the application has been built, scan the QR displayed in the terminal.
 
 Currently, for development purposes, polling/hot reloading is supported for the backend, but not for the frontend (see https://github.com/milaroisin/project-mender/issues/195).
+
+## Team XENA
+
+![xena-banner](https://raw.githubusercontent.com/milaroisin/atelier-xena/master/CourseAdmin/xena-banner.png)
+
+| Jamal Ghamrouai | Dania Kalomiris  |
+|--|--|
+| **Anamika Pancholy** | **Daniel Privotsky** |
+| **Mila Roisin** |**Sébastien Ong Tone** |
