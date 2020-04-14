@@ -13,7 +13,7 @@ This project is also hosted on the [Concordia University Gina Cody School of Eng
 This web application uses the following technologies:
 
 -   _Express_, a Node.js back-end framework
--   _MySQL_, a cross-platform document-oriented database
+-   _MySQL_, a cross-platform database
 -   _React Native_, an application framework
 -   _Expo_, a framework and platform for React applications.
 
