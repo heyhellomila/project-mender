@@ -8,6 +8,8 @@ A home renovation & maintenance application for homeowners where users are will 
 
 Secondly, the application will include an additional feature for the client to be connected to network of local contractors in the area where they can request and access services directly with the application. The status of the work order can be easily retrieved, scheduled and updated.
 
+This project is also hosted on the [Concordia University Gina Cody School of Engineering](https://capstone-projects-491.firebaseapp.com/project/WgrR2ZnLGm) showcase website.
+
 This web application uses the following technologies:
 
 -   _Express_, a Node.js back-end framework
