@@ -134,5 +134,5 @@ Currently, for development purposes, polling/hot reloading is supported for the 
 
 | Jamal Ghamrouai | Dania Kalomiris  |
 |--|--|
-| **Anamika Pancholy** | **Daniel Privotsky** |
+| **Anamika Pancholy** | **Daniel Privorotsky** |
 | **Mila Roisin** |**Sébastien Ong Tone** |
